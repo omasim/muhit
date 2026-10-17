@@ -4,7 +4,7 @@
 
 İngilizce stüdyo tüm tema ayarlarını sunar. DE form hataları ve AR RTL, küçük ekran, agent hata koruması, tema indirme ve axe kontrolü geçti. WOFF2 geçişi sekiz mevcut macOS görsel referansını değiştirmedi. Kaynak logo dosyaları değişmedi. Tam kaynaklarda test:scale, test:distribution ve test:visual komutları vardır.
 
-Manuel ekran okuyucu/fiziksel cihaz incelemesi ve ana dil editoryal kabulü otomatik testlerden ayrı tutulur. Kapsam kararları P3-0.10.md, makine kayıtları tests/verification-0.10.json ve tests/scale-verification-*.json içindedir. Uzak CI sonucu tamamlandığında bu kayda eklenir.
+Manuel ekran okuyucu/fiziksel cihaz incelemesi ve ana dil editoryal kabulü otomatik testlerden ayrı tutulur. Kapsam kararları P3-0.10.md, makine kayıtları tests/verification-0.10.json ve tests/scale-verification-*.json içindedir. Uzak CI üç tarayıcıda ve Linux görsel karşılaştırmasında başarılı: https://github.com/omasim/muhit/actions/runs/39068848529 (test edilen commit 3554e5c).
 
 ---
 

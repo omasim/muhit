@@ -16,5 +16,15 @@
     "DE/AR catalogs cover core controls, not legacy editorial demos"
   ],
   "npmPublished": false,
-  "remoteCI": "pending"
+  "remoteCI": {
+    "url": "https://github.com/omasim/muhit/actions/runs/39068848529",
+    "conclusion": "success",
+    "testedCommit": "3554e5c0e88192ebc34a9fdc31e8990c8c750e2b",
+    "browsers": [
+      "chromium",
+      "firefox",
+      "webkit"
+    ],
+    "visualComparison": "Linux Chromium passed"
+  }
 }
