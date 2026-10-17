@@ -1,3 +1,7 @@
+## 0.8.0
+
+İleri sütun düzeni, ortak i18n ve RTL desteği, odak/kontrast düzeltmeleri ve üç tarayıcılı erişilebilirlik testi. Ayrıntılar: docs/RELEASE-0.8.md.
+
 # 0.7.0 — 2026-10-17
 
 Üç doğrulanmış hata düzeltildi. Form koşulları/özel doğrulama, DataGrid seçim/filtre/düzenleme/CSV, MuhitPlot, agent 1.1, framework form/widget örnekleri, izole ESM alt girişleri ve üç tarayıcı CI matrisi eklendi. Ayrıntılar docs/RELEASE-0.7.md.

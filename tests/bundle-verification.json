@@ -1,22 +1,25 @@
 {
   "forms": {
-    "bytes": 11286,
+    "bytes": 15634,
     "inputs": [
-      "outputs/muhit-ui/esm/forms.mjs",
+      "esm/i18n.mjs",
+      "esm/forms.mjs",
       "<stdin>"
     ]
   },
   "plot": {
-    "bytes": 6013,
+    "bytes": 10173,
     "inputs": [
-      "outputs/muhit-ui/esm/plot.mjs",
+      "esm/i18n.mjs",
+      "esm/plot.mjs",
       "<stdin>"
     ]
   },
   "data-grid": {
-    "bytes": 10796,
+    "bytes": 20658,
     "inputs": [
-      "outputs/muhit-ui/esm/data-grid.mjs",
+      "esm/i18n.mjs",
+      "esm/data-grid.mjs",
       "<stdin>"
     ]
   }

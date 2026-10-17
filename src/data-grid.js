@@ -66,6 +66,26 @@
       return result;
     });
   }
+  function layoutOf(value, columns) {
+    if (
+      !Array.isArray(value) ||
+      value.length !== columns.length ||
+      new Set(value.map((c) => c?.key)).size !== columns.length ||
+      value.some(
+        (c) =>
+          !c ||
+          Object.keys(c).some((k) => !["key", "width", "pin"].includes(k)) ||
+          !columns.some((x) => x.key === c.key) ||
+          !Number.isInteger(c.width) ||
+          c.width < 120 ||
+          c.width > 800 ||
+          ![null, "start", "end"].includes(c.pin),
+      )
+    )
+      throw new TypeError("Invalid column layout");
+    return value.map((c) => ({ ...c }));
+  }
+
   function query(rows, columns, state) {
     const needle = state.query.toLocaleLowerCase(state.locale || "tr-TR");
     const result = rows.filter(
@@ -104,22 +124,33 @@
   }
   function mount(host, options = {}) {
     let columns = columnsOf(options.columns);
-    const locale = options.locale || "tr-TR";
+    const locale = options.locale || global.MuhitI18n?.getLocale() || "tr-TR";
     new Intl.NumberFormat(locale);
     const en = locale.startsWith("en");
-    const t = (tr, eng) => (en ? eng : tr);
+    const i18n = global.MuhitI18n?.create({ ...options, locale });
+    const t = (tr, eng) => (i18n ? i18n.text(tr, eng) : en ? eng : tr);
     const selected = new Set();
     let visibleKeys = columns.map((c) => c.key),
       currentRows = [];
+    let layout = columns.map((c) => ({ key: c.key, width: 200, pin: null }));
+    const validateLayout = (value) => layoutOf(value, columns);
+    if (options.columnLayout) layout = validateLayout(options.columnLayout);
+    const ordered = () =>
+      ["start", null, "end"].flatMap((pin) =>
+        layout.filter((c) => c.pin === pin),
+      );
     const selectionChanged = () => options.onSelectionChange?.([...selected]);
     let rows = rowsOf(options.rows || [], columns);
     if (options.load !== undefined && typeof options.load !== "function")
       throw new TypeError("load işlev olmalı.");
-    if (
-      options.onStateChange !== undefined &&
-      typeof options.onStateChange !== "function"
-    )
-      throw new TypeError("onStateChange işlev olmalı.");
+    for (const key of [
+      "onStateChange",
+      "onSelectionChange",
+      "onRowsChange",
+      "onColumnLayoutChange",
+    ])
+      if (options[key] !== undefined && typeof options[key] !== "function")
+        throw new TypeError(key + " must be a function");
     if (options.load && options.rows)
       throw new TypeError("rows veya load seçin.");
     const initial = {
@@ -174,7 +205,13 @@
       return n;
     };
     const root = node("section", "mh-scope mh-data-grid"),
-      title = node("h2", "mh-panel__title", options.title || "Kayıtlar");
+      title = node(
+        "h2",
+        "mh-panel__title",
+        options.title || t("Kayıtlar", "Records"),
+      );
+    root.lang = locale;
+    root.dir = options.dir || i18n?.dir || "ltr";
     const selectedLabel = node("p", "mh-small");
     selectedLabel.setAttribute("role", "status");
     const columnsMenu = node("details", "mh-grid-columns"),
@@ -196,7 +233,45 @@
         api.setVisibleColumns(keys);
       };
       label.append(check, doc.createTextNode(c.label));
-      columnsMenu.append(label);
+      const controls = node("div", "mh-grid-column-controls");
+      for (const [delta, tr, en] of [
+        [-1, "Öne taşı", "Move earlier"],
+        [1, "Arkaya taşı", "Move later"],
+      ]) {
+        const move = node("button", "mh-button", t(tr, en));
+        move.setAttribute("aria-label", c.label + ": " + t(tr, en));
+        move.onclick = () => {
+          const next = layout.map((x) => ({ ...x })),
+            i = next.findIndex((x) => x.key === c.key),
+            j = i + delta;
+          if (j >= 0 && j < next.length) {
+            [next[i], next[j]] = [next[j], next[i]];
+            api.setColumnLayout(next);
+          }
+        };
+        controls.append(move);
+      }
+      const pin = node("select", "mh-select");
+      pin.setAttribute("aria-label", c.label + ": " + t("Sabitle", "Pin"));
+      for (const [value, tr, en] of [
+        ["", "Sabitleme yok", "Unpinned"],
+        ["start", "Başlangıca sabitle", "Pin to start"],
+        ["end", "Sona sabitle", "Pin to end"],
+      ]) {
+        const o = node("option", "", t(tr, en));
+        o.value = value;
+        pin.append(o);
+      }
+      pin.dataset.pin = c.key;
+      pin.value = layout.find((x) => x.key === c.key).pin || "";
+      pin.onchange = () =>
+        api.setColumnLayout(
+          layout.map((x) =>
+            x.key === c.key ? { ...x, pin: pin.value || null } : x,
+          ),
+        );
+      controls.append(pin);
+      columnsMenu.append(label, controls);
     });
     const tools = node("div", "mh-page__toolbar"),
       search = node("input", "mh-input");
@@ -225,13 +300,18 @@
     scroll.setAttribute("role", "region");
     scroll.setAttribute(
       "aria-label",
-      (options.title || "Kayıtlar") + " tablo alanı",
+      (options.title || t("Kayıtlar", "Records")) +
+        t(" tablo alanı", " table region"),
     );
     const table = node("table", "mh-table"),
       caption = node(
         "caption",
         "mh-small",
-        options.description || "Uygulamanın sağladığı kayıtlar",
+        options.description ||
+          t(
+            "Uygulamanın sağladığı kayıtlar",
+            "Records supplied by the application",
+          ),
       );
     table.append(caption);
     const head = node("thead", ""),
@@ -242,6 +322,7 @@
     table.append(body);
     scroll.append(table);
     const heads = [];
+    let draggingColumn = null;
     let allSelect;
     if (options.selectable) {
       const th = node("th", "");
@@ -256,7 +337,7 @@
           allSelect.checked ? selected.add(r.id) : selected.delete(r.id),
         );
         selectionChanged();
-        refresh();
+        syncSelection();
       };
       th.append(allSelect);
       hr.append(th);
@@ -273,7 +354,115 @@
             state.sort === c.key && state.direction === "asc" ? "desc" : "asc",
           page: 1,
         });
-      th.append(b);
+      th.dataset.column = c.key;
+      const resize = node("button", "mh-grid-resize", "↔");
+      resize.setAttribute("role", "separator");
+      resize.setAttribute("aria-orientation", "vertical");
+      resize.setAttribute("aria-valuemin", "120");
+      resize.setAttribute("aria-valuemax", "800");
+      resize.setAttribute(
+        "aria-label",
+        c.label +
+          ": " +
+          t(
+            "Sütun genişliği; ok tuşlarıyla değiştir",
+            "Column width; use arrow keys",
+          ),
+      );
+      const width = () => layout.find((x) => x.key === c.key).width;
+      const setWidth = (w) =>
+        api.setColumnLayout(
+          layout.map((x) =>
+            x.key === c.key
+              ? { ...x, width: Math.min(800, Math.max(120, Math.round(w))) }
+              : x,
+          ),
+        );
+      resize.onkeydown = (e) => {
+        let w = width();
+        const step = e.shiftKey ? 50 : 10;
+        if (e.key === "ArrowRight") w += root.dir === "rtl" ? -step : step;
+        else if (e.key === "ArrowLeft") w += root.dir === "rtl" ? step : -step;
+        else if (e.key === "Home") w = 120;
+        else if (e.key === "End") w = 800;
+        else return;
+        e.preventDefault();
+        setWidth(w);
+      };
+      let drag;
+      resize.onpointerdown = (e) => {
+        if (e.button !== 0) return;
+        drag = { x: e.clientX, width: width() };
+        resize.setPointerCapture(e.pointerId);
+      };
+      resize.onpointermove = (e) => {
+        if (drag)
+          setWidth(
+            drag.width + (e.clientX - drag.x) * (root.dir === "rtl" ? -1 : 1),
+          );
+      };
+      resize.onpointerup =
+        resize.onpointercancel =
+        resize.onlostpointercapture =
+          () => {
+            drag = null;
+          };
+      const move = node(
+        "button",
+        "mh-button mh-button--quiet",
+        t("Taşı", "Move"),
+      );
+      move.setAttribute(
+        "aria-label",
+        c.label +
+          ": " +
+          t(
+            "Sütunu taşı; sıra seçeneklerini aç",
+            "Move column; open order options",
+          ),
+      );
+      move.draggable = true;
+      move.onclick = () => {
+        columnsMenu.open = true;
+        const pin = columnsMenu.querySelector('[data-pin="' + c.key + '"]');
+        pin?.parentElement.querySelector("button")?.focus();
+      };
+      move.ondragstart = (e) => {
+        draggingColumn = c.key;
+        e.dataTransfer.effectAllowed = "move";
+        e.dataTransfer.setData("text/plain", c.key);
+      };
+      move.ondragend = () => {
+        draggingColumn = null;
+      };
+      th.ondragover = (e) => {
+        if (draggingColumn) {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = "move";
+        }
+      };
+      th.ondrop = (e) => {
+        if (!draggingColumn) return;
+        e.preventDefault();
+        if (draggingColumn === c.key) {
+          draggingColumn = null;
+          return;
+        }
+        const next = layout.map((x) => ({ ...x }));
+        const from = next.findIndex((x) => x.key === draggingColumn);
+        const target = next.find((x) => x.key === c.key);
+        if (from < 0 || !target) return;
+        const [item] = next.splice(from, 1);
+        item.pin = target.pin;
+        next.splice(
+          next.findIndex((x) => x.key === c.key),
+          0,
+          item,
+        );
+        draggingColumn = null;
+        api.setColumnLayout(next);
+      };
+      th.append(b, resize, move);
       hr.append(th);
       heads.push([c, th]);
     });
@@ -289,8 +478,88 @@
     retry.onclick = () => refresh();
     root.append(title, tools, status, selectedLabel, retry, scroll, nav);
     el.append(root);
+    function applyLayout() {
+      const active = doc.activeElement;
+      const order = ordered(),
+        shown = order.filter((c) => visibleKeys.includes(c.key));
+      for (const row of [hr, ...body.children]) {
+        const reorder =
+          [...row.children]
+            .filter((n) => n.dataset.column)
+            .map((n) => n.dataset.column)
+            .join() !== order.map((c) => c.key).join();
+        for (const c of order) {
+          const cell = [...row.children].find(
+            (n) => n.dataset.column === c.key,
+          );
+          if (!cell) continue;
+          if (reorder) row.append(cell);
+          cell.hidden = !visibleKeys.includes(c.key);
+          cell.style.width = c.width + "px";
+          cell.style.minWidth = c.width + "px";
+          cell.style.maxWidth = c.width + "px";
+          cell.style.position = c.pin ? "sticky" : "";
+          cell.style.insetInlineStart = "";
+          cell.style.insetInlineEnd = "";
+          cell.classList.toggle("mh-grid-pinned", !!c.pin);
+          if (c.pin) {
+            const peers = shown.filter((x) => x.pin === c.pin),
+              i = peers.findIndex((x) => x.key === c.key);
+            const offset = (
+              c.pin === "start" ? peers.slice(0, i) : peers.slice(i + 1)
+            ).reduce((a, x) => a + x.width, 0);
+            cell.style[
+              c.pin === "start" ? "insetInlineStart" : "insetInlineEnd"
+            ] = offset + "px";
+          }
+          const resize = cell.querySelector(".mh-grid-resize");
+          if (resize) {
+            resize.setAttribute("aria-valuenow", String(c.width));
+            resize.setAttribute("aria-valuetext", c.width + " px");
+            resize.title = c.width + " px";
+            resize.setAttribute("aria-description", c.width + " px");
+          }
+        }
+      }
+      table.style.tableLayout = "fixed";
+      table.style.width =
+        shown.reduce((a, c) => a + c.width, 0) +
+        (options.selectable ? 64 : 0) +
+        "px";
+      table.style.minWidth = "0";
+      if (
+        active?.isConnected &&
+        root.contains(active) &&
+        doc.activeElement !== active
+      )
+        active.focus();
+      columnsMenu
+        .querySelectorAll("[data-pin]")
+        .forEach(
+          (n) =>
+            (n.value = layout.find((c) => c.key === n.dataset.pin).pin || ""),
+        );
+    }
+    function syncSelection() {
+      selectedLabel.textContent = options.selectable
+        ? t(
+            `${selected.size} kayıt seçili`,
+            `${selected.size} records selected`,
+          )
+        : "";
+      if (allSelect) {
+        const count = currentRows.filter((r) => selected.has(r.id)).length;
+        allSelect.checked =
+          !!currentRows.length && count === currentRows.length;
+        allSelect.indeterminate = count > 0 && count < currentRows.length;
+        allSelect.disabled = !currentRows.length;
+      }
+      body
+        .querySelectorAll("input[data-selection]")
+        .forEach((n) => (n.checked = selected.has(n.dataset.selection)));
+    }
     function notify() {
-      options.onStateChange?.({ ...state, filters:{...state.filters} });
+      options.onStateChange?.({ ...state, filters: { ...state.filters } });
     }
     function change(patch) {
       state = validateState({ ...state, ...patch });
@@ -301,6 +570,9 @@
     }
     async function refresh() {
       if (destroyed) return;
+      const focused = doc.activeElement;
+      const focusRow = focused?.closest("tr")?.dataset.row;
+      const focusColumn = focused?.closest("td")?.dataset.column;
       const ticket = ++serial;
       controller?.abort();
       controller = new AbortController();
@@ -311,7 +583,10 @@
       prev.disabled = next.disabled = true;
       try {
         let result = options.load
-          ? await options.load({ ...state, filters:{...state.filters} }, controller.signal)
+          ? await options.load(
+              { ...state, filters: { ...state.filters } },
+              controller.signal,
+            )
           : query(rows, columns, state);
         if (destroyed || ticket !== serial) return;
         if (!result || !Number.isInteger(result.total) || result.total < 0)
@@ -342,10 +617,12 @@
         heads.forEach(([c, th]) => (th.hidden = !visibleKeys.includes(c.key)));
         data.forEach((row) => {
           const tr = node("tr", "");
+          tr.dataset.row = row.id;
           if (options.selectable) {
             const td = node("td", ""),
               check = node("input", "");
             check.type = "checkbox";
+            check.dataset.selection = row.id;
             check.checked = selected.has(row.id);
             check.setAttribute(
               "aria-label",
@@ -354,7 +631,7 @@
             check.onchange = () => {
               check.checked ? selected.add(row.id) : selected.delete(row.id);
               selectionChanged();
-              refresh();
+              syncSelection();
             };
             td.append(check);
             tr.append(td);
@@ -367,8 +644,13 @@
                 ? "—"
                 : c.type === "number"
                   ? new Intl.NumberFormat(locale).format(row[c.key])
-                  : String(row[c.key]),
+                  : c.type === "date"
+                    ? new Intl.DateTimeFormat(locale, {
+                        timeZone: "UTC",
+                      }).format(new Date(row[c.key] + "T12:00:00Z"))
+                    : String(row[c.key]),
             );
+            td.dataset.column = c.key;
             td.hidden = !visibleKeys.includes(c.key);
             if (c.editable && !options.load) {
               const input = node("input", "mh-input");
@@ -381,7 +663,10 @@
               input.setAttribute("aria-label", c.label + " · " + row.id);
               input.value = row[c.key] ?? "";
               if (c.type === "number") input.step = "any";
+              let committing = false;
               input.onchange = () => {
+                if (committing) return;
+                committing = true;
                 try {
                   api.updateCell(
                     row.id,
@@ -399,6 +684,8 @@
                     "Geçersiz hücre değeri. Önceki kayıt korundu.",
                     "Invalid cell value. Previous record preserved.",
                   );
+                } finally {
+                  committing = false;
                 }
               };
               td.replaceChildren(input);
@@ -407,6 +694,20 @@
           });
           body.append(tr);
         });
+        applyLayout();
+        if (
+          focusRow &&
+          focusColumn &&
+          (doc.activeElement === doc.body || doc.activeElement === focused)
+        ) {
+          const row = [...body.children].find(
+            (n) => n.dataset.row === focusRow,
+          );
+          [...(row?.children || [])]
+            .find((n) => n.dataset.column === focusColumn)
+            ?.querySelector("input")
+            ?.focus();
+        }
         status.textContent = total
           ? t(
               `${total} kayıt · Bu sayfada ${data.length} kayıt`,
@@ -449,14 +750,24 @@
     };
     size.onchange = () => change({ pageSize: Number(size.value), page: 1 });
     const api = {
+      getColumnLayout: () => layout.map((c) => ({ ...c })),
+      setColumnLayout(value) {
+        if (destroyed) throw new Error("Grid destroyed");
+        const next = validateLayout(value);
+        layout = next;
+        applyLayout();
+        options.onColumnLayoutChange?.(api.getColumnLayout());
+        return api;
+      },
       getState: () => ({ ...state, filters: { ...state.filters } }),
       getSelected: () => [...selected],
       clearSelection() {
         selected.clear();
         selectionChanged();
-        refresh();
+        syncSelection();
       },
       setVisibleColumns(keys) {
+        if (destroyed) throw new Error("Grid destroyed");
         if (
           !Array.isArray(keys) ||
           !keys.length ||
@@ -470,7 +781,7 @@
           .forEach(
             (input, i) => (input.checked = keys.includes(columns[i].key)),
           );
-        refresh();
+        applyLayout();
         return api;
       },
       updateCell(id, key, value) {
@@ -501,7 +812,9 @@
               page: 1,
               pageSize: Number.MAX_SAFE_INTEGER,
             }).rows;
-        const visible = columns.filter((c) => visibleKeys.includes(c.key));
+        const visible = ordered()
+          .filter((c) => visibleKeys.includes(c.key))
+          .map((c) => columns.find((x) => x.key === c.key));
         const cell = (v) =>
           '"' +
           String(v ?? "")
@@ -553,6 +866,8 @@
   global.MuhitDataGrid = Object.freeze({
     mount,
     validateColumns: columnsOf,
+    validateColumnLayout: (value, columns) =>
+      layoutOf(value, columnsOf(columns)),
     validateRows: rowsOf,
     query,
   });

@@ -20,6 +20,9 @@ jobs:
       - run: npm run test:extended
         env:
           MUHIT_BROWSER: ${{ matrix.browser }}
+      - run: npm run test:accessibility
+        env:
+          MUHIT_BROWSER: ${{ matrix.browser }}
       - if: matrix.browser == 'chromium'
         run: npm run verify:all
       - if: matrix.browser == 'chromium'

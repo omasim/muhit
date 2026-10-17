@@ -1,3 +1,7 @@
+## 0.8 · Sütun düzeni, dil ve erişilebilirlik
+
+[Çalışan dil/sütun örneği](examples/international.html) · [Sütun API](docs/COLUMN-LAYOUT.md) · [Dil API](docs/INTERNATIONALIZATION.md) · [Sürüm notları](docs/RELEASE-0.8.md)
+
 [![Verify Muhit](https://github.com/omasim/muhit/actions/workflows/verify.yml/badge.svg)](https://github.com/omasim/muhit/actions/workflows/verify.yml)
 
 # Muhit UI

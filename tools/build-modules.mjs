@@ -1,6 +1,6 @@
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 const root=new URL('../',import.meta.url);await mkdir(new URL('esm/',root),{recursive:true});
-const modules={components:['Muhit',[]],table:['MuhitTable',[]],charts:['MuhitCharts',[]],theme:['MuhitTheme',[]],'widget-schemas':['MuhitWidgetSchemas',[]],widgets:['MuhitWidgets',['widget-schemas']],forms:['MuhitForm',[]],'data-grid':['MuhitDataGrid',[]],plot:['MuhitPlot',[]],preferences:['MuhitPreferences',['theme']],agent:['MuhitAgent',['theme','widgets','forms','data-grid','plot','table','charts']]};
+const modules={i18n:['MuhitI18n',[]],components:['Muhit',['i18n']],table:['MuhitTable',['i18n']],charts:['MuhitCharts',['i18n']],theme:['MuhitTheme',[]],'widget-schemas':['MuhitWidgetSchemas',[]],widgets:['MuhitWidgets',['widget-schemas','i18n']],forms:['MuhitForm',['i18n']],'data-grid':['MuhitDataGrid',['i18n']],plot:['MuhitPlot',['i18n']],preferences:['MuhitPreferences',['theme']],agent:['MuhitAgent',['i18n','theme','widgets','forms','data-grid','plot','table','charts']]};
 let index='// Generated isolated ESM exports. Classic scripts retain their global API.\n';
 for(const [name,[api,deps]]of Object.entries(modules)){
  const imports=deps.map(d=>`import {${modules[d][0]}} from './${d}.mjs';`).join('\n');

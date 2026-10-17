@@ -1,6 +1,15 @@
 /* Muhit forms: JSON field definitions, application-owned submission. */
 (function (global) {
   "use strict";
+  function translator(options = {}) {
+    const i = global.MuhitI18n?.create(options);
+    return (text, params) =>
+      i
+        ? i.text(text, undefined, params)
+        : text.replace(/\{(\w+)\}/g, (_, k) =>
+            String(params?.[k] ?? "{" + k + "}"),
+          );
+  }
   const instances = new WeakMap();
   let sequence = 0;
   const types = [
@@ -207,7 +216,8 @@
       if (f.type === "email") values[f.name] = values[f.name].trim();
     return values;
   }
-  function validate(fields, input) {
+  function validate(fields, input, options = {}) {
+    const t = translator(options);
     const fs = fieldsOf(fields),
       values = valuesOf(fs, input),
       errors = {};
@@ -216,32 +226,36 @@
       const v = values[f.name],
         empty =
           v === null || v === false || (typeof v === "string" && !v.trim());
-      if (f.required && empty) errors[f.name] = f.label + " alanını doldurun.";
+      if (f.required && empty)
+        errors[f.name] = t("{label} alanını doldurun.", { label: f.label });
       else if (!empty) {
         if (f.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))
-          errors[f.name] = "Geçerli bir e-posta adresi yazın.";
+          errors[f.name] = t("Geçerli bir e-posta adresi yazın.");
         if (
           f.type === "number" &&
           ((f.min !== undefined && v < f.min) ||
             (f.max !== undefined && v > f.max))
         )
-          errors[f.name] = "Değer izin verilen aralıkta olmalı.";
+          errors[f.name] = t("Değer izin verilen aralıkta olmalı.");
         if (f.maxLength && v.length > f.maxLength)
-          errors[f.name] = `En fazla ${f.maxLength} karakter yazın.`;
+          errors[f.name] = t("En fazla {count} karakter yazın.", {
+            count: f.maxLength,
+          });
         if (
           f.type === "date" &&
           (!/^\d{4}-\d{2}-\d{2}$/.test(v) ||
             !Number.isFinite(Date.parse(v + "T12:00:00Z")) ||
             new Date(v + "T12:00:00Z").toISOString().slice(0, 10) !== v)
         )
-          errors[f.name] = "Geçerli bir tarih seçin.";
+          errors[f.name] = t("Geçerli bir tarih seçin.");
         if (f.type === "select" && !f.options.some((o) => o.value === v))
-          errors[f.name] = "Listeden bir seçim yapın.";
+          errors[f.name] = t("Listeden bir seçim yapın.");
       }
     }
     return { valid: !Object.keys(errors).length, values, errors };
   }
   function mount(target, options) {
+    const t = translator(options);
     const fields = fieldsOf(options.fields);
     const initial = representable(fields, options.values);
     for (const key of ["onChange", "validate"])
@@ -266,7 +280,10 @@
     };
     const root = el("form", "mh-scope mh-form mh-stack");
     root.noValidate = true;
-    const title = el("h2", "mh-panel__title", options.title || "Bilgiler");
+    const language = global.MuhitI18n?.create(options);
+    root.lang = language?.locale || options.locale || "tr-TR";
+    root.dir = options.dir || language?.dir || "ltr";
+    const title = el("h2", "mh-panel__title", options.title || t("Bilgiler"));
     title.id = `mh-form-${++sequence}`;
     root.setAttribute("aria-labelledby", title.id);
     const summary = el("div", "mh-alert mh-alert--danger");
@@ -278,10 +295,10 @@
     const submit = el(
       "button",
       "mh-button mh-button--primary",
-      options.submitLabel || "Kaydet",
+      options.submitLabel || t("Kaydet"),
     );
     submit.type = "submit";
-    const reset = el("button", "mh-button", "Sıfırla");
+    const reset = el("button", "mh-button", t("Sıfırla"));
     reset.type = "reset";
     const actions = el("div", "mh-row");
     actions.append(submit, reset);
@@ -319,7 +336,7 @@
         wrap.classList.add("mh-form__checkbox");
       }
       if (f.type === "select") {
-        const placeholder = el("option", "", "Seçin");
+        const placeholder = el("option", "", t("Seçin"));
         placeholder.value = "";
         control.append(placeholder);
         f.options.forEach((o) => {
@@ -373,10 +390,10 @@
       });
     }
     function check() {
-      const result = validate(fields, read());
+      const result = validate(fields, read(), options);
       for (const [name, { control }] of controls)
         if (!control.disabled && control.validity.badInput)
-          result.errors[name] = "Geçerli bir değer yazın.";
+          result.errors[name] = t("Geçerli bir değer yazın.");
       if (options.validate) {
         const extra = options.validate({ ...result.values }) || {};
         if (
@@ -407,7 +424,7 @@
       summary.hidden = !message && !Object.keys(next).length;
       if (!summary.hidden) {
         summary.append(
-          el("p", "", message || "Lütfen aşağıdaki alanları kontrol edin."),
+          el("p", "", message || t("Lütfen aşağıdaki alanları kontrol edin.")),
         );
         for (const f of fields)
           if (next[f.name]) {
@@ -437,15 +454,16 @@
         return;
       }
       if (!options.onSubmit) {
-        status.textContent =
-          "Bilgiler geçerli. Kayıt için uygulamanın onSubmit bağlantısı gerekli.";
+        status.textContent = t(
+          "Bilgiler geçerli. Kayıt için uygulamanın onSubmit bağlantısı gerekli.",
+        );
         return;
       }
       busy = true;
       group.disabled = true;
       submit.disabled = true;
       root.setAttribute("aria-busy", "true");
-      status.textContent = "Kaydediliyor…";
+      status.textContent = t("Kaydediliyor…");
       controller = new AbortController();
       const current = ++revision;
       try {
@@ -464,17 +482,17 @@
         if (Object.keys(serverErrors).length) {
           showErrors(serverErrors);
           summary.focus();
-          status.textContent = "Kayıt tamamlanamadı.";
+          status.textContent = t("Kayıt tamamlanamadı.");
         } else {
           baseline = { ...result.values };
           changed();
-          status.textContent = "Kaydedildi.";
+          status.textContent = t("Kaydedildi.");
         }
       } catch (error) {
         if (dead || current !== revision) return;
         showErrors(
           {},
-          "Kaydedilemedi. Bağlantınızı kontrol edip yeniden deneyin.",
+          t("Kaydedilemedi. Bağlantınızı kontrol edip yeniden deneyin."),
         );
         summary.focus();
         status.textContent = "";
@@ -495,7 +513,7 @@
         if (!visible(f, read())) delete serverErrors[f.name];
       if (Object.keys(errors).length) showErrors(check().errors);
       changed();
-      status.textContent = "Kaydedilmemiş değişiklikler var.";
+      status.textContent = t("Kaydedilmemiş değişiklikler var.");
     };
     const onReset = (event) => {
       event?.preventDefault();
@@ -506,7 +524,7 @@
       syncVisibility();
       changed();
       showErrors();
-      status.textContent = "Değişiklikler sıfırlandı.";
+      status.textContent = t("Değişiklikler sıfırlandı.");
     };
     root.addEventListener("submit", send);
     root.addEventListener("input", onInput);

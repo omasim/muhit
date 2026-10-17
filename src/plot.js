@@ -59,7 +59,7 @@
     if (d.description !== undefined && typeof d.description !== "string")
       throw new TypeError("Description must be text.");
     d.kind ??= "line";
-    d.locale ??= "tr-TR";
+    d.locale ??= global.MuhitI18n?.getLocale() || "tr-TR";
     if (!["line", "bar"].includes(d.kind) || typeof d.locale !== "string")
       throw new TypeError("Invalid plot options.");
     new Intl.NumberFormat(d.locale);
@@ -128,6 +128,15 @@
     const hidden = new Set();
     function render() {
       root.replaceChildren();
+      const language = global.MuhitI18n?.create({ locale: data.locale });
+      root.lang = data.locale;
+      root.dir = language?.dir || "ltr";
+      const t = (tr, en) =>
+        language
+          ? language.text(tr, en)
+          : data.locale.startsWith("en")
+            ? en
+            : tr;
       const en = data.locale.startsWith("en"),
         nf = new Intl.NumberFormat(data.locale, { maximumFractionDigits: 2 });
       const el = (tag, text) => {
@@ -155,7 +164,7 @@
       const active = data.series.filter((s) => !hidden.has(s.id));
       const values = active.flatMap((s) => s.values).filter((v) => v !== null);
       if (!values.length)
-        root.append(el("p", en ? "No visible data." : "Görünür veri yok."));
+        root.append(el("p", t("Görünür veri yok.", "No visible data.")));
       else {
         const min = Math.min(0, ...values),
           max = Math.max(0, ...values),
@@ -168,9 +177,10 @@
           data.title +
             " · " +
             data.unit +
-            (en
-              ? " · Values in the table below."
-              : " · Değerler aşağıdaki tabloda."),
+            t(
+              " · Değerler aşağıdaki tabloda.",
+              " · Values in the table below.",
+            ),
         );
         const node = (tag, attrs, text) => {
           const n = doc.createElementNS(svg.namespaceURI, tag);
@@ -272,13 +282,13 @@
       scroll.className = "mh-data-grid__scroll";
       scroll.tabIndex = 0;
       scroll.setAttribute("role", "region");
-      scroll.setAttribute("aria-label", en ? "Chart data" : "Grafik verisi");
+      scroll.setAttribute("aria-label", t("Grafik verisi", "Chart data"));
       const table = el("table");
       table.className = "mh-table";
       table.append(el("caption", data.title + " · " + data.unit));
       const head = el("thead"),
         tr = el("tr");
-      [en ? "Label" : "Etiket", ...data.series.map((s) => s.label)].forEach(
+      [t("Etiket", "Label"), ...data.series.map((s) => s.label)].forEach(
         (label) => {
           const th = el("th", label);
           th.scope = "col";

@@ -378,6 +378,14 @@
       typeof options.onChange !== "function"
     )
       throw new TypeError("onChange bir fonksiyon olmalıdır.");
+    var language = global.MuhitI18n?.create(options);
+    var statuses = {
+      Planlandı: "Planned",
+      Sürüyor: "Active",
+      İncelemede: "In review",
+      Tamamlandı: "Complete",
+    };
+    var t = (tr, en) => (language ? language.text(tr, en ?? statuses[tr]) : tr);
     var data = validateRows(options.rows === undefined ? ROWS : options.rows);
     // The built-in fictional fixtures must never be presented as production data.
     var isDemo = options.rows === undefined || options.demo !== false;
@@ -399,17 +407,21 @@
     };
     var columns = { owner: true, status: true, updated: true };
     var root = el("div", "mh-table-demo mh-scope");
+    root.lang = language?.locale || "tr-TR";
+    root.dir = language?.dir || "ltr";
     var urls = new Set();
     var returnFocus = null;
     var panel = el("div", "mh-table__panel mh-panel");
     var head = el("div", "mh-table__head");
     var headCopy = el("div");
     headCopy.append(
-      el("p", "mh-kicker", "ORTAK ÇALIŞMA ALANI"),
+      el("p", "mh-kicker", t("ORTAK ÇALIŞMA ALANI", "SHARED WORKSPACE")),
       el(
         "h3",
         "mh-table__title",
-        options.title === undefined ? "Araştırmadan eyleme" : options.title,
+        options.title === undefined
+          ? t("Araştırmadan eyleme", "From research to action")
+          : options.title,
       ),
     );
     headCopy.append(
@@ -417,7 +429,10 @@
         "p",
         "mh-table__intro",
         options.description === undefined
-          ? "Projeleri birlikte görün, açık sorulara odaklanın."
+          ? t(
+              "Projeleri birlikte görün, açık sorulara odaklanın.",
+              "See projects together and focus on open questions.",
+            )
           : options.description,
       ),
     );
@@ -427,25 +442,28 @@
 
     var toolbar = el("div", "mh-table__toolbar");
     var searchWrap = el("div", "mh-table__field mh-table__search");
-    var searchLabel = el("label", "", "Projelerde ara");
+    var searchLabel = el("label", "", t("Projelerde ara", "Search projects"));
     searchLabel.htmlFor = prefix + "-search";
     var search = el("input");
     search.type = "search";
     search.id = searchLabel.htmlFor;
-    search.placeholder = "Proje, alan veya sorumlu";
+    search.placeholder = t(
+      "Proje, alan veya sorumlu",
+      "Project, area or owner",
+    );
     search.autocomplete = "off";
     searchWrap.append(searchLabel, search);
     var statusWrap = el("div", "mh-table__field");
-    var statusLabel = el("label", "", "Durum");
+    var statusLabel = el("label", "", t("Durum", "Status"));
     statusLabel.htmlFor = prefix + "-status";
     var statusSelect = el("select");
     statusSelect.id = statusLabel.htmlFor;
     [
-      ["", "Tüm durumlar"],
-      ["planned", "Planlandı"],
-      ["active", "Sürüyor"],
-      ["review", "İncelemede"],
-      ["complete", "Tamamlandı"],
+      ["", t("Tüm durumlar", "All statuses")],
+      ["planned", t("Planlandı", "Planned")],
+      ["active", t("Sürüyor", "Active")],
+      ["review", t("İncelemede", "In review")],
+      ["complete", t("Tamamlandı", "Complete")],
     ].forEach(function (pair) {
       var option = el("option", "", pair[1]);
       option.value = pair[0];
@@ -453,16 +471,19 @@
     });
     statusWrap.append(statusLabel, statusSelect);
     var density = button(
-      "Sık görünüm",
+      t("Sık görünüm", "Compact view"),
       "mh-button mh-button--quiet mh-table__density",
     );
     density.setAttribute("aria-pressed", "false");
-    var ownerWrap = el("label", "mh-table__filter", "Sorumlu");
+    var ownerWrap = el("label", "mh-table__filter", t("Sorumlu", "Owner"));
     var ownerSelect = el("select", "mh-select");
-    ownerSelect.setAttribute("aria-label", "Sorumlu filtresi");
+    ownerSelect.setAttribute(
+      "aria-label",
+      t("Sorumlu filtresi", "Owner filter"),
+    );
     function refreshOwners() {
       ownerSelect.replaceChildren();
-      var first = el("option", "", "Tüm sorumlular");
+      var first = el("option", "", t("Tüm sorumlular", "All owners"));
       first.value = "";
       ownerSelect.append(first);
       Array.from(
@@ -499,18 +520,28 @@
     panel.append(toolbar);
 
     var viewOptions = el("details", "mh-table__columns");
-    viewOptions.append(el("summary", "", "Görünür sütunlar"));
+    viewOptions.append(
+      el("summary", "", t("Görünür sütunlar", "Visible columns")),
+    );
     var columnFields = el("fieldset");
     columnFields.append(
-      el("legend", "mh-table__sr-only", "Görünür sütunları seçin"),
+      el(
+        "legend",
+        "mh-table__sr-only",
+        t("Görünür sütunları seçin", "Select visible columns"),
+      ),
     );
     columnFields.append(
-      el("span", "mh-table__column-fixed", "Proje her zaman görünür"),
+      el(
+        "span",
+        "mh-table__column-fixed",
+        t("Proje her zaman görünür", "Project is always visible"),
+      ),
     );
     [
-      ["owner", "Sorumlu"],
-      ["status", "Durum"],
-      ["updated", "Son güncelleme"],
+      ["owner", t("Sorumlu", "Owner")],
+      ["status", t("Durum", "Status")],
+      ["updated", t("Son güncelleme", "Last updated")],
     ].forEach(function (pair) {
       var label = el("label", "mh-table__column-toggle");
       var checkbox = el("input");
@@ -531,7 +562,7 @@
     viewOptions.append(columnFields);
     panel.append(viewOptions);
     var chips = el("div", "mh-table__filters");
-    chips.setAttribute("aria-label", "Etkin filtreler");
+    chips.setAttribute("aria-label", t("Etkin filtreler", "Active filters"));
     panel.append(chips);
 
     var resultsBar = el("div", "mh-table__results");
@@ -540,7 +571,7 @@
     results.setAttribute("aria-live", "polite");
     results.setAttribute("aria-atomic", "true");
     var filteredExport = button(
-      "Sonuçları CSV indir",
+      t("Sonuçları CSV indir", "Download results as CSV"),
       "mh-button mh-button--quiet mh-table__export",
     );
     resultsBar.append(results, filteredExport);
@@ -551,9 +582,9 @@
     selectionText.setAttribute("aria-live", "polite");
     selectionText.setAttribute("aria-atomic", "true");
     var selectionActions = el("div", "mh-table__selection-actions");
-    var clearSelection = button("Seçimi temizle");
+    var clearSelection = button(t("Seçimi temizle", "Clear selection"));
     var selectedExport = button(
-      "Seçilenleri CSV indir",
+      t("Seçilenleri CSV indir", "Download selection as CSV"),
       "mh-button mh-button--primary",
     );
     selectionActions.append(clearSelection, selectedExport);
@@ -562,25 +593,35 @@
 
     var bulk = el("div", "mh-table__bulk");
     var bulkField = el("div", "mh-table__field");
-    var bulkLabel = el("label", "", "Seçilenlere durum ata");
+    var bulkLabel = el(
+      "label",
+      "",
+      t("Seçilenlere durum ata", "Set status for selection"),
+    );
     bulkLabel.htmlFor = prefix + "-bulk-status";
     var bulkStatus = el("select");
     bulkStatus.id = bulkLabel.htmlFor;
-    var placeholder = el("option", "", "Durum seçin");
+    var placeholder = el("option", "", t("Durum seçin", "Choose status"));
     placeholder.value = "";
     bulkStatus.append(placeholder);
     ["planned", "active", "review", "complete"].forEach(function (key) {
-      var option = el("option", "", STATUS[key].label);
+      var option = el("option", "", t(STATUS[key].label));
       option.value = key;
       bulkStatus.append(option);
     });
     bulkField.append(bulkLabel, bulkStatus);
-    var applyStatus = button("Durumu uygula", "mh-button mh-button--primary");
-    var undoStatus = button("Geri al");
+    var applyStatus = button(
+      t("Durumu uygula", "Apply status"),
+      "mh-button mh-button--primary",
+    );
+    var undoStatus = button(t("Geri al", "Undo"));
     var bulkMessage = el(
       "p",
       "mh-table__bulk-message",
-      "Durum değişiklikleri yalnız bu görünümde tutulur; sunucuya gönderilmez.",
+      t(
+        "Durum değişiklikleri yalnız bu görünümde tutulur; sunucuya gönderilmez.",
+        "Status changes stay in this view; they are not sent to a server.",
+      ),
     );
     bulkMessage.setAttribute("role", "status");
     bulkMessage.setAttribute("aria-live", "polite");
@@ -592,17 +633,29 @@
     scroll.setAttribute("role", "region");
     scroll.setAttribute(
       "aria-label",
-      "Araştırma projeleri tablosu, dar ekranda yatay kaydırılabilir",
+      t(
+        "Araştırma projeleri tablosu, dar ekranda yatay kaydırılabilir",
+        "Research projects table, scroll horizontally on small screens",
+      ),
     );
     var table = el("table", "mh-table");
     var caption = el(
       "caption",
       "mh-table__sr-only",
-      "Araştırma projeleri. " +
+      t("Araştırma projeleri. ", "Research projects. ") +
         (isDemo
-          ? "İsimler, tarihler ve proje bilgileri demo amaçlıdır. "
-          : "Dışarıdan verilen kayıtlar yerel olarak gösterilir. ") +
-        "Görünür proje, durum ve son güncelleme sütunları sıralanabilir.",
+          ? t(
+              "İsimler, tarihler ve proje bilgileri demo amaçlıdır. ",
+              "Names, dates and projects are sample data. ",
+            )
+          : t(
+              "Dışarıdan verilen kayıtlar yerel olarak gösterilir. ",
+              "Supplied records are shown locally. ",
+            )) +
+        t(
+          "Görünür proje, durum ve son güncelleme sütunları sıralanabilir.",
+          "Visible project, status and date columns can be sorted.",
+        ),
     );
     table.append(caption);
     var thead = el("thead");
@@ -612,17 +665,20 @@
     var allLabel = el("label", "mh-table__check-target");
     var all = el("input");
     all.type = "checkbox";
-    all.setAttribute("aria-label", "Bu sayfadaki tüm satırları seç");
+    all.setAttribute(
+      "aria-label",
+      t("Bu sayfadaki tüm satırları seç", "Select all rows on this page"),
+    );
     all.dataset.focusKey = "all";
     allLabel.append(all);
     selectHead.append(allLabel);
     trHead.append(selectHead);
     var sortHeads = {};
     [
-      ["title", "Proje"],
-      ["owner", "Sorumlu"],
-      ["status", "Durum"],
-      ["updated", "Son güncelleme"],
+      ["title", t("Proje", "Project")],
+      ["owner", t("Sorumlu", "Owner")],
+      ["status", t("Durum", "Status")],
+      ["updated", t("Son güncelleme", "Last updated")],
     ].forEach(function (pair) {
       var th = el("th");
       th.scope = "col";
@@ -654,7 +710,9 @@
     });
     var detailHead = el("th", "mh-table__detail-cell");
     detailHead.scope = "col";
-    detailHead.append(el("span", "mh-table__sr-only", "Proje ayrıntısı"));
+    detailHead.append(
+      el("span", "mh-table__sr-only", t("Proje ayrıntısı", "Project details")),
+    );
     trHead.append(detailHead);
     thead.append(trHead);
     table.append(thead);
@@ -667,7 +725,7 @@
     var emptyDescription = el("p");
     empty.append(emptyTitle, emptyDescription);
     var reset = button(
-      "Aramayı ve filtreyi sıfırla",
+      t("Aramayı ve filtreyi sıfırla", "Reset search and filters"),
       "mh-button mh-button--primary",
     );
     empty.append(reset);
@@ -675,7 +733,7 @@
 
     var footer = el("div", "mh-table__footer");
     var sizeWrap = el("div", "mh-table__page-size");
-    var sizeLabel = el("label", "", "Sayfa başına");
+    var sizeLabel = el("label", "", t("Sayfa başına", "Rows per page"));
     sizeLabel.htmlFor = prefix + "-size";
     var sizeSelect = el("select");
     sizeSelect.id = sizeLabel.htmlFor;
@@ -686,10 +744,13 @@
     });
     sizeWrap.append(sizeLabel, sizeSelect);
     var pages = el("nav", "mh-table__pagination");
-    pages.setAttribute("aria-label", "Proje tablosu sayfaları");
-    var previous = button("Önceki");
+    pages.setAttribute(
+      "aria-label",
+      t("Proje tablosu sayfaları", "Project table pages"),
+    );
+    var previous = button(t("Önceki", "Previous"));
     var pageInfo = el("span", "mh-table__page-info");
-    var next = button("Sonraki");
+    var next = button(t("Sonraki", "Next"));
     pages.append(previous, pageInfo, next);
     footer.append(sizeWrap, pages);
     panel.append(footer);
@@ -754,7 +815,7 @@
     dialog.setAttribute("aria-describedby", prefix + "-detail-demo");
     var dialogTop = el("div", "mh-table__dialog-top");
     var dialogKicker = el("p", "mh-kicker");
-    var close = button("Kapat");
+    var close = button(t("Kapat", "Close"));
     dialogTop.append(dialogKicker, close);
     dialog.append(dialogTop);
     var dialogTitle = el("h3");
@@ -763,8 +824,14 @@
       "p",
       "mh-table__dialog-demo",
       isDemo
-        ? "DEMO · Bu proje ve kişiler örnek veridir."
-        : "Yerel kayıt · Sunucuyla eşitleme yapılmaz.",
+        ? t(
+            "DEMO · Bu proje ve kişiler örnek veridir.",
+            "DEMO \u00b7 Projects and people are sample data.",
+          )
+        : t(
+            "Yerel kayıt · Sunucuyla eşitleme yapılmaz.",
+            "Local record \u00b7 Not synced to a server.",
+          ),
     );
     dialogDemo.id = prefix + "-detail-demo";
     var dialogBody = el("div");
@@ -791,15 +858,22 @@
     }
     function openDetail(row, trigger) {
       returnFocus = trigger;
-      dialogKicker.textContent = row.id + " / PROJE NOTU";
+      dialogKicker.textContent = row.id + t(" / PROJE NOTU", " / PROJECT NOTE");
       dialogTitle.textContent = row.title;
       dialogBody.replaceChildren();
       var list = el("dl", "mh-table__detail-meta");
       [
-        ["Sorumlu", row.owner || "Atanmamış"],
-        ["Durum", STATUS[row.status].label],
+        [t("Sorumlu", "Owner"), row.owner || t("Atanmamış", "Unassigned")],
+        [t("Durum", "Status"), t(STATUS[row.status].label)],
         ["Alan", row.theme || "Belirtilmedi"],
-        ["Son güncelleme", displayDate(row.updated)],
+        [
+          t("Son güncelleme", "Last updated"),
+          row.updated
+            ? new Intl.DateTimeFormat(language?.locale || "tr-TR", {
+                timeZone: "UTC",
+              }).format(new Date(row.updated + "T12:00:00Z"))
+            : "—",
+        ],
       ].forEach(function (pair) {
         var group = el("div");
         group.append(el("dt", "", pair[0]), el("dd", "", pair[1]));
@@ -807,10 +881,10 @@
       });
       dialogBody.append(
         list,
-        el("h4", "", "Çalışmanın odağı"),
-        el("p", "", row.note || "Henüz bir not eklenmedi."),
-        el("h4", "", "Sıradaki adım"),
-        el("p", "", row.next || "Henüz belirlenmedi."),
+        el("h4", "", t("Çalışmanın odağı", "Focus")),
+        el("p", "", row.note || t("Henüz bir not eklenmedi.", "No notes yet.")),
+        el("h4", "", t("Sıradaki adım", "Next step")),
+        el("p", "", row.next || t("Henüz belirlenmedi.", "Not set yet.")),
       );
       dialog.showModal();
       close.focus();
@@ -829,29 +903,32 @@
         return state.selected.has(row.id);
       }).length;
       dataNote.textContent =
-        (isDemo ? "DEMO · " : "YEREL VERİ · ") +
+        (isDemo ? "DEMO · " : t("YEREL VERİ · ", "LOCAL DATA \u00b7 ")) +
         data.length +
-        (isDemo ? " kurgu proje" : " proje");
+        (isDemo
+          ? t(" kurgu proje", " sample projects")
+          : t(" proje", " projects"));
       results.textContent = count
         ? count +
-          " proje · " +
+          t(" proje · ", " projects \u00b7 ") +
           ((state.page - 1) * state.size + 1) +
           "–" +
           ((state.page - 1) * state.size + visible.length) +
-          " gösteriliyor"
+          t(" gösteriliyor", " shown")
         : data.length
-          ? "0 proje · Sonuç bulunamadı"
-          : "0 proje · Henüz kayıt yok";
+          ? t("0 proje · Sonuç bulunamadı", "0 projects \u00b7 No results")
+          : t("0 proje · Henüz kayıt yok", "0 projects \u00b7 No records yet");
       chips.replaceChildren();
       chips.hidden = !state.query && !state.status && !state.owner;
       if (state.owner) {
         var ownerChip = button(
-          "Sorumlu: " + state.owner + " ×",
+          t("Sorumlu: ", "Owner: ") + state.owner + " ×",
           "mh-table__filter-chip",
         );
         ownerChip.setAttribute(
           "aria-label",
-          "Sorumlu filtresini kaldır: " + state.owner,
+          t("Sorumlu filtresini kaldır: ", "Remove owner filter: ") +
+            state.owner,
         );
         ownerChip.addEventListener("click", function () {
           state.owner = "";
@@ -864,12 +941,13 @@
       }
       if (state.query) {
         var queryChip = button(
-          "Arama: " + state.query + " ×",
+          t("Arama: ", "Search: ") + state.query + " ×",
           "mh-table__filter-chip",
         );
         queryChip.setAttribute(
           "aria-label",
-          "Arama filtresini kaldır: " + state.query,
+          t("Arama filtresini kaldır: ", "Remove search filter: ") +
+            state.query,
         );
         queryChip.addEventListener("click", function () {
           state.query = "";
@@ -882,12 +960,13 @@
       }
       if (state.status) {
         var statusChip = button(
-          "Durum: " + STATUS[state.status].label + " ×",
+          t("Durum: ", "Status: ") + t(STATUS[state.status].label) + " ×",
           "mh-table__filter-chip",
         );
         statusChip.setAttribute(
           "aria-label",
-          "Durum filtresini kaldır: " + STATUS[state.status].label,
+          t("Durum filtresini kaldır: ", "Remove status filter: ") +
+            t(STATUS[state.status].label),
         );
         statusChip.addEventListener("click", function () {
           state.status = "";
@@ -901,12 +980,19 @@
       filteredExport.disabled = count === 0;
       filteredExport.setAttribute(
         "aria-label",
-        count + " filtrelenmiş projeyi CSV olarak indir",
+        count +
+          t(
+            " filtrelenmiş projeyi CSV olarak indir",
+            " filtered projects: download CSV",
+          ),
       );
       selectionText.textContent = state.selected.size
         ? state.selected.size +
-          " proje seçildi · Filtre dışındaki seçimler korunur."
-        : "Henüz proje seçilmedi.";
+          t(
+            " proje seçildi · Filtre dışındaki seçimler korunur.",
+            " projects selected \u00b7 Selections outside filters are retained.",
+          )
+        : t("Henüz proje seçilmedi.", "No projects selected.");
       selectedExport.disabled = !state.selected.size;
       clearSelection.disabled = !state.selected.size;
       bulkStatus.disabled = !state.selected.size;
@@ -918,10 +1004,10 @@
       all.disabled = !visible.length;
       all.setAttribute(
         "aria-label",
-        "Bu sayfadaki " +
+        t("Bu sayfadaki ", "On this page: ") +
           visible.length +
-          " projeyi " +
-          (all.checked ? "seçimden çıkar" : "seç"),
+          t(" projeyi ", " projects: ") +
+          (all.checked ? t("seçimden çıkar", "deselect") : t("seç", "select")),
       );
       Object.keys(sortHeads).forEach(function (key) {
         var item = sortHeads[key];
@@ -943,8 +1029,10 @@
           "aria-label",
           item.label +
             ": " +
-            (active && state.direction === "asc" ? "azalan" : "artan") +
-            " sırala",
+            (active && state.direction === "asc"
+              ? t("azalan", "descending")
+              : t("artan", "ascending")) +
+            t(" sırala", " sort"),
         );
       });
       tbody.replaceChildren();
@@ -957,7 +1045,10 @@
         checkbox.type = "checkbox";
         checkbox.checked = state.selected.has(row.id);
         checkbox.dataset.focusKey = "row:" + row.id;
-        checkbox.setAttribute("aria-label", row.title + " projesini seç");
+        checkbox.setAttribute(
+          "aria-label",
+          row.title + t(" projesini seç", " select project"),
+        );
         checkbox.addEventListener("change", function () {
           if (checkbox.checked) state.selected.add(row.id);
           else state.selected.delete(row.id);
@@ -978,7 +1069,10 @@
         var ownerWrap = el("span", "mh-table__owner");
         var initials = el("span", "mh-table__initials", row.initials || "—");
         initials.setAttribute("aria-hidden", "true");
-        ownerWrap.append(initials, el("span", "", row.owner || "Atanmamış"));
+        ownerWrap.append(
+          initials,
+          el("span", "", row.owner || t("Atanmamış", "Unassigned")),
+        );
         owner.append(ownerWrap);
         tr.append(owner);
         var status = el("td");
@@ -995,7 +1089,7 @@
         statusSymbol.setAttribute("aria-hidden", "true");
         statusText.append(
           statusSymbol,
-          el("span", "", STATUS[row.status].label),
+          el("span", "", t(STATUS[row.status].label)),
         );
         status.append(statusText);
         tr.append(status);
@@ -1004,14 +1098,21 @@
         var time = el(
           row.updated ? "time" : "span",
           "",
-          displayDate(row.updated),
+          row.updated
+            ? new Intl.DateTimeFormat(language?.locale || "tr-TR", {
+                timeZone: "UTC",
+              }).format(new Date(row.updated + "T12:00:00Z"))
+            : "—",
         );
         if (row.updated) time.dateTime = row.updated;
         date.append(time);
         tr.append(date);
         var detailCell = el("td", "mh-table__detail-cell");
-        var detail = button("İncele", "mh-table__detail");
-        detail.setAttribute("aria-label", row.title + " projesini incele");
+        var detail = button(t("İncele", "View"), "mh-table__detail");
+        detail.setAttribute(
+          "aria-label",
+          row.title + t(" projesini incele", " view project"),
+        );
         detail.dataset.focusKey = "detail:" + row.id;
         detail.addEventListener("click", function () {
           openDetail(row, detail);
@@ -1030,16 +1131,25 @@
       table.style.minWidth = [430, 580, 725, 870][visibleColumnCount] + "px";
       empty.hidden = count > 0;
       emptyTitle.textContent = data.length
-        ? "Bu aramada bir proje bulamadık."
-        : "Henüz bir proje eklenmedi.";
+        ? t("Bu aramada bir proje bulamadık.", "No projects match this search.")
+        : t("Henüz bir proje eklenmedi.", "No projects yet.");
       emptyDescription.textContent = data.length
-        ? "Başka bir sözcük deneyin veya filtreleri sıfırlayın."
-        : "Proje kayıtları sağlandığında bu alanda görünecek. Şu anda gösterilecek veri yok.";
+        ? t(
+            "Başka bir sözcük deneyin veya filtreleri sıfırlayın.",
+            "Try another word or reset filters.",
+          )
+        : t(
+            "Proje kayıtları sağlandığında bu alanda görünecek. Şu anda gösterilecek veri yok.",
+            "Projects will appear here when supplied. There is no data to display.",
+          );
       reset.hidden = !state.query && !state.status && !state.owner;
       pageInfo.textContent = state.page + " / " + pageCount;
       pageInfo.setAttribute(
         "aria-label",
-        pageCount + " sayfanın " + state.page + ". sayfası",
+        pageCount +
+          t(" sayfanın ", " pages, page ") +
+          state.page +
+          t(". sayfası", ""),
       );
       previous.disabled = state.page === 1;
       next.disabled = state.page === pageCount;
@@ -1069,7 +1179,10 @@
       announcement.textContent =
         rows.length +
         (isDemo ? " demo" : "") +
-        " proje için CSV indirmesi başlatıldı.";
+        t(
+          " proje için CSV indirmesi başlatıldı.",
+          " projects: CSV download started.",
+        );
       global.setTimeout(function () {
         URL.revokeObjectURL(url);
         urls.delete(url);
@@ -1155,16 +1268,22 @@
       var changed = changeStatus(data, state.selected, bulkStatus.value, today);
       if (!changed.previous.length) {
         bulkMessage.textContent =
-          "Seçilen projelerin durumu zaten " +
-          STATUS[bulkStatus.value].label +
-          ". Yeni değişiklik yapılmadı.";
+          t(
+            "Seçilen projelerin durumu zaten ",
+            "Selected projects already have status ",
+          ) +
+          t(STATUS[bulkStatus.value].label) +
+          t(". Yeni değişiklik yapılmadı.", ". No changes made.");
         return;
       }
       data = changed.rows;
       undo = changed.previous;
       bulkMessage.textContent =
         undo.length +
-        " projenin durumu yerelde değiştirildi. Sunucuya gönderilmedi. Son işlem geri alınabilir.";
+        t(
+          " projenin durumu yerelde değiştirildi. Sunucuya gönderilmedi. Son işlem geri alınabilir.",
+          " projects updated locally. Not sent to a server. You can undo this change.",
+        );
       render();
       if (onChange) onChange(copyRows(data), "bulk-status");
     });
@@ -1175,7 +1294,10 @@
       undo = null;
       bulkMessage.textContent =
         count +
-        " projenin önceki durumu ve tarihi geri yüklendi. Seçimler korundu.";
+        t(
+          " projenin önceki durumu ve tarihi geri yüklendi. Seçimler korundu.",
+          " projects restored to their previous status and date. Selection preserved.",
+        );
       render();
       (applyStatus.disabled ? search : applyStatus).focus();
       if (onChange) onChange(copyRows(data), "undo-status");
@@ -1232,8 +1354,10 @@
           dialog.close();
           search.focus();
         }
-        bulkMessage.textContent =
-          "Veriler yenilendi. Mevcut kayıtların seçimleri korundu; geri alma geçmişi sıfırlandı.";
+        bulkMessage.textContent = t(
+          "Veriler yenilendi. Mevcut kayıtların seçimleri korundu; geri alma geçmişi sıfırlandı.",
+          "Data refreshed. Existing selections preserved; undo history reset.",
+        );
         render();
         if (focusedElement && !focusedElement.isConnected && !destroyed)
           search.focus();

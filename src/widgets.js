@@ -178,6 +178,11 @@
     return copy(spec);
   }
   function mount(host, spec, options = {}) {
+    const language = g.MuhitI18n?.create(options);
+    const t = (text, params) =>
+      language
+        ? language.text(text, undefined, params)
+        : text.replace(/\{(\w+)\}/g, (_, k) => String(params?.[k] ?? ""));
     const initial = checked(spec);
     if (typeof document === "undefined")
       throw new Error("mount için DOM gerekli.");
@@ -213,6 +218,8 @@
           options.onAction?.({ type, componentId: s.id, value: copy(value) });
       };
       const root = el("section", "mh-scope mh-widget mh-widget--" + s.type);
+      root.lang = language?.locale || options.locale || "tr-TR";
+      root.dir = options.dir || language?.dir || "ltr";
       root.dataset.widget = s.type;
       root.dataset.widgetId = s.id;
       const heading = el("h3", "mh-widget-title", s.title);
@@ -237,7 +244,7 @@
         const d = el("dialog", "mh-dialog " + cls);
         const content = el("div", "mh-dialog__content"),
           h = el("h3", "mh-dialog__title", title),
-          close = button("Kapat ×");
+          close = button(t("Kapat ×"));
         h.id = prefix + "-dialog-title";
         d.setAttribute("aria-labelledby", h.id);
         close.classList.add("mh-dialog__close");
@@ -271,9 +278,14 @@
           on(b, "click", () => select(i));
           on(b, "keydown", (e) => {
             let next = i;
-            if (e.key === "ArrowRight") next = (i + 1) % buttons.length;
+            if (e.key === "ArrowRight")
+              next =
+                (i + (root.dir === "rtl" ? -1 : 1) + buttons.length) %
+                buttons.length;
             else if (e.key === "ArrowLeft")
-              next = (i - 1 + buttons.length) % buttons.length;
+              next =
+                (i + (root.dir === "rtl" ? 1 : -1) + buttons.length) %
+                buttons.length;
             else if (e.key === "Home") next = 0;
             else if (e.key === "End") next = buttons.length - 1;
             else return;
@@ -332,9 +344,11 @@
           );
           marker.setAttribute(
             "aria-label",
-            { complete: "Tamamlandı", active: "Sürüyor", planned: "Planlandı" }[
-              item.state || "planned"
-            ],
+            {
+              complete: t("Tamamlandı"),
+              active: t("Sürüyor"),
+              planned: t("Planlandı"),
+            }[item.state || "planned"],
           );
           const body = el("div");
           body.append(el("h4", "", item.title));
@@ -360,7 +374,7 @@
             );
             if (!rows.length)
               lane.append(
-                el("p", "mh-kanban-empty", "Bu alanda henüz çalışma yok."),
+                el("p", "mh-kanban-empty", t("Bu alanda henüz çalışma yok.")),
               );
             rows.forEach((item) => {
               const card = el("article", "mh-kanban-card");
@@ -371,7 +385,7 @@
               const label = el(
                   "label",
                   "mh-sr-only",
-                  item.title + " durumunu değiştir",
+                  item.title + t(" durumunu değiştir"),
                 ),
                 select = el("select", "mh-select");
               select.id = prefix + "-" + item.id;
@@ -426,13 +440,13 @@
         root.append(group);
       } else if (s.type === "command") {
         value = null;
-        const open = button("Komut ara ⌕");
+        const open = button(t("Komut ara ⌕"));
         root.append(open);
         const [d, body] = dialog("mh-command-dialog", s.title);
         const input = el("input", "mh-input");
         input.type = "search";
-        input.placeholder = s.placeholder || "Bir komut ara…";
-        input.setAttribute("aria-label", "Komut ara");
+        input.placeholder = s.placeholder || t("Bir komut ara…");
+        input.setAttribute("aria-label", t("Komut ara"));
         const list = el("div", "mh-command-results"),
           message = status();
         body.append(input, list, message);
@@ -440,7 +454,7 @@
         function filter() {
           list.replaceChildren();
           results = [];
-          const q = input.value.toLocaleLowerCase("tr");
+          const q = input.value.toLocaleLowerCase(language?.locale || "tr-TR");
           s.items
             .filter((item) =>
               (
@@ -450,7 +464,7 @@
                 " " +
                 (item.group || "")
               )
-                .toLocaleLowerCase("tr")
+                .toLocaleLowerCase(language?.locale || "tr-TR")
                 .includes(q),
             )
             .forEach((item) => {
@@ -465,15 +479,19 @@
               results.push(b);
               list.append(b);
             });
-          message.textContent = results.length + " komut";
+          message.textContent = results.length + t(" komut");
           if (!results.length)
-            list.append(el("p", "mh-muted", "Eşleşen komut bulunamadı."));
+            list.append(el("p", "mh-muted", t("Eşleşen komut bulunamadı.")));
         }
         on(open, "click", () => {
           input.value = "";
           filter();
+          open.focus();
           d.showModal();
           input.focus();
+        });
+        on(d, "close", () => {
+          if (active && open.isConnected) open.focus();
         });
         on(input, "input", filter);
         on(input, "keydown", (e) => {
@@ -498,7 +516,7 @@
         });
       } else if (s.type === "drawer") {
         value = null;
-        const open = button("Ayrıntıları aç ↗");
+        const open = button(t("Ayrıntıları aç ↗"));
         root.append(open);
         const [d, body] = dialog("mh-drawer", s.title);
         if (s.description) body.append(el("p", "mh-muted", s.description));
@@ -510,11 +528,13 @@
           body.append(card);
         });
         on(open, "click", () => {
+          open.focus();
           d.showModal();
           value = "open";
           emit("open");
         });
         on(d, "close", () => {
+          if (active && open.isConnected) open.focus();
           value = "closed";
           emit("close");
         });
@@ -527,8 +547,8 @@
         const list = el("ol", "mh-stepper"),
           description = el("p", "mh-step-description"),
           actions = el("div", "mh-row"),
-          prev = button("← Önceki"),
-          next = button("Sonraki →", true),
+          prev = button(t("← Önceki")),
+          next = button(t("Sonraki →"), true),
           message = status();
         actions.append(prev, next);
         root.append(list, description, actions, message);
@@ -554,7 +574,8 @@
         function change(i) {
           index = i;
           paint();
-          message.textContent = "Adım " + (index + 1) + " / " + s.steps.length;
+          message.textContent =
+            t("Adım ") + (index + 1) + " / " + s.steps.length;
           emit("step");
         }
         on(prev, "click", () => {
@@ -581,11 +602,14 @@
               : "";
         label.htmlFor = input.id;
         label.append(
-          el("strong", "", "Dosyaları seç veya buraya bırak"),
+          el("strong", "", t("Dosyaları seç veya buraya bırak")),
           el(
             "small",
             "",
-            `${s.maxFiles || 5} dosyaya kadar · dosya başına ${s.maxSizeMB || 10} MB`,
+            t("{count} dosyaya kadar · dosya başına {size} MB", {
+              count: s.maxFiles || 5,
+              size: s.maxSizeMB || 10,
+            }),
           ),
           input,
         );
@@ -596,7 +620,7 @@
           el(
             "p",
             "mh-field__help",
-            "Dosyalar bu bileşende yerel kalır. Sunucuya aktarılmaz.",
+            t("Dosyalar bu bileşende yerel kalır. Sunucuya aktarılmaz."),
           ),
         );
         function paint() {
@@ -612,8 +636,8 @@
             li.append(
               el("span", "", f.name + " · " + Math.ceil(f.size / 1024) + " KB"),
             );
-            const remove = button("Kaldır");
-            remove.setAttribute("aria-label", f.name + " dosyasını kaldır");
+            const remove = button(t("Kaldır"));
+            remove.setAttribute("aria-label", f.name + t(" dosyasını kaldır"));
             remove.onclick = () => {
               files.splice(i, 1);
               paint();
@@ -628,11 +652,11 @@
           const errors = [];
           for (const f of incoming) {
             if (files.length >= (s.maxFiles || 5)) {
-              errors.push("Dosya sınırına ulaşıldı.");
+              errors.push(t("Dosya sınırına ulaşıldı."));
               break;
             }
             if (f.size > (s.maxSizeMB || 10) * 1024 * 1024) {
-              errors.push(f.name + ": dosya çok büyük.");
+              errors.push(f.name + t(": dosya çok büyük."));
               continue;
             }
             if (
@@ -640,7 +664,7 @@
               (s.accept === "documents" &&
                 !/\.(pdf|txt|md|csv|json)$/i.test(f.name))
             ) {
-              errors.push(f.name + ": dosya türü kabul edilmedi.");
+              errors.push(f.name + t(": dosya türü kabul edilmedi."));
               continue;
             }
             if (
@@ -655,7 +679,7 @@
           }
           paint();
           message.textContent =
-            errors.join(" ") || files.length + " dosya seçildi.";
+            errors.join(" ") || files.length + t(" dosya seçildi.");
           emit("files");
         }
         on(input, "change", () => {
@@ -677,8 +701,8 @@
         const totalPages = Math.max(1, Math.ceil(s.total / s.pageSize)),
           nav = el("nav", "mh-pagination"),
           message = status(),
-          prev = button("← Önceki"),
-          next = button("Sonraki →"),
+          prev = button(t("← Önceki")),
+          next = button(t("Sonraki →")),
           indicator = el("span");
         nav.setAttribute("aria-label", s.title);
         nav.append(prev, indicator, next);
@@ -688,8 +712,12 @@
           next.disabled = value === totalPages;
           indicator.textContent = value + " / " + totalPages;
           message.textContent = s.total
-            ? `${(value - 1) * s.pageSize + 1}–${Math.min(value * s.pageSize, s.total)} / ${s.total} kayıt`
-            : "Henüz kayıt yok.";
+            ? t("{from}–{to} / {total} kayıt", {
+                from: (value - 1) * s.pageSize + 1,
+                to: Math.min(value * s.pageSize, s.total),
+                total: s.total,
+              })
+            : t("Henüz kayıt yok.");
         }
         on(prev, "click", () => {
           if (value > 1) {

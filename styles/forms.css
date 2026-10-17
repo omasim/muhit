@@ -46,3 +46,6 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+.mh-scope button.mh-text-link { background:transparent; border:0; color:var(--mh-link); font:inherit; min-height:44px; padding:8px; text-align:start; cursor:pointer; text-decoration:underline; }
+.mh-scope button.mh-text-link:focus-visible { outline:3px solid var(--mh-focus); outline-offset:2px; }

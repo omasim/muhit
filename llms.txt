@@ -37,3 +37,5 @@ Approved identity: Muhit 3.1, locked. Use assets/brand/muhit-logo.svg and muhit-
 
 Forms: docs/FORMS.md; schemas/form.schema.json; MuhitForm also renders via schemaVersion 1.1.0 form kind; datagrid and plot are supported too.
 Preferences: MuhitPreferences.create; explicit local save only. Coverage and limits: docs/COVERAGE.md.
+
+0.8: docs/COLUMN-LAYOUT.md ve docs/INTERNATIONALIZATION.md. Layout tüm anahtarları bir kez içerir; width 120–800, pin null/start/end. Locale seçenekleri uygulama metnini çevirmeden bileşen metinlerini belirler.

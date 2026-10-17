@@ -1,3 +1,31 @@
+export interface LocaleOptions {
+  locale?: string;
+  dir?: "ltr" | "rtl";
+  messages?: Record<string, string>;
+}
+export interface ColumnLayout {
+  key: string;
+  width: number;
+  pin: "start" | "end" | null;
+}
+export const MuhitI18n: Readonly<{
+  getLocale(): string;
+  setLocale(locale: string): string;
+  register(locale: string, messages: Record<string, string>): void;
+  create(
+    options?: LocaleOptions,
+  ): Readonly<{
+    locale: string;
+    dir: "ltr" | "rtl";
+    text(
+      source: string,
+      fallback?: string,
+      params?: Record<string, string | number>,
+    ): string;
+    number(value: number, options?: Intl.NumberFormatOptions): string;
+    date(value: Date | number, options?: Intl.DateTimeFormatOptions): string;
+  }>;
+}>;
 /** Muhit UI 0.7.0. Rendering methods require a browser DOM; importing does not. */
 export type Host = Element | string;
 export type TableStatus = "planned" | "active" | "review" | "complete";
@@ -14,7 +42,7 @@ export interface TableRow {
   updated?: string;
 }
 export type NormalizedTableRow = Required<TableRow>;
-export interface TableOptions {
+export interface TableOptions extends LocaleOptions {
   title?: string;
   description?: string;
   rows?: TableRow[];
@@ -37,7 +65,7 @@ export const Muhit: Readonly<{
   /** duration is milliseconds; 0 means manual dismissal. Default: 7000. */
   toast(
     message: string,
-    options?: { container?: Element; duration?: number },
+    options?: LocaleOptions & { container?: Element; duration?: number },
   ): void;
   openDialog(dialog: HTMLDialogElement): void;
   closeDialog(dialog: HTMLDialogElement | null | undefined): void;
@@ -82,7 +110,7 @@ export interface ChartData {
   types: ChartGroup[];
 }
 export type ChartExampleData = Omit<ChartData, "year"> & { year: number };
-export interface ChartOptions {
+export interface ChartOptions extends LocaleOptions {
   getData?: (period: ChartPeriod) => ChartInput | Promise<ChartInput>;
   initialPeriod?: ChartPeriod;
   /** false hides interactive period controls for a fixed snapshot. Default: true. */
@@ -327,7 +355,7 @@ export const MuhitWidgets: Readonly<{
   mount(
     host: Host,
     spec: WidgetSpec,
-    options?: {
+    options?: LocaleOptions & {
       onAction?: (event: {
         type: string;
         componentId: string;
@@ -370,7 +398,7 @@ export const MuhitAgent: Readonly<{
   render(
     host: Host,
     spec: UISpec,
-    options?: {
+    options?: LocaleOptions & {
       onAction?: (action: {
         id: string;
         componentId: string;
@@ -411,7 +439,9 @@ export interface DataGridState {
   filters?: Record<string, string>;
   locale?: string;
 }
-export interface DataGridOptions {
+export interface DataGridOptions extends LocaleOptions {
+  columnLayout?: ColumnLayout[];
+  onColumnLayoutChange?: (layout: ColumnLayout[]) => void;
   locale?: string;
   selectable?: boolean;
   onSelectionChange?: (ids: string[]) => void;
@@ -431,6 +461,8 @@ export interface DataGridOptions {
   onStateChange?: (state: DataGridState) => void;
 }
 export interface DataGridInstance {
+  getColumnLayout(): ColumnLayout[];
+  setColumnLayout(layout: ColumnLayout[]): DataGridInstance;
   getSelected(): string[];
   clearSelection(): void;
   setVisibleColumns(keys: string[]): DataGridInstance;
@@ -449,6 +481,10 @@ export interface DataGridInstance {
 export const MuhitDataGrid: Readonly<{
   mount(host: Host, options: DataGridOptions): DataGridInstance;
   validateColumns(columns: DataColumn[]): Required<DataColumn>[];
+  validateColumnLayout(
+    layout: ColumnLayout[],
+    columns: DataColumn[],
+  ): ColumnLayout[];
   validateRows(rows: DataRow[], columns: Required<DataColumn>[]): DataRow[];
   query(
     rows: DataRow[],
@@ -489,10 +525,17 @@ export interface FormInstance {
 export const MuhitForm: Readonly<{
   normalizeFields(fields: FormField[]): FormField[];
   normalizeValues(fields: FormField[], values?: FormValues): FormValues;
-  validate(fields: FormField[], values: FormValues): FormValidation;
+  validate(
+    fields: FormField[],
+    values: FormValues,
+    options?: LocaleOptions,
+  ): FormValidation;
   mount(
     host: Host,
     options: {
+      locale?: string;
+      dir?: "ltr" | "rtl";
+      messages?: Record<string, string>;
       fields: FormField[];
       values?: FormValues;
       title?: string;
@@ -561,6 +604,7 @@ export interface AgentForm {
   submitLabel?: string;
 }
 export interface AgentDataGrid {
+  columnLayout?: ColumnLayout[];
   type: "datagrid";
   id: string;
   title: string;

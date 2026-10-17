@@ -83,7 +83,13 @@
     item.__muhitDismiss = dismiss;
     const close = document.createElement("button");
     close.type = "button";
-    close.setAttribute("aria-label", "Bildirimi kapat");
+    close.setAttribute(
+      "aria-label",
+      globalThis.MuhitI18n?.create(options).text(
+        "Bildirimi kapat",
+        "Dismiss notification",
+      ) || "Bildirimi kapat",
+    );
     close.innerHTML = icon("close");
     close.onclick = dismiss;
     item.append(text, close);

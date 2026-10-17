@@ -59,3 +59,7 @@ Tek komut: `npm run verify`. Kurulum ve kapsam: PRODUCTION.md. DOM kontrast test
 - Paketlenmiş TGZ içinden altı ESM API, widget örnekleri, stiller, şemalar ve türler doğrulandı.
 
 Kontrast denetimi seçili 18 token çiftini kapsar; tam ürün erişilebilirlik sertifikası değildir. Kanban, seçim alanıyla sütun değiştirir. Dosyalar yerel kalır. Model, sunucu ve veri kalıcılığı bağlantıları uygulamanın sorumluluğundadır.
+
+## 0.8.0 · 2026-10-17
+
+60 Node testi geçti. Chromium, Firefox ve WebKit üzerinde ileri sütun işlemleri, odağın korunması, RTL sekmeler, Escape dönüş odağı ve dil değiştirme akışı doğrulandı. Test fikstürlerinde açık/koyu tema axe taramaları ihlal bildirmedi; on widget ile mevcut tablo/grafik taramaları da geçti. React/Vue kurulu paketle geliştirme/üretim akışları geçti. İzole ESM paket boyutları bütçe içinde; 14 logo özeti değişmedi. Ayrıntılı makine kaydı: tests/verification-0.8.json. Manuel ekran okuyucu ve gerçek cihaz incelemesi yapılmadı.

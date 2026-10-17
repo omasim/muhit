@@ -595,6 +595,38 @@
         },
         "locale": {
           "type": "string"
+        },
+        "columnLayout": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 30,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "key",
+              "width",
+              "pin"
+            ],
+            "properties": {
+              "key": {
+                "type": "string",
+                "pattern": "^[a-zA-Z][\\w-]{0,63}$"
+              },
+              "width": {
+                "type": "integer",
+                "minimum": 120,
+                "maximum": 800
+              },
+              "pin": {
+                "enum": [
+                  null,
+                  "start",
+                  "end"
+                ]
+              }
+            }
+          }
         }
       }
     },

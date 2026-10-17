@@ -293,3 +293,11 @@
   background-size:5px 5px; background-repeat:no-repeat;
 }
 [dir=rtl] .mh-select { background-position:12px 50%,17px 50%; }
+
+/* Logical column layout: identical DOM and reading order, including RTL. */
+.mh-scope .mh-grid-column-controls { display:flex; flex-wrap:wrap; gap:8px; margin-block-end:16px; }
+.mh-scope .mh-grid-resize { min-width:44px; min-height:44px; touch-action:none; cursor:col-resize; background:var(--mh-surface); color:var(--mh-text); border:1px solid var(--mh-border); border-radius:var(--mh-radius-sm,6px); }
+.mh-scope .mh-grid-resize:focus-visible { outline:3px solid var(--mh-focus); outline-offset:2px; }
+.mh-scope .mh-grid-pinned { z-index:1; background:var(--mh-surface); box-shadow:inset 1px 0 var(--mh-border),inset -1px 0 var(--mh-border); }
+.mh-scope .mh-data-grid__scroll td { overflow-wrap:anywhere; }
+.mh-scope .mh-data-grid__scroll th { white-space:normal; }

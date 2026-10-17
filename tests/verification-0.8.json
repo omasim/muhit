@@ -1,0 +1,29 @@
+{
+  "version": "0.8.0",
+  "date": "2026-10-17",
+  "unitTests": 60,
+  "browsers": [
+    "chromium",
+    "firefox",
+    "webkit"
+  ],
+  "checks": [
+    "column pointer/keyboard resize and drag reorder",
+    "pin and CSV order",
+    "atomic invalid-layout rejection",
+    "selection and edit focus",
+    "RTL tabs",
+    "dialog Escape return focus",
+    "TR/EN form errors and retained draft on locale change",
+    "axe WCAG 2 A/AA, 2.1 AA, 2.2 AA tags on tested fixtures",
+    "React/Vue installed TGZ development and production flows",
+    "isolated module bundles",
+    "14 locked logo hashes"
+  ],
+  "limits": [
+    "No manual NVDA, JAWS or VoiceOver session",
+    "No real mobile device test",
+    "Studio editorial documentation remains Turkish"
+  ],
+  "npmPublished": false
+}

@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Muhit · Dil ve sütun düzeni</title>
+    <link rel="stylesheet" href="../styles/index.css" />
+    <style>
+      body {
+        margin: 0;
+        background: var(--mh-bg);
+        color: var(--mh-text);
+      }
+      main {
+        max-width: 1200px;
+        margin: auto;
+        padding: 24px;
+        display: grid;
+        gap: 24px;
+        min-width: 0;
+      }
+      .demo-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+        gap: 24px;
+      }
+      .demo-grid > * {
+        min-width: 0;
+      }
+      @media (max-width: 850px) {
+        .demo-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: end;
+      }
+      .toolbar label {
+        display: grid;
+        gap: 8px;
+      }
+    </style>
+  </head>
+  <body class="mh-scope">
+    <main>
+      <header>
+        <img src="../assets/brand/muhit-logo.svg" alt="Muhit" width="140" />
+        <h1 id="heading"></h1>
+        <p id="intro"></p>
+      </header>
+      <div class="toolbar">
+        <label
+          >Language / Dil<select id="language" class="mh-select">
+            <option value="tr-TR">Türkçe</option>
+            <option value="en-US">English</option>
+          </select></label
+        ><label id="direction-label"
+          >Yazı yönü<select id="direction" class="mh-select">
+            <option value="ltr">LTR</option>
+            <option value="rtl">RTL</option>
+          </select></label
+        ><button id="theme" class="mh-button"></button
+        ><button id="save-layout" class="mh-button"></button
+        ><button id="reset-layout" class="mh-button"></button>
+      </div>
+      <p id="notice" role="status"></p>
+      <div class="demo-grid">
+        <div id="records"></div>
+        <div id="editor"></div>
+      </div>
+      <div id="tabs"></div>
+      <div id="chart"></div>
+    </main>
+    <script type="module">
+      import {
+        MuhitDataGrid as Grid,
+        MuhitForm as Form,
+        MuhitWidgets as Widgets,
+        MuhitPlot as Plot,
+        MuhitTheme as Theme,
+        MuhitI18n as I18n,
+      } from "../src/index.mjs";
+      const $ = (id) => document.getElementById(id);
+      let locale = "tr-TR",
+        dir = "ltr",
+        dark = false,
+        grid,
+        form,
+        tabs,
+        plot;
+      let rows = [
+        { id: "r1", name: "Research Atlas", team: "Labs", score: 82 },
+        { id: "r2", name: "Knowledge Commons", team: "Research", score: 64 },
+        { id: "r3", name: "Human Systems", team: "Design", score: 91 },
+      ];
+      const text = (tr, en) => (locale.startsWith("tr") ? tr : en);
+      let saved;
+      try {
+        saved = JSON.parse(localStorage.getItem("muhit-column-demo") || "null");
+      } catch {}
+      function render() {
+        const layout = grid?.getColumnLayout() || saved;
+        const values = form?.getValues() || { name: "", email: "" };
+        const state = grid?.getState();
+        const selection = grid?.getSelected();
+        grid?.destroy();
+        form?.destroy();
+        tabs?.destroy();
+        plot?.destroy();
+        I18n.setLocale(locale);
+        document.documentElement.lang = locale;
+        document.documentElement.dir = dir;
+        $("heading").textContent = text(
+          "Dil değişir. Çalışma düzenin kalır.",
+          "Change language. Keep your workspace.",
+        );
+        $("intro").textContent = text(
+          "Örnek kayıtlar. Sütunlar klavye veya fareyle boyutlandırılabilir. Dil değişiminde form taslağı ve sütun düzeni korunur.",
+          "Sample records. Resize columns with the keyboard or pointer. Language changes preserve the form draft and column layout.",
+        );
+        $("theme").textContent = text("Temayı değiştir", "Switch theme");
+        $("save-layout").textContent = text(
+          "Sütun düzenini sakla",
+          "Save column layout",
+        );
+        $("reset-layout").textContent = text(
+          "Sütun düzenini sıfırla",
+          "Reset column layout",
+        );
+        const options = {
+          locale,
+          dir,
+          columns: [
+            { key: "name", label: text("Çalışma", "Work"), editable: true },
+            { key: "team", label: text("Ekip", "Team") },
+            {
+              key: "score",
+              label: text("Puan", "Score"),
+              type: "number",
+              editable: true,
+            },
+          ],
+          rows,
+          state: state ? { ...state, locale } : undefined,
+          onRowsChange: (next) => (rows = next),
+        };
+        try {
+          grid = Grid.mount("#records", {
+            ...options,
+            columnLayout: layout || undefined,
+          });
+        } catch {
+          saved = null;
+          grid = Grid.mount("#records", options);
+        }
+        form = Form.mount("#editor", {
+          locale,
+          dir,
+          title: text("Çalışma notu", "Work note"),
+          fields: [
+            {
+              name: "name",
+              label: text("Başlık", "Title"),
+              type: "text",
+              required: true,
+            },
+            {
+              name: "email",
+              label: text("E-posta", "Email"),
+              type: "email",
+              required: true,
+            },
+          ],
+          values,
+        });
+        tabs = Widgets.mount(
+          "#tabs",
+          {
+            id: "views",
+            type: "tabs",
+            title: text("Görünümler", "Views"),
+            items: [
+              {
+                id: "summary",
+                label: text("Özet", "Summary"),
+                content: text(
+                  "Sütun düzeni veri kaynağından bağımsızdır.",
+                  "Column layout is independent of the data source.",
+                ),
+              },
+              {
+                id: "keys",
+                label: text("Klavye", "Keyboard"),
+                content: text(
+                  "Genişlik: ok tuşları, Shift ile 50 px; Home / End. Sıra ve sabitleme: Sütunlar menüsü.",
+                  "Width: arrow keys, Shift for 50 px; Home / End. Order and pinning: Columns menu.",
+                ),
+              },
+            ],
+          },
+          { locale, dir },
+        );
+        plot = Plot.mount("#chart", {
+          locale,
+          title: text("Çalışma puanları", "Work scores"),
+          unit: text("puan", "points"),
+          labels: rows.map((r) => r.name),
+          series: [
+            {
+              id: "score",
+              label: text("Puan", "Score"),
+              values: rows.map((r) => r.score),
+            },
+          ],
+        });
+      }
+      $("language").onchange = (e) => {
+        locale = e.target.value;
+        render();
+      };
+      $("direction").onchange = (e) => {
+        dir = e.target.value;
+        render();
+      };
+      $("theme").onclick = () => {
+        dark = !dark;
+        Theme.apply(
+          { mode: dark ? "dark" : "light" },
+          document.documentElement,
+        );
+      };
+      $("save-layout").onclick = () => {
+        try {
+          localStorage.setItem(
+            "muhit-column-demo",
+            JSON.stringify(grid.getColumnLayout()),
+          );
+          $("notice").textContent = text(
+            "Yalnız sütun düzeni bu cihazda saklandı.",
+            "Only column layout was saved on this device.",
+          );
+        } catch {
+          $("notice").textContent = text(
+            "Depolama kullanılamıyor.",
+            "Storage is unavailable.",
+          );
+        }
+      };
+      $("reset-layout").onclick = () => {
+        grid.setColumnLayout(
+          ["name", "team", "score"].map((key) => ({
+            key,
+            width: 200,
+            pin: null,
+          })),
+        );
+        try {
+          localStorage.removeItem("muhit-column-demo");
+        } catch {}
+      };
+      Theme.apply({}, document.documentElement);
+      render();
+    </script>
+  </body>
+</html>

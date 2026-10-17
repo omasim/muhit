@@ -487,6 +487,7 @@
               "columns",
               "rows",
               "selectable",
+              "columnLayout",
               "locale",
             ],
             plot: ["type", "id", "title", "data"],
@@ -521,6 +522,11 @@
                 component.columns,
               );
               global.MuhitDataGrid.validateRows(component.rows, cols);
+              if (component.columnLayout !== undefined)
+                global.MuhitDataGrid.validateColumnLayout(
+                  component.columnLayout,
+                  component.columns,
+                );
               if (
                 component.selectable !== undefined &&
                 typeof component.selectable !== "boolean"
@@ -656,15 +662,16 @@
       typeof options !== "object" ||
       Array.isArray(options) ||
       Object.keys(options).some(function (key) {
-        return key !== "onAction";
+        return !["onAction", "locale", "dir", "messages"].includes(key);
       })
     )
-      throw new TypeError("options yalnız onAction alanını kabul eder.");
+      throw new TypeError("Unknown render option.");
     if (
       options.onAction !== undefined &&
       typeof options.onAction !== "function"
     )
       throw new TypeError("onAction bir fonksiyon olmalı.");
+    var language = global.MuhitI18n?.create(options);
     var onAction = options.onAction;
     var destroyed = false;
     var current = null;
@@ -756,6 +763,9 @@
             let mount;
             if (component.type === "form")
               mount = global.MuhitForm.mount(host, {
+                locale: language?.locale,
+                dir: language?.dir,
+                messages: options.messages,
                 ...clone(component),
                 onSubmit: onAction
                   ? async (values, signal) => {
@@ -772,6 +782,9 @@
               });
             if (component.type === "datagrid")
               mount = global.MuhitDataGrid.mount(host, {
+                locale: language?.locale,
+                dir: language?.dir,
+                messages: options.messages,
                 ...clone(component),
                 onSelectionChange: (value) => {
                   if (!destroyed && current === view)
@@ -783,7 +796,10 @@
                 },
               });
             if (component.type === "plot")
-              mount = global.MuhitPlot.mount(host, component.data);
+              mount = global.MuhitPlot.mount(host, {
+                locale: language?.locale,
+                ...component.data,
+              });
             view.mounts.push(mount);
             contentRoot.append(host);
             return;
@@ -794,6 +810,9 @@
             widgetHost.setAttribute("data-component-id", component.id);
             view.mounts.push(
               global.MuhitWidgets.mount(widgetHost, component, {
+                locale: language?.locale,
+                dir: language?.dir,
+                messages: options.messages,
                 onAction: function (event) {
                   if (!destroyed && current === view && onAction)
                     onAction({
@@ -900,6 +919,9 @@
             node.append(tableHost);
             view.mounts.push(
               global.MuhitTable.mount(tableHost, {
+                locale: language?.locale,
+                dir: language?.dir,
+                messages: options.messages,
                 rows: clone(component.rows),
                 title: component.title,
                 description: "JSON sözleşmesinden sağlanan yerel kayıtlar.",
@@ -916,6 +938,9 @@
             var chartData = clone(component.data);
             view.mounts.push(
               global.MuhitCharts.mount(chartHost, {
+                locale: language?.locale,
+                dir: language?.dir,
+                messages: options.messages,
                 initialPeriod: chartData.period || 6,
                 periodControl: false,
                 getData: function () {
