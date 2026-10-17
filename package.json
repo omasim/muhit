@@ -162,7 +162,11 @@
     "studio-en.html",
     "studio-en.mjs",
     "studio-en.css",
-    "tools/check-distribution.mjs"
+    "tools/check-distribution.mjs",
+    "index.html",
+    "studio.js",
+    "studio-example.js",
+    "styles/studio.css"
   ],
   "sideEffects": [
     "./src/*.js",
