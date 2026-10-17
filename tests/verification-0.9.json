@@ -1,0 +1,20 @@
+{
+  "version": "0.9.0",
+  "date": "2026-10-17",
+  "nodeTests": 62,
+  "local": {
+    "chromium": "verify:all passed",
+    "firefox": "release and accessibility passed",
+    "webkit": "release and accessibility passed",
+    "frameworks": "React/Vue development production SSR-shell hydration passed",
+    "visual": "8 macOS Chromium baselines passed",
+    "bundles": "passed",
+    "brand": "14 locked SVGs unchanged"
+  },
+  "pending": [
+    "manual screen reader",
+    "physical mobile devices"
+  ],
+  "npmPublished": false,
+  "remoteCI": "pending"
+}

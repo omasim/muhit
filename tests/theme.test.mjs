@@ -104,9 +104,9 @@ test("Node-safe IIFE publishes only its frozen API without reading DOM or storag
     context,
   );
   vm.runInContext(source, context);
-  assert.equal(context.MuhitTheme.version, "0.7.0");
+  assert.equal(context.MuhitTheme.version, "0.9.0");
   assert.equal(context.MuhitTheme.resolve({}).config.preset, "grove");
-  assert.equal(theme.version, "0.7.0");
+  assert.equal(theme.version, "0.9.0");
   assert.ok(Object.isFrozen(theme));
   assert.deepEqual(Object.keys(theme), [
     "version",

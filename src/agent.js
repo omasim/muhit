@@ -767,6 +767,14 @@
                 dir: language?.dir,
                 messages: options.messages,
                 ...clone(component),
+                onChange: (values, state) => {
+                  if (!destroyed && current === view)
+                    onAction?.({
+                      id: "form-change",
+                      componentId: component.id,
+                      value: { values, ...state },
+                    });
+                },
                 onSubmit: onAction
                   ? async (values, signal) => {
                       if (destroyed || current !== view)
@@ -786,6 +794,30 @@
                 dir: language?.dir,
                 messages: options.messages,
                 ...clone(component),
+                onRowsChange: (rows, change) => {
+                  if (!destroyed && current === view)
+                    onAction?.({
+                      id: "edit",
+                      componentId: component.id,
+                      value: { rows, change },
+                    });
+                },
+                onColumnLayoutChange: (value) => {
+                  if (!destroyed && current === view)
+                    onAction?.({
+                      id: "column-layout",
+                      componentId: component.id,
+                      value,
+                    });
+                },
+                onStateChange: (value) => {
+                  if (!destroyed && current === view)
+                    onAction?.({
+                      id: "state",
+                      componentId: component.id,
+                      value,
+                    });
+                },
                 onSelectionChange: (value) => {
                   if (!destroyed && current === view)
                     onAction?.({

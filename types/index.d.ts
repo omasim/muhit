@@ -12,9 +12,7 @@ export const MuhitI18n: Readonly<{
   getLocale(): string;
   setLocale(locale: string): string;
   register(locale: string, messages: Record<string, string>): void;
-  create(
-    options?: LocaleOptions,
-  ): Readonly<{
+  create(options?: LocaleOptions): Readonly<{
     locale: string;
     dir: "ltr" | "rtl";
     text(
@@ -414,6 +412,12 @@ export const MuhitAgent: Readonly<{
 declare global {
   interface Window {
     Muhit: typeof Muhit;
+    MuhitI18n: typeof MuhitI18n;
+    MuhitForm: typeof MuhitForm;
+    MuhitFields: typeof MuhitFields;
+    MuhitDataGrid: typeof MuhitDataGrid;
+    MuhitPlot: typeof MuhitPlot;
+    MuhitCSV: typeof MuhitCSV;
     MuhitTable: typeof MuhitTable;
     MuhitCharts: typeof MuhitCharts;
     MuhitTheme: typeof MuhitTheme;
@@ -439,7 +443,23 @@ export interface DataGridState {
   filters?: Record<string, string>;
   locale?: string;
 }
+export interface GridView {
+  version: 1;
+  layout: ColumnLayout[];
+  visible: string[];
+  state: DataGridState;
+  selected: string[];
+}
+export type ExportScope = "page" | "filtered" | "selected";
 export interface DataGridOptions extends LocaleOptions {
+  exportRows?: (
+    request: {
+      scope: "filtered" | "selected";
+      state: DataGridState;
+      selected: string[];
+    },
+    signal: AbortSignal,
+  ) => Promise<DataRow[]>;
   columnLayout?: ColumnLayout[];
   onColumnLayoutChange?: (layout: ColumnLayout[]) => void;
   locale?: string;
@@ -461,6 +481,14 @@ export interface DataGridOptions extends LocaleOptions {
   onStateChange?: (state: DataGridState) => void;
 }
 export interface DataGridInstance {
+  getView(): GridView;
+  restoreView(view: GridView): DataGridInstance;
+  getVisibleColumns(): string[];
+  setSelected(ids: string[]): DataGridInstance;
+  exportCSV(options?: {
+    scope?: ExportScope;
+    signal?: AbortSignal;
+  }): Promise<string>;
   getColumnLayout(): ColumnLayout[];
   setColumnLayout(layout: ColumnLayout[]): DataGridInstance;
   getSelected(): string[];
@@ -471,7 +499,7 @@ export interface DataGridInstance {
     key: string,
     value: string | number | null,
   ): DataGridInstance;
-  toCSV(options?: { selectedOnly?: boolean }): string;
+  toCSV(options?: { selectedOnly?: boolean; scope?: ExportScope }): string;
   getState(): DataGridState;
   setState(state: Partial<DataGridState>): DataGridInstance;
   setRows(rows: DataRow[]): DataGridInstance;
@@ -522,6 +550,29 @@ export interface FormInstance {
   validate(): FormValidation;
   destroy(): void;
 }
+export interface FormOptions {
+  locale?: string;
+  dir?: "ltr" | "rtl";
+  messages?: Record<string, string>;
+  fields: FormField[];
+  values?: FormValues;
+  title?: string;
+  submitLabel?: string;
+  validate?: (values: FormValues) => Record<string, string>;
+  onChange?: (values: FormValues, state: { dirty: boolean }) => void;
+  onSubmit?: (
+    values: FormValues,
+    signal: AbortSignal,
+  ) =>
+    | void
+    | { errors?: Record<string, string> }
+    | Promise<void | { errors?: Record<string, string> }>;
+  validateAsync?: (
+    values: FormValues,
+    signal: AbortSignal,
+  ) => Promise<Record<string, string>>;
+  validationDelay?: number;
+}
 export const MuhitForm: Readonly<{
   normalizeFields(fields: FormField[]): FormField[];
   normalizeValues(fields: FormField[], values?: FormValues): FormValues;
@@ -530,27 +581,7 @@ export const MuhitForm: Readonly<{
     values: FormValues,
     options?: LocaleOptions,
   ): FormValidation;
-  mount(
-    host: Host,
-    options: {
-      locale?: string;
-      dir?: "ltr" | "rtl";
-      messages?: Record<string, string>;
-      fields: FormField[];
-      values?: FormValues;
-      title?: string;
-      submitLabel?: string;
-      validate?: (values: FormValues) => Record<string, string>;
-      onChange?: (values: FormValues, state: { dirty: boolean }) => void;
-      onSubmit?: (
-        values: FormValues,
-        signal: AbortSignal,
-      ) =>
-        | void
-        | { errors?: Record<string, string> }
-        | Promise<void | { errors?: Record<string, string> }>;
-    },
-  ): FormInstance;
+  mount(host: Host, options: FormOptions): FormInstance;
 }>;
 export interface PreferenceResult {
   config: ThemeConfig;
@@ -619,3 +650,48 @@ export interface AgentPlot {
   title: string;
   data: PlotData;
 }
+
+export const MuhitCSV: Readonly<{ cell(value: unknown): string }>;
+export interface Choice {
+  id: string;
+  label: string;
+}
+export const MuhitFields: Readonly<{
+  combobox(
+    host: Host,
+    options: LocaleOptions & {
+      label?: string;
+      value?: Choice | null;
+      delay?: number;
+      load: (query: string, signal: AbortSignal) => Promise<Choice[]>;
+      onChange?: (value: Choice | null) => void;
+    },
+  ): {
+    getValue(): Choice | null;
+    setValue(value: Choice | null): unknown;
+    destroy(): void;
+  };
+  repeater(
+    host: Host,
+    options: LocaleOptions & {
+      fields: FormField[];
+      title?: string;
+      groupLabel?: string;
+      values?: FormValues[];
+      min?: number;
+      max?: number;
+      onChange?: (values: FormValues[]) => void;
+      onSubmit?: (values: FormValues[], signal: AbortSignal) => Promise<void>;
+    },
+  ): {
+    getValues(): FormValues[];
+    setValues(values: FormValues[]): unknown;
+    validate(): {
+      valid: boolean;
+      values: FormValues[];
+      errors: Record<string, string>[];
+    };
+    submit(): Promise<void>;
+    destroy(): void;
+  };
+}>;

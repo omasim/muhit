@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-17T00:44:22.920Z",
-  "packageVersion": "0.8.0",
+  "date": "2026-10-17T20:31:20.636Z",
+  "packageVersion": "0.9.0",
   "results": [
     {
       "framework": "react",
@@ -49,6 +49,29 @@
       ]
     },
     {
+      "framework": "react",
+      "mode": "ssr",
+      "build": "passed",
+      "strictMode": true,
+      "passed": true,
+      "checks": [
+        "data update",
+        "column replacement",
+        "sorting",
+        "search",
+        "literal HTML text",
+        "pending timer cleanup",
+        "5 remount cycles",
+        "theme",
+        "390px/125%",
+        "keyboard",
+        "fonts",
+        "form controlled update/save/remount",
+        "widget tabs",
+        "no console/runtime errors"
+      ]
+    },
+    {
       "framework": "vue",
       "mode": "development",
       "build": "passed",
@@ -74,6 +97,29 @@
     {
       "framework": "vue",
       "mode": "production",
+      "build": "passed",
+      "strictMode": false,
+      "passed": true,
+      "checks": [
+        "data update",
+        "column replacement",
+        "sorting",
+        "search",
+        "literal HTML text",
+        "pending timer cleanup",
+        "5 remount cycles",
+        "theme",
+        "390px/125%",
+        "keyboard",
+        "fonts",
+        "form controlled update/save/remount",
+        "widget tabs",
+        "no console/runtime errors"
+      ]
+    },
+    {
+      "framework": "vue",
+      "mode": "ssr",
       "build": "passed",
       "strictMode": false,
       "passed": true,

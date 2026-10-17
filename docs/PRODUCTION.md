@@ -1,4 +1,4 @@
-# Muhit 0.7.0 — uygulama sözleşmeleri
+# Muhit 0.9.0 — uygulama sözleşmeleri
 
 ## Öncelikli düzeltmeler
 
@@ -33,7 +33,7 @@ grid.destroy();
 
 Uzaktan kullanımda `rows` yerine `load(state, signal)` verilir. Uygulama sağlayıcısı `{rows,total}` döndürür; arama, sıralama ve sayfalama sunucuda yapılmalıdır. `state`: query, sort, direction, page, pageSize. Sağlayıcı AbortSignal'i taşımalı; Muhit ayrıca eski yanıtları sürüm numarasıyla yok sayar. Bekleme, boş sonuç, hata ve yeniden dene görünümü vardır. `refresh()` tekrar yükler; `destroy()` isteği ve gecikmeli aramayı iptal eder. Muhit ağ adresi veya kimlik bilgisi yönetmez.
 
-10.000 satırlık yerel test, yalnız seçili sayfanın DOM'a yazıldığını denetler. Bu tüm cihazlar için performans garantisi değildir. 100.000 üstü veri yerel doğrulamada reddedilir; büyük veride sunucu sağlayıcısı kullanın. Grid yerel hücre düzenleme sunar; sanallaştırma, kolon boyutlandırma ve gruplama sunmaz. Bu özellikler gelecekte ayrı kapsamdır.
+10.000 satırlık yerel test, yalnız seçili sayfanın DOM'a yazıldığını denetler. Bu tüm cihazlar için performans garantisi değildir. 100.000 üstü veri yerel doğrulamada reddedilir; büyük veride sunucu sağlayıcısı kullanın. Grid yerel hücre düzenleme sunar; sütun boyutlandırma, sıralama ve sabitleme sunar; sanallaştırma ve gruplama sunmaz. Bu özellikler gelecekte ayrı kapsamdır.
 
 ## Framework yaşam döngüsü
 
@@ -53,3 +53,5 @@ npm pack --dry-run
 Yerel tarayıcı alternatifi: `MUHIT_CHROME=/.../Chrome`. Geliştirme ortamında Playwright başka yerdeyse `MUHIT_PLAYWRIGHT_MODULE` mutlak modül yolunu alabilir. Tüketici paketinde test araçları çalıştırma bağımlılığı değildir.
 
 0.7 form, genel tablo, grafik ve agent ayrıntıları: [sürüm rehberi](RELEASE-0.7.md).
+
+0.9 sözleşmeleri: RELEASE-0.9.md, FRAMEWORKS-0.9.md, ADVANCED-FORMS.md ve RELEASE-POLICY.md. Manuel erişilebilirlik durumu ACCESSIBILITY-MANUAL.md içinde ayrıca izlenir.

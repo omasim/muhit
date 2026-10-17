@@ -1,0 +1,40 @@
+{
+  "platform": "darwin",
+  "engine": "chromium",
+  "browser": "155.0.8059.84",
+  "updated": false,
+  "cases": [
+    {
+      "name": "light",
+      "sha256": "21bbdd71c8c111183d760239ec80d444b315fdf2128a4e7fa112c51195532e24"
+    },
+    {
+      "name": "dark",
+      "sha256": "2df9217d0e80070a58dafae394173a751ab360359fd55d716216ccd30726ed8f"
+    },
+    {
+      "name": "compact",
+      "sha256": "d66ad9f634a17cad573d3260ee0b630475055ca75115b30486c303478937faef"
+    },
+    {
+      "name": "large-rtl",
+      "sha256": "ba923cd8893e4a42a12b47131b23d81453419ebee6804ea44ed768bb06e4c52a"
+    },
+    {
+      "name": "custom",
+      "sha256": "a7528d193b4d0e025d5b9fd232cbe5981c34e703cc93297c17d012556bb2d208"
+    },
+    {
+      "name": "loading",
+      "sha256": "4d8d09113110f7e3af24ef067ffe759270c71c81d4dbfc910a940140f53f9fcf"
+    },
+    {
+      "name": "empty",
+      "sha256": "5143d9a81b3f3481938677665831944b0c2fdabee1e071d04dea53d86cce5b09"
+    },
+    {
+      "name": "error",
+      "sha256": "0d6a5307851f99579cf2b248d3b563b8f697ca4ff2399435577dd67b2a47ce81"
+    }
+  ]
+}

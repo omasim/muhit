@@ -876,6 +876,7 @@
         ]);
       });
       function cellText(cell) {
+        if(global.MuhitCSV)return global.MuhitCSV.cell(cell);
         var value = String(cell);
         // Spreadsheet programs must interpret caller-provided strings as text.
         if (

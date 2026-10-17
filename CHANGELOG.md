@@ -1,3 +1,7 @@
+## 0.9.0
+
+P1 dil/görünüm/CSV düzeltmeleri; 44 px seçim hedefleri; genişletilmiş framework adaptörleri ve SSR/hydration; async doğrulama, alan grupları, uzak combobox; agent olayları; görsel referanslar ve tek kaynaklı yetenek belgesi. Geçişler: docs/RELEASE-0.9.md.
+
 ## 0.8.0
 
 İleri sütun düzeni, ortak i18n ve RTL desteği, odak/kontrast düzeltmeleri ve üç tarayıcılı erişilebilirlik testi. Ayrıntılar: docs/RELEASE-0.8.md.

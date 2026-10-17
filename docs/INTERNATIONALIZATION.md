@@ -25,3 +25,5 @@ MuhitI18n.setLocale('en-US'); // Sonraki oluşturulan bağlam ve bileşenler iç
 Katalog anahtarları kaynak metindir; değişken metinler `{label}` ve `{count}` gibi yer tutucular kullanır. Mesajlar HTML değildir. Her bağlam katalog ve seçeneklerin kopyasını alır; bir bileşenin dili başka bir bileşeni değiştirmez. `setLocale` mevcut bileşenleri otomatik yeniden çizmez. Dil değiştirmek için mevcut form değerlerini/tablo durumunu alıp yeni dil ile yeniden mount edin. [Çalışan örnek](../examples/international.html) bu akışta form taslağını ve sütun düzenini korur. SSR import DOM gerektirmez; istek başına farklı dil için global varsayılan yerine açık locale kullanın.
 
 Klasik script kullanımında `src/i18n.js` dosyasını bileşenlerden önce yükleyin. ESM alt girişleri bağımlılığı otomatik alır. Uygulama belge kökündeki `lang` ve `dir` değerlerini de güncellemelidir. Muhit kendi bileşen köklerinde bunları yazar; uygulama belgesini değiştirmez.
+
+0.9: bölgesel katalog ana dilin üzerine birleştirilir; bileşen messages son önceliktedir. Grid setState locale değişimini kabul etmez. getView/restoreView ile dili değiştirirken görünürlük ve seçimi de koruyun.

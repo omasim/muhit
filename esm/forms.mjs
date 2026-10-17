@@ -263,7 +263,7 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
     const t = translator(options);
     const fields = fieldsOf(options.fields);
     const initial = representable(fields, options.values);
-    for (const key of ["onChange", "validate"])
+    for (const key of ["onChange", "validate", "validateAsync"])
       if (options[key] !== undefined && typeof options[key] !== "function")
         throw new TypeError(key + " işlev olmalı.");
     if (
@@ -275,6 +275,13 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
       typeof target === "string" ? document.querySelector(target) : target;
     if (!host || host.nodeType !== 1)
       throw new TypeError("Form kapsayıcısı gerekli.");
+    const validationDelay = options.validationDelay ?? 300;
+    if (
+      !Number.isFinite(validationDelay) ||
+      validationDelay < 0 ||
+      validationDelay > 10000
+    )
+      throw new TypeError("Invalid validation delay");
     instances.get(host)?.destroy();
     const doc = host.ownerDocument;
     const el = (tag, cls, text) => {
@@ -309,7 +316,55 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
     actions.append(submit, reset);
     root.append(title, summary, group, actions, status);
     const controls = new Map();
-    let serverErrors = {};
+    let serverErrors = {},
+      asyncErrors = {},
+      validationController,
+      validationTimer,
+      validationRevision = 0;
+    function cancelValidation() {
+      ++validationRevision;
+      clearTimeout(validationTimer);
+      validationController?.abort();
+    }
+    async function remoteErrors(values, signal) {
+      const result = (await options.validateAsync({ ...values }, signal)) || {};
+      if (
+        !result ||
+        typeof result !== "object" ||
+        Array.isArray(result) ||
+        Object.entries(result).some(
+          ([key, v]) =>
+            !fields.some((f) => f.name === key) || typeof v !== "string",
+        )
+      )
+        throw new TypeError("Invalid validation errors");
+      return result;
+    }
+    function scheduleValidation() {
+      cancelValidation();
+      asyncErrors = {};
+      if (!options.validateAsync) return;
+      const current = validationRevision;
+      validationTimer = setTimeout(async () => {
+        const result = validate(fields, read(), options);
+        if (!result.valid) return;
+        validationController = new AbortController();
+        try {
+          const next = await remoteErrors(
+            result.values,
+            validationController.signal,
+          );
+          if (dead || current !== validationRevision) return;
+          asyncErrors = next;
+          showErrors({ ...check().errors, ...next });
+        } catch {
+          if (!dead && current === validationRevision)
+            status.textContent = t(
+              "Doğrulama tamamlanamadı. Kaydederken yeniden denenecek.",
+            );
+        }
+      }, validationDelay);
+    }
     let baseline = initial,
       dead = false,
       busy = false,
@@ -409,7 +464,7 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
           throw new TypeError("Özel doğrulama alan hata nesnesi döndürmeli.");
         Object.assign(result.errors, extra);
       }
-      Object.assign(result.errors, serverErrors);
+      Object.assign(result.errors, asyncErrors, serverErrors);
       result.valid = !Object.keys(result.errors).length;
       return result;
     }
@@ -441,6 +496,8 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
       }
     }
     function abort() {
+      cancelValidation();
+      asyncErrors = {};
       revision++;
       controller?.abort();
       busy = false;
@@ -451,6 +508,8 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
     async function send(event) {
       event.preventDefault();
       if (dead || busy) return;
+      cancelValidation();
+      asyncErrors = {};
       const result = check();
       showErrors(result.errors);
       status.textContent = "";
@@ -472,6 +531,17 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
       controller = new AbortController();
       const current = ++revision;
       try {
+        if (options.validateAsync) {
+          const next = await remoteErrors(result.values, controller.signal);
+          if (dead || current !== revision) return;
+          if (Object.keys(next).length) {
+            asyncErrors = next;
+            showErrors(next);
+            summary.focus();
+            status.textContent = "";
+            return;
+          }
+        }
         const response = await options.onSubmit(
           { ...result.values },
           controller.signal,
@@ -513,6 +583,8 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
     const onInput = (event) => {
       if (dead) return;
       delete serverErrors[event.target.name];
+      asyncErrors = {};
+      scheduleValidation();
       syncVisibility();
       for (const f of fields)
         if (!visible(f, read())) delete serverErrors[f.name];
@@ -543,6 +615,7 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
       setValues(input) {
         if (dead) throw new Error("Form kaldırıldı.");
         const values = representable(fields, input);
+        if (JSON.stringify(values) === JSON.stringify(read())) return api;
         abort();
         write(values);
         serverErrors = {};

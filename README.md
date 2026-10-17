@@ -1,12 +1,12 @@
-## 0.8 · Sütun düzeni, dil ve erişilebilirlik
+## 0.9 · Kontrollü durum, gelişmiş alanlar ve doğrulama
 
-[Çalışan dil/sütun örneği](examples/international.html) · [Sütun API](docs/COLUMN-LAYOUT.md) · [Dil API](docs/INTERNATIONALIZATION.md) · [Sürüm notları](docs/RELEASE-0.8.md)
+[Çalışan dil/sütun örneği](examples/international.html) · [Sütun API](docs/COLUMN-LAYOUT.md) · [Dil API](docs/INTERNATIONALIZATION.md) · [Sürüm notları](docs/RELEASE-0.9.md) · [Gelişmiş alanlar](examples/advanced.html) · [Görsel katalog](examples/visual-catalog.html)
 
 [![Verify Muhit](https://github.com/omasim/muhit/actions/workflows/verify.yml/badge.svg)](https://github.com/omasim/muhit/actions/workflows/verify.yml)
 
 # Muhit UI
 
-**0.7.0 · HTML, CSS ve JavaScript ile tema uyarlayan bileşenler.**
+**0.9.0 · HTML, CSS ve JavaScript ile tema uyarlayan bileşenler.**
 
 Muhit; kartları, formları, tabloları ve grafikleri ortak bir görsel dille kurmanıza yardımcı olur. Klasik script olarak derleme olmadan çalışır; ESM girişi ve TypeScript tanımları da bulunur. Tema yapılandırması renk, yazı ailesi, yoğunluk, köşe, metin ölçeği ve hareket tercihini birlikte yönetir. JSON şemasına uyan bir görünüm, aynı bileşenlerle güvenilir biçimde çizilir.
 
@@ -29,7 +29,7 @@ npm pack
 Oluşan arşivi kendi projenizin klasöründe kurun:
 
 ```sh
-npm install /tam/yol/muhit-ui/muhit-ui-0.7.0.tgz
+npm install /tam/yol/muhit-ui/muhit-ui-0.9.0.tgz
 ```
 
 `npm pack`, kaynak modüllerini, stilleri, şemaları, tipleri, fontları ve kullanım örneklerini içerir. Tema stüdyosunun kök önizlemesi ve test dosyaları dağıtımın parçası değildir. `npm run check` Node ortamında ESM girişini yükler; tarayıcı etkileşim testlerinin yerine geçmez.
@@ -194,4 +194,4 @@ Kontrast/filtre/sabit başlık düzeltmeleri, kart durumları, agent sayfaları,
 `MuhitForm` doğrulanmış alanlar, asenkron kayıt, hata özeti, sıfırlama ve temizleme sağlar. `MuhitPreferences` tema tercihlerinin isteğe bağlı yerel saklanmasını yönetir. [Rehber](docs/FORMS.md) · [Çalışan ayarlar sayfası](examples/settings.html) · [Kapsam ve kalan işler](docs/COVERAGE.md).
 
 
-0.7 güncel sözleşme ve sınırlar: [RELEASE-0.7.md](docs/RELEASE-0.7.md).
+Güncel sözleşme ve sınırlar: [RELEASE-0.9.md](docs/RELEASE-0.9.md).

@@ -1,6 +1,8 @@
 # Muhit — logo ve kullanım
 
-**Görsel kimlik 3.1 · Muhit UI 0.3.1**
+**Görsel kimlik 3.1 · sabit**
+
+Marka dosyalarındaki libraryVersion 0.3.1, kimliğin sabitlendiği paket sürümünü kaydeder. Güncel kütüphane sürümü package.json içindedir; logo sürümü bağımsızdır.
 
 Muhit adı, doğa ve çevreyle ilişkisi nedeniyle kullanıcı tarafından seçildi. Kütüphanenin yaklaşımı insanı çevresinden ayrı düşünmez: iyi bir arayüz, insanlara ortak bir alanda anlaşılır biçimde çalışma imkânı verir.
 

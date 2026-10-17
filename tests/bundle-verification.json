@@ -1,6 +1,6 @@
 {
   "forms": {
-    "bytes": 15634,
+    "bytes": 16761,
     "inputs": [
       "esm/i18n.mjs",
       "esm/forms.mjs",
@@ -8,17 +8,19 @@
     ]
   },
   "plot": {
-    "bytes": 10173,
+    "bytes": 10815,
     "inputs": [
       "esm/i18n.mjs",
+      "esm/csv.mjs",
       "esm/plot.mjs",
       "<stdin>"
     ]
   },
   "data-grid": {
-    "bytes": 20658,
+    "bytes": 24171,
     "inputs": [
       "esm/i18n.mjs",
+      "esm/csv.mjs",
       "esm/data-grid.mjs",
       "<stdin>"
     ]

@@ -102,6 +102,7 @@
         saved = JSON.parse(localStorage.getItem("muhit-column-demo") || "null");
       } catch {}
       function render() {
+        const view=grid?.getView();
         const layout = grid?.getColumnLayout() || saved;
         const values = form?.getValues() || { name: "", email: "" };
         const state = grid?.getState();
@@ -156,7 +157,8 @@
           saved = null;
           grid = Grid.mount("#records", options);
         }
-        form = Form.mount("#editor", {
+        if(view)grid.restoreView(view);
+      form = Form.mount("#editor", {
           locale,
           dir,
           title: text("Çalışma notu", "Work note"),

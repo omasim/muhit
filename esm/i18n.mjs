@@ -7,6 +7,8 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
 (function (global) {
   "use strict";
   const english = {
+    "Doğrulama tamamlanamadı. Kaydederken yeniden denenecek.":
+      "Validation could not finish. It will retry on submit.",
     "Komut ara ⌕": "Search commands ⌕",
     Bilgiler: "Information",
     Kaydet: "Save",
@@ -85,7 +87,8 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
     )
       throw new TypeError("Messages must contain strings");
     const dictionary = {
-      ...(catalogs.get(locale) || catalogs.get(lang) || {}),
+      ...(catalogs.get(lang) || {}),
+      ...(catalogs.get(locale) || {}),
       ...messages,
     };
     const dir = options.dir || (/^(ar|fa|he|ur)$/.test(lang) ? "rtl" : "ltr");

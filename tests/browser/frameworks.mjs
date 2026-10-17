@@ -94,18 +94,59 @@ try {
     const vite = await import(
       pathToFileURL(path.join(app, "node_modules/vite/dist/node/index.js")).href
     );
-    for (const mode of ["development", "production"]) {
+    await writeFile(
+      path.join(app, "ssr-entry.ts"),
+      framework === "react"
+        ? "import React from 'react';import {renderToString} from 'react-dom/server';import App from './src/App';export const render=()=>renderToString(React.createElement(App));"
+        : "import {createSSRApp} from 'vue';import {renderToString} from 'vue/server-renderer';import App from './src/App.vue';export const render=()=>renderToString(createSSRApp(App));",
+    );
+    for (const mode of ["development", "production", "ssr"]) {
       const server =
-        mode === "development"
+        mode !== "production"
           ? await vite.createServer({
               root: app,
+              plugins:
+                mode === "ssr"
+                  ? [
+                      {
+                        name: "muhit-ssr-test",
+                        configureServer(server) {
+                          server.middlewares.use(
+                            "/ssr",
+                            async (req, res, next) => {
+                              try {
+                                const entry =
+                                  await server.ssrLoadModule("/ssr-entry.ts");
+                                const html = await entry.render();
+                                const template = await readFile(
+                                  path.join(app, "index.html"),
+                                  "utf8",
+                                );
+                                const output = await server.transformIndexHtml(
+                                  "/",
+                                  template.replace(
+                                    '<div id="root"></div>',
+                                    '<div id="root">' + html + "</div>",
+                                  ),
+                                );
+                                res.setHeader("Content-Type", "text/html");
+                                res.end(output);
+                              } catch (e) {
+                                next(e);
+                              }
+                            },
+                          );
+                        },
+                      },
+                    ]
+                  : [],
               server: { host: "127.0.0.1", port: 0, strictPort: false },
             })
           : await vite.preview({
               root: app,
               preview: { host: "127.0.0.1", port: 0, strictPort: false },
             });
-      if (mode === "development") await server.listen();
+      if (mode !== "production") await server.listen();
       const url = server.resolvedUrls.local[0];
       const page = await browser.newPage({
         viewport: { width: 1440, height: 1000 },
@@ -123,7 +164,7 @@ try {
         }
       });
       try {
-        await page.goto(url);
+        await page.goto(mode === "ssr" ? url + "ssr" : url);
         await page.locator(".mh-data-grid tbody tr").first().waitFor();
         assert.equal(await page.locator(".mh-data-grid").count(), 1);
         assert.equal(await page.locator("tbody tr").count(), 2);
@@ -195,22 +236,22 @@ try {
           return document.fonts.check("14px Manrope");
         });
         assert.ok(font);
-        await page.getByRole('button',{name:'Profili güncelle'}).click();
-        assert.equal(await page.getByLabel('Adınız *').inputValue(),'Deniz');
-        await page.getByRole('button',{name:'Kaydet',exact:true}).click();
-        await page.getByText('Örnek kayıt: Deniz',{exact:true}).waitFor();
-        await page.getByRole('button',{name:'Formu kaldır'}).click();
-        assert.equal(await page.locator('.mh-form').count(),0);
-        await page.getByRole('button',{name:'Formu aç'}).click();
-        assert.equal(await page.locator('.mh-form').count(),1);
-        await page.getByRole('tab',{name:'Ayrıntı'}).click();
-        await page.getByText('İnsan ve doğa uyumu.',{exact:true}).waitFor();
+        await page.getByRole("button", { name: "Profili güncelle" }).click();
+        assert.equal(await page.getByLabel("Adınız *").inputValue(), "Deniz");
+        await page.getByRole("button", { name: "Kaydet", exact: true }).click();
+        await page.getByText("Örnek kayıt: Deniz", { exact: true }).waitFor();
+        await page.getByRole("button", { name: "Formu kaldır" }).click();
+        assert.equal(await page.locator(".mh-form").count(), 0);
+        await page.getByRole("button", { name: "Formu aç" }).click();
+        assert.equal(await page.locator(".mh-form").count(), 1);
+        await page.getByRole("tab", { name: "Ayrıntı" }).click();
+        await page.getByText("İnsan ve doğa uyumu.", { exact: true }).waitFor();
         assert.deepEqual(errors, []);
         report.results.push({
           framework,
           mode,
           build: "passed",
-          strictMode: framework === "react" && mode === "development",
+          strictMode: framework === "react" && mode !== "production",
           passed: true,
           checks: [
             "data update",
@@ -223,7 +264,9 @@ try {
             "theme",
             "390px/125%",
             "keyboard",
-            "fonts", "form controlled update/save/remount", "widget tabs",
+            "fonts",
+            "form controlled update/save/remount",
+            "widget tabs",
             "no console/runtime errors",
           ],
         });
@@ -240,7 +283,7 @@ try {
     JSON.stringify(report, null, 2) + "\n",
   );
   console.log(
-    "PASS React and Vue: typecheck/build + development/production browser flows against installed TGZ.",
+    "PASS React and Vue: typecheck/build + development/production/SSR hydration browser flows against installed TGZ.",
   );
 } finally {
   await browser?.close();

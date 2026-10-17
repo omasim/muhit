@@ -1,6 +1,6 @@
 # Muhit UI
 
-> Framework bağımsız HTML/CSS/JavaScript bileşenleri, semantik temalar ve doğrulanan JSON görünümleri. Paket 0.7.0; yerel kaynak dağıtımı.
+> Framework bağımsız HTML/CSS/JavaScript bileşenleri, semantik temalar ve doğrulanan JSON görünümleri. Paket 0.9.0; yerel kaynak dağıtımı.
 
 ## Önce okunacak kaynaklar
 
@@ -33,9 +33,11 @@ Migration from the prior working name: docs/MIGRATION.md.
 
 Approved identity: Muhit 3.1, locked. Use assets/brand/muhit-logo.svg and muhit-symbol.svg unchanged. Read assets/brand/brand-lock.json and docs/BRAND.md. Change geometry only on explicit user request, as a new preserved version.
 
-0.7.0: Optional UISpec.page and card variant/state/meta are validated. MuhitDataGrid is a separate imperative generic table API; it is NOT a new agent component kind. Read docs/PRODUCTION.md and examples/rich-agent.json. Use npm run verify for packaged regression tests. React/Vue host examples live under examples/react and examples/vue.
+0.7.0: Optional UISpec.page and card variant/state/meta are validated. MuhitDataGrid is available as an imperative API and as the datagrid agent kind. Read docs/PRODUCTION.md and examples/rich-agent.json. Use npm run verify for packaged regression tests. React/Vue host examples live under examples/react and examples/vue.
 
 Forms: docs/FORMS.md; schemas/form.schema.json; MuhitForm also renders via schemaVersion 1.1.0 form kind; datagrid and plot are supported too.
 Preferences: MuhitPreferences.create; explicit local save only. Coverage and limits: docs/COVERAGE.md.
 
 0.8: docs/COLUMN-LAYOUT.md ve docs/INTERNATIONALIZATION.md. Layout tüm anahtarları bir kez içerir; width 120–800, pin null/start/end. Locale seçenekleri uygulama metnini çevirmeden bileşen metinlerini belirler.
+
+0.9: Current capability source: schemas/capabilities.json. Read docs/ADVANCED-FORMS.md, docs/FRAMEWORKS-0.9.md and docs/RELEASE-POLICY.md. Grid locale is immutable per mount; preserve user view via getView/restoreView. Remote full/selected CSV export requires exportRows. Fields provide combobox/repeater; forms support abortable validateAsync.

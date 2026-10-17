@@ -305,11 +305,10 @@
       });
   }
   function csvCell(value) {
-    var text = String(value);
-    // Keep spreadsheet applications from interpreting exported text as a formula.
-    if (/^[\s]*[=+\-@]/.test(text)) text = "'" + text;
-    return '"' + text.replace(/"/g, '""') + '"';
+    if(global.MuhitCSV)return global.MuhitCSV.cell(value);
+    let text=String(value??'');if(/^[\s]*[=+@\-]/.test(text)||/^[\t\r\n]/.test(text))text="'"+text;return '"'+text.replaceAll('"','""')+'"';
   }
+
   function toCSV(rows, demo) {
     var lines = [
       [

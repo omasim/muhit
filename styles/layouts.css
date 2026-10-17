@@ -301,3 +301,7 @@
 .mh-scope .mh-grid-pinned { z-index:1; background:var(--mh-surface); box-shadow:inset 1px 0 var(--mh-border),inset -1px 0 var(--mh-border); }
 .mh-scope .mh-data-grid__scroll td { overflow-wrap:anywhere; }
 .mh-scope .mh-data-grid__scroll th { white-space:normal; }
+
+.mh-scope .mh-grid-check {display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;cursor:pointer;}
+.mh-scope .mh-data-grid .mh-grid-check input[type=checkbox] {min-width:24px;min-height:24px;width:24px;height:24px;cursor:pointer;margin:0;}
+.mh-scope .mh-grid-columns .mh-check {min-height:44px;}

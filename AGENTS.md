@@ -1,6 +1,6 @@
 # Muhit UI için çalışma kuralları
 
-Bu paketle arayüz hazırlarken önce `schemas/ui.schema.json`, `schemas/theme.schema.json` ve `schemas/components.json` kaynaklarını okuyun. Çalışan API imzaları `types/index.d.ts`, insan odaklı kullanım örnekleri `README.md` içindedir. Tema sürümü `1`, görünüm şeması `1.1.0` (eski `1.0.0` desteklenir), paket sürümü `0.8.0` farklı sözleşmelerdir.
+Bu paketle arayüz hazırlarken önce `schemas/ui.schema.json`, `schemas/theme.schema.json` ve `schemas/components.json` kaynaklarını okuyun. Çalışan API imzaları `types/index.d.ts`, insan odaklı kullanım örnekleri `README.md` içindedir. Tema sürümü `1`, görünüm şeması `1.1.0` (eski `1.0.0` desteklenir), paket sürümü `0.9.0` farklı sözleşmelerdir.
 
 - Agent görünümü yalnız şemalarda tanımlı 18 bileşen türünden oluşur. Bilinmeyen alan eklemeyin. JSON'u `MuhitAgent.validate` ile denetleyin; başarısız sonucu arayüzün başarılı üretimi olarak raporlamayın.
 - Eylemleri `{id,label}` olarak tanımlayın. Eylemin yapılması gerçek kullanıcı tıklaması ve uygulamanın `onAction` işleyicisine bağlıdır. JSON içine işlev, HTML, URL veya çalıştırılabilir kod eklemeyin.
@@ -35,3 +35,5 @@ Onaylı Muhit logosu **3.1** sürümüdür. Ana dosya `assets/brand/muhit-logo.s
 ## 0.6 form ve tercih API’leri
 
 `MuhitForm` için `schemas/form.schema.json` ve `docs/FORMS.md` kullanın. 1.1.0 şemasında form, datagrid ve plot türleri de kullanılabilir. Kayıt callback’i yoksa veri kaydedilmiş sayılmaz. `MuhitPreferences` yalnız açık save çağrısıyla yerel tema tercihlerini saklar; kişisel form verilerini bu depoya koymayın.
+
+0.9: schemas/capabilities.json güncel yetenek kaynağıdır; docs/COVERAGE.md bu kaynaktan üretilir. Yeni form bağlantıları docs/ADVANCED-FORMS.md içinde. Grid locale mount seçeneğidir; dil değişiminde getView/restoreView kullanın. Uzak CSV kapsamını açıkça belirtin.

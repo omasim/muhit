@@ -20,6 +20,9 @@ jobs:
       - run: npm run test:extended
         env:
           MUHIT_BROWSER: ${{ matrix.browser }}
+      - run: npm run test:release
+        env:
+          MUHIT_BROWSER: ${{ matrix.browser }}
       - run: npm run test:accessibility
         env:
           MUHIT_BROWSER: ${{ matrix.browser }}
@@ -27,8 +30,12 @@ jobs:
         run: npm run verify:all
       - if: matrix.browser == 'chromium'
         run: npm --prefix examples/react ci && npm run test:bundles && npm pack --dry-run
+      - if: matrix.browser == 'chromium'
+        run: MUHIT_UPDATE_VISUAL=1 npm run test:visual
       - uses: actions/upload-artifact@v7.0.2
         if: always()
         with:
           name: verification-${{ matrix.browser }}
-          path: tests/*verification*.json
+          path: |
+            tests/*verification*.json
+            tests/visual/linux-chromium/*.png

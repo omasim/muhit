@@ -1,3 +1,15 @@
+# 0.9.0 · 17 Ekim 2026
+
+62 Node testi, sabit 14 logo kontrolü ve modül boyut bütçeleri geçti. Chromium tam doğrulaması; Firefox/WebKit yeni sürüm ve erişilebilirlik akışları geçti. React ve Vue, paketlenmiş TGZ tüketicilerinde tip kontrolü, üretim derlemesi, geliştirme/üretim ve uygulama kabuğu SSR hydration testlerini geçti. İç tablo satırları sunucuda çizilmez; istemci mount eder.
+
+Sekiz görsel durumun macOS/Chromium PNG referansları karşılaştırıldı: açık, koyu, sık, 390px/RTL/büyük yazı, özel tema, yükleniyor, boş ve hata. Açık ve dar/RTL ekran görüntüleri ayrıca incelendi. Görsel eşik: kanal farkı 16 üzerinde olan piksellerin oranı en fazla %0,01. Aynı boyut zorunlu. Platformlar arasında aynı referans kullanılmaz.
+
+Uzak arama, grup ekleme/kaydetme, async doğrulamada iptal/eski yanıt, agent tablo olayları, snapshot, CSV kapsamı, 44px hedef ve axe kontrolleri yeni sürüm testinde yer alır. Başarısız form yeniden kurulumunda eski görünüm korunur.
+
+Manuel VoiceOver/NVDA/JAWS ve fiziksel mobil cihaz kontrolleri yapılmadı; docs/ACCESSIBILITY-MANUAL.md açık kabul listesidir. npm yayını yapılmadı. Uzak CI bilgisi tests/verification-0.9.json içinde güncellenir.
+
+---
+
 # 0.7.0 — 17 Ekim 2026
 
 - 56 Node testi ve 14 sabit logo dosyasının özeti geçti.

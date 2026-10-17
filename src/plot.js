@@ -100,12 +100,14 @@
   }
   function csv(input) {
     const d = normalize(input),
-      cell = (v) =>
-        '"' +
-        String(v ?? "")
-          .replace(/^[=+@\-\t\r]/, "'$&")
-          .replaceAll('"', '""') +
-        '"';
+      cell =
+        global.MuhitCSV?.cell ||
+        ((v) =>
+          '"' +
+          String(v ?? "")
+            .replace(/^[\s\u0000-\u001f\u007f\uFEFF]*[=+@\-]/, "'$&")
+            .replaceAll('"', '""') +
+          '"');
     return (
       "\uFEFF" +
       [

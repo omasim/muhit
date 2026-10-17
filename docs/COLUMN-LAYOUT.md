@@ -23,3 +23,9 @@ Düzen bütün sütun anahtarlarını tam bir kez içermelidir. Genişlik 120–
 Görsel sıra, DOM/ekran okuyucu sırası ve CSV sırası aynıdır. Gizlenen sabit sütunlar ofset hesabından çıkarılır. Sabitleme tablo içindeki yatay kaydırma alanıyla sınırlıdır. Sütun düzeni ve seçim değişiklikleri uzaktaki veri sağlayıcısını yeniden çağırmaz. API kendiliğinden depolama yapmaz; örnekteki **Sütun düzenini sakla** eylemi yalnız düzeni localStorage'a yazar. Kişisel kayıtlar saklanmaz.
 
 Yerel hücre düzenlemesi ve seçim klavye odağını korur. Asenkron veri yenilenirken kullanıcı başka bir kontrole geçtiyse odağı geri almaz. Dar ekranlarda geniş tablo kendi alanında yatay kayar.
+
+## 0.9 görünüm kaydı
+
+getView() sürüm 1, layout, visible, state ve selected döndürür. restoreView(snapshot) güncel kolon/yerel satır kimlikleriyle uzlaştırır; yeni sütunları görünür ekler, kaldırılmış anahtarları ayıklar. Uzak seçili kimliklerin varlığını sunucu doğrular. getVisibleColumns/setSelected da vardır. Locale yeni mount seçeneğinden korunur. restoreView mevcut veriyi kaydetmez.
+
+CSV: toCSV({scope:"page"}) mevcut sayfa; yerel veride scope:"filtered" veya "selected" kullanılabilir. Uzak veride bu iki kapsam exportCSV + exportRows({scope,state,selected},signal) ister. Sağlayıcı tüm istenen kayıtları döndürmelidir. İptal/destroy eski sonucu kullanıma sunmaz.

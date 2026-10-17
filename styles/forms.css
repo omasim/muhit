@@ -49,3 +49,6 @@
 
 .mh-scope button.mh-text-link { background:transparent; border:0; color:var(--mh-link); font:inherit; min-height:44px; padding:8px; text-align:start; cursor:pointer; text-decoration:underline; }
 .mh-scope button.mh-text-link:focus-visible { outline:3px solid var(--mh-focus); outline-offset:2px; }
+.mh-scope .mh-combobox-list{list-style:none;margin:0;padding:4px;border:1px solid var(--mh-border);border-radius:var(--mh-radius-sm);background:var(--mh-surface);max-height:280px;overflow:auto}
+.mh-scope .mh-combobox-list [role=option]{min-height:44px;padding:12px;cursor:pointer;overflow-wrap:anywhere}
+.mh-scope .mh-combobox-list [aria-selected=true]{background:var(--mh-accent);color:var(--mh-on-accent)}

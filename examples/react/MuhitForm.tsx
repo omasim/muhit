@@ -1,45 +1,60 @@
 import { useEffect, useRef } from "react";
-import {
-  MuhitForm as Forms,
-  type FormField,
-  type FormValues,
-  type FormInstance,
-} from "muhit-ui";
-type Submit = (
-  values: FormValues,
-  signal: AbortSignal,
-) => Promise<void | { errors?: Record<string, string> }>;
-export function MuhitForm({
-  fields,
-  values,
-  onSubmit,
-}: {
-  fields: FormField[];
-  values: FormValues;
-  onSubmit: Submit;
-}) {
+import { MuhitForm as Forms, type FormInstance } from "muhit-ui";
+export type MuhitFormProps = Parameters<typeof Forms.mount>[1] & {
+  onReady?: (form: FormInstance) => void;
+};
+export function MuhitForm(props: MuhitFormProps) {
   const host = useRef<HTMLDivElement>(null),
-    instance = useRef<FormInstance | null>(null),
-    submit = useRef(onSubmit);
+    form = useRef<FormInstance | null>(null),
+    latest = useRef(props),
+    draft = useRef<ReturnType<FormInstance["getValues"]> | null>(null);
   useEffect(() => {
-    submit.current = onSubmit;
-  }, [onSubmit]);
+    latest.current = props;
+  });
   useEffect(() => {
     if (!host.current) return;
-    const form = Forms.mount(host.current, {
-      title: "Profil",
-      fields,
+    const p = latest.current;
+    let values = draft.current || p.values;
+    try {
+      Forms.normalizeValues(p.fields, values);
+    } catch {
+      values = p.values;
+    }
+    const instance = Forms.mount(host.current, {
+      ...p,
       values,
-      onSubmit: (values, signal) => submit.current(values, signal),
+      onSubmit: p.onSubmit
+        ? (v, s) => latest.current.onSubmit?.(v, s)
+        : undefined,
+      onChange: (v, s) => latest.current.onChange?.(v, s),
+      validate: p.validate
+        ? (v) => latest.current.validate?.(v) || {}
+        : undefined,
+      validateAsync: p.validateAsync
+        ? (v, s) => latest.current.validateAsync?.(v, s) || Promise.resolve({})
+        : undefined,
     });
-    instance.current = form;
+    form.current = instance;
+    p.onReady?.(instance);
     return () => {
-      form.destroy();
-      instance.current = null;
+      draft.current = instance.getValues();
+      instance.destroy();
+      form.current = null;
     };
-  }, [fields]);
+  }, [
+    props.fields,
+    props.locale,
+    props.dir,
+    props.messages,
+    props.title,
+    props.submitLabel,
+    props.validationDelay,
+    !!props.onSubmit,
+    !!props.validate,
+    !!props.validateAsync,
+  ]);
   useEffect(() => {
-    instance.current?.setValues(values);
-  }, [values, fields]);
+    if (props.values) form.current?.setValues(props.values);
+  }, [props.values, props.fields]);
   return <div ref={host} />;
 }

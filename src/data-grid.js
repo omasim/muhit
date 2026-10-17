@@ -148,6 +148,7 @@
       "onSelectionChange",
       "onRowsChange",
       "onColumnLayoutChange",
+      "exportRows",
     ])
       if (options[key] !== undefined && typeof options[key] !== "function")
         throw new TypeError(key + " must be a function");
@@ -176,6 +177,10 @@
         throw new TypeError("Geçersiz sütun filtresi.");
       if (typeof s.locale !== "string") throw new TypeError("Geçersiz locale.");
       new Intl.NumberFormat(s.locale);
+      if (s.locale !== locale)
+        throw new TypeError(
+          "Locale is a mount option; remount with getView()/restoreView() to change language.",
+        );
       if (
         typeof s.query !== "string" ||
         s.query.length > 500 ||
@@ -188,6 +193,7 @@
         throw new TypeError("Geçersiz tablo durumu.");
       return { ...s, filters: { ...s.filters } };
     }
+    const exportControllers = new Set();
     let state = validateState(initial),
       destroyed = false,
       serial = 0,
@@ -339,7 +345,9 @@
         selectionChanged();
         syncSelection();
       };
-      th.append(allSelect);
+      const target = node("label", "mh-grid-check");
+      target.append(allSelect);
+      th.append(target);
       hr.append(th);
     }
     columns.forEach((c) => {
@@ -544,7 +552,7 @@
       selectedLabel.textContent = options.selectable
         ? t(
             `${selected.size} kayıt seçili`,
-            `${selected.size} records selected`,
+            `${selected.size} ${selected.size === 1 ? "record" : "records"} selected`,
           )
         : "";
       if (allSelect) {
@@ -562,7 +570,9 @@
       options.onStateChange?.({ ...state, filters: { ...state.filters } });
     }
     function change(patch) {
-      state = validateState({ ...state, ...patch });
+      const next = validateState({ ...state, ...patch });
+      if (JSON.stringify(next) === JSON.stringify(state)) return;
+      state = next;
       search.value = state.query;
       size.value = state.pageSize;
       notify();
@@ -605,7 +615,7 @@
         selectedLabel.textContent = options.selectable
           ? t(
               `${selected.size} kayıt seçili`,
-              `${selected.size} records selected`,
+              `${selected.size} ${selected.size === 1 ? "record" : "records"} selected`,
             )
           : "";
         if (allSelect) {
@@ -633,7 +643,9 @@
               selectionChanged();
               syncSelection();
             };
-            td.append(check);
+            const target = node("label", "mh-grid-check");
+            target.append(check);
+            td.append(target);
             tr.append(td);
           }
           columns.forEach((c) => {
@@ -749,11 +761,117 @@
       timer = setTimeout(() => change({ query: search.value, page: 1 }), 200);
     };
     size.onchange = () => change({ pageSize: Number(size.value), page: 1 });
+    function csvRows(source) {
+      const visible = ordered()
+        .filter((c) => visibleKeys.includes(c.key))
+        .map((c) => columns.find((x) => x.key === c.key));
+      const cell =
+        global.MuhitCSV?.cell ||
+        ((value) =>
+          '"' +
+          String(value ?? "")
+            .replace(/^[\s]*[=+@\-]/, "'$&")
+            .replaceAll('"', '""') +
+          '"');
+      return (
+        "\uFEFF" +
+        [
+          visible.map((c) => cell(c.label)).join(","),
+          ...source.map((r) => visible.map((c) => cell(r[c.key])).join(",")),
+        ].join("\r\n")
+      );
+    }
     const api = {
+      getView: () => ({
+        version: 1,
+        layout: api.getColumnLayout(),
+        visible: [...visibleKeys],
+        state: api.getState(),
+        selected: api.getSelected(),
+      }),
+      restoreView(view) {
+        if (destroyed) throw new Error("Grid destroyed");
+        if (
+          !view ||
+          view.version !== 1 ||
+          !Array.isArray(view.layout) ||
+          !Array.isArray(view.visible) ||
+          !Array.isArray(view.selected) ||
+          view.selected.some((id) => typeof id !== "string")
+        )
+          throw new TypeError("Invalid view");
+        const validKeys = new Set(columns.map((c) => c.key));
+        const retained = view.layout.filter((c) => validKeys.has(c?.key));
+        const nextLayout = validateLayout([
+          ...retained,
+          ...layout.filter((c) => !retained.some((x) => x.key === c.key)),
+        ]);
+        const nextVisible = [
+          ...new Set([
+            ...view.visible.filter((k) => validKeys.has(k)),
+            ...columns
+              .filter((c) => !view.layout.some((x) => x.key === c.key))
+              .map((c) => c.key),
+          ]),
+        ];
+        const filters = Object.fromEntries(
+          Object.entries(view.state?.filters || {}).filter(([key]) =>
+            validKeys.has(key),
+          ),
+        );
+        const nextState = validateState({
+          ...state,
+          ...view.state,
+          locale,
+          filters,
+          sort: columns.some((c) => c.key === view.state?.sort && c.sortable)
+            ? view.state.sort
+            : "",
+        });
+        const ids = [...new Set(view.selected)].filter(
+          (id) => options.load || rows.some((r) => r.id === id),
+        );
+        layout = nextLayout;
+        visibleKeys = nextVisible.length
+          ? nextVisible
+          : columns.map((c) => c.key);
+        state = nextState;
+        selected.clear();
+        ids.forEach((id) => selected.add(id));
+        columnsMenu
+          .querySelectorAll("input")
+          .forEach(
+            (n, i) => (n.checked = visibleKeys.includes(columns[i].key)),
+          );
+        search.value = state.query;
+        size.value = state.pageSize;
+        notify();
+        selectionChanged();
+        refresh();
+        return api;
+      },
+      setSelected(ids) {
+        if (destroyed) throw new Error("Grid destroyed");
+        if (!Array.isArray(ids) || ids.some((id) => typeof id !== "string"))
+          throw new TypeError("Selection must contain IDs");
+        const next = [
+          ...new Set(
+            ids.filter((id) => options.load || rows.some((r) => r.id === id)),
+          ),
+        ];
+        if (JSON.stringify(next) === JSON.stringify([...selected])) return api;
+        selected.clear();
+        next.forEach((id) => selected.add(id));
+        selectionChanged();
+        syncSelection();
+        return api;
+      },
+      getVisibleColumns: () => [...visibleKeys],
       getColumnLayout: () => layout.map((c) => ({ ...c })),
       setColumnLayout(value) {
         if (destroyed) throw new Error("Grid destroyed");
         const next = validateLayout(value);
+        if (JSON.stringify(next) === JSON.stringify(layout)) return api;
         layout = next;
         applyLayout();
         options.onColumnLayoutChange?.(api.getColumnLayout());
@@ -775,6 +893,7 @@
           keys.some((k) => !columns.some((c) => c.key === k))
         )
           throw new TypeError("Geçersiz sütun listesi.");
+        if (JSON.stringify(keys) === JSON.stringify(visibleKeys)) return api;
         visibleKeys = [...keys];
         columnsMenu
           .querySelectorAll("input")
@@ -804,31 +923,59 @@
         refresh();
         return api;
       },
-      toCSV({ selectedOnly = false } = {}) {
-        const source = options.load
-          ? currentRows
-          : query(rows, columns, {
-              ...state,
-              page: 1,
-              pageSize: Number.MAX_SAFE_INTEGER,
-            }).rows;
-        const visible = ordered()
-          .filter((c) => visibleKeys.includes(c.key))
-          .map((c) => columns.find((x) => x.key === c.key));
-        const cell = (v) =>
-          '"' +
-          String(v ?? "")
-            .replace(/^[=+@\-\t\r]/, "'$&")
-            .replaceAll('"', '""') +
-          '"';
-        return (
-          "\uFEFF" +
-          [
-            visible.map((c) => cell(c.label)).join(","),
-            ...source
-              .filter((r) => !selectedOnly || selected.has(r.id))
-              .map((r) => visible.map((c) => cell(r[c.key])).join(",")),
-          ].join("\r\n")
+      async exportCSV({ scope = "page", signal } = {}) {
+        if (destroyed) throw new Error("Grid destroyed");
+        if (!["page", "filtered", "selected"].includes(scope))
+          throw new TypeError("Invalid export scope");
+        if (!options.load || scope === "page")
+          return api.toCSV({ scope, selectedOnly: scope === "selected" });
+        if (typeof options.exportRows !== "function")
+          throw new Error(
+            "Remote filtered/selected export requires exportRows",
+          );
+        const controller = new AbortController(),
+          abort = () => controller.abort();
+        exportControllers.add(controller);
+        signal?.addEventListener("abort", abort, { once: true });
+        if (signal?.aborted) abort();
+        try {
+          const result = await options.exportRows(
+            { scope, state: api.getState(), selected: api.getSelected() },
+            controller.signal,
+          );
+          if (controller.signal.aborted || destroyed)
+            throw new DOMException("Export aborted", "AbortError");
+          return csvRows(rowsOf(result, columns));
+        } finally {
+          exportControllers.delete(controller);
+          signal?.removeEventListener("abort", abort);
+        }
+      },
+      toCSV({ selectedOnly = false, scope } = {}) {
+        if (destroyed) throw new Error("Grid destroyed");
+        if (
+          scope !== undefined &&
+          !["page", "filtered", "selected"].includes(scope)
+        )
+          throw new TypeError("Invalid export scope");
+        if (
+          options.load &&
+          (scope === "filtered" || scope === "selected" || selectedOnly)
+        )
+          throw new Error("Use exportCSV for remote filtered/selected exports");
+        const source =
+          options.load || scope === "page"
+            ? currentRows
+            : query(rows, columns, {
+                ...state,
+                page: 1,
+                pageSize: Number.MAX_SAFE_INTEGER,
+              }).rows;
+        return csvRows(
+          source.filter(
+            (r) =>
+              !(selectedOnly || scope === "selected") || selected.has(r.id),
+          ),
         );
       },
       setState(patch) {
@@ -854,6 +1001,8 @@
         destroyed = true;
         ++serial;
         controller?.abort();
+        exportControllers.forEach((c) => c.abort());
+        exportControllers.clear();
         clearTimeout(timer);
         root.remove();
         instances.delete(el);
