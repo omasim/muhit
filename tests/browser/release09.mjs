@@ -60,6 +60,7 @@ try {
     ];
     let g = G.mount(h, {
       locale: "tr-TR",
+      messages: { "{count} kayıt seçili": "Selected {count}" },
       selectable: true,
       columns,
       rows: [{ id: "a", name: " =1+1", score: 1234.5 }],
@@ -72,6 +73,7 @@ try {
     }
     g.setVisibleColumns(["name"]);
     g.setSelected(["a"]);
+    const translatedCount = h.textContent.includes("Selected 1");
     const view = g.getView();
     const csv = g.toCSV();
     g.destroy();
@@ -116,6 +118,7 @@ try {
     h.remove();
     return {
       rejected,
+      translatedCount,
       restored,
       csv,
       width: size.width,
@@ -126,6 +129,7 @@ try {
     };
   });
   assert.equal(result.rejected, true);
+  assert.equal(result.translatedCount, true);
   assert.deepEqual(result.restored, {
     visible: ["name"],
     selected: ["a"],
@@ -248,6 +252,12 @@ try {
             columns: [{ key: "name", label: "Name", editable: true }],
             rows: [{ id: "one", name: "Ada" }],
           },
+          {
+            id: "f",
+            type: "form",
+            title: "Profile",
+            fields: [{ name: "name", label: "Name" }],
+          },
         ],
       },
       { onAction: (e) => events.push(e.id) },
@@ -260,25 +270,90 @@ try {
     );
     h.querySelector("thead button").click();
     h.querySelector("tbody input[type=checkbox]").click();
+    const field = h.querySelector("form input");
+    field.value = "Ada";
+    field.dispatchEvent(new Event("input", { bubbles: true }));
     view.destroy();
     h.remove();
     return events;
   });
   assert.ok(
-    ["edit", "column-layout", "state", "selection"].every((id) =>
+    ["edit", "column-layout", "state", "selection", "form-change"].every((id) =>
       events.includes(id),
     ),
   );
   const atomicForm = await p.evaluate(async () => {
     const { MuhitForm } = await import("/src/index.mjs");
-    const host = document.createElement("div"); document.body.append(host);
-    const form = MuhitForm.mount(host, { fields: [{name:"name", label:"Name", type:"text"}], values:{name:"Preserved"} });
+    const host = document.createElement("div");
+    document.body.append(host);
+    const form = MuhitForm.mount(host, {
+      fields: [{ name: "name", label: "Name", type: "text" }],
+      values: { name: "Preserved" },
+    });
     let rejected = false;
-    try { MuhitForm.mount(host, { fields: [{name:"name", label:"Name", type:"text"}], validationDelay:-1 }); } catch { rejected = true; }
+    try {
+      MuhitForm.mount(host, {
+        fields: [{ name: "name", label: "Name", type: "text" }],
+        validationDelay: -1,
+      });
+    } catch {
+      rejected = true;
+    }
     const preserved = host.querySelector("input")?.value;
-    form.destroy(); host.remove(); return {rejected, preserved};
+    form.destroy();
+    host.remove();
+    return { rejected, preserved };
   });
-  assert.deepEqual(atomicForm, {rejected:true, preserved:"Preserved"});
+  assert.deepEqual(atomicForm, { rejected: true, preserved: "Preserved" });
+  const comboRace = await p.evaluate(async () => {
+    const { MuhitFields } = await import("/src/index.mjs");
+    const h = document.createElement("div");
+    document.body.append(h);
+    const pending = [];
+    const combo = MuhitFields.combobox(h, {
+      delay: 0,
+      load: (query, signal) =>
+        new Promise((resolve) => pending.push({ query, signal, resolve })),
+    });
+    const input = h.querySelector("input");
+    input.focus();
+    const tick = () => new Promise((resolve) => setTimeout(resolve, 30));
+    input.value = "old";
+    input.dispatchEvent(new Event("input"));
+    await tick();
+    input.value = "new";
+    input.dispatchEvent(new Event("input"));
+    await tick();
+    pending[1].resolve([
+      { id: "a", label: "First" },
+      { id: "b", label: "Last" },
+    ]);
+    await tick();
+    pending[0].resolve([{ id: "old", label: "Old" }]);
+    await tick();
+    input.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "ArrowUp", bubbles: true }),
+    );
+    input.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "Enter", bubbles: true }),
+    );
+    const selected = combo.getValue();
+    const aborted = pending[0].signal.aborted;
+    input.value = "late";
+    input.dispatchEvent(new Event("input"));
+    await tick();
+    combo.destroy();
+    pending[2].resolve([{ id: "late", label: "Late" }]);
+    await tick();
+    const empty = h.childElementCount === 0;
+    h.remove();
+    return { selected, aborted, empty };
+  });
+  assert.deepEqual(comboRace, {
+    selected: { id: "b", label: "Last" },
+    aborted: true,
+    empty: true,
+  });
   assert.deepEqual(errors, []);
   console.log(
     "PASS " +

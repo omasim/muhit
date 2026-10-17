@@ -27,3 +27,5 @@ Katalog anahtarları kaynak metindir; değişken metinler `{label}` ve `{count}`
 Klasik script kullanımında `src/i18n.js` dosyasını bileşenlerden önce yükleyin. ESM alt girişleri bağımlılığı otomatik alır. Uygulama belge kökündeki `lang` ve `dir` değerlerini de güncellemelidir. Muhit kendi bileşen köklerinde bunları yazar; uygulama belgesini değiştirmez.
 
 0.9: bölgesel katalog ana dilin üzerine birleştirilir; bileşen messages son önceliktedir. Grid setState locale değişimini kabul etmez. getView/restoreView ile dili değiştirirken görünürlük ve seçimi de koruyun.
+
+Tablo sayımları sabit `{count} kayıt seçili` ve `{total} kayıt · Bu sayfada {count} kayıt` kaynak anahtarlarını kullanır. Özel messages bu şablonları çevirebilir; sayılar locale ile biçimlenir. Hazır İngilizce tekil/çoğul ifadeler seçer; diğer dillerin özel çoğul kuralları uygulamanın mesaj katmanında sağlanmalıdır.

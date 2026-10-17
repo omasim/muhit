@@ -28,6 +28,11 @@
       t = (tr, en) => lang.text(tr, en);
     if (typeof options.load !== "function")
       throw new TypeError("load required");
+    if (
+      options.onChange !== undefined &&
+      typeof options.onChange !== "function"
+    )
+      throw new TypeError("onChange must be a function");
     const delay = options.delay ?? 200;
     if (!Number.isFinite(delay) || delay < 0 || delay > 5000)
       throw new TypeError("Invalid delay");
@@ -99,6 +104,7 @@
       } else input.removeAttribute("aria-activedescendant");
     }
     async function search() {
+      clearTimeout(timer);
       const ticket = ++serial;
       controller?.abort();
       controller = new AbortController();
@@ -120,7 +126,11 @@
         active = -1;
         paint();
         status.textContent = items.length
-          ? lang.number(items.length) + " " + t("sonuç", "results")
+          ? lang.text(
+              "{count} sonuç",
+              items.length === 1 ? "{count} result" : "{count} results",
+              { count: lang.number(items.length) },
+            )
           : t("Sonuç yok", "No results");
       } catch (e) {
         if (dead || ticket !== serial) return;
@@ -140,6 +150,7 @@
       controller?.abort();
       clearTimeout(timer);
       input.setAttribute("aria-busy", "false");
+      status.textContent = "";
     }
     input.oninput = () => {
       cancel();
@@ -164,6 +175,7 @@
         select(active);
         return;
       }
+      if (["Home", "End"].includes(e.key) && list.hidden) return;
       if (["ArrowDown", "ArrowUp", "Home", "End"].includes(e.key)) {
         e.preventDefault();
         if (!items.length) {
@@ -175,8 +187,12 @@
             ? 0
             : e.key === "End"
               ? items.length - 1
-              : (active + (e.key === "ArrowUp" ? -1 : 1) + items.length) %
-                items.length;
+              : active < 0
+                ? e.key === "ArrowUp"
+                  ? items.length - 1
+                  : 0
+                : (active + (e.key === "ArrowUp" ? -1 : 1) + items.length) %
+                  items.length;
         paint();
       }
     };
@@ -224,6 +240,9 @@
       lang = global.MuhitI18n.create(options),
       t = (tr, en) => lang.text(tr, en),
       fields = global.MuhitForm.normalizeFields(options.fields);
+    for (const key of ["onChange", "onSubmit"])
+      if (options[key] !== undefined && typeof options[key] !== "function")
+        throw new TypeError(key + " must be a function");
     const min = options.min ?? 0,
       max = options.max ?? 20;
     if (

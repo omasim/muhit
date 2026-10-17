@@ -16,5 +16,9 @@
     "physical mobile devices"
   ],
   "npmPublished": false,
-  "remoteCI": "pending"
+  "remoteCI": {
+    "baselineGeneration": "https://github.com/omasim/muhit/actions/runs/39067181064",
+    "result": "success; Chromium Firefox WebKit",
+    "comparison": "pending final run"
+  }
 }

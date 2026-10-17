@@ -134,7 +134,12 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
     new Intl.NumberFormat(locale);
     const en = locale.startsWith("en");
     const i18n = global.MuhitI18n?.create({ ...options, locale });
-    const t = (tr, eng) => (i18n ? i18n.text(tr, eng) : en ? eng : tr);
+    const t = (tr, eng, params = {}) =>
+      i18n
+        ? i18n.text(tr, eng, params)
+        : (en ? eng : tr).replace(/\{(\w+)\}/g, (_, key) =>
+            String(params[key] ?? "{" + key + "}"),
+          );
     const selected = new Set();
     let visibleKeys = columns.map((c) => c.key),
       currentRows = [];
@@ -557,8 +562,11 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
     function syncSelection() {
       selectedLabel.textContent = options.selectable
         ? t(
-            `${selected.size} kayıt seçili`,
-            `${selected.size} ${selected.size === 1 ? "record" : "records"} selected`,
+            "{count} kayıt seçili",
+            selected.size === 1
+              ? "{count} record selected"
+              : "{count} records selected",
+            { count: i18n ? i18n.number(selected.size) : selected.size },
           )
         : "";
       if (allSelect) {
@@ -620,8 +628,11 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
         currentRows = data;
         selectedLabel.textContent = options.selectable
           ? t(
-              `${selected.size} kayıt seçili`,
-              `${selected.size} ${selected.size === 1 ? "record" : "records"} selected`,
+              "{count} kayıt seçili",
+              selected.size === 1
+                ? "{count} record selected"
+                : "{count} records selected",
+              { count: i18n ? i18n.number(selected.size) : selected.size },
             )
           : "";
         if (allSelect) {
@@ -728,8 +739,14 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
         }
         status.textContent = total
           ? t(
-              `${total} kayıt · Bu sayfada ${data.length} kayıt`,
-              `${total} records · ${data.length} on this page`,
+              "{total} kayıt · Bu sayfada {count} kayıt",
+              total === 1
+                ? "{total} record · {count} on this page"
+                : "{total} records · {count} on this page",
+              {
+                total: i18n ? i18n.number(total) : total,
+                count: i18n ? i18n.number(data.length) : data.length,
+              },
             )
           : t(
               "Sonuç bulunamadı. Aramanı değiştirebilirsin.",

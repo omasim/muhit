@@ -176,7 +176,7 @@ Adaptör `MuhitCharts.mount(host,{initialPeriod:data.period||6,periodControl:fal
 
 Uygulama gelen metni ayrıştırır, `validate()` çalıştırır ve geçerliyse `render()` veya `update()` çağırır. Geçersiz çıktının hata yolları modele veya düzenleme ekranına iletilebilir. Adaptör çıktıyı kendiliğinden onarmaz; bilinmeyen alanları sessizce silmez.
 
-`onAction` yalnız bir kartın native düğme click olayında çağrılır; çizim, veri okuma, tema değişimi veya güncelleme sırasında çağrılmaz. Callback yoksa eylem düğmesi devre dışıdır. Callback bir yetkilendirme sistemi değildir: kullanıcı niyeti, uygulama izinleri ve sunucu doğrulaması gerekiyorsa uygulama bunları ayrıca değerlendirir. Adaptör eylemin adından bir URL veya komut çıkarmaz. JavaScript ile programatik click üretilebilmesi tarayıcının normal davranışıdır; bu sözleşme kullanıcı kimliği kanıtı sağlamaz.
+Kart eylemleri native düğme click olayından gelir. Widget, form ve tablo olayları da `onAction` üzerinden aktarılır; kontrollü API değişimleri tablo durum olayları üretebilir. Bu olaylar yetkilendirilmiş bir kullanıcı komutu olarak kabul edilmemeli. Callback yoksa eylem düğmesi devre dışıdır. Callback bir yetkilendirme sistemi değildir: kullanıcı niyeti, uygulama izinleri ve sunucu doğrulaması gerekiyorsa uygulama bunları ayrıca değerlendirir. Adaptör eylemin adından bir URL veya komut çıkarmaz. JavaScript ile programatik click üretilebilmesi tarayıcının normal davranışıdır; bu sözleşme kullanıcı kimliği kanıtı sağlamaz.
 
 DOM metinleri `textContent` ile oluşturulur. Çocuk grafik bileşeni SVG üretirken kendi metin kaçışını uygular. Tanımın kopyası alınır; çağıranın nesneyi sonradan değiştirmesi çizilmiş görünümü veya eylem kimliğini değiştirmez. Fonksiyon, getter/setter, Symbol, BigInt, Date/Map, döngüsel nesne, boş dizi yuvası ve gizli alan gibi JSON dışı değerler reddedilir. Güvenilir taşıma biçimi ayrıştırılmış JSON'dur; keyfi JavaScript Proxy nesneleri bir güvenlik izolasyonu sınırı değildir.
 
@@ -184,7 +184,7 @@ JSON Schema alanları, tipleri ve boyutları doğrular. Standart şema tek baş�
 
 ## Yerel kontrol
 
-Tam kaynak / geliştirme kopyasının kökünde `node --test tests/agent.test.mjs` çalıştırılır. npm dağıtım arşivinde `tests` ve `tools` klasörleri bulunmaz; bu kontrol için tam kaynak ZIP’ini kullanın. Testler DOM'suz içe aktarma, hatalı JSON/tema/tarih/kimlik/sayı reddi, toplam eşleşmesi, literal metin üretimi, tema devralma, atomik güncelleme ve çocuk bileşen temizliğini kapsar. Adaptör yaşam döngüsü testleri küçük bir DOM test nesnesi kullanır; gerçek tarayıcıda klavye, odak, grafik ve responsive kontrollerinin yerine geçmez.
+Tam kaynak / geliştirme kopyasının kökünde `node --test tests/agent.test.mjs` çalıştırılır. npm dağıtım arşivinde `tests` klasörü bulunmaz; `tools` yalnız paketleme yardımcılarını içerir; bu kontrol için tam kaynak ZIP’ini kullanın. Testler DOM'suz içe aktarma, hatalı JSON/tema/tarih/kimlik/sayı reddi, toplam eşleşmesi, literal metin üretimi, tema devralma, atomik güncelleme ve çocuk bileşen temizliğini kapsar. Adaptör yaşam döngüsü testleri küçük bir DOM test nesnesi kullanır; gerçek tarayıcıda klavye, odak, grafik ve responsive kontrollerinin yerine geçmez.
 
 
 ## Yeni etkileşim türleri
@@ -196,3 +196,7 @@ Tam kaynak / geliştirme kopyasının kökünde `node --test tests/agent.test.mj
 Yeni `form`, `datagrid`, `plot` türleriyle toplam 18 tür vardır. Eski `schemaVersion: "1.0.0"` tanımları geçerlidir; yeni türler `1.1.0` gerektirir. Çalışan tanım: [extended-agent.json](../examples/extended-agent.json).
 
 ESM için `import {MuhitAgent} from 'muhit-ui/agent'` bağımlılıkları taşır. Klasik script kullanımında form için forms.js, genel tablo için data-grid.js, grafik için plot.js dosyalarını agent.js öncesinde yükleyin. Form gönderimi onAction sonucunu bekler; `signal` iptal bilgisini taşır. Callback sonucu `{errors:{alan:mesaj}}` olabilir. Gönderim ağ adresi veya yetki içermez; bunlar uygulama işleyicisindedir.
+
+## 0.9 olay sözleşmesi
+
+`form-change`: value içinde values ve dirty. `edit`: value içinde güncel rows ve change. `state`: sorgu/filtre/sayfalama durumu. `column-layout`: sıralı yerleşim. `selection`: seçili kimlikler. Hepsi componentId taşır. `submit` async sonucu bekler ve signal taşır; diğer olaylar bildirimdir. Yerleşim/durum güncellemeleri uygulama API’sinden de gelebilir. Eşit kontrollü değer tekrarları olay döngüsü üretmez. Ağ, kayıt ve yetkilendirme uygulamanın sorumluluğundadır.
