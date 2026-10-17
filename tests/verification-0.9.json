@@ -18,7 +18,8 @@
   "npmPublished": false,
   "remoteCI": {
     "baselineGeneration": "https://github.com/omasim/muhit/actions/runs/39067181064",
-    "result": "success; Chromium Firefox WebKit",
-    "comparison": "pending final run"
+    "comparison": "https://github.com/omasim/muhit/actions/runs/39067386886",
+    "result": "success; Chromium Firefox WebKit; Linux visual comparison passed",
+    "testedCommit": "7806f601a5c935beb30542e60f863a95d05290a0"
   }
 }

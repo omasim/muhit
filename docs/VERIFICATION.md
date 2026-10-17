@@ -6,7 +6,7 @@ Sekiz görsel durumun macOS/Chromium PNG referansları karşılaştırıldı: a�
 
 Uzak arama, grup ekleme/kaydetme, async doğrulamada iptal/eski yanıt, agent tablo olayları, snapshot, CSV kapsamı, 44px hedef ve axe kontrolleri yeni sürüm testinde yer alır. Başarısız form yeniden kurulumunda eski görünüm korunur.
 
-Manuel VoiceOver/NVDA/JAWS ve fiziksel mobil cihaz kontrolleri yapılmadı; docs/ACCESSIBILITY-MANUAL.md açık kabul listesidir. npm yayını yapılmadı. İlk uzak CI üç tarayıcıda geçti: https://github.com/omasim/muhit/actions/runs/39067181064. Linux referansları bu koşudan alındı; koyu ve dar/RTL görüntüleri incelendi. Normal CI artık referans üretmez, kayıtlı PNG ile karşılaştırır. Son koşu bilgisi tests/verification-0.9.json içinde tutulur.
+Manuel VoiceOver/NVDA/JAWS ve fiziksel mobil cihaz kontrolleri yapılmadı; docs/ACCESSIBILITY-MANUAL.md açık kabul listesidir. npm yayını yapılmadı. İlk uzak CI üç tarayıcıda geçti: https://github.com/omasim/muhit/actions/runs/39067181064. Linux referansları bu koşudan alındı; koyu ve dar/RTL görüntüleri incelendi. Normal CI artık referans üretmez, kayıtlı PNG ile karşılaştırır. Son karşılaştırmalı koşu da üç tarayıcıda geçti: https://github.com/omasim/muhit/actions/runs/39067386886 (kod commit 7806f60). Makine kaydı tests/verification-0.9.json içinde tutulur.
 
 ---
 
