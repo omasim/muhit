@@ -325,6 +325,53 @@
         "mh-widget--pagination"
       ],
       "behavior": "MuhitWidgets.mount; local state, update and destroy; no network."
+    },
+    {
+      "type": "form",
+      "schemaRef": "./ui.schema.json#/$defs/form",
+      "requiredProps": [
+        "type",
+        "id",
+        "title",
+        "fields"
+      ],
+      "classes": [
+        "mh-form",
+        "mh-field"
+      ],
+      "schemaVersion": "1.1.0",
+      "behavior": "Validated data only; application owns external effects."
+    },
+    {
+      "type": "datagrid",
+      "schemaRef": "./ui.schema.json#/$defs/datagrid",
+      "requiredProps": [
+        "type",
+        "id",
+        "title",
+        "columns",
+        "rows"
+      ],
+      "classes": [
+        "mh-data-grid"
+      ],
+      "schemaVersion": "1.1.0",
+      "behavior": "Validated data only; application owns external effects."
+    },
+    {
+      "type": "plot",
+      "schemaRef": "./ui.schema.json#/$defs/plot",
+      "requiredProps": [
+        "type",
+        "id",
+        "title",
+        "data"
+      ],
+      "classes": [
+        "mh-plot"
+      ],
+      "schemaVersion": "1.1.0",
+      "behavior": "Validated data only; application owns external effects."
     }
   ],
   "nativePrimitives": [

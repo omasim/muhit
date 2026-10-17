@@ -190,3 +190,9 @@ Tam kaynak / geliştirme kopyasının kökünde `node --test tests/agent.test.mj
 ## Yeni etkileşim türleri
 
 0.3.0 ile tabs, accordion, timeline, kanban, choices, command, drawer, stepper, filepicker ve pagination eklenmiştir. [WIDGETS.md](WIDGETS.md) API, olaylar, sınırlar ve çalışan örnekleri açıklar. Toplam 15 adaptör türü desteklenir. Widget olayları {id, componentId, value} taşır.
+
+## 1.1.0 — Form, genel tablo ve grafik
+
+Yeni `form`, `datagrid`, `plot` türleriyle toplam 18 tür vardır. Eski `schemaVersion: "1.0.0"` tanımları geçerlidir; yeni türler `1.1.0` gerektirir. Çalışan tanım: [extended-agent.json](../examples/extended-agent.json).
+
+ESM için `import {MuhitAgent} from 'muhit-ui/agent'` bağımlılıkları taşır. Klasik script kullanımında form için forms.js, genel tablo için data-grid.js, grafik için plot.js dosyalarını agent.js öncesinde yükleyin. Form gönderimi onAction sonucunu bekler; `signal` iptal bilgisini taşır. Callback sonucu `{errors:{alan:mesaj}}` olabilir. Gönderim ağ adresi veya yetki içermez; bunlar uygulama işleyicisindedir.

@@ -26,7 +26,16 @@
     "Forced colors focus",
     "10k rows: 10 DOM rows"
   ],
-  "remoteCI": "pending",
+  "remoteCI": {
+    "status": "passed",
+    "run": "https://github.com/omasim/muhit/actions/runs/38985804670",
+    "commit": "8cc97ed6a70baaf1ef1238c3da864855f402f5e7",
+    "jobs": [
+      "chromium",
+      "firefox",
+      "webkit"
+    ]
+  },
   "limitations": [
     "Manual screen-reader validation not performed",
     "Real mobile-device testing not performed",

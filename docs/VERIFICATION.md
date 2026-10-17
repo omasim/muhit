@@ -6,7 +6,7 @@
 - React/Vue, paketlenmiş TGZ üzerinden geliştirme ve üretimde tip kontrolü/derleme/tarayıcı testlerini geçti. Form güncelleme, kayıt, remount ve widget sekmeleri dahil.
 - İzole modül paketleri 35KB minified JS bütçesinin altında; forms/plot/data-grid bağımsız girişleri ilgisiz grafik/tablo/agent modüllerini yüklemiyor. Gerçek boyutlar tests/bundle-verification.json içinde.
 - 10.000 satır için DOM'da yalnız 10 satır; 3 saniyelik referans bütçesi geçti. Son yerel Firefox ölçümü 7ms, WebKit 6ms; cihazlar arası performans garantisi değildir.
-- GitHub CI durumu aşağıdaki yayın kaydıyla ayrıca güncellenir. Manuel ekran okuyucu, gerçek telefon ve SSR hydration testi yapılmadı.
+- İlk GitHub CI koşusu üç işi başarıyla tamamladı: [38985804670](https://github.com/omasim/muhit/actions/runs/38985804670), commit 8cc97ed. Manuel ekran okuyucu, gerçek telefon ve SSR hydration testi yapılmadı.
 
 ---
 

@@ -1,3 +1,5 @@
+[![Verify Muhit](https://github.com/omasim/muhit/actions/workflows/verify.yml/badge.svg)](https://github.com/omasim/muhit/actions/workflows/verify.yml)
+
 # Muhit UI
 
 **0.7.0 · HTML, CSS ve JavaScript ile tema uyarlayan bileşenler.**

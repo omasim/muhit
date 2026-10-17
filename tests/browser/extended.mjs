@@ -49,6 +49,10 @@ try {
   const p = await context.newPage();
   const errors = [];
   p.on("pageerror", (e) => errors.push(e.message));
+  await p.goto(url + "/#agents");
+  await p.getByRole("button",{name:"Form, tablo & grafik"}).click();
+  await p.locator("#agent-output [data-component=form]").waitFor();
+  assert.equal(await p.locator("#agent-output [data-component]").count(),3);
   await p.goto(url + "/examples/settings.html");
   const result = await p.evaluate(async () => {
     const {

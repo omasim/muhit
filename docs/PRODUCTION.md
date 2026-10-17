@@ -33,7 +33,7 @@ grid.destroy();
 
 Uzaktan kullanımda `rows` yerine `load(state, signal)` verilir. Uygulama sağlayıcısı `{rows,total}` döndürür; arama, sıralama ve sayfalama sunucuda yapılmalıdır. `state`: query, sort, direction, page, pageSize. Sağlayıcı AbortSignal'i taşımalı; Muhit ayrıca eski yanıtları sürüm numarasıyla yok sayar. Bekleme, boş sonuç, hata ve yeniden dene görünümü vardır. `refresh()` tekrar yükler; `destroy()` isteği ve gecikmeli aramayı iptal eder. Muhit ağ adresi veya kimlik bilgisi yönetmez.
 
-10.000 satırlık yerel test, yalnız seçili sayfanın DOM'a yazıldığını denetler. Bu tüm cihazlar için performans garantisi değildir. 100.000 üstü veri yerel doğrulamada reddedilir; büyük veride sunucu sağlayıcısı kullanın. Grid sanallaştırma, kolon boyutlandırma, hücre düzenleme ve gruplama sunmaz. Bu özellikler gelecekte ayrı kapsamdır.
+10.000 satırlık yerel test, yalnız seçili sayfanın DOM'a yazıldığını denetler. Bu tüm cihazlar için performans garantisi değildir. 100.000 üstü veri yerel doğrulamada reddedilir; büyük veride sunucu sağlayıcısı kullanın. Grid yerel hücre düzenleme sunar; sanallaştırma, kolon boyutlandırma ve gruplama sunmaz. Bu özellikler gelecekte ayrı kapsamdır.
 
 ## Framework yaşam döngüsü
 
@@ -48,6 +48,8 @@ npm run verify:all
 npm pack --dry-run
 ```
 
-`verify:all`, temel doğrulamaya iki framework uygulamasının derleme ve tarayıcı testini ekler. `verify`: Node import kontrolü, saf sözleşme testleri, sabit logo hash kontrolü ve gerçek Chrome/Chromium tarayıcı regresyonları. Test sunucusu geçici yerel port açar ve kapanır. CI tarifi `.github/workflows/verify.yml` bağımsız kütüphane deposunun köküne göre hazırlanmıştır; monorepoda working-directory ayarlanmalıdır. Henüz uzak depoda çalıştırılmadı veya npm'e yayımlanmadı.
+`verify:all`, temel doğrulamaya iki framework uygulamasının derleme ve tarayıcı testini ekler. `verify`: Node import kontrolü, saf sözleşme testleri, sabit logo hash kontrolü ve gerçek Chrome/Chromium tarayıcı regresyonları. Test sunucusu geçici yerel port açar ve kapanır. CI tarifi `.github/workflows/verify.yml` bağımsız kütüphane deposunun köküne göre hazırlanmıştır; monorepoda working-directory ayarlanmalıdır. Kaynak deposu omasim/muhit; uzak CI sonucu VERIFICATION.md içinde izlenir. npm yayını yapılmadı.
 
 Yerel tarayıcı alternatifi: `MUHIT_CHROME=/.../Chrome`. Geliştirme ortamında Playwright başka yerdeyse `MUHIT_PLAYWRIGHT_MODULE` mutlak modül yolunu alabilir. Tüketici paketinde test araçları çalıştırma bağımlılığı değildir.
+
+0.7 form, genel tablo, grafik ve agent ayrıntıları: [sürüm rehberi](RELEASE-0.7.md).
