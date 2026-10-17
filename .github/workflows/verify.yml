@@ -4,14 +4,14 @@ permissions:
   contents: read
 jobs:
   browser:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: 22
       - run: npm ci
@@ -24,7 +24,7 @@ jobs:
         run: npm run verify:all
       - if: matrix.browser == 'chromium'
         run: npm --prefix examples/react ci && npm run test:bundles && npm pack --dry-run
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7.0.2
         if: always()
         with:
           name: verification-${{ matrix.browser }}
