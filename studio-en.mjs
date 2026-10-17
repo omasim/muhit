@@ -164,7 +164,7 @@ const emit = (e) =>
   ($("events").textContent = "Local event: " + JSON.stringify(e));
 function components() {
   const view = grid?.getView(),
-    draft = form?.getValues();
+    draft = form?.getSnapshot();
   children.forEach((c) => c.destroy());
   const locale = $("locale").value;
   grid = Grid.mount("#grid", {
@@ -185,7 +185,7 @@ function components() {
   form = Form.mount("#form", {
     locale,
     title: "Project brief",
-    values: draft,
+    ...draft,
     fields: [
       { name: "name", label: "Project name", required: true },
       { name: "email", label: "Email", type: "email", required: true },

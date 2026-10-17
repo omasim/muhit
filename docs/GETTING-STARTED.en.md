@@ -33,7 +33,7 @@ Kanban cards can be dragged by their Move button with a mouse or touch pointer. 
 
 ## Languages
 
-Turkish and English are built in. Optional German and Arabic catalogs cover core Form, DataGrid, Fields, Plot, Widgets and notification controls. They do not translate application records or the legacy Table/Charts editorial demos. Arabic sets RTL automatically. System fallback supplies Arabic glyphs; the included Latin fonts are not an Arabic type family.
+Turkish and English are built in. Optional German and Arabic catalogs cover core Form, DataGrid, Fields, Plot, Widgets and notification controls. They also cover literal UI messages in legacy Table/Charts. Application records and archived documentation remain application-owned. Arabic sets RTL automatically. System fallback supplies Arabic glyphs; the included Latin fonts are not an Arabic type family.
 
 ```js
 import { MuhitI18n } from 'muhit-ui/i18n';
@@ -53,3 +53,7 @@ React and Vue adapters are supplied as source examples with controlled props and
 ## Verification and maintenance
 
 Run `npm run verify:all`, `npm run test:scale`, `npm run test:distribution` and `npm run test:visual`. CI runs Chromium, Firefox and WebKit. PNG references are platform-specific and normally read-only. Update them only after reviewing the resulting changes. Automated accessibility scans do not replace VoiceOver/NVDA/JAWS or physical-device acceptance. See `ACCESSIBILITY-MANUAL.md`, `VERIFICATION.md` and `RELEASE-POLICY.md` for current evidence and limits.
+
+## 0.11 upgrade
+
+Page CSV export throws while the current page is loading or has failed. Handle the error and only enable download for a successful current query. Form remounts should spread `getSnapshot()` (values and baseline), not only getValues. NodeNext and Bundler are checked against all 16 packaged type entries. Repeater accepts group-indexed async/server error maps; combobox supports name/required/readOnly/disabled and native FormData. See PRODUCTION-0.11.md for evidence and remaining manual acceptance.

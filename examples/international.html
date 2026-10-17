@@ -104,7 +104,7 @@
       function render() {
         const view = grid?.getView();
         const layout = grid?.getColumnLayout() || saved;
-        const values = form?.getValues() || { name: "", email: "" };
+        const snapshot = form?.getSnapshot() || { values: { name: "", email: "" } };
         const state = grid?.getState();
         grid?.destroy();
         form?.destroy();
@@ -175,7 +175,7 @@
               required: true,
             },
           ],
-          values,
+          ...snapshot,
         });
         tabs = Widgets.mount(
           "#tabs",

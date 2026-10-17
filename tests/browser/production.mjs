@@ -69,6 +69,9 @@ try {
     release();await pending;
     mode='error';await grid.refresh();blocked=false;try{grid.toCSV()}catch{blocked=true}
     check(blocked,'error export blocked');mode='retry';await grid.refresh();check(grid.toCSV().includes('retry'),'retry export');grid.destroy();
+    const resolvers=[];const racing=G.mount(host,{columns:[{key:'name',label:'Name'}],load:()=>new Promise(r=>resolvers.push(r))});
+    const latest=racing.refresh();resolvers[1]({rows:[{id:'new',name:'new'}],total:1});await latest;
+    resolvers[0]({rows:[{id:'old',name:'old'}],total:1});await new Promise(r=>setTimeout(r,0));check(racing.toCSV().includes('new')&&!racing.toCSV().includes('old'),'late response ignored');racing.destroy();
     const fields=[{name:'name',label:'Name',required:true}];
     let form=F.mount(host,{fields,values:{name:'Original'}});
     form.setValues({name:'Edited'});check(form.isDirty(),'dirty before');

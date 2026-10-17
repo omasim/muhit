@@ -12,7 +12,7 @@
 | P2/6 Test matrisi | Üretim regresyonları, paket tip tüketicileri ve React/Vue metadata kontrolleri eklendi. |
 | P2/7 Agent belgeleri | llms.txt ve AGENTS.md, AGENT-CONTRACT.md ile hizalandı. Programatik olay kullanıcı yetkisi değildir. |
 | P2/8 Dağıtım | 0.11.0 sürümü, geçiş ve destek matrisi, TGZ/kaynak ZIP/SHA256SUMS hazırlama aracı. npm registry yayını yapılmadı. Uzak yayın sonucu ayrıca belirtilir. |
-| P2/9 Görsel kapsam | 14 durum: önceki 8 + grup hataları, açık combobox, Kanban hedefi, DE, AR, büyük metin. Yeni macOS görüntüleri incelendi ve normal karşılaştırma yapıldı. Linux referansları ayrı kabul edilir. |
+| P2/9 Görsel kapsam | 14 durum: önceki 8 + grup hataları, açık combobox, Kanban hedefi, DE, AR, büyük metin. Yeni macOS görüntüleri incelendi ve normal karşılaştırma yapıldı. Linux adayları CI’dan indirildi ve incelenerek ayrı referanslar olarak eklendi. Yükleme/hata durumundaki seçim kutusunun devre dışı olması beklenen farktır. |
 | P2/10 Diller/stüdyo | Eski Table/Charts çeviri çağrıları için DE/AR mesajları ve kapsam testi; TR/EN ortak tema şeması/değer ayrıştırma. Arşiv belgeleri özgün dilinde kalır; native editoryal kabul AÇIK. |
 | P2/11 Formlar | Grup bazlı async/sunucu hatası, iptal/eski yanıt koruması; combobox name/required/disabled/readOnly ve FormData desteği. Nested HTML formu desteklenmez, düz gruplama sözleşmesi belgelenmiştir. |
 
