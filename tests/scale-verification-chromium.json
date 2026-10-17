@@ -1,0 +1,29 @@
+{
+  "engine": "chromium",
+  "performance": {
+    "page": {
+      "ms": 0,
+      "total": 20000
+    },
+    "search": {
+      "ms": 534.2000000476837,
+      "total": 0
+    },
+    "sort": {
+      "ms": 18.5,
+      "total": 20000
+    },
+    "filter": {
+      "ms": 22.899999976158142,
+      "total": 198
+    },
+    "mount": {
+      "ms": 17.19999998807907,
+      "domRows": 10
+    },
+    "filteredRows": 10
+  },
+  "keyboard": true,
+  "pointer": true,
+  "touchEmulated": true
+}

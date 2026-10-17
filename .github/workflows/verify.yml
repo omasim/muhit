@@ -20,6 +20,9 @@ jobs:
       - run: npm run test:extended
         env:
           MUHIT_BROWSER: ${{ matrix.browser }}
+      - run: npm run test:scale
+        env:
+          MUHIT_BROWSER: ${{ matrix.browser }}
       - run: npm run test:release
         env:
           MUHIT_BROWSER: ${{ matrix.browser }}

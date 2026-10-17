@@ -1,4 +1,4 @@
-## 0.9 · Kontrollü durum, gelişmiş alanlar ve doğrulama
+## 0.10 · Ölçek, Kanban taşıma, hafif dağıtım ve ek diller
 
 [Çalışan dil/sütun örneği](examples/international.html) · [Sütun API](docs/COLUMN-LAYOUT.md) · [Dil API](docs/INTERNATIONALIZATION.md) · [Sürüm notları](docs/RELEASE-0.9.md) · [Gelişmiş alanlar](examples/advanced.html) · [Görsel katalog](examples/visual-catalog.html)
 
@@ -6,7 +6,7 @@
 
 # Muhit UI
 
-**0.9.0 · HTML, CSS ve JavaScript ile tema uyarlayan bileşenler.**
+**0.10.0 · HTML, CSS ve JavaScript ile tema uyarlayan bileşenler.**
 
 Muhit; kartları, formları, tabloları ve grafikleri ortak bir görsel dille kurmanıza yardımcı olur. Klasik script olarak derleme olmadan çalışır; ESM girişi ve TypeScript tanımları da bulunur. Tema yapılandırması renk, yazı ailesi, yoğunluk, köşe, metin ölçeği ve hareket tercihini birlikte yönetir. JSON şemasına uyan bir görünüm, aynı bileşenlerle güvenilir biçimde çizilir.
 
@@ -29,7 +29,7 @@ npm pack
 Oluşan arşivi kendi projenizin klasöründe kurun:
 
 ```sh
-npm install /tam/yol/muhit-ui/muhit-ui-0.9.0.tgz
+npm install /tam/yol/muhit-ui/muhit-ui-0.10.0.tgz
 ```
 
 `npm pack`, kaynak modüllerini, stilleri, şemaları, tipleri, fontları ve kullanım örneklerini içerir. Tema stüdyosunun kök önizlemesi ve test dosyaları dağıtımın parçası değildir. `npm run check` Node ortamında ESM girişini yükler; tarayıcı etkileşim testlerinin yerine geçmez.
@@ -194,4 +194,8 @@ Kontrast/filtre/sabit başlık düzeltmeleri, kart durumları, agent sayfaları,
 `MuhitForm` doğrulanmış alanlar, asenkron kayıt, hata özeti, sıfırlama ve temizleme sağlar. `MuhitPreferences` tema tercihlerinin isteğe bağlı yerel saklanmasını yönetir. [Rehber](docs/FORMS.md) · [Çalışan ayarlar sayfası](examples/settings.html) · [Kapsam ve kalan işler](docs/COVERAGE.md).
 
 
-Güncel sözleşme ve sınırlar: [RELEASE-0.9.md](docs/RELEASE-0.9.md).
+Güncel sözleşme ve sınırlar: [P3-0.10.md](docs/P3-0.10.md). 0.9 API sözleşmeleri geçerliliğini korur.
+
+## 0.10: ölçek, hareket ve diller
+
+[İngilizce stüdyo](studio-en.html) · [English guide](docs/GETTING-STARTED.en.md) · [P3 kararları ve sınırlar](docs/P3-0.10.md) · [Kanban ve büyük veri](examples/scale.html). Ek kataloglar: `muhit-ui/locales/de` ve `/ar`. İsteğe bağlı CSS/font girişleri dağıtım boyutunu azaltır.

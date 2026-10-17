@@ -1,0 +1,20 @@
+{
+  "version": "0.10.0",
+  "date": "2026-10-17",
+  "nodeTests": 64,
+  "local": {
+    "chromium": "verify:all passed",
+    "firefox": "P3 scale, Kanban, English studio, DE/AR passed",
+    "webkit": "P3 scale, Kanban, English studio, DE/AR passed",
+    "frameworks": "React/Vue development production SSR-shell hydration passed",
+    "visual": "8 existing macOS Chromium references passed after WOFF2 change",
+    "brand": "14 locked SVGs unchanged"
+  },
+  "limits": [
+    "manual screen-reader and physical-device acceptance pending",
+    "virtualization, grouping, multi-sort not introduced: paginated DOM measured",
+    "DE/AR catalogs cover core controls, not legacy editorial demos"
+  ],
+  "npmPublished": false,
+  "remoteCI": "pending"
+}

@@ -87,33 +87,44 @@
   }
 
   function query(rows, columns, state) {
-    const needle = state.query.toLocaleLowerCase(state.locale || "tr-TR");
-    const result = rows.filter(
-      (r) =>
-        Object.entries(state.filters || {}).every(([key, value]) =>
-          String(r[key] ?? "")
-            .toLocaleLowerCase(state.locale || "tr-TR")
-            .includes(String(value).toLocaleLowerCase(state.locale || "tr-TR")),
-        ) &&
-        columns.some((c) =>
-          String(r[c.key] ?? "")
-            .toLocaleLowerCase(state.locale || "tr-TR")
-            .includes(needle),
-        ),
-    );
+    const locale = state.locale || "tr-TR";
+    const needle = state.query.toLocaleLowerCase(locale);
+    const filters = Object.entries(state.filters || {}).map(([key, value]) => [
+      key,
+      String(value).toLocaleLowerCase(locale),
+    ]);
+    const result =
+      !needle && !filters.length
+        ? rows.slice()
+        : rows.filter(
+            (r) =>
+              filters.every(([key, value]) =>
+                String(r[key] ?? "")
+                  .toLocaleLowerCase(locale)
+                  .includes(value),
+              ) &&
+              (!needle ||
+                columns.some((c) =>
+                  String(r[c.key] ?? "")
+                    .toLocaleLowerCase(locale)
+                    .includes(needle),
+                )),
+          );
     const col = columns.find((c) => c.key === state.sort);
-    if (col)
+    if (col) {
+      const compare =
+        col.type === "number"
+          ? (a, b) => a - b
+          : new Intl.Collator(locale).compare;
       result.sort((a, b) => {
         const x = a[col.key],
           y = b[col.key];
         if (x === null) return y === null ? 0 : 1;
         if (y === null) return -1;
-        const cmp =
-          col.type === "number"
-            ? x - y
-            : String(x).localeCompare(String(y), state.locale || "tr-TR");
+        const cmp = compare(x, y);
         return state.direction === "desc" ? -cmp : cmp;
       });
+    }
     return {
       rows: result.slice(
         (state.page - 1) * state.pageSize,

@@ -1,0 +1,44 @@
+{
+  "base.css": {
+    "cssBytes": 17452,
+    "cssGzipBytes": 4026,
+    "fontBytes": 0,
+    "requests": 3,
+    "totalBytes": 17452
+  },
+  "form-entry.css": {
+    "cssBytes": 19071,
+    "cssGzipBytes": 4402,
+    "fontBytes": 0,
+    "requests": 5,
+    "totalBytes": 19071
+  },
+  "data-grid-entry.css": {
+    "cssBytes": 43557,
+    "cssGzipBytes": 8031,
+    "fontBytes": 0,
+    "requests": 6,
+    "totalBytes": 43557
+  },
+  "plot-entry.css": {
+    "cssBytes": 44782,
+    "cssGzipBytes": 7491,
+    "fontBytes": 0,
+    "requests": 5,
+    "totalBytes": 44782
+  },
+  "interactive-entry.css": {
+    "cssBytes": 27208,
+    "cssGzipBytes": 5716,
+    "fontBytes": 0,
+    "requests": 5,
+    "totalBytes": 27208
+  },
+  "index.css": {
+    "cssBytes": 82606,
+    "cssGzipBytes": 13472,
+    "fontBytes": 481224,
+    "requests": 13,
+    "totalBytes": 563830
+  }
+}

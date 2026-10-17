@@ -1,3 +1,13 @@
+# 0.10.0 · 17 Ekim 2026
+
+64 Node testi; Chromium tam paket, React/Vue geliştirme/üretim/SSR hydration, logo ve dağıtım bütçeleri geçti. P3 akışları Firefox/WebKit üzerinde de geçti. Kanban klavye/fare taşıma ve iptal; Chromium dokunma emülasyonu; 20 bin satır × 20 uzun metin sütununda arama, filtre, sıralama ve sınırlı DOM doğrulandı.
+
+İngilizce stüdyo tüm tema ayarlarını sunar. DE form hataları ve AR RTL, küçük ekran, agent hata koruması, tema indirme ve axe kontrolü geçti. WOFF2 geçişi sekiz mevcut macOS görsel referansını değiştirmedi. Kaynak logo dosyaları değişmedi. Tam kaynaklarda test:scale, test:distribution ve test:visual komutları vardır.
+
+Manuel ekran okuyucu/fiziksel cihaz incelemesi ve ana dil editoryal kabulü otomatik testlerden ayrı tutulur. Kapsam kararları P3-0.10.md, makine kayıtları tests/verification-0.10.json ve tests/scale-verification-*.json içindedir. Uzak CI sonucu tamamlandığında bu kayda eklenir.
+
+---
+
 # 0.9.0 · 17 Ekim 2026
 
 62 Node testi, sabit 14 logo kontrolü ve modül boyut bütçeleri geçti. Chromium tam doğrulaması; Firefox/WebKit yeni sürüm ve erişilebilirlik akışları geçti. React ve Vue, paketlenmiş TGZ tüketicilerinde tip kontrolü, üretim derlemesi, geliştirme/üretim ve uygulama kabuğu SSR hydration testlerini geçti. İç tablo satırları sunucuda çizilmez; istemci mount eder.

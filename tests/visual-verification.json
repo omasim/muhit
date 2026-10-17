@@ -6,19 +6,19 @@
   "cases": [
     {
       "name": "light",
-      "sha256": "7f5ca70cb9496ecab7aa497af1bb90efa12a63342a2d920400ae033f13770a5c"
+      "sha256": "21bbdd71c8c111183d760239ec80d444b315fdf2128a4e7fa112c51195532e24"
     },
     {
       "name": "dark",
-      "sha256": "69e04d84efdff027cb69e7b2177ae3da3c7ab324f66e25faf8695016371530e0"
+      "sha256": "2df9217d0e80070a58dafae394173a751ab360359fd55d716216ccd30726ed8f"
     },
     {
       "name": "compact",
-      "sha256": "c825af94a155f05fb043a18a59b860001fb0b51ec95df0e5abd949b596ecd112"
+      "sha256": "d66ad9f634a17cad573d3260ee0b630475055ca75115b30486c303478937faef"
     },
     {
       "name": "large-rtl",
-      "sha256": "ba923cd8893e4a42a12b47131b23d81453419ebee6804ea44ed768bb06e4c52a"
+      "sha256": "78f50f9ba670cc6812f3ad06b1bb19558032688a68376c1d1bae3c7674a4dc2a"
     },
     {
       "name": "custom",

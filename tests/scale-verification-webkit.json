@@ -1,0 +1,29 @@
+{
+  "engine": "webkit",
+  "performance": {
+    "page": {
+      "ms": 0,
+      "total": 20000
+    },
+    "search": {
+      "ms": 271,
+      "total": 0
+    },
+    "sort": {
+      "ms": 28,
+      "total": 20000
+    },
+    "filter": {
+      "ms": 16,
+      "total": 198
+    },
+    "mount": {
+      "ms": 26,
+      "domRows": 10
+    },
+    "filteredRows": 10
+  },
+  "keyboard": true,
+  "pointer": true,
+  "touchEmulated": false
+}

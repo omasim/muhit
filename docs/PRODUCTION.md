@@ -1,4 +1,4 @@
-# Muhit 0.9.0 — uygulama sözleşmeleri
+# Muhit 0.10.0 — uygulama sözleşmeleri
 
 ## Öncelikli düzeltmeler
 
@@ -55,3 +55,5 @@ Yerel tarayıcı alternatifi: `MUHIT_CHROME=/.../Chrome`. Geliştirme ortamında
 0.7 form, genel tablo, grafik ve agent ayrıntıları: [sürüm rehberi](RELEASE-0.7.md).
 
 0.9 sözleşmeleri: RELEASE-0.9.md, FRAMEWORKS-0.9.md, ADVANCED-FORMS.md ve RELEASE-POLICY.md. Manuel erişilebilirlik durumu ACCESSIBILITY-MANUAL.md içinde ayrıca izlenir.
+
+0.10: isteğe bağlı CSS/font girişleri, WOFF2, Kanban taşıma, ek kataloglar ve ölçüm kararları P3-0.10.md içinde.

@@ -26,6 +26,7 @@ const server = createServer(async (req, res) => {
         ".svg": "image/svg+xml",
         ".json": "application/json",
         ".ttf": "font/ttf",
+        ".woff2": "font/woff2",
       }[ext] || "application/octet-stream",
     );
     res.end(await readFile(name));

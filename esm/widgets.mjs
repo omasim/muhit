@@ -370,10 +370,78 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
         const board = el("div", "mh-kanban"),
           message = status();
         root.append(board, message);
-        function paint(focusId) {
+        let drag = null;
+        const clearDrag = () => {
+          if (drag?.handle?.hasPointerCapture?.(drag.pointerId))
+            drag.handle.releasePointerCapture(drag.pointerId);
+          drag = null;
+          board
+            .querySelectorAll(".is-drop-target,.is-dragging")
+            .forEach((n) =>
+              n.classList.remove("is-drop-target", "is-dragging"),
+            );
+        };
+        const move = (id, column, handleFocus = false) => {
+          const item = value.find((x) => x.id === id);
+          if (!item || !s.columns.some((c) => c.id === column)) return;
+          if (item.column === column) {
+            clearDrag();
+            return;
+          }
+          item.column = column;
+          clearDrag();
+          message.textContent =
+            item.title + " → " + s.columns.find((c) => c.id === column).title;
+          paint(id, handleFocus);
+          emit("move");
+        };
+        const highlight = () =>
+          board
+            .querySelectorAll("[data-lane]")
+            .forEach((n) =>
+              n.classList.toggle(
+                "is-drop-target",
+                n.dataset.lane === drag?.target,
+              ),
+            );
+        on(doc, "pointermove", (e) => {
+          if (!drag || drag.pointerId !== e.pointerId) return;
+          const bounds=board.getBoundingClientRect();
+          if(e.clientX<bounds.left+32)board.scrollBy({left:-24,behavior:"instant"});
+          else if(e.clientX>bounds.right-32)board.scrollBy({left:24,behavior:"instant"});
+          const lane = doc
+            .elementFromPoint(e.clientX, e.clientY)
+            ?.closest("[data-lane]");
+          drag.target = lane && board.contains(lane) ? lane.dataset.lane : null;
+          highlight();
+        });
+        on(doc, "pointerup", (e) => {
+          if (!drag || drag.pointerId !== e.pointerId) return;
+          const { id, target } = drag;
+          if (target) move(id, target, true);
+          else {
+            clearDrag();
+            message.textContent = t("Taşıma iptal edildi.");
+          }
+        });
+        on(doc, "pointercancel", () => {
+          if (drag) {
+            clearDrag();
+            message.textContent = t("Taşıma iptal edildi.");
+          }
+        });
+        on(root, "keydown", (e) => {
+          if (e.key === "Escape" && drag) {
+            e.preventDefault();
+            clearDrag();
+            message.textContent = t("Taşıma iptal edildi.");
+          }
+        });
+        function paint(focusId, handleFocus = false) {
           board.replaceChildren();
           s.columns.forEach((col) => {
             const lane = el("section", "mh-kanban-column");
+            lane.dataset.lane = col.id;
             const rows = value.filter((x) => x.column === col.id);
             lane.append(
               el("h4", "mh-kanban-heading", col.title + " · " + rows.length),
@@ -402,21 +470,80 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
                 select.append(o);
               });
               select.value = item.column;
-              select.onchange = () => {
-                item.column = select.value;
-                message.textContent =
-                  item.title +
-                  " → " +
-                  s.columns.find((c) => c.id === item.column).title;
-                paint(item.id);
-                emit("move");
+              select.onchange = () => move(item.id, select.value);
+              const handle = button(t("Taşı"));
+              handle.classList.add("mh-kanban-handle");
+              handle.id = prefix + "-move-" + item.id;
+              handle.setAttribute(
+                "aria-label",
+                t("{title} kartını taşı", { title: item.title }),
+              );
+              handle.onpointerdown = (e) => {
+                if (e.button !== 0) return;
+                e.preventDefault();
+                clearDrag();
+                handle.focus();
+                drag = {
+                  id: item.id,
+                  target: item.column,
+                  pointerId: e.pointerId,
+                  handle,
+                };
+                handle.setPointerCapture(e.pointerId);
+                card.classList.add("is-dragging");
+                highlight();
+                message.textContent = t(
+                  "Bir sütuna sürükleyin. Escape ile iptal edin.",
+                );
               };
+              handle.onkeydown = (e) => {
+                if (![" ", "Enter", "ArrowLeft", "ArrowRight"].includes(e.key))
+                  return;
+                if (!drag && [" ", "Enter"].includes(e.key)) {
+                  e.preventDefault();
+                  drag = { id: item.id, target: item.column, handle };
+                  highlight();
+                  message.textContent = t(
+                    "Oklarla sütun seçin, Enter ile taşıyın, Escape ile iptal edin.",
+                  );
+                } else if (
+                  drag?.id === item.id &&
+                  drag.pointerId === undefined
+                ) {
+                  e.preventDefault();
+                  if ([" ", "Enter"].includes(e.key)) {
+                    move(item.id, drag.target, true);
+                    return;
+                  }
+                  const direction =
+                    (e.key === "ArrowRight" ? 1 : -1) *
+                    (root.dir === "rtl" ? -1 : 1);
+                  const index = s.columns.findIndex(
+                    (c) => c.id === drag.target,
+                  );
+                  drag.target =
+                    s.columns[
+                      Math.max(
+                        0,
+                        Math.min(s.columns.length - 1, index + direction),
+                      )
+                    ].id;
+                  highlight();
+                  message.textContent = s.columns.find(
+                    (c) => c.id === drag.target,
+                  ).title;
+                }
+              };
+              card.append(handle);
               card.append(label, select);
               lane.append(card);
             });
             board.append(lane);
           });
-          if (focusId) doc.getElementById(prefix + "-" + focusId)?.focus();
+          if (focusId)
+            doc
+              .getElementById(prefix + (handleFocus ? "-move-" : "-") + focusId)
+              ?.focus();
         }
         paint();
       } else if (s.type === "choices") {

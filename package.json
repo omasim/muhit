@@ -1,6 +1,6 @@
 {
   "name": "muhit-ui",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Tema değişkenleri, erişilebilir etkileşimler ve şema tabanlı arayüz üretimi için bağımsız HTML/CSS/JavaScript bileşenleri.",
   "type": "module",
   "license": "MIT",
@@ -83,6 +83,14 @@
       "types": "./types/csv.d.ts",
       "import": "./esm/csv.mjs",
       "default": "./esm/csv.mjs"
+    },
+    "./locales/de": {
+      "types": "./locales/index.d.ts",
+      "import": "./locales/de.mjs"
+    },
+    "./locales/ar": {
+      "types": "./locales/index.d.ts",
+      "import": "./locales/ar.mjs"
     }
   },
   "files": [
@@ -139,7 +147,22 @@
     "src/csv.js",
     "examples/advanced.html",
     "examples/visual-catalog.html",
-    "tools/capabilities.mjs"
+    "tools/capabilities.mjs",
+    "locales",
+    "styles/base.css",
+    "styles/fonts.css",
+    "styles/font-sans.css",
+    "styles/font-serif.css",
+    "styles/form-entry.css",
+    "styles/data-grid-entry.css",
+    "styles/plot-entry.css",
+    "styles/interactive-entry.css",
+    "examples/scale.html",
+    "examples/widgets.en.json",
+    "studio-en.html",
+    "studio-en.mjs",
+    "studio-en.css",
+    "tools/check-distribution.mjs"
   ],
   "sideEffects": [
     "./src/*.js",
@@ -154,7 +177,7 @@
     "test:browser": "node tests/browser/run.mjs",
     "verify": "npm run check && npm test && npm run check:brand && npm run test:browser && npm run check:capabilities",
     "test:framework": "node tests/browser/frameworks.mjs",
-    "verify:all": "npm run verify && npm run test:extended && npm run test:framework && npm run test:accessibility && npm run test:release",
+    "verify:all": "npm run verify && npm run test:extended && npm run test:framework && npm run test:accessibility && npm run test:release && npm run test:scale && npm run test:distribution",
     "build:modules": "node tools/build-modules.mjs",
     "pretest": "npm run build:modules",
     "test:extended": "npm run build:modules && node tests/browser/extended.mjs",
@@ -162,7 +185,9 @@
     "test:accessibility": "npm run build:modules && node tests/browser/accessibility.mjs",
     "test:release": "npm run build:modules && node tests/browser/release09.mjs",
     "test:visual": "npm run build:modules && node tests/browser/visual.mjs",
-    "check:capabilities": "node tools/capabilities.mjs --check"
+    "check:capabilities": "node tools/capabilities.mjs --check",
+    "test:scale": "npm run build:modules && node tests/browser/scale.mjs",
+    "test:distribution": "node tools/check-distribution.mjs"
   },
   "engines": {
     "node": ">=18"

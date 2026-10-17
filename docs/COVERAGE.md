@@ -1,4 +1,4 @@
-# Muhit kapsam durumu · 0.9.0
+# Muhit kapsam durumu · 0.10.0
 
 Bu dosya schemas/capabilities.json kaynağından üretilir. Paket, logo, tema ve agent şeması bağımsız sürümlenir.
 
@@ -12,9 +12,11 @@ Bu dosya schemas/capabilities.json kaynağından üretilir. Paket, logo, tema ve
 | form-change, edit, state, column-layout, selection ve submit olayları | Uygulandı |
 | Sekiz durum için karşılaştırmalı PNG referansları; ayrı platform kayıtları | Uygulandı |
 | Gerçek ekran okuyucu ve fiziksel mobil cihaz kabul testi | Manuel doğrulama bekliyor |
-| Sanallaştırma, gruplama ve çoklu sıralama | Sonraki kapsam |
-| Kanban sürükleme; mevcut alternatif taşıma kontrolü korunur | Sonraki kapsam |
-| Stüdyo rehberlerinin editoryal çevirisi ve ek hazır dil paketleri | Sonraki kapsam |
+| Sanallaştırma, gruplama ve çoklu sıralama: sayfalı DOM ölçümüne göre gerekçelendirilmedi | Sonraki kapsam |
+| Kanban sütunlar arası fare/dokunma sürükleme, klavye ve native seçim alternatifi | Uygulandı |
+| İngilizce ayrı stüdyo ve entegrasyon rehberi; çekirdek için isteğe bağlı DE/AR katalogları | Uygulandı |
+| 20 bin × 20 uzun metin veri kümesinde arama/sıralama/filtre/DOM bütçeleri | Uygulandı |
+| Fonttan bağımsız CSS girişleri, WOFF2 ve CSS/font/istek bütçeleri | Uygulandı |
 
 Agent şeması 1.1.0: 18 JSON türü. Yeni alan bağlantıları uygulama API’sidir; JSON içinde işlev çalıştırmaz. npm yayımlandı: hayır.
 

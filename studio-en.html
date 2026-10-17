@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Muhit · Design studio</title>
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="studio-en.css" />
+  </head>
+  <body class="mh-scope">
+    <a class="skip" href="#main">Skip to content</a>
+    <header>
+      <a href="studio-en.html"
+        ><img src="assets/brand/muhit-logo.svg" width="130" alt="Muhit"
+      /></a>
+      <nav aria-label="Studio">
+        <a href="#theme">Theme</a><a href="#components">Components</a
+        ><a href="#agent">Agent</a><a href="#guide">Get started</a
+        ><a href="index.html" lang="tr">Türkçe</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="intro">
+        <p class="mh-kicker">PEOPLE · NATURE · EXPRESSION</p>
+        <h1>A shared language.<br />A world of possibilities.</h1>
+        <p>
+          Build with a calm visual rhythm, meaningful choices and human control.
+          Customize one theme for your application and its agents.
+        </p>
+        <p>Local studio · sample data · no AI service or server connection.</p>
+      </section>
+      <section id="theme">
+        <h2>Make it yours</h2>
+        <p>
+          Every setting is portable. Theme files contain appearance preferences
+          only.
+        </p>
+        <div class="mh-row">
+          <button class="mh-button" id="undo">Undo</button
+          ><button class="mh-button" id="redo">Redo</button
+          ><button class="mh-button" id="reset">Reset</button
+          ><button class="mh-button" id="json">Download theme JSON</button
+          ><button class="mh-button" id="css">Download CSS tokens</button
+          ><label class="mh-button"
+            >Import theme JSON<input
+              class="mh-sr-only" id="import"
+              type="file"
+              accept=".json,application/json"
+          /></label>
+        </div>
+        <div id="controls" class="controls"></div>
+        <p id="theme-status" role="status"></p>
+        <details>
+          <summary>Contrast checks and semantic tokens</summary>
+          <p>
+            These checks cover selected token pairs. They do not certify the
+            accessibility of an entire application.
+          </p>
+          <div id="audit"></div>
+          <pre id="tokens" tabindex="0" aria-label="Theme CSS"></pre>
+        </details>
+      </section>
+      <section id="components">
+        <h2>Pieces that work together</h2>
+        <p>
+          The same tokens shape cards, forms, data and workflows. All records on
+          this page are fictional.
+        </p>
+        <div class="cards">
+          <article class="mh-card mh-panel">
+            <p class="mh-kicker">SHARED PURPOSE</p>
+            <h3>Knowledge in context</h3>
+            <p>Keep a source, its meaning and the next step together.</p>
+            <span class="mh-badge">Research</span>
+          </article>
+          <article class="mh-card mh-panel">
+            <p class="mh-kicker">PROGRESS · SAMPLE</p>
+            <h3>48 participants</h3>
+            <p>Show the unit and period so people can interpret the number.</p>
+            <progress
+              value="48"
+              max="60"
+              aria-label="Sample participation: 48 of 60"
+            ></progress>
+          </article>
+        </div>
+        <div class="mh-field">
+          <label for="locale">Component language</label
+          ><select class="mh-select" id="locale">
+            <option value="en">English</option>
+            <option value="tr">Türkçe</option>
+            <option value="de">Deutsch</option>
+            <option value="ar">العربية</option>
+          </select>
+          <p>
+            Component controls are localized. Application titles and sample data
+            remain English. Arabic uses right-to-left layout.
+          </p>
+        </div>
+        <div id="grid"></div>
+        <div class="cards">
+          <div id="form"></div>
+          <div id="plot"></div>
+        </div>
+        <div id="board"></div>
+        <div id="widgets" class="cards"></div>
+        <p id="events" role="status"></p>
+        <p>
+          <a href="examples/advanced.html"
+            >Remote search, repeated fields and async validation →</a
+          >
+          · <a href="examples/scale.html">Large-data and drag example →</a> ·
+          <a href="examples/visual-catalog.html">Visual state catalogue →</a>
+        </p>
+      </section>
+      <section id="agent">
+        <h2>Give agents a clear contract</h2>
+        <p>
+          Validate JSON before rendering it. The application owns authorization,
+          storage and model calls. This editor accepts declarative data, never
+          executable HTML or code.
+        </p>
+        <label for="spec">UI definition</label
+        ><textarea
+          class="mh-input"
+          id="spec"
+          rows="14"
+          spellcheck="false"
+        ></textarea>
+        <div class="mh-row">
+          <button class="mh-button mh-button--primary" id="render">
+            Validate and render</button
+          ><button class="mh-button" id="agent-theme">
+            Include current theme</button
+          ><button class="mh-button" id="agent-download">
+            Download definition
+          </button>
+        </div>
+        <p id="agent-status" role="status"></p>
+        <div id="agent-view"></div>
+      </section>
+      <section id="guide">
+        <h2>A small core. An open starting point.</h2>
+        <p>
+          Use the local package in a project, or copy the distribution and load
+          the modules directly. The npm registry package has not been published.
+        </p>
+        <pre tabindex="0" aria-label="Installation code">
+npm install ./muhit-ui-0.10.0.tgz
+
+import { MuhitDataGrid } from 'muhit-ui/data-grid';
+import 'muhit-ui/styles/data-grid-entry.css';
+// Optional: your application can use its own fonts.
+import 'muhit-ui/styles/font-sans.css';</pre>
+        <p>
+          <a href="docs/GETTING-STARTED.en.md">English integration guide</a> ·
+          <a href="docs/P3-0.10.md">Performance and release notes</a> ·
+          <a href="schemas/capabilities.json">Capability manifest</a> ·
+          <a href="LICENSE">MIT license</a> · <a href="NOTICE">Font licenses</a>
+        </p>
+        <p>
+          The fixed Muhit 3.1 identity is independent of the package version.
+          Human review remains necessary for screen readers, physical devices
+          and the content of each product.
+        </p>
+      </section>
+    </main>
+    <footer>Muhit UI 0.10.0 · A Nevmos initiative · Open source</footer>
+    <script type="module" src="studio-en.mjs"></script>
+  </body>
+</html>

@@ -2,6 +2,13 @@
 (function (global) {
   "use strict";
   const english = {
+    Taşı: "Move",
+    "{title} kartını taşı": "Move {title} card",
+    "Taşıma iptal edildi.": "Move cancelled.",
+    "Bir sütuna sürükleyin. Escape ile iptal edin.":
+      "Drag to a column. Press Escape to cancel.",
+    "Oklarla sütun seçin, Enter ile taşıyın, Escape ile iptal edin.":
+      "Choose a column with arrow keys, Enter to move, Escape to cancel.",
     "Doğrulama tamamlanamadı. Kaydederken yeniden denenecek.":
       "Validation could not finish. It will retry on submit.",
     "Komut ara ⌕": "Search commands ⌕",

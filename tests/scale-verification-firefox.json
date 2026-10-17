@@ -1,0 +1,29 @@
+{
+  "engine": "firefox",
+  "performance": {
+    "page": {
+      "ms": 0,
+      "total": 20000
+    },
+    "search": {
+      "ms": 180,
+      "total": 0
+    },
+    "sort": {
+      "ms": 57,
+      "total": 20000
+    },
+    "filter": {
+      "ms": 11,
+      "total": 198
+    },
+    "mount": {
+      "ms": 41,
+      "domRows": 10
+    },
+    "filteredRows": 10
+  },
+  "keyboard": true,
+  "pointer": true,
+  "touchEmulated": false
+}

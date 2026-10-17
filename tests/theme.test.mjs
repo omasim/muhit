@@ -104,9 +104,9 @@ test("Node-safe IIFE publishes only its frozen API without reading DOM or storag
     context,
   );
   vm.runInContext(source, context);
-  assert.equal(context.MuhitTheme.version, "0.9.0");
+  assert.equal(context.MuhitTheme.version, "0.10.0");
   assert.equal(context.MuhitTheme.resolve({}).config.preset, "grove");
-  assert.equal(theme.version, "0.9.0");
+  assert.equal(theme.version, "0.10.0");
   assert.ok(Object.isFrozen(theme));
   assert.deepEqual(Object.keys(theme), [
     "version",
@@ -470,8 +470,9 @@ test("Fallback CSS matches default resolved tokens and provides local font and r
   Object.entries(theme.resolve().tokens).forEach(([key, value]) =>
     assert.ok(css.includes(`  ${key}: ${value};`), key),
   );
-  assert.match(css, /Manrope-Variable\.ttf/);
-  assert.match(css, /SourceSerif4-Variable\.ttf/);
+  assert.doesNotMatch(css, /@font-face/);
+  assert.match(readFileSync(new URL("../styles/font-sans.css", import.meta.url), "utf8"), /Manrope-Variable\.woff2/);
+  assert.match(readFileSync(new URL("../styles/font-serif.css", import.meta.url), "utf8"), /SourceSerif4-Variable\.woff2/);
   assert.ok(
     existsSync(
       new URL("../assets/fonts/Manrope-Variable.ttf", import.meta.url),

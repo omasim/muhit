@@ -444,3 +444,9 @@
 .mh-widget .mh-row {
   flex-wrap: wrap;
 }
+
+.mh-kanban-handle { touch-action:none; cursor:grab; min-width:44px; min-height:44px; }
+.mh-kanban-handle:active { cursor:grabbing; }
+.mh-kanban-column.is-drop-target { outline:3px solid var(--mh-focus); outline-offset:-3px; }
+.mh-kanban-card.is-dragging { opacity:.7; }
+@media (forced-colors:active){.mh-kanban-column.is-drop-target{outline-color:Highlight}}

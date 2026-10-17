@@ -1,3 +1,7 @@
+# 0.10.0
+
+Ölçüme dayalı büyük veri sorgu iyileştirmeleri; klavye/fare/dokunma Kanban taşıma; isteğe bağlı CSS/font girişleri ve WOFF2; DE/AR çekirdek katalogları; İngilizce stüdyo ve rehber. tokens.css artık font yüklemez; tam index.css davranışı korunur. P3 kapsam ve sınırlar docs/P3-0.10.md içinde.
+
 ## 0.9.0
 
 P1 dil/görünüm/CSV düzeltmeleri; 44 px seçim hedefleri; genişletilmiş framework adaptörleri ve SSR/hydration; async doğrulama, alan grupları, uzak combobox; agent olayları; görsel referanslar ve tek kaynaklı yetenek belgesi. Geçişler: docs/RELEASE-0.9.md.

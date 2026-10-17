@@ -6,7 +6,7 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
 /* Muhit UI 0.3.1 · MIT · Buildless, dependency-free theme engine. */
 (function (global) {
   "use strict";
-  const VERSION = "0.9.0";
+  const VERSION = "0.10.0";
   const DEFAULTS = Object.freeze({
     version: 1,
     preset: "grove",

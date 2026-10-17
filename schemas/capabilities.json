@@ -1,20 +1,74 @@
 {
-  "packageVersion":"0.9.0",
-  "themeSchema":1,
-  "agentSchema":"1.1.0",
-  "agentComponentCount":18,
-  "npmPublished":false,
-  "features":[
-    {"id":"locale","status":"implemented","label":"TR/EN, bölgesel sözlük devralma ve mount düzeyinde locale sözleşmesi"},
-    {"id":"grid-view","status":"implemented","label":"Sütun sıra/genişlik/sabitleme/görünürlük, filtre ve seçim snapshot’ı"},
-    {"id":"csv","status":"implemented","label":"Ortak CSV kaçışı; sayfa, filtrelenmiş ve seçilmiş kayıtlar için açık dışa aktarma sözleşmesi"},
-    {"id":"fields","status":"implemented","label":"Tekrarlanan alan grupları, uzak combobox ve iptal edilebilir async doğrulama"},
-    {"id":"adapters","status":"implemented","label":"React/Vue seçenek ve olay aktarımı; uygulama kabuğu SSR ve hydration"},
-    {"id":"agent-events","status":"implemented","label":"form-change, edit, state, column-layout, selection ve submit olayları"},
-    {"id":"visual","status":"implemented","label":"Sekiz durum için karşılaştırmalı PNG referansları; ayrı platform kayıtları"},
-    {"id":"manual-accessibility","status":"pending-manual","label":"Gerçek ekran okuyucu ve fiziksel mobil cihaz kabul testi"},
-    {"id":"virtualization","status":"deferred","label":"Sanallaştırma, gruplama ve çoklu sıralama"},
-    {"id":"kanban-drag","status":"deferred","label":"Kanban sürükleme; mevcut alternatif taşıma kontrolü korunur"},
-    {"id":"editorial-translations","status":"deferred","label":"Stüdyo rehberlerinin editoryal çevirisi ve ek hazır dil paketleri"}
+  "packageVersion": "0.10.0",
+  "themeSchema": 1,
+  "agentSchema": "1.1.0",
+  "agentComponentCount": 18,
+  "npmPublished": false,
+  "features": [
+    {
+      "id": "locale",
+      "status": "implemented",
+      "label": "TR/EN, bölgesel sözlük devralma ve mount düzeyinde locale sözleşmesi"
+    },
+    {
+      "id": "grid-view",
+      "status": "implemented",
+      "label": "Sütun sıra/genişlik/sabitleme/görünürlük, filtre ve seçim snapshot’ı"
+    },
+    {
+      "id": "csv",
+      "status": "implemented",
+      "label": "Ortak CSV kaçışı; sayfa, filtrelenmiş ve seçilmiş kayıtlar için açık dışa aktarma sözleşmesi"
+    },
+    {
+      "id": "fields",
+      "status": "implemented",
+      "label": "Tekrarlanan alan grupları, uzak combobox ve iptal edilebilir async doğrulama"
+    },
+    {
+      "id": "adapters",
+      "status": "implemented",
+      "label": "React/Vue seçenek ve olay aktarımı; uygulama kabuğu SSR ve hydration"
+    },
+    {
+      "id": "agent-events",
+      "status": "implemented",
+      "label": "form-change, edit, state, column-layout, selection ve submit olayları"
+    },
+    {
+      "id": "visual",
+      "status": "implemented",
+      "label": "Sekiz durum için karşılaştırmalı PNG referansları; ayrı platform kayıtları"
+    },
+    {
+      "id": "manual-accessibility",
+      "status": "pending-manual",
+      "label": "Gerçek ekran okuyucu ve fiziksel mobil cihaz kabul testi"
+    },
+    {
+      "id": "virtualization",
+      "status": "deferred",
+      "label": "Sanallaştırma, gruplama ve çoklu sıralama: sayfalı DOM ölçümüne göre gerekçelendirilmedi"
+    },
+    {
+      "id": "kanban-drag",
+      "status": "implemented",
+      "label": "Kanban sütunlar arası fare/dokunma sürükleme, klavye ve native seçim alternatifi"
+    },
+    {
+      "id": "editorial-translations",
+      "status": "implemented",
+      "label": "İngilizce ayrı stüdyo ve entegrasyon rehberi; çekirdek için isteğe bağlı DE/AR katalogları"
+    },
+    {
+      "id": "scale-budgets",
+      "status": "implemented",
+      "label": "20 bin × 20 uzun metin veri kümesinde arama/sıralama/filtre/DOM bütçeleri"
+    },
+    {
+      "id": "delivery",
+      "status": "implemented",
+      "label": "Fonttan bağımsız CSS girişleri, WOFF2 ve CSS/font/istek bütçeleri"
+    }
   ]
 }
