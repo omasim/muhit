@@ -1,6 +1,6 @@
-## 0.10 · Ölçek, Kanban taşıma, hafif dağıtım ve ek diller
+## 0.11 · Veri doğruluğu, form durumu ve üretim entegrasyonları
 
-[Çalışan dil/sütun örneği](examples/international.html) · [Sütun API](docs/COLUMN-LAYOUT.md) · [Dil API](docs/INTERNATIONALIZATION.md) · [Sürüm notları](docs/RELEASE-0.9.md) · [Gelişmiş alanlar](examples/advanced.html) · [Görsel katalog](examples/visual-catalog.html)
+[Çalışan dil/sütun örneği](examples/international.html) · [Sütun API](docs/COLUMN-LAYOUT.md) · [Dil API](docs/INTERNATIONALIZATION.md) · [Sürüm notları](CHANGELOG.md) · [Gelişmiş alanlar](examples/advanced.html) · [Görsel katalog](examples/visual-catalog.html)
 
 [![Verify Muhit](https://github.com/omasim/muhit/actions/workflows/verify.yml/badge.svg)](https://github.com/omasim/muhit/actions/workflows/verify.yml)
 
@@ -194,7 +194,7 @@ Kontrast/filtre/sabit başlık düzeltmeleri, kart durumları, agent sayfaları,
 `MuhitForm` doğrulanmış alanlar, asenkron kayıt, hata özeti, sıfırlama ve temizleme sağlar. `MuhitPreferences` tema tercihlerinin isteğe bağlı yerel saklanmasını yönetir. [Rehber](docs/FORMS.md) · [Çalışan ayarlar sayfası](examples/settings.html) · [Kapsam ve kalan işler](docs/COVERAGE.md).
 
 
-Güncel sözleşme ve sınırlar: [P3-0.10.md](docs/P3-0.10.md). 0.9 API sözleşmeleri geçerliliğini korur.
+Güncel sözleşme ve sınırlar: [0.11 üretim hazırlığı](docs/PRODUCTION-0.11.md). CSV yükleme/hata davranışı ve form snapshot geçişi için [yayın politikası](docs/RELEASE-POLICY.md).
 
 ## 0.10: ölçek, hareket ve diller
 

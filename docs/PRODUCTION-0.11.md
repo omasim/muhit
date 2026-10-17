@@ -30,3 +30,7 @@ SSR, uygulama kabuğudur; tablo satırlarının sunucuda üretildiği iddia edil
 ## Kullanım kararı
 
 Dört doğrulanmış kod engeli kapatıldı. Sürüm sabitlenerek pilot ve iç araç projelerine alınabilir. Erişilebilirliği kritik genel yayına çıkış için manuel kabul tamamlanmalı. Uygulama sağlayıcıları, kimlik/izin kontrolü, kalıcılık ve gerçek ağ hata davranışı tüketici projenin sorumluluğundadır.
+
+## Uzak doğrulama
+
+Son karşılaştırmalı CI üç tarayıcıda başarılı: https://github.com/omasim/muhit/actions/runs/39070676595. Test edilen kod commit’i `dd4c7d5b5987a568158d4f0048802c894dcd9fdb`. Linux/Chromium 14 görsel referansı normal karşılaştırmayla geçti. Değişiklikler PR #1 üzerinde incelemeye sunulmuştur; ana dal birleştirmesi ve npm yayını bu çalışmada yapılmadı.
