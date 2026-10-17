@@ -1,0 +1,88 @@
+/* Muhit UI 0.3.0 · MIT. Local fonts are separately licensed under SIL OFL 1.1. */
+@font-face{font-family:Manrope;src:url('../assets/fonts/Manrope-Variable.ttf') format('truetype');font-style:normal;font-weight:200 800;font-display:swap}
+@font-face{font-family:'Source Serif 4';src:url('../assets/fonts/SourceSerif4-Variable.ttf') format('truetype');font-style:normal;font-weight:200 900;font-display:swap}
+
+/* JavaScript-free fallback: Koru, light, editorial, comfortable, soft. */
+:root {
+  --mh-bg: #F5F4EF;
+  --mh-surface: #FFFFFF;
+  --mh-surface-2: #E9EFE8;
+  --mh-text: #202A25;
+  --mh-muted: #58625A;
+  --mh-border: #D6DED4;
+  --mh-border-strong: #737F73;
+  --mh-accent: #356752;
+  --mh-on-accent: #FFFFFF;
+  --mh-accent-soft: #EBF0EE;
+  --mh-link: #356752;
+  --mh-focus: #356752;
+  --mh-success: #306647;
+  --mh-success-bg: #E6F0E6;
+  --mh-warning: #7A4D10;
+  --mh-warning-bg: #FAEFD5;
+  --mh-danger: #A03F32;
+  --mh-danger-bg: #F9E8E1;
+  --mh-info: #3F5B82;
+  --mh-info-bg: #E5ECF7;
+  --mh-chart-1: #537E63;
+  --mh-on-chart-1: #FFFFFF;
+  --mh-chart-2: #77769D;
+  --mh-on-chart-2: #000000;
+  --mh-chart-3: #A47932;
+  --mh-on-chart-3: #000000;
+  --mh-chart-4: #AB6650;
+  --mh-on-chart-4: #000000;
+  --mh-font-sans: "Manrope", Arial, sans-serif;
+  --mh-font-serif: "Source Serif 4", Georgia, serif;
+  --mh-font-ui: "Manrope", Arial, sans-serif;
+  --mh-font-display: "Source Serif 4", Georgia, serif;
+  --mh-font-body: "Manrope", Arial, sans-serif;
+  --mh-font-heading: "Source Serif 4", Georgia, serif;
+  --mh-radius-sm: 6px;
+  --mh-radius-md: 10px;
+  --mh-radius-lg: 16px;
+  --mh-space-card: 24px;
+  --mh-cell-y: 16px;
+  --mh-text-scale: 1;
+  --mh-motion: 160ms ease;
+  --mh-elevation: none;
+  --mh-button-bg: #356752;
+  --mh-button-fg: #FFFFFF;
+  --mh-button-border: #356752;
+  --mh-control-height: 44px;
+  --mh-control-x: 17px;
+  --mh-heading-scale: 1;
+  --mh-line-height: 1.65;
+  --mh-content-width: 1240px;
+  --mh-border-width: 1px;
+  --mh-icon-weight: 1.5;
+  --mh-backdrop: rgba(18, 28, 25, 0.52);
+  --mh-shadow-overlay: 0 16px 48px rgba(15, 25, 21, 0.18);
+  --mh-sand: #F5F4EF;
+  --mh-ink: #202A25;
+  --mh-line: #D6DED4;
+  --mh-line-strong: #737F73;
+  --mh-logo-ink: #356752;
+  --mh-logo-sage: #537E63;
+  --mh-sage: #EBF0EE;
+  --mh-sky: #E5ECF7;
+  --mh-terra: #AB6650;
+  --mh-ochre: #A47932;
+}
+
+.mh-scope{color-scheme:inherit}
+[data-mh-mode="light"]{color-scheme:light}
+[data-mh-mode="dark"]{color-scheme:dark}
+[data-mh-motion="reduced"]{--mh-motion:0ms!important}
+[data-mh-motion="reduced"], [data-mh-motion="reduced"] *, [data-mh-motion="reduced"] *::before, [data-mh-motion="reduced"] *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+@media(prefers-reduced-motion:reduce){
+  :where(.mh-scope,[data-mh-root]){--mh-motion:0ms!important}
+  :where(.mh-scope,[data-mh-root]), :where(.mh-scope,[data-mh-root]) *, :where(.mh-scope,[data-mh-root]) *::before, :where(.mh-scope,[data-mh-root]) *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+
+:root {
+  --mh-card-surface: #FFFFFF;
+  --mh-layout-gap: 24px;
+  --mh-table-stripe: transparent;
+  --mh-table-header-position: static;
+}

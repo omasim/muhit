@@ -1,0 +1,559 @@
+/* Muhit forms: JSON field definitions, application-owned submission. */
+(function (global) {
+  "use strict";
+  const instances = new WeakMap();
+  let sequence = 0;
+  const types = [
+    "text",
+    "email",
+    "textarea",
+    "number",
+    "date",
+    "select",
+    "checkbox",
+  ];
+  function json(value) {
+    const visit = (v, depth = 0) => {
+      if (depth > 12) throw new TypeError("Tanım çok derin.");
+      if (v === null || ["string", "boolean"].includes(typeof v)) return;
+      if (typeof v === "number" && Number.isFinite(v)) return;
+      if (
+        !v ||
+        typeof v !== "object" ||
+        (!Array.isArray(v) &&
+          ![Object.prototype, null].includes(Object.getPrototypeOf(v)))
+      )
+        throw new TypeError("Yalnız JSON verisi kabul edilir.");
+      for (const [key, d] of Object.entries(
+        Object.getOwnPropertyDescriptors(v),
+      )) {
+        if (
+          ["__proto__", "prototype", "constructor"].includes(key) ||
+          !("value" in d)
+        )
+          throw new TypeError("Güvensiz alan.");
+        visit(d.value, depth + 1);
+      }
+    };
+    visit(value);
+    return JSON.parse(JSON.stringify(value));
+  }
+  function fieldsOf(input) {
+    const fields = json(input);
+    if (!Array.isArray(fields) || !fields.length || fields.length > 50)
+      throw new TypeError("1–50 alan gerekli.");
+    const names = new Set();
+    for (const f of fields) {
+      if (!f || typeof f !== "object" || Array.isArray(f))
+        throw new TypeError("Geçersiz alan.");
+      if (
+        Object.keys(f).some(
+          (k) =>
+            ![
+              "name",
+              "label",
+              "type",
+              "help",
+              "required",
+              "min",
+              "max",
+              "maxLength",
+              "options",
+              "disabled",
+              "readOnly",
+              "visibleWhen",
+            ].includes(k),
+        )
+      )
+        throw new TypeError("Bilinmeyen alan seçeneği.");
+      if (
+        typeof f.name !== "string" ||
+        !/^[a-zA-Z][\w-]{0,63}$/.test(f.name) ||
+        names.has(f.name) ||
+        ["__proto__", "constructor", "prototype"].includes(f.name) ||
+        typeof f.label !== "string" ||
+        !f.label.trim()
+      )
+        throw new TypeError(
+          "Alan adı ve etiketi gerekli; adlar benzersiz olmalı.",
+        );
+      for (const key of ["disabled", "readOnly"])
+        if (f[key] !== undefined && typeof f[key] !== "boolean")
+          throw new TypeError(key + " boolean olmalı.");
+      if (
+        f.visibleWhen !== undefined &&
+        (!f.visibleWhen ||
+          (!["string", "number", "boolean"].includes(
+            typeof f.visibleWhen.equals,
+          ) &&
+            f.visibleWhen.equals !== null) ||
+          !f.visibleWhen.field ||
+          Object.keys(f.visibleWhen).some(
+            (k) => !["field", "equals"].includes(k),
+          ) ||
+          !Object.hasOwn(f.visibleWhen, "equals"))
+      )
+        throw new TypeError("Geçersiz alan koşulu.");
+      names.add(f.name);
+      f.type ??= "text";
+      if (f.readOnly && ["select", "checkbox"].includes(f.type))
+        throw new TypeError(
+          "readOnly yalnız metin/sayı/tarih alanlarında kullanılabilir; seçim için disabled kullanın.",
+        );
+      if (!types.includes(f.type))
+        throw new TypeError("Desteklenmeyen alan türü.");
+      if (f.required !== undefined && typeof f.required !== "boolean")
+        throw new TypeError("required boolean olmalı.");
+      if (f.help !== undefined && typeof f.help !== "string")
+        throw new TypeError("help metin olmalı.");
+      for (const key of ["min", "max"])
+        if (
+          f[key] !== undefined &&
+          (f.type !== "number" ||
+            typeof f[key] !== "number" ||
+            !Number.isFinite(f[key]))
+        )
+          throw new TypeError("Sayı sınırı geçersiz.");
+      if (f.min > f.max) throw new TypeError("min max değerini aşamaz.");
+      if (
+        f.maxLength !== undefined &&
+        (!["text", "email", "textarea"].includes(f.type) ||
+          !Number.isInteger(f.maxLength) ||
+          f.maxLength < 1 ||
+          f.maxLength > 100000)
+      )
+        throw new TypeError("Metin sınırı geçersiz.");
+      if (f.type === "select") {
+        if (
+          !Array.isArray(f.options) ||
+          !f.options.length ||
+          f.options.length > 100
+        )
+          throw new TypeError("1–100 seçim gerekli.");
+        const values = new Set();
+        for (const o of f.options) {
+          if (
+            !o ||
+            Object.keys(o).some((k) => !["value", "label"].includes(k)) ||
+            typeof o.value !== "string" ||
+            !o.value ||
+            values.has(o.value) ||
+            typeof o.label !== "string" ||
+            !o.label.trim()
+          )
+            throw new TypeError("Seçimler benzersiz ve etiketli olmalı.");
+          values.add(o.value);
+        }
+      } else if (f.options !== undefined)
+        throw new TypeError("options yalnız select için kullanılabilir.");
+    }
+    for (const f of fields)
+      if (
+        f.visibleWhen &&
+        (f.visibleWhen.field === f.name || !names.has(f.visibleWhen.field))
+      )
+        throw new TypeError("Koşul başka bir alanı göstermeli.");
+    return fields;
+  }
+  function valuesOf(fields, input = {}) {
+    const source = json(input);
+    if (
+      !source ||
+      Array.isArray(source) ||
+      typeof source !== "object" ||
+      Object.keys(source).some((k) => !fields.some((f) => f.name === k))
+    )
+      throw new TypeError("Bilinmeyen form değeri.");
+    const result = {};
+    for (const f of fields) {
+      const v =
+        source[f.name] ??
+        (f.type === "checkbox" ? false : f.type === "number" ? null : "");
+      if (
+        f.type === "checkbox"
+          ? typeof v !== "boolean"
+          : f.type === "number"
+            ? v !== null && (typeof v !== "number" || !Number.isFinite(v))
+            : typeof v !== "string"
+      )
+        throw new TypeError("Alan veri türü uyuşmuyor: " + f.name);
+      result[f.name] = v;
+    }
+    return result;
+  }
+  function visible(f, values) {
+    return (
+      !f.visibleWhen || values[f.visibleWhen.field] === f.visibleWhen.equals
+    );
+  }
+  function representable(fields, input) {
+    const values = valuesOf(fields, input);
+    const checked = validate(
+      fields.map(({ visibleWhen, disabled, ...f }) => f),
+      values,
+    );
+    for (const f of fields)
+      if (
+        ["date", "select"].includes(f.type) &&
+        checked.errors[f.name] &&
+        values[f.name] !== ""
+      )
+        throw new TypeError(f.name + ": " + checked.errors[f.name]);
+    // Native text controls strip line breaks; reject before changing the existing view.
+    for (const f of fields)
+      if (["text", "email"].includes(f.type) && /[\r\n]/.test(values[f.name]))
+        throw new TypeError("Tek satırlı alan satır sonu içeremez.");
+    for (const f of fields)
+      if (f.type === "email") values[f.name] = values[f.name].trim();
+    return values;
+  }
+  function validate(fields, input) {
+    const fs = fieldsOf(fields),
+      values = valuesOf(fs, input),
+      errors = {};
+    for (const f of fs) {
+      if (f.disabled || !visible(f, values)) continue;
+      const v = values[f.name],
+        empty =
+          v === null || v === false || (typeof v === "string" && !v.trim());
+      if (f.required && empty) errors[f.name] = f.label + " alanını doldurun.";
+      else if (!empty) {
+        if (f.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))
+          errors[f.name] = "Geçerli bir e-posta adresi yazın.";
+        if (
+          f.type === "number" &&
+          ((f.min !== undefined && v < f.min) ||
+            (f.max !== undefined && v > f.max))
+        )
+          errors[f.name] = "Değer izin verilen aralıkta olmalı.";
+        if (f.maxLength && v.length > f.maxLength)
+          errors[f.name] = `En fazla ${f.maxLength} karakter yazın.`;
+        if (
+          f.type === "date" &&
+          (!/^\d{4}-\d{2}-\d{2}$/.test(v) ||
+            !Number.isFinite(Date.parse(v + "T12:00:00Z")) ||
+            new Date(v + "T12:00:00Z").toISOString().slice(0, 10) !== v)
+        )
+          errors[f.name] = "Geçerli bir tarih seçin.";
+        if (f.type === "select" && !f.options.some((o) => o.value === v))
+          errors[f.name] = "Listeden bir seçim yapın.";
+      }
+    }
+    return { valid: !Object.keys(errors).length, values, errors };
+  }
+  function mount(target, options) {
+    const fields = fieldsOf(options.fields);
+    const initial = representable(fields, options.values);
+    for (const key of ["onChange", "validate"])
+      if (options[key] !== undefined && typeof options[key] !== "function")
+        throw new TypeError(key + " işlev olmalı.");
+    if (
+      options.onSubmit !== undefined &&
+      typeof options.onSubmit !== "function"
+    )
+      throw new TypeError("onSubmit işlev olmalı.");
+    const host =
+      typeof target === "string" ? document.querySelector(target) : target;
+    if (!host || host.nodeType !== 1)
+      throw new TypeError("Form kapsayıcısı gerekli.");
+    instances.get(host)?.destroy();
+    const doc = host.ownerDocument;
+    const el = (tag, cls, text) => {
+      const n = doc.createElement(tag);
+      n.className = cls || "";
+      if (text !== undefined) n.textContent = text;
+      return n;
+    };
+    const root = el("form", "mh-scope mh-form mh-stack");
+    root.noValidate = true;
+    const title = el("h2", "mh-panel__title", options.title || "Bilgiler");
+    title.id = `mh-form-${++sequence}`;
+    root.setAttribute("aria-labelledby", title.id);
+    const summary = el("div", "mh-alert mh-alert--danger");
+    summary.tabIndex = -1;
+    summary.hidden = true;
+    const group = el("fieldset", "mh-form__fields");
+    const status = el("p", "mh-field__help");
+    status.setAttribute("role", "status");
+    const submit = el(
+      "button",
+      "mh-button mh-button--primary",
+      options.submitLabel || "Kaydet",
+    );
+    submit.type = "submit";
+    const reset = el("button", "mh-button", "Sıfırla");
+    reset.type = "reset";
+    const actions = el("div", "mh-row");
+    actions.append(submit, reset);
+    root.append(title, summary, group, actions, status);
+    const controls = new Map();
+    let serverErrors = {};
+    let baseline = initial,
+      dead = false,
+      busy = false,
+      controller,
+      revision = 0,
+      errors = {};
+    for (const f of fields) {
+      const wrap = el("div", "mh-field"),
+        label = el("label", "", f.label + (f.required ? " *" : ""));
+      const control = el(
+        f.type === "select"
+          ? "select"
+          : f.type === "textarea"
+            ? "textarea"
+            : "input",
+        f.type === "select"
+          ? "mh-select"
+          : f.type === "textarea"
+            ? "mh-textarea"
+            : "mh-input",
+      );
+      control.id = title.id + "-" + f.name;
+      control.name = f.name;
+      label.htmlFor = control.id;
+      if (control.tagName === "INPUT")
+        control.type = f.type === "checkbox" ? "checkbox" : f.type;
+      if (f.type === "checkbox") {
+        control.className = "";
+        wrap.classList.add("mh-form__checkbox");
+      }
+      if (f.type === "select") {
+        const placeholder = el("option", "", "Seçin");
+        placeholder.value = "";
+        control.append(placeholder);
+        f.options.forEach((o) => {
+          const n = el("option", "", o.label);
+          n.value = o.value;
+          control.append(n);
+        });
+      }
+      if (f.type === "number") control.step = "any";
+      for (const k of ["required", "min", "max", "maxLength"])
+        if (f[k] !== undefined) control[k] = f[k];
+      const help = el("p", "mh-field__help", f.help || ""),
+        error = el("p", "mh-field__error");
+      help.id = control.id + "-help";
+      error.id = control.id + "-error";
+      control.setAttribute("aria-describedby", help.id + " " + error.id);
+      wrap.append(label, control, help, error);
+      group.append(wrap);
+      controls.set(f.name, { control, error, wrap });
+      control.disabled = !!f.disabled;
+      control.readOnly = !!f.readOnly;
+    }
+    const read = () =>
+      Object.fromEntries(
+        fields.map((f) => {
+          const c = controls.get(f.name).control;
+          return [
+            f.name,
+            f.type === "checkbox"
+              ? c.checked
+              : f.type === "number"
+                ? c.value === ""
+                  ? null
+                  : c.valueAsNumber
+                : c.value,
+          ];
+        }),
+      );
+    const write = (values) =>
+      fields.forEach((f) => {
+        const c = controls.get(f.name).control;
+        if (f.type === "checkbox") c.checked = values[f.name];
+        else c.value = values[f.name] ?? "";
+      });
+    function syncVisibility() {
+      const values = read();
+      fields.forEach((f) => {
+        const item = controls.get(f.name);
+        item.wrap.hidden = !visible(f, values);
+        item.control.disabled = !!f.disabled || item.wrap.hidden;
+      });
+    }
+    function check() {
+      const result = validate(fields, read());
+      for (const [name, { control }] of controls)
+        if (!control.disabled && control.validity.badInput)
+          result.errors[name] = "Geçerli bir değer yazın.";
+      if (options.validate) {
+        const extra = options.validate({ ...result.values }) || {};
+        if (
+          Object.keys(extra).some(
+            (k) => !controls.has(k) || typeof extra[k] !== "string",
+          )
+        )
+          throw new TypeError("Özel doğrulama alan hata nesnesi döndürmeli.");
+        Object.assign(result.errors, extra);
+      }
+      Object.assign(result.errors, serverErrors);
+      result.valid = !Object.keys(result.errors).length;
+      return result;
+    }
+    function changed() {
+      options.onChange?.(
+        { ...read() },
+        { dirty: JSON.stringify(read()) !== JSON.stringify(baseline) },
+      );
+    }
+    function showErrors(next = {}, message = "") {
+      errors = next;
+      summary.replaceChildren();
+      for (const [name, { control, error }] of controls) {
+        error.textContent = next[name] || "";
+        control.setAttribute("aria-invalid", String(!!next[name]));
+      }
+      summary.hidden = !message && !Object.keys(next).length;
+      if (!summary.hidden) {
+        summary.append(
+          el("p", "", message || "Lütfen aşağıdaki alanları kontrol edin."),
+        );
+        for (const f of fields)
+          if (next[f.name]) {
+            const button = el("button", "mh-text-link", next[f.name]);
+            button.type = "button";
+            button.onclick = () => controls.get(f.name).control.focus();
+            summary.append(button);
+          }
+      }
+    }
+    function abort() {
+      revision++;
+      controller?.abort();
+      busy = false;
+      group.disabled = false;
+      submit.disabled = false;
+      root.setAttribute("aria-busy", "false");
+    }
+    async function send(event) {
+      event.preventDefault();
+      if (dead || busy) return;
+      const result = check();
+      showErrors(result.errors);
+      status.textContent = "";
+      if (!result.valid) {
+        summary.focus();
+        return;
+      }
+      if (!options.onSubmit) {
+        status.textContent =
+          "Bilgiler geçerli. Kayıt için uygulamanın onSubmit bağlantısı gerekli.";
+        return;
+      }
+      busy = true;
+      group.disabled = true;
+      submit.disabled = true;
+      root.setAttribute("aria-busy", "true");
+      status.textContent = "Kaydediliyor…";
+      controller = new AbortController();
+      const current = ++revision;
+      try {
+        const response = await options.onSubmit(
+          { ...result.values },
+          controller.signal,
+        );
+        if (dead || current !== revision) return;
+        serverErrors = response?.errors || {};
+        if (
+          Object.keys(serverErrors).some(
+            (k) => !controls.has(k) || typeof serverErrors[k] !== "string",
+          )
+        )
+          throw new TypeError("Geçersiz sunucu hata yanıtı.");
+        if (Object.keys(serverErrors).length) {
+          showErrors(serverErrors);
+          summary.focus();
+          status.textContent = "Kayıt tamamlanamadı.";
+        } else {
+          baseline = { ...result.values };
+          changed();
+          status.textContent = "Kaydedildi.";
+        }
+      } catch (error) {
+        if (dead || current !== revision) return;
+        showErrors(
+          {},
+          "Kaydedilemedi. Bağlantınızı kontrol edip yeniden deneyin.",
+        );
+        summary.focus();
+        status.textContent = "";
+      } finally {
+        if (!dead && current === revision) {
+          busy = false;
+          group.disabled = false;
+          submit.disabled = false;
+          root.setAttribute("aria-busy", "false");
+        }
+      }
+    }
+    const onInput = (event) => {
+      if (dead) return;
+      delete serverErrors[event.target.name];
+      syncVisibility();
+      for (const f of fields)
+        if (!visible(f, read())) delete serverErrors[f.name];
+      if (Object.keys(errors).length) showErrors(check().errors);
+      changed();
+      status.textContent = "Kaydedilmemiş değişiklikler var.";
+    };
+    const onReset = (event) => {
+      event?.preventDefault();
+      if (dead) return;
+      abort();
+      write(baseline);
+      serverErrors = {};
+      syncVisibility();
+      changed();
+      showErrors();
+      status.textContent = "Değişiklikler sıfırlandı.";
+    };
+    root.addEventListener("submit", send);
+    root.addEventListener("input", onInput);
+    root.addEventListener("reset", onReset);
+    write(initial);
+    syncVisibility();
+    host.append(root);
+    const api = {
+      getValues: () => ({ ...read() }),
+      isDirty: () => JSON.stringify(read()) !== JSON.stringify(baseline),
+      setValues(input) {
+        if (dead) throw new Error("Form kaldırıldı.");
+        const values = representable(fields, input);
+        abort();
+        write(values);
+        serverErrors = {};
+        syncVisibility();
+        changed();
+        showErrors();
+        status.textContent = "";
+        return api;
+      },
+      reset: () => onReset(),
+      validate() {
+        const result = check();
+        showErrors(result.errors);
+        return result;
+      },
+      destroy() {
+        if (dead) return;
+        dead = true;
+        abort();
+        root.removeEventListener("submit", send);
+        root.removeEventListener("input", onInput);
+        root.removeEventListener("reset", onReset);
+        root.remove();
+        if (instances.get(host) === api) instances.delete(host);
+      },
+    };
+    instances.set(host, api);
+    return api;
+  }
+  global.MuhitForm = Object.freeze({
+    normalizeFields: fieldsOf,
+    normalizeValues: (fields, values) =>
+      representable(fieldsOf(fields), values),
+    validate,
+    mount,
+  });
+})(globalThis);

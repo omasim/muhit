@@ -1,0 +1,11 @@
+{
+  "version": "0.5.0",
+  "date": "2026-10-17",
+  "nodeTests": 46,
+  "browserSuite": "tests/browser/run.mjs",
+  "browserResult": "passed",
+  "brandFiles": 14,
+  "consumerTgz": "passed",
+  "frameworkExamplesRuntimeTested": false,
+  "ciExecutedRemotely": false
+}

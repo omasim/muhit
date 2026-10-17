@@ -1,0 +1,543 @@
+{
+  "schemaVersion": "1.1.0",
+  "name": "Muhit UI component manifest",
+  "uiSchema": "./ui.schema.json",
+  "themeSchema": "./theme.schema.json",
+  "adapter": {
+    "global": "MuhitAgent",
+    "entry": "../src/agent.js",
+    "deterministic": true,
+    "modelConnected": false,
+    "networkRequired": false,
+    "renderKinds": [
+      "card",
+      "metric",
+      "notice",
+      "table",
+      "chart",
+      "tabs",
+      "accordion",
+      "timeline",
+      "kanban",
+      "choices",
+      "command",
+      "drawer",
+      "stepper",
+      "filepicker",
+      "pagination",
+      "form",
+      "datagrid",
+      "plot"
+    ],
+    "dataAttributes": [
+      "data-component",
+      "data-component-id"
+    ],
+    "limits": {
+      "components": 50,
+      "tableRows": 500,
+      "chartRows": 24
+    },
+    "actionContract": {
+      "payload": {
+        "id": "card action.id or widget event type",
+        "componentId": "component.id",
+        "value": "optional JSON widget state"
+      },
+      "trigger": "user interaction; accordion may emit native initial toggle events",
+      "withoutHandler": "Card action disabled; widgets maintain local state."
+    },
+    "scopeClass": "mh-scope mh-agent mh-stack",
+    "themeOmission": "Inherits parent CSS tokens; explicit theme:{} normalizes defaults on the owned inner root.",
+    "pageContract": "Optional page:{title,description?,layout?:stack|grid}; components render inside page body."
+  },
+  "components": [
+    {
+      "type": "card",
+      "schemaRef": "./ui.schema.json#/$defs/card",
+      "classes": [
+        "mh-card",
+        "mh-card__title",
+        "mh-card__body",
+        "mh-card__footer",
+        "mh-button",
+        "mh-button--primary"
+      ],
+      "requiredProps": [
+        "type",
+        "id",
+        "title"
+      ],
+      "optionalProps": {
+        "description": "string ≤4000",
+        "action": "{id,label}; optional; label ≤120",
+        "variant": "default | horizontal | sage | ink",
+        "state": "default | selected | disabled | loading | error",
+        "meta": "string ≤500"
+      },
+      "variants": [
+        "default",
+        "horizontal",
+        "sage",
+        "ink"
+      ],
+      "behavior": "MuhitAgent creates native section/h3/p/button nodes with textContent."
+    },
+    {
+      "type": "metric",
+      "schemaRef": "./ui.schema.json#/$defs/metric",
+      "classes": [
+        "mh-panel",
+        "mh-metric",
+        "mh-metric__label",
+        "mh-metric__value",
+        "mh-muted",
+        "mh-small"
+      ],
+      "requiredProps": [
+        "type",
+        "id",
+        "label",
+        "value"
+      ],
+      "optionalProps": {
+        "note": "string ≤2000"
+      },
+      "variants": [
+        "default"
+      ],
+      "behavior": "value is a display string; no numerical meaning or combined score is inferred."
+    },
+    {
+      "type": "notice",
+      "schemaRef": "./ui.schema.json#/$defs/notice",
+      "classes": [
+        "mh-alert",
+        "mh-alert--info",
+        "mh-alert--success",
+        "mh-alert--warning",
+        "mh-alert--danger",
+        "mh-badge"
+      ],
+      "requiredProps": [
+        "type",
+        "id",
+        "title",
+        "message",
+        "tone"
+      ],
+      "optionalProps": {},
+      "variants": [
+        "info",
+        "success",
+        "warning",
+        "danger"
+      ],
+      "behavior": "Native section role=note. Visible tone label carries meaning beyond color; no automatic live announcement."
+    },
+    {
+      "type": "table",
+      "schemaRef": "./ui.schema.json#/$defs/table",
+      "classes": [
+        "mh-table-demo",
+        "mh-table__panel",
+        "mh-table"
+      ],
+      "requiredProps": [
+        "type",
+        "id",
+        "title",
+        "rows"
+      ],
+      "optionalProps": {},
+      "variants": [
+        "default"
+      ],
+      "behavior": "MuhitTable.mount(host,{rows,title,description,demo:false}); local sort/filter/status/CSV behavior remains available. No server write."
+    },
+    {
+      "type": "chart",
+      "schemaRef": "./ui.schema.json#/$defs/chart",
+      "classes": [
+        "mh-chart-demo",
+        "mh-chart-card",
+        "mh-chart-svg"
+      ],
+      "requiredProps": [
+        "type",
+        "id",
+        "title",
+        "data"
+      ],
+      "optionalProps": {},
+      "variants": [
+        "default"
+      ],
+      "behavior": "MuhitCharts.mount(host,{initialPeriod:data.period||6,periodControl:false,getData:()=>copy(data)}); fixed snapshot, no period-switch buttons and no invented extra data."
+    },
+    {
+      "type": "tabs",
+      "schemaRef": "./widgets.schema.json#/$defs/tabs",
+      "requiredProps": [
+        "type",
+        "id",
+        "title",
+        "items"
+      ],
+      "classes": [
+        "mh-widget",
+        "mh-widget--tabs"
+      ],
+      "behavior": "MuhitWidgets.mount; local state, update and destroy; no network."
+    },
+    {
+      "type": "accordion",
+      "schemaRef": "./widgets.schema.json#/$defs/accordion",
+      "requiredProps": [
+        "type",
+        "id",
+        "title",
+        "items"
+      ],
+      "classes": [
+        "mh-widget",
+        "mh-widget--accordion"
+      ],
+      "behavior": "MuhitWidgets.mount; local state, update and destroy; no network."
+    },
+    {
+      "type": "timeline",
+      "schemaRef": "./widgets.schema.json#/$defs/timeline",
+      "requiredProps": [
+        "type",
+        "id",
+        "title",
+        "items"
+      ],
+      "classes": [
+        "mh-widget",
+        "mh-widget--timeline"
+      ],
+      "behavior": "MuhitWidgets.mount; local state, update and destroy; no network."
+    },
+    {
+      "type": "kanban",
+      "schemaRef": "./widgets.schema.json#/$defs/kanban",
+      "requiredProps": [
+        "type",
+        "id",
+        "title",
+        "columns",
+        "items"
+      ],
+      "classes": [
+        "mh-widget",
+        "mh-widget--kanban"
+      ],
+      "behavior": "MuhitWidgets.mount; local state, update and destroy; no network."
+    },
+    {
+      "type": "choices",
+      "schemaRef": "./widgets.schema.json#/$defs/choices",
+      "requiredProps": [
+        "type",
+        "id",
+        "title",
+        "options"
+      ],
+      "classes": [
+        "mh-widget",
+        "mh-widget--choices"
+      ],
+      "behavior": "MuhitWidgets.mount; local state, update and destroy; no network."
+    },
+    {
+      "type": "command",
+      "schemaRef": "./widgets.schema.json#/$defs/command",
+      "requiredProps": [
+        "type",
+        "id",
+        "title",
+        "items"
+      ],
+      "classes": [
+        "mh-widget",
+        "mh-widget--command"
+      ],
+      "behavior": "MuhitWidgets.mount; local state, update and destroy; no network."
+    },
+    {
+      "type": "drawer",
+      "schemaRef": "./widgets.schema.json#/$defs/drawer",
+      "requiredProps": [
+        "type",
+        "id",
+        "title",
+        "items"
+      ],
+      "classes": [
+        "mh-widget",
+        "mh-widget--drawer"
+      ],
+      "behavior": "MuhitWidgets.mount; local state, update and destroy; no network."
+    },
+    {
+      "type": "stepper",
+      "schemaRef": "./widgets.schema.json#/$defs/stepper",
+      "requiredProps": [
+        "type",
+        "id",
+        "title",
+        "steps"
+      ],
+      "classes": [
+        "mh-widget",
+        "mh-widget--stepper"
+      ],
+      "behavior": "MuhitWidgets.mount; local state, update and destroy; no network."
+    },
+    {
+      "type": "filepicker",
+      "schemaRef": "./widgets.schema.json#/$defs/filepicker",
+      "requiredProps": [
+        "type",
+        "id",
+        "title"
+      ],
+      "classes": [
+        "mh-widget",
+        "mh-widget--filepicker"
+      ],
+      "behavior": "MuhitWidgets.mount; local state, update and destroy; no network."
+    },
+    {
+      "type": "pagination",
+      "schemaRef": "./widgets.schema.json#/$defs/pagination",
+      "requiredProps": [
+        "type",
+        "id",
+        "title",
+        "total",
+        "pageSize"
+      ],
+      "classes": [
+        "mh-widget",
+        "mh-widget--pagination"
+      ],
+      "behavior": "MuhitWidgets.mount; local state, update and destroy; no network."
+    }
+  ],
+  "nativePrimitives": [
+    {
+      "name": "button",
+      "classes": [
+        "mh-button"
+      ],
+      "variants": [
+        "mh-button--primary",
+        "mh-button--quiet",
+        "mh-button--danger",
+        "mh-button--icon",
+        "mh-button--small"
+      ],
+      "props": [
+        "type=button",
+        "disabled",
+        "aria-label for icon-only"
+      ],
+      "agentSpecType": null,
+      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+    },
+    {
+      "name": "card",
+      "classes": [
+        "mh-card",
+        "mh-card__title",
+        "mh-card__body",
+        "mh-card__footer"
+      ],
+      "variants": [
+        "mh-card--sage",
+        "mh-card--ink",
+        "mh-card--interactive"
+      ],
+      "props": [
+        "semantic heading",
+        "native action button"
+      ],
+      "agentSpecType": "card",
+      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+    },
+    {
+      "name": "badge",
+      "classes": [
+        "mh-badge"
+      ],
+      "variants": [
+        "mh-badge--success",
+        "mh-badge--warning",
+        "mh-badge--info",
+        "mh-badge--danger"
+      ],
+      "props": [
+        "visible status label"
+      ],
+      "agentSpecType": null,
+      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+    },
+    {
+      "name": "form",
+      "classes": [
+        "mh-field",
+        "mh-input",
+        "mh-select",
+        "mh-textarea",
+        "mh-label",
+        "mh-field__help",
+        "mh-field__error"
+      ],
+      "variants": [],
+      "props": [
+        "label/for/id",
+        "aria-describedby",
+        "aria-invalid",
+        "required",
+        "disabled"
+      ],
+      "agentSpecType": null,
+      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+    },
+    {
+      "name": "checkbox",
+      "classes": [
+        "mh-check"
+      ],
+      "variants": [],
+      "props": [
+        "input[type=checkbox]",
+        "checked",
+        "disabled"
+      ],
+      "agentSpecType": null,
+      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+    },
+    {
+      "name": "switch",
+      "classes": [
+        "mh-switch"
+      ],
+      "variants": [],
+      "props": [
+        "input[type=checkbox]",
+        "checked",
+        "accessible label"
+      ],
+      "agentSpecType": null,
+      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+    },
+    {
+      "name": "notice",
+      "classes": [
+        "mh-alert"
+      ],
+      "variants": [
+        "mh-alert--success",
+        "mh-alert--warning",
+        "mh-alert--danger"
+      ],
+      "props": [
+        "visible title and message"
+      ],
+      "agentSpecType": "notice",
+      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+    },
+    {
+      "name": "dialog",
+      "classes": [
+        "mh-dialog",
+        "mh-dialog__content",
+        "mh-dialog__title",
+        "mh-dialog__actions"
+      ],
+      "variants": [],
+      "props": [
+        "native dialog element",
+        "showModal()/close()",
+        "focus restoration"
+      ],
+      "agentSpecType": null,
+      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+    },
+    {
+      "name": "empty",
+      "classes": [
+        "mh-empty"
+      ],
+      "variants": [],
+      "props": [
+        "meaningful heading and next action"
+      ],
+      "agentSpecType": null,
+      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+    },
+    {
+      "name": "skeleton",
+      "classes": [
+        "mh-skeleton"
+      ],
+      "variants": [
+        "mh-skeleton--heading",
+        "mh-skeleton--short"
+      ],
+      "props": [
+        "aria-hidden=true",
+        "separate accessible loading status"
+      ],
+      "agentSpecType": null,
+      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+    },
+    {
+      "name": "tabs",
+      "classes": [
+        "mh-tablist",
+        "mh-tab"
+      ],
+      "variants": [],
+      "props": [
+        "role=tablist/tab",
+        "aria-selected",
+        "keyboard behavior supplied by app"
+      ],
+      "agentSpecType": null,
+      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+    },
+    {
+      "name": "layout",
+      "classes": [
+        "mh-scope",
+        "mh-row",
+        "mh-between",
+        "mh-stack",
+        "mh-panel"
+      ],
+      "variants": [],
+      "props": [
+        "theme applied to scope root"
+      ],
+      "agentSpecType": null,
+      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+    }
+  ],
+  "widgetSchema": "./widgets.schema.json",
+  "formSchema": "./form.schema.json",
+  "formAdapter": {
+    "global": "MuhitForm",
+    "entry": "../src/forms.js",
+    "agentRenderKind": true
+  },
+  "preferencesAdapter": {
+    "global": "MuhitPreferences",
+    "entry": "../src/preferences.js",
+    "persistence": "explicit opt-in local storage"
+  }
+}

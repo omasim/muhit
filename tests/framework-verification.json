@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-17T00:17:37.576Z",
+  "packageVersion": "0.7.0",
+  "results": [
+    {
+      "framework": "react",
+      "mode": "development",
+      "build": "passed",
+      "strictMode": true,
+      "passed": true,
+      "checks": [
+        "data update",
+        "column replacement",
+        "sorting",
+        "search",
+        "literal HTML text",
+        "pending timer cleanup",
+        "5 remount cycles",
+        "theme",
+        "390px/125%",
+        "keyboard",
+        "fonts",
+        "form controlled update/save/remount",
+        "widget tabs",
+        "no console/runtime errors"
+      ]
+    },
+    {
+      "framework": "react",
+      "mode": "production",
+      "build": "passed",
+      "strictMode": false,
+      "passed": true,
+      "checks": [
+        "data update",
+        "column replacement",
+        "sorting",
+        "search",
+        "literal HTML text",
+        "pending timer cleanup",
+        "5 remount cycles",
+        "theme",
+        "390px/125%",
+        "keyboard",
+        "fonts",
+        "form controlled update/save/remount",
+        "widget tabs",
+        "no console/runtime errors"
+      ]
+    },
+    {
+      "framework": "vue",
+      "mode": "development",
+      "build": "passed",
+      "strictMode": false,
+      "passed": true,
+      "checks": [
+        "data update",
+        "column replacement",
+        "sorting",
+        "search",
+        "literal HTML text",
+        "pending timer cleanup",
+        "5 remount cycles",
+        "theme",
+        "390px/125%",
+        "keyboard",
+        "fonts",
+        "form controlled update/save/remount",
+        "widget tabs",
+        "no console/runtime errors"
+      ]
+    },
+    {
+      "framework": "vue",
+      "mode": "production",
+      "build": "passed",
+      "strictMode": false,
+      "passed": true,
+      "checks": [
+        "data update",
+        "column replacement",
+        "sorting",
+        "search",
+        "literal HTML text",
+        "pending timer cleanup",
+        "5 remount cycles",
+        "theme",
+        "390px/125%",
+        "keyboard",
+        "fonts",
+        "form controlled update/save/remount",
+        "widget tabs",
+        "no console/runtime errors"
+      ]
+    }
+  ]
+}

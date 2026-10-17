@@ -1,0 +1,15 @@
+{
+  "version": "0.6.0",
+  "date": "2026-10-17",
+  "nodeTests": 51,
+  "browser": "Chrome",
+  "formsAndPreferences": "passed",
+  "coreBrowser": "passed",
+  "frameworks": "React/Vue dev + production passed against TGZ",
+  "brandHashes": 14,
+  "limitations": [
+    "No remote CI execution",
+    "No npm publication",
+    "No Firefox/WebKit or manual screen-reader audit"
+  ]
+}

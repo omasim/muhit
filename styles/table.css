@@ -1,0 +1,706 @@
+/* All component selectors stay inside the mounted table view. */
+.mh-table-demo {
+  position: relative;
+  min-width: 0;
+  max-width: 100%;
+  color: var(--mh-text);
+  font-family: var(--mh-font-body);
+  font-size: calc((14px) * var(--mh-text-scale, 1));
+  line-height: 1.55;
+}
+.mh-table-demo *,
+.mh-table-demo *::before,
+.mh-table-demo *::after {
+  box-sizing: border-box;
+}
+.mh-table-demo [hidden] {
+  display: none !important;
+}
+.mh-table-demo button,
+.mh-table-demo input,
+.mh-table-demo select {
+  font: inherit;
+}
+.mh-table-demo button,
+.mh-table-demo select {
+  cursor: pointer;
+}
+.mh-table-demo button:disabled,
+.mh-table-demo input:disabled,
+.mh-table-demo select:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+.mh-table-demo
+  :where(button, input, select, summary, a, [tabindex]):focus-visible {
+  outline: 3px solid var(--mh-focus);
+  outline-offset: 3px;
+}
+.mh-table-demo .mh-table__panel {
+  background: var(--mh-surface);
+  border: 1px solid var(--mh-border);
+  border-radius: var(--mh-radius-md, 10px);
+  box-shadow: none;
+  overflow: hidden;
+  padding: 0;
+}
+.mh-table-demo .mh-table__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 30px 28px 24px;
+}
+.mh-table-demo .mh-kicker {
+  font-size: calc((10px) * var(--mh-text-scale, 1));
+  letter-spacing: 0.12em;
+  line-height: 1.5;
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+.mh-table-demo .mh-table__title {
+  font: 400 calc(clamp(26px, 2.7vw, 34px) * var(--mh-text-scale, 1))/1.2
+    var(--mh-font-heading);
+  margin: 0;
+  letter-spacing: -0.025em;
+}
+.mh-table-demo .mh-table__intro {
+  margin: 10px 0 0;
+  color: var(--mh-muted);
+  font-size: calc((13px) * var(--mh-text-scale, 1));
+}
+.mh-table-demo .mh-table__demo-note {
+  font-size: calc((10px) * var(--mh-text-scale, 1));
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border-left: 2px solid var(--mh-accent-soft);
+  padding: 5px 0 5px 12px;
+  white-space: nowrap;
+}
+.mh-table-demo .mh-table__toolbar {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  padding: 0 28px 24px;
+}
+.mh-table-demo .mh-table__head > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.mh-table-demo .mh-table__columns {
+  padding: 0 28px 12px;
+}
+.mh-table-demo .mh-table__columns summary {
+  width: fit-content;
+  min-height: 44px;
+  padding: 12px 0;
+  cursor: pointer;
+  font-size: calc((12px) * var(--mh-text-scale, 1));
+  font-weight: 600;
+}
+.mh-table-demo .mh-table__columns fieldset {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 24px;
+  margin: 0;
+  border: 0;
+  padding: 4px 0 12px;
+}
+.mh-table-demo .mh-table__column-fixed {
+  font-size: calc((11px) * var(--mh-text-scale, 1));
+  color: var(--mh-muted);
+}
+.mh-table-demo .mh-table__column-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  font-size: calc((12px) * var(--mh-text-scale, 1));
+  cursor: pointer;
+}
+.mh-table-demo .mh-table__column-toggle input {
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  accent-color: var(--mh-text);
+}
+.mh-table-demo .mh-table__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 28px 16px;
+}
+.mh-table-demo .mh-table__filter-chip {
+  min-height: 44px;
+  max-width: 100%;
+  border: 1px solid var(--mh-border);
+  border-radius: var(--mh-radius-sm, 6px);
+  padding: 9px 12px;
+  background: var(--mh-surface-2);
+  color: var(--mh-text);
+  text-align: left;
+  overflow-wrap: anywhere;
+  font-size: calc((11px) * var(--mh-text-scale, 1));
+}
+.mh-table-demo .mh-table__bulk {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 16px 28px;
+  border-top: 1px solid var(--mh-border);
+  background: var(--mh-surface-2);
+}
+.mh-table-demo .mh-table__bulk .mh-table__field {
+  min-width: 0;
+}
+.mh-table-demo .mh-table__bulk .mh-table__field select {
+  min-width: 165px;
+}
+.mh-table-demo .mh-table__bulk-message {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: calc((11px) * var(--mh-text-scale, 1));
+  line-height: 1.6;
+  color: var(--mh-muted);
+}
+.mh-table-demo .mh-table__field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.mh-table-demo .mh-table__field label {
+  font-size: calc((12px) * var(--mh-text-scale, 1));
+  font-weight: 600;
+}
+.mh-table-demo .mh-table__search {
+  flex: 1;
+  max-width: 430px;
+}
+.mh-table-demo .mh-table__field input,
+.mh-table-demo .mh-table__field select,
+.mh-table-demo .mh-table__page-size select {
+  border: 1px solid var(--mh-border);
+  background: var(--mh-surface);
+  color: var(--mh-text);
+  min-height: 44px;
+  border-radius: var(--mh-radius-sm, 6px);
+  padding: 10px 12px;
+}
+.mh-table-demo .mh-table__field select {
+  min-width: 170px;
+  padding-right: 30px;
+}
+.mh-table-demo .mh-table__field input {
+  width: 100%;
+}
+.mh-table-demo .mh-table__field input::placeholder {
+  color: var(--mh-muted);
+  opacity: 1;
+}
+.mh-table-demo .mh-button {
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: var(--mh-radius-sm, 6px);
+  font-weight: 600;
+  font-size: calc((12px) * var(--mh-text-scale, 1));
+  line-height: 1.35;
+}
+.mh-table-demo .mh-table__density {
+  margin-left: auto;
+  white-space: nowrap;
+  border: 1px solid var(--mh-border);
+}
+.mh-table-demo .mh-table__density[aria-pressed="true"] {
+  background: var(--mh-accent-soft);
+  border-color: var(--mh-text);
+}
+.mh-table-demo .mh-table__results {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 5px 28px;
+  border-top: 1px solid var(--mh-border);
+}
+.mh-table-demo .mh-table__count {
+  margin: 0;
+  font-size: calc((12px) * var(--mh-text-scale, 1));
+  font-weight: 600;
+}
+.mh-table-demo .mh-table__export {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.mh-table-demo .mh-table__selection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 28px;
+  border-top: 1px solid var(--mh-border);
+  background: var(--mh-surface-2);
+}
+.mh-table-demo .mh-table__selection p {
+  font-size: calc((11px) * var(--mh-text-scale, 1));
+  margin: 0;
+}
+.mh-table-demo .mh-table__selection-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.mh-table-demo .mh-table__scroll {
+  position: relative;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-color: var(--mh-muted) var(--mh-surface-2);
+}
+.mh-table-demo .mh-table__scroll:focus-visible {
+  outline-offset: -3px;
+}
+.mh-table-demo .mh-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 870px;
+  text-align: left;
+  table-layout: auto;
+  font-size: calc((12px) * var(--mh-text-scale, 1));
+}
+.mh-table-demo .mh-table thead {
+  background: var(--mh-accent-soft);
+}
+.mh-table-demo .mh-table th,
+.mh-table-demo .mh-table td {
+  padding: var(--mh-cell-y, 18px) 12px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--mh-border);
+}
+.mh-table-demo .mh-table thead th {
+  padding-top: 0;
+  padding-bottom: 0;
+  font-weight: 600;
+  font-size: calc((11px) * var(--mh-text-scale, 1));
+  white-space: nowrap;
+  height: 48px;
+}
+.mh-table-demo .mh-table tbody tr {
+  background: var(--mh-surface);
+}
+.mh-table-demo .mh-table tbody tr:hover {
+  background: var(--mh-surface-2);
+}
+.mh-table-demo .mh-table tbody tr.is-selected {
+  background: var(--mh-accent-soft);
+}
+.mh-table-demo .mh-table__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  padding: 8px 0;
+  font-size: calc((inherit) * var(--mh-text-scale, 1));
+  font-weight: 600;
+  color: inherit;
+  text-align: left;
+}
+.mh-table-demo .mh-table__sort-arrow {
+  display: inline-block;
+  width: 10px;
+  font-size: calc((15px) * var(--mh-text-scale, 1));
+  font-weight: 400;
+}
+.mh-table-demo .mh-table .mh-table__check-cell {
+  width: 60px;
+  padding: 0 0 0 12px;
+}
+.mh-table-demo .mh-table__check-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.mh-table-demo .mh-table__check-target input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--mh-text);
+  margin: 0;
+  cursor: pointer;
+}
+.mh-table-demo .mh-table__project {
+  min-width: 276px;
+  width: 35%;
+  font-weight: 400;
+}
+.mh-table-demo .mh-table__project-name {
+  display: block;
+  font-size: calc((13px) * var(--mh-text-scale, 1));
+  font-weight: 600;
+  line-height: 1.5;
+}
+.mh-table-demo .mh-table__project-meta {
+  display: block;
+  font-size: calc((10px) * var(--mh-text-scale, 1));
+  line-height: 1.5;
+  color: var(--mh-muted);
+  margin-top: 5px;
+}
+.mh-table-demo .mh-table__owner {
+  display: inline-flex;
+  gap: 9px;
+  align-items: center;
+  white-space: nowrap;
+}
+.mh-table-demo .mh-table__initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 29px;
+  height: 29px;
+  flex-shrink: 0;
+  background: var(--mh-surface-2);
+  border: 1px solid var(--mh-border);
+  font-size: calc((9px) * var(--mh-text-scale, 1));
+  font-weight: 600;
+}
+.mh-table-demo .mh-table__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  font-size: calc((11px) * var(--mh-text-scale, 1));
+}
+.mh-table-demo .mh-table__status-symbol {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mh-text);
+  font-size: calc((13px) * var(--mh-text-scale, 1));
+}
+.mh-table-demo .mh-table__status--active .mh-table__status-symbol {
+  background: var(--mh-accent-soft);
+}
+.mh-table-demo .mh-table__status--review .mh-table__status-symbol {
+  background: var(--mh-info-bg);
+}
+.mh-table-demo .mh-table__status--planned .mh-table__status-symbol {
+  background: var(--mh-surface-2);
+}
+.mh-table-demo .mh-table__status--complete .mh-table__status-symbol {
+  background: var(--mh-accent-soft);
+}
+.mh-table-demo .mh-table__date {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-size: calc((11px) * var(--mh-text-scale, 1));
+}
+.mh-table-demo .mh-table .mh-table__detail-cell {
+  text-align: right;
+  padding-right: 22px;
+}
+.mh-table-demo .mh-table__detail {
+  min-width: 48px;
+  min-height: 44px;
+  padding: 8px 0;
+  background: transparent;
+  border: 0;
+  color: var(--mh-text);
+  font-size: calc((11px) * var(--mh-text-scale, 1));
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.mh-table-demo .mh-table__empty {
+  text-align: center;
+  padding: 48px 24px;
+  border-bottom: 1px solid var(--mh-border);
+}
+.mh-table-demo .mh-table__empty h4 {
+  font: 400 calc(24px * var(--mh-text-scale, 1))/1.3 var(--mh-font-heading);
+  margin: 0 0 12px;
+}
+.mh-table-demo .mh-table__empty p {
+  color: var(--mh-muted);
+  margin: 0 0 20px;
+}
+.mh-table-demo .mh-table__footer {
+  padding: 12px 22px 12px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.mh-table-demo .mh-table__page-size {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: calc((11px) * var(--mh-text-scale, 1));
+}
+.mh-table-demo .mh-table__page-size select {
+  width: 66px;
+  padding: 8px;
+  font-size: calc((12px) * var(--mh-text-scale, 1));
+}
+.mh-table-demo .mh-table__pagination {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.mh-table-demo .mh-table__page-info {
+  font-size: calc((11px) * var(--mh-text-scale, 1));
+  font-variant-numeric: tabular-nums;
+  min-width: 42px;
+  text-align: center;
+}
+.mh-table-demo .mh-table__specs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 28px;
+  gap: 28px;
+}
+.mh-table-demo .mh-table__spec {
+  border-top: 1px solid var(--mh-border);
+  padding-top: 18px;
+}
+.mh-table-demo .mh-table__spec h4 {
+  font: 400 calc(22px * var(--mh-text-scale, 1))/1.3 var(--mh-font-heading);
+  margin: 4px 0 9px;
+}
+.mh-table-demo .mh-table__spec p:not(.mh-kicker) {
+  font-size: calc((12px) * var(--mh-text-scale, 1));
+  color: var(--mh-muted);
+  margin: 0;
+  max-width: 35em;
+}
+.mh-table-demo .mh-table__code {
+  margin-top: 26px;
+  border-top: 1px solid var(--mh-border);
+  border-bottom: 1px solid var(--mh-border);
+}
+.mh-table-demo .mh-table__code summary {
+  padding: 17px 0;
+  min-height: 44px;
+  cursor: pointer;
+  font-size: calc((12px) * var(--mh-text-scale, 1));
+  font-weight: 600;
+}
+.mh-table-demo .mh-table__code p {
+  font-size: calc((12px) * var(--mh-text-scale, 1));
+  color: var(--mh-muted);
+  margin: 0 0 12px;
+}
+.mh-table-demo .mh-table__code pre {
+  overflow-x: auto;
+  margin: 0 0 20px;
+  background: var(--mh-surface-2);
+  padding: 18px;
+  font:
+    calc(11px * var(--mh-text-scale, 1))/1.7 ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+  tab-size: 2;
+}
+.mh-table-demo .mh-table__dialog {
+  width: min(600px, calc(100vw - 32px));
+  max-height: calc(100dvh - 48px);
+  padding: 28px;
+  color: var(--mh-text);
+  background: var(--mh-surface);
+  border: 1px solid var(--mh-border);
+  border-radius: var(--mh-radius-lg, 16px);
+  overflow-y: auto;
+}
+.mh-table-demo .mh-table__dialog::backdrop {
+  background: var(
+    --mh-backdrop,
+    color-mix(in srgb, var(--mh-text) 40%, transparent)
+  );
+}
+.mh-table-demo .mh-table__dialog-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.mh-table-demo .mh-table__dialog-top .mh-kicker {
+  margin: 0;
+}
+.mh-table-demo .mh-table__dialog h3 {
+  font: 400 calc(32px * var(--mh-text-scale, 1))/1.15 var(--mh-font-heading);
+  margin: 20px 0 12px;
+  overflow-wrap: anywhere;
+}
+.mh-table-demo .mh-table__dialog h4 {
+  font-size: calc((12px) * var(--mh-text-scale, 1));
+  margin: 24px 0 6px;
+  font-weight: 600;
+}
+.mh-table-demo .mh-table__dialog p {
+  font-size: calc((13px) * var(--mh-text-scale, 1));
+}
+.mh-table-demo .mh-table__dialog .mh-table__dialog-demo {
+  color: var(--mh-muted);
+  font-size: calc((11px) * var(--mh-text-scale, 1));
+  margin-bottom: 24px;
+}
+.mh-table-demo .mh-table__detail-meta {
+  border-top: 1px solid var(--mh-border);
+  border-bottom: 1px solid var(--mh-border);
+  padding: 16px 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+.mh-table-demo .mh-table__detail-meta dt {
+  font-size: calc((10px) * var(--mh-text-scale, 1));
+  color: var(--mh-muted);
+  margin-bottom: 4px;
+}
+.mh-table-demo .mh-table__detail-meta dd {
+  font-size: calc((12px) * var(--mh-text-scale, 1));
+  margin: 0;
+}
+.mh-table-demo .mh-table__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.mh-table-demo.is-dense .mh-table tbody th,
+.mh-table-demo.is-dense .mh-table tbody td {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+.mh-table-demo.is-dense .mh-table__project-meta {
+  margin-top: 2px;
+}
+@media (max-width: 800px) {
+  .mh-table-demo .mh-table__head {
+    padding: 24px 20px;
+  }
+  .mh-table-demo .mh-table__toolbar {
+    padding: 0 20px 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .mh-table-demo .mh-table__search {
+    max-width: none;
+    flex-basis: calc(100% - 190px);
+  }
+  .mh-table-demo .mh-table__density {
+    margin-left: 0;
+  }
+  .mh-table-demo .mh-table__results,
+  .mh-table-demo .mh-table__selection {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .mh-table-demo .mh-table__columns,
+  .mh-table-demo .mh-table__filters,
+  .mh-table-demo .mh-table__bulk {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .mh-table-demo .mh-table__selection {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .mh-table-demo .mh-table__footer {
+    padding-left: 20px;
+    padding-right: 16px;
+  }
+  .mh-table-demo .mh-table__specs {
+    gap: 18px;
+  }
+}
+@media (max-width: 560px) {
+  .mh-table-demo .mh-table__head {
+    display: block;
+  }
+  .mh-table-demo .mh-table__demo-note {
+    display: inline-block;
+    margin-top: 20px;
+  }
+  .mh-table-demo .mh-table__search {
+    flex-basis: 100%;
+  }
+  .mh-table-demo .mh-table__toolbar > .mh-table__field:not(.mh-table__search) {
+    flex: 1;
+  }
+  .mh-table-demo .mh-table__field select {
+    min-width: 0;
+    width: 100%;
+  }
+  .mh-table-demo .mh-table__results {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0;
+    padding-top: 12px;
+  }
+  .mh-table-demo .mh-table__export {
+    padding-left: 0;
+  }
+  .mh-table-demo .mh-table__selection {
+    padding-top: 12px;
+  }
+  .mh-table-demo .mh-table__selection-actions {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .mh-table-demo .mh-table__bulk .mh-table__field {
+    flex-basis: 100%;
+  }
+  .mh-table-demo .mh-table__bulk .mh-table__field select {
+    width: 100%;
+  }
+  .mh-table-demo .mh-table__footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .mh-table-demo .mh-table__pagination {
+    width: 100%;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .mh-table-demo .mh-table__specs {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .mh-table-demo .mh-table__dialog {
+    padding: 20px;
+  }
+  .mh-table-demo .mh-table__dialog h3 {
+    font-size: calc((28px) * var(--mh-text-scale, 1));
+  }
+  .mh-table-demo .mh-table__detail-meta {
+    grid-template-columns: 1fr;
+  }
+}
+@media (forced-colors: active) {
+  .mh-table-demo .mh-table tbody tr.is-selected {
+    outline: 1px solid Highlight;
+    outline-offset: -1px;
+  }
+  .mh-table-demo .mh-table__status-symbol {
+    border: 1px solid CanvasText;
+  }
+}

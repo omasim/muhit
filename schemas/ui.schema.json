@@ -1,0 +1,670 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Muhit UI deterministik görünüm sözleşmesi",
+  "description": "18 izinli bileşen. Form, datagrid ve plot yalnız 1.1.0 ile kullanılabilir.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "components"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "enum": [
+        "1.0.0",
+        "1.1.0"
+      ]
+    },
+    "theme": {
+      "$ref": "./theme.schema.json"
+    },
+    "components": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/card"
+          },
+          {
+            "$ref": "#/$defs/metric"
+          },
+          {
+            "$ref": "#/$defs/notice"
+          },
+          {
+            "$ref": "#/$defs/table"
+          },
+          {
+            "$ref": "#/$defs/chart"
+          },
+          {
+            "$ref": "./widgets.schema.json#/$defs/tabs"
+          },
+          {
+            "$ref": "./widgets.schema.json#/$defs/accordion"
+          },
+          {
+            "$ref": "./widgets.schema.json#/$defs/timeline"
+          },
+          {
+            "$ref": "./widgets.schema.json#/$defs/kanban"
+          },
+          {
+            "$ref": "./widgets.schema.json#/$defs/choices"
+          },
+          {
+            "$ref": "./widgets.schema.json#/$defs/command"
+          },
+          {
+            "$ref": "./widgets.schema.json#/$defs/drawer"
+          },
+          {
+            "$ref": "./widgets.schema.json#/$defs/stepper"
+          },
+          {
+            "$ref": "./widgets.schema.json#/$defs/filepicker"
+          },
+          {
+            "$ref": "./widgets.schema.json#/$defs/pagination"
+          },
+          {
+            "$ref": "#/$defs/form"
+          },
+          {
+            "$ref": "#/$defs/datagrid"
+          },
+          {
+            "$ref": "#/$defs/plot"
+          }
+        ]
+      }
+    },
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "layout": {
+          "enum": [
+            "stack",
+            "grid"
+          ]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+      "maxLength": 64
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 240,
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "count": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "label": {
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "id",
+        "label"
+      ]
+    },
+    "tableRow": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "$ref": "#/$defs/title"
+        },
+        "status": {
+          "enum": [
+            "planned",
+            "active",
+            "review",
+            "complete"
+          ]
+        },
+        "owner": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "theme": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "next": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "initials": {
+          "type": "string",
+          "maxLength": 12
+        },
+        "updated": {
+          "type": "string",
+          "anyOf": [
+            {
+              "const": ""
+            },
+            {
+              "format": "date",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            }
+          ],
+          "maxLength": 10
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "status"
+      ]
+    },
+    "chartGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/title"
+        },
+        "value": {
+          "$ref": "#/$defs/count"
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ]
+    },
+    "chartRow": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "month": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "shortMonth": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "sources": {
+          "$ref": "#/$defs/count"
+        },
+        "actions": {
+          "$ref": "#/$defs/count"
+        },
+        "connections": {
+          "$ref": "#/$defs/count"
+        },
+        "categories": {
+          "type": "array",
+          "maxItems": 12,
+          "items": {
+            "$ref": "#/$defs/count"
+          }
+        },
+        "types": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/count"
+          }
+        }
+      },
+      "required": [
+        "sources",
+        "actions",
+        "connections"
+      ]
+    },
+    "chartData": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "rows": {
+          "type": "array",
+          "maxItems": 24,
+          "items": {
+            "$ref": "#/$defs/chartRow"
+          }
+        },
+        "period": {
+          "enum": [
+            6,
+            12
+          ],
+          "default": 6
+        },
+        "year": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "label": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "source": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "isExample": {
+          "type": "boolean"
+        },
+        "categories": {
+          "type": "array",
+          "maxItems": 12,
+          "items": {
+            "$ref": "#/$defs/chartGroup"
+          }
+        },
+        "types": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/chartGroup"
+          }
+        }
+      },
+      "required": [
+        "rows"
+      ],
+      "description": "MuhitCharts girişinin sıkı JSON alt kümesi. totals kabul edilmez; satırlardan türetilir. Boş rows geçerlidir. year yalnız string kabul eder."
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "card"
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "$ref": "#/$defs/title"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "action": {
+          "$ref": "#/$defs/action"
+        },
+        "variant": {
+          "enum": [
+            "default",
+            "horizontal",
+            "sage",
+            "ink"
+          ]
+        },
+        "state": {
+          "enum": [
+            "default",
+            "selected",
+            "disabled",
+            "loading",
+            "error"
+          ]
+        },
+        "meta": {
+          "type": "string",
+          "maxLength": 500
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title"
+      ]
+    },
+    "metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "metric"
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "label": {
+          "$ref": "#/$defs/title"
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 2000
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "label",
+        "value"
+      ]
+    },
+    "notice": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "notice"
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "$ref": "#/$defs/title"
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "tone": {
+          "enum": [
+            "info",
+            "success",
+            "warning",
+            "danger"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title",
+        "message",
+        "tone"
+      ]
+    },
+    "table": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "table"
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "$ref": "#/$defs/title"
+        },
+        "rows": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "$ref": "#/$defs/tableRow"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title",
+        "rows"
+      ]
+    },
+    "chart": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "chart"
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "$ref": "#/$defs/title"
+        },
+        "data": {
+          "$ref": "#/$defs/chartData"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title",
+        "data"
+      ]
+    },
+    "form": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "id",
+        "title",
+        "fields"
+      ],
+      "properties": {
+        "type": {
+          "const": "form"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "fields": {
+          "$ref": "./form.schema.json"
+        },
+        "values": {
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "submitLabel": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        }
+      }
+    },
+    "datagrid": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "id",
+        "title",
+        "columns",
+        "rows"
+      ],
+      "properties": {
+        "type": {
+          "const": "datagrid"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "columns": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 30,
+          "items": {
+            "type": "object",
+            "required": [
+              "key",
+              "label"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "key": {
+                "type": "string",
+                "pattern": "^[a-zA-Z][\\w-]{0,63}$"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "enum": [
+                  "text",
+                  "number",
+                  "date"
+                ]
+              },
+              "sortable": {
+                "type": "boolean"
+              },
+              "editable": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "rows": {
+          "type": "array",
+          "maxItems": 100000,
+          "items": {
+            "type": "object"
+          }
+        },
+        "selectable": {
+          "type": "boolean"
+        },
+        "locale": {
+          "type": "string"
+        }
+      }
+    },
+    "plot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "id",
+        "title",
+        "data"
+      ],
+      "properties": {
+        "type": {
+          "const": "plot"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "data": {
+          "$ref": "./plot.schema.json"
+        }
+      }
+    }
+  },
+  "$comment": "JSON Schema yapısal sınırları tanımlar. MuhitAgent.validate ayrıca bileşen/satır kimlik benzersizliği, gerçek takvim tarihleri, sayı toplamı aralığı ve dağılım toplamı eşleşmesini doğrular. Standart JSON Schema anahtar bazlı benzersizliği ve alanlar arası toplamları ifade etmez. Runtime ayrıca yalnız sonlu JSON değerlerini kabul eder.",
+  "x-muhit-semanticRules": [
+    "Bileşen id değerleri görünüm içinde benzersizdir.",
+    "Action id bileşen kapsamında anlamlıdır; farklı bileşenler aynı action id kullanabilir.",
+    "Satır id değerleri her tablo içinde benzersizdir.",
+    "updated boş veya gerçek YYYY-MM-DD tarihidir.",
+    "Her grafik seri toplamı <= Number.MAX_SAFE_INTEGER olmalıdır.",
+    "Satır categories toplamı actions, types toplamı sources ile eşleşir.",
+    "Üst categories toplamı satır actions toplamı, üst types toplamı satır sources toplamı ile eşleşir.",
+    "Tamsayı toplamları tam eşit; ondalık toplamları Math.max(a,b)*Number.EPSILON*8 toleransı ile karşılaştırılır."
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "schemaVersion": {
+            "const": "1.0.0"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "components": {
+            "items": {
+              "properties": {
+                "type": {
+                  "not": {
+                    "enum": [
+                      "form",
+                      "datagrid",
+                      "plot"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

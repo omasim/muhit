@@ -1,0 +1,31 @@
+name: Verify Muhit
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npx playwright install --with-deps ${{ matrix.browser }}
+      - run: npm test && npm run check:brand
+      - run: npm run test:extended
+        env:
+          MUHIT_BROWSER: ${{ matrix.browser }}
+      - if: matrix.browser == 'chromium'
+        run: npm run verify:all
+      - if: matrix.browser == 'chromium'
+        run: npm --prefix examples/react ci && npm run test:bundles && npm pack --dry-run
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verification-${{ matrix.browser }}
+          path: tests/*verification*.json

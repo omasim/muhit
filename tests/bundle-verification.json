@@ -1,0 +1,23 @@
+{
+  "forms": {
+    "bytes": 11286,
+    "inputs": [
+      "outputs/muhit-ui/esm/forms.mjs",
+      "<stdin>"
+    ]
+  },
+  "plot": {
+    "bytes": 6013,
+    "inputs": [
+      "outputs/muhit-ui/esm/plot.mjs",
+      "<stdin>"
+    ]
+  },
+  "data-grid": {
+    "bytes": 10796,
+    "inputs": [
+      "outputs/muhit-ui/esm/data-grid.mjs",
+      "<stdin>"
+    ]
+  }
+}

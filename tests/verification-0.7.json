@@ -1,0 +1,36 @@
+{
+  "version": "0.7.0",
+  "date": "2026-10-17",
+  "nodeTests": 56,
+  "brandHashes": 14,
+  "browserEngines": [
+    "Chromium/Chrome",
+    "Firefox",
+    "WebKit"
+  ],
+  "frameworkTests": [
+    "React development StrictMode",
+    "React production",
+    "Vue development",
+    "Vue production"
+  ],
+  "checks": [
+    "3 audit regressions",
+    "Form controlled update/save/remount",
+    "Widget tabs",
+    "Agent 1.1 update safety",
+    "Grid selection/filter/edit/CSV",
+    "Plot missing values/table",
+    "Two-tab storage save/clear/unsubscribe",
+    "390px RTL layout",
+    "Forced colors focus",
+    "10k rows: 10 DOM rows"
+  ],
+  "remoteCI": "pending",
+  "limitations": [
+    "Manual screen-reader validation not performed",
+    "Real mobile-device testing not performed",
+    "SSR hydration not tested",
+    "No npm publication"
+  ]
+}

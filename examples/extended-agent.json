@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "1.1.0",
+  "page": {
+    "title": "Ortak çalışma",
+    "description": "Kurgu kayıtlarla agent arayüzü",
+    "layout": "stack"
+  },
+  "components": [
+    {
+      "type": "form",
+      "id": "profile",
+      "title": "Çalışma adı",
+      "fields": [
+        {
+          "name": "name",
+          "label": "Başlık",
+          "required": true
+        }
+      ],
+      "submitLabel": "Örnek eylemi gönder"
+    },
+    {
+      "type": "datagrid",
+      "id": "sources",
+      "title": "Kaynaklar",
+      "selectable": true,
+      "columns": [
+        {
+          "key": "name",
+          "label": "Ad"
+        },
+        {
+          "key": "count",
+          "label": "Sayı",
+          "type": "number"
+        }
+      ],
+      "rows": [
+        {
+          "id": "one",
+          "name": "Araştırma",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "type": "plot",
+      "id": "usage",
+      "title": "Kaynaklar",
+      "data": {
+        "title": "Kaynak değişimi",
+        "unit": "adet",
+        "labels": [
+          "Ocak",
+          "Şubat",
+          "Mart"
+        ],
+        "series": [
+          {
+            "id": "sources",
+            "label": "Kaynak",
+            "values": [
+              12,
+              null,
+              18
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,1568 @@
+/* Muhit charts 0.2.0 — dependency-free SVG charts with an optional data provider. */
+(function (global) {
+  "use strict";
+
+  var instanceCount = 0;
+  var monthNames = [
+    "Ocak",
+    "Şubat",
+    "Mart",
+    "Nisan",
+    "Mayıs",
+    "Haziran",
+    "Temmuz",
+    "Ağustos",
+    "Eylül",
+    "Ekim",
+    "Kasım",
+    "Aralık",
+  ];
+  var monthShort = [
+    "Oca",
+    "Şub",
+    "Mar",
+    "Nis",
+    "May",
+    "Haz",
+    "Tem",
+    "Ağu",
+    "Eyl",
+    "Eki",
+    "Kas",
+    "Ara",
+  ];
+  var sourceValues = [38, 44, 51, 46, 59, 64, 70, 68, 82, 89, 98, 112];
+  var actionValues = [14, 19, 23, 20, 27, 31, 35, 32, 41, 48, 54, 62];
+  var connectionValues = [24, 27, 30, 29, 35, 40, 44, 42, 52, 55, 61, 68];
+  var categoryNames = [
+    "Araştırma",
+    "Ürün çalışması",
+    "Ortak öğrenme",
+    "Operasyon",
+  ];
+  var typeNames = ["Notlar", "Belgeler", "Bağlantılar"];
+  var series = [
+    {
+      key: "sources",
+      label: "Bağlanan kaynak",
+      short: "Kaynak",
+      className: "source",
+      marker: "circle",
+    },
+    {
+      key: "actions",
+      label: "Eyleme dönüşen not",
+      short: "Eylem",
+      className: "action",
+      marker: "square",
+    },
+  ];
+  var nf = new Intl.NumberFormat("tr-TR");
+
+  function number(value) {
+    return nf.format(value);
+  }
+  function sum(values) {
+    return values.reduce(function (total, value) {
+      return total + value;
+    }, 0);
+  }
+  function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, function (character) {
+      return {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      }[character];
+    });
+  }
+  function fixed(value) {
+    return Number(value.toFixed(2));
+  }
+  function clone(value) {
+    return value == null ? null : JSON.parse(JSON.stringify(value));
+  }
+  function percent(value, total) {
+    return total > 0 ? Math.round((value / total) * 100) : 0;
+  }
+  function dataKind(data) {
+    return data.isExample ? "Örnek veri" : "Bağlı veri";
+  }
+  function rowLabel(row, data) {
+    return row.month + (data.year ? " " + data.year : "");
+  }
+  function shortLabel(value, limit) {
+    return value.length > limit ? value.slice(0, limit - 1) + "…" : value;
+  }
+  function countValue(value, name) {
+    if (
+      typeof value !== "number" ||
+      !Number.isFinite(value) ||
+      value < 0 ||
+      value > Number.MAX_SAFE_INTEGER
+    ) {
+      throw new TypeError(
+        name +
+          ": 0 ile Number.MAX_SAFE_INTEGER arasında sonlu bir sayı gerekli.",
+      );
+    }
+    return value;
+  }
+  function textValue(value, fallback, name) {
+    if (value == null) return fallback;
+    if (typeof value !== "string" && typeof value !== "number")
+      throw new TypeError(name + ": metin gerekli.");
+    if (typeof value === "number" && !Number.isFinite(value))
+      throw new TypeError(name + ": geçersiz sayı.");
+    return String(value).trim().slice(0, 240) || fallback;
+  }
+  function equalTotal(a, b) {
+    if (!a || !b || (Number.isSafeInteger(a) && Number.isSafeInteger(b)))
+      return a === b;
+    return (
+      Math.abs(a - b) <= Math.max(Math.abs(a), Math.abs(b)) * Number.EPSILON * 8
+    );
+  }
+
+  /* Caller objects are never mutated; totals are derived from normalized rows. */
+  function normalizeData(input, requestedPeriod) {
+    if (!input || typeof input !== "object" || !Array.isArray(input.rows))
+      throw new TypeError("Veri nesnesinde rows dizisi gerekli.");
+    if (input.rows.length > 24)
+      throw new RangeError("Bir grafikte en fazla 24 dönem gösterilebilir.");
+    var period = Number(requestedPeriod || input.period || 6);
+    if (period !== 6 && period !== 12)
+      throw new RangeError("period 6 veya 12 olmalı.");
+    var year = textValue(input.year, "", "year");
+    var rows = input.rows.map(function (row, index) {
+      if (!row || typeof row !== "object")
+        throw new TypeError("rows[" + index + "] bir nesne olmalı.");
+      var date = textValue(
+        row.date,
+        (year ? year + "-" : "") + String(index + 1).padStart(2, "0"),
+        "date",
+      );
+      var month = textValue(row.month, date, "month");
+      var normalized = {
+        date: date,
+        month: month,
+        shortMonth: textValue(
+          row.shortMonth,
+          shortLabel(month, 5),
+          "shortMonth",
+        ),
+        sources: countValue(row.sources, "rows[" + index + "].sources"),
+        actions: countValue(row.actions, "rows[" + index + "].actions"),
+        connections: countValue(
+          row.connections,
+          "rows[" + index + "].connections",
+        ),
+      };
+      ["categories", "types"].forEach(function (key) {
+        if (row[key] == null) return;
+        if (
+          !Array.isArray(row[key]) ||
+          row[key].length > (key === "types" ? 8 : 12)
+        )
+          throw new TypeError("Satırdaki " + key + " dizisi geçersiz.");
+        normalized[key] = row[key].map(function (value) {
+          return countValue(value, key);
+        });
+        if (
+          !equalTotal(
+            sum(normalized[key]),
+            normalized[key === "types" ? "sources" : "actions"],
+          )
+        )
+          throw new RangeError(
+            "Satırdaki " + key + " toplamı ilgili sayımla eşleşmiyor.",
+          );
+      });
+      return normalized;
+    });
+    var totals = {};
+    ["sources", "actions", "connections"].forEach(function (key) {
+      totals[key] = countValue(
+        sum(
+          rows.map(function (row) {
+            return row[key];
+          }),
+        ),
+        "totals." + key,
+      );
+    });
+    function groups(key, total, fallback) {
+      if (input[key] == null)
+        return rows.length ? [{ name: fallback, value: total }] : [];
+      if (
+        !Array.isArray(input[key]) ||
+        input[key].length > (key === "types" ? 8 : 12)
+      )
+        throw new TypeError(
+          key +
+            " dizisi geçersiz; üst sınır " +
+            (key === "types" ? 8 : 12) +
+            ".",
+        );
+      var result = input[key].map(function (item, index) {
+        if (!item || typeof item !== "object")
+          throw new TypeError(key + "[" + index + "] bir nesne olmalı.");
+        return {
+          name: textValue(item.name, "Grup " + (index + 1), key + ".name"),
+          value: countValue(item.value, key + ".value"),
+        };
+      });
+      if (
+        !equalTotal(
+          sum(
+            result.map(function (item) {
+              return item.value;
+            }),
+          ),
+          total,
+        )
+      )
+        throw new RangeError(
+          key +
+            " toplamı aylık " +
+            (key === "types" ? "sources" : "actions") +
+            " toplamıyla eşleşmiyor.",
+        );
+      return result;
+    }
+    return {
+      period: period,
+      year: year,
+      label: textValue(
+        input.label,
+        rows.length
+          ? rows[0].date + " – " + rows[rows.length - 1].date
+          : "Seçili dönem",
+        "label",
+      ),
+      isExample: input.isExample === true,
+      source: textValue(
+        input.source,
+        input.isExample === true
+          ? "Kurgusal örnek veri seti."
+          : "Uygulamanın sağladığı veri seti.",
+        "source",
+      ),
+      rows: rows,
+      totals: totals,
+      categories: groups("categories", totals.actions, "Tüm eylemler"),
+      types: groups("types", totals.sources, "Tüm kaynaklar"),
+    };
+  }
+
+  /* Return a zero-based domain with up to five equal intervals. */
+  function niceScale(values) {
+    var maximum = Math.max.apply(
+      Math,
+      [0].concat(
+        values.filter(function (v) {
+          return Number.isFinite(v) && v >= 0;
+        }),
+      ),
+    );
+    if (!maximum) return { min: 0, max: 5, step: 1, ticks: [0, 1, 2, 3, 4, 5] };
+    var raw = maximum / 5;
+    if (!raw)
+      return { min: 0, max: maximum, step: maximum, ticks: [0, maximum] };
+    var power = Math.pow(10, Math.floor(Math.log10(raw)));
+    if (!power)
+      return { min: 0, max: maximum, step: maximum, ticks: [0, maximum] };
+    var normalized = raw / power;
+    var factor =
+      [1, 2, 2.5, 5, 10].find(function (candidate) {
+        return candidate >= normalized;
+      }) || 10;
+    var step = factor * power;
+    var intervals = Math.ceil(maximum / step);
+    return {
+      min: 0,
+      max: step * intervals,
+      step: step,
+      ticks: Array.from({ length: intervals + 1 }, function (_, i) {
+        return i * step;
+      }),
+    };
+  }
+
+  function linePoints(values, bounds, maximum) {
+    return values.map(function (value, index) {
+      return {
+        x:
+          bounds.x +
+          (values.length < 2
+            ? bounds.width / 2
+            : (index * bounds.width) / (values.length - 1)),
+        y: bounds.y + bounds.height * (1 - value / (maximum || 1)),
+        value: value,
+      };
+    });
+  }
+
+  function split(total, firstRatio, secondRatio) {
+    var first = Math.round(total * firstRatio);
+    var second = Math.round(total * secondRatio);
+    return [first, second, total - first - second];
+  }
+
+  function getExampleData(period) {
+    var count = Number(period) === 12 ? 12 : 6;
+    var rows = sourceValues
+      .map(function (sources, index) {
+        var research = Math.round(actionValues[index] * 0.39);
+        var product = Math.round(actionValues[index] * 0.28);
+        var learning = Math.round(actionValues[index] * 0.21);
+        return {
+          month: monthNames[index],
+          shortMonth: monthShort[index],
+          date: "2026-" + String(index + 1).padStart(2, "0"),
+          sources: sources,
+          actions: actionValues[index],
+          connections: connectionValues[index],
+          categories: [
+            research,
+            product,
+            learning,
+            actionValues[index] - research - product - learning,
+          ],
+          types: split(sources, 0.35 + index * 0.02, 0.42 - index * 0.012),
+        };
+      })
+      .slice(0, count);
+    return {
+      period: count,
+      year: 2026,
+      label: rows[0].month + "–" + rows[rows.length - 1].month + " 2026",
+      rows: rows,
+      isExample: true,
+      source:
+        "Bileşenle birlikte gelen kurgusal veri seti, 2026. Rakamlar gerçek kullanım veya şirket performansı göstermez.",
+      totals: {
+        sources: sum(
+          rows.map(function (r) {
+            return r.sources;
+          }),
+        ),
+        actions: sum(
+          rows.map(function (r) {
+            return r.actions;
+          }),
+        ),
+        connections: sum(
+          rows.map(function (r) {
+            return r.connections;
+          }),
+        ),
+      },
+      categories: categoryNames.map(function (name, index) {
+        return {
+          name: name,
+          value: sum(
+            rows.map(function (r) {
+              return r.categories[index];
+            }),
+          ),
+        };
+      }),
+      types: typeNames.map(function (name, index) {
+        return {
+          name: name,
+          value: sum(
+            rows.map(function (r) {
+              return r.types[index];
+            }),
+          ),
+        };
+      }),
+    };
+  }
+
+  function marker(x, y, className, shape, size) {
+    if (shape === "square")
+      return (
+        '<rect class="mh-chart-marker mh-chart-marker--' +
+        className +
+        '" x="' +
+        fixed(x - size) +
+        '" y="' +
+        fixed(y - size) +
+        '" width="' +
+        size * 2 +
+        '" height="' +
+        size * 2 +
+        '" rx="1"/>'
+      );
+    return (
+      '<circle class="mh-chart-marker mh-chart-marker--' +
+      className +
+      '" cx="' +
+      fixed(x) +
+      '" cy="' +
+      fixed(y) +
+      '" r="' +
+      size +
+      '"/>'
+    );
+  }
+
+  function lineChart(data, state, id) {
+    var bounds = { x: 64, y: 34, width: 892, height: 222 };
+    var scale = niceScale(
+      [].concat.apply(
+        [],
+        series
+          .filter(function (s) {
+            return state.visible[s.key];
+          })
+          .map(function (s) {
+            return data.rows.map(function (r) {
+              return r[s.key];
+            });
+          }),
+      ),
+    );
+    var grids = scale.ticks
+      .map(function (tick) {
+        var y = bounds.y + bounds.height * (1 - tick / scale.max);
+        return (
+          '<g class="mh-chart-grid"><line x1="64" x2="956" y1="' +
+          fixed(y) +
+          '" y2="' +
+          fixed(y) +
+          '"/><text x="48" y="' +
+          fixed(y + 4) +
+          '" text-anchor="end">' +
+          number(tick) +
+          "</text></g>"
+        );
+      })
+      .join("");
+    var paths = series
+      .filter(function (s) {
+        return state.visible[s.key];
+      })
+      .map(function (s) {
+        var points = linePoints(
+          data.rows.map(function (r) {
+            return r[s.key];
+          }),
+          bounds,
+          scale.max,
+        );
+        return (
+          '<g class="mh-chart-series mh-chart-series--' +
+          s.className +
+          '"><polyline class="mh-chart-line mh-chart-line--' +
+          s.className +
+          '" points="' +
+          points
+            .map(function (p) {
+              return fixed(p.x) + "," + fixed(p.y);
+            })
+            .join(" ") +
+          '"/>' +
+          points
+            .map(function (p, index) {
+              var label =
+                rowLabel(data.rows[index], data) +
+                ", " +
+                s.label +
+                ": " +
+                number(p.value) +
+                " adet";
+              return (
+                '<g class="mh-chart-point" tabindex="0" role="button" data-mh-point="' +
+                s.key +
+                '" data-index="' +
+                index +
+                '" aria-label="' +
+                escapeHTML(label) +
+                '" aria-describedby="' +
+                id +
+                '-tooltip"><circle class="mh-chart-point-hit" cx="' +
+                fixed(p.x) +
+                '" cy="' +
+                fixed(p.y) +
+                '" r="14"/>' +
+                marker(p.x, p.y, s.className, s.marker, 4) +
+                "</g>"
+              );
+            })
+            .join("") +
+          "</g>"
+        );
+      })
+      .join("");
+    var labels = data.rows
+      .map(function (row, index) {
+        if (
+          index % Math.ceil(data.rows.length / 12) &&
+          index !== data.rows.length - 1
+        )
+          return "";
+        var x =
+          bounds.x +
+          (data.rows.length === 1
+            ? bounds.width / 2
+            : (index * bounds.width) / (data.rows.length - 1));
+        return (
+          '<text class="mh-chart-axis-label" x="' +
+          fixed(x) +
+          '" y="282" text-anchor="middle"><title>' +
+          escapeHTML(rowLabel(row, data)) +
+          "</title>" +
+          escapeHTML(shortLabel(row.shortMonth, 6)) +
+          "</text>"
+        );
+      })
+      .join("");
+    return (
+      '<svg class="mh-chart-svg mh-chart-svg--line" viewBox="0 0 1000 316" role="group" aria-labelledby="' +
+      id +
+      "-line-title " +
+      id +
+      '-line-desc"><title id="' +
+      id +
+      '-line-title">' +
+      dataKind(data) +
+      " · " +
+      escapeHTML(data.label) +
+      ' · Aylık kaynak ve eylem adetleri</title><desc id="' +
+      id +
+      '-line-desc">Yatay eksen ay, dikey eksen adet; ölçek sıfırdan ' +
+      scale.max +
+      ' adede kadar. Daire ve düz çizgi kaynakları, kare ve kesik çizgi eylemleri gösterir. Noktalara Tab ile gelin; sağ ve sol oklarla aynı seride ilerleyin.</desc><text class="mh-chart-unit" x="64" y="16">ADET / AY</text>' +
+      grids +
+      paths +
+      labels +
+      '<text class="mh-chart-axis-label" x="956" y="308" text-anchor="end">' +
+      escapeHTML(data.year) +
+      (data.year ? " · " : "") +
+      dataKind(data).toLocaleLowerCase("tr-TR") +
+      "</text></svg>"
+    );
+  }
+
+  function barChart(data, id) {
+    var scale = niceScale(
+      data.categories.map(function (c) {
+        return c.value;
+      }),
+    );
+    var bottom = 45 + Math.max(4, data.categories.length) * 52;
+    var grid = scale.ticks
+      .map(function (tick) {
+        var x = 156 + (tick / scale.max) * 286;
+        return (
+          '<g class="mh-chart-grid"><line x1="' +
+          fixed(x) +
+          '" x2="' +
+          fixed(x) +
+          '" y1="32" y2="' +
+          bottom +
+          '"/><text x="' +
+          fixed(x) +
+          '" y="' +
+          (bottom + 24) +
+          '" text-anchor="middle">' +
+          number(tick) +
+          "</text></g>"
+        );
+      })
+      .join("");
+    var bars = data.categories
+      .map(function (category, index) {
+        var y = 45 + index * 52;
+        var width = (category.value / scale.max) * 286;
+        return (
+          '<g><text class="mh-chart-bar-name" x="0" y="' +
+          (y + 20) +
+          '"><title>' +
+          escapeHTML(category.name) +
+          "</title>" +
+          escapeHTML(shortLabel(category.name, 18)) +
+          '</text><rect class="mh-chart-bar-track" x="156" y="' +
+          y +
+          '" width="286" height="30" rx="3"/><rect class="mh-chart-bar mh-chart-bar--' +
+          (index % 4) +
+          '" x="156" y="' +
+          y +
+          '" width="' +
+          fixed(width) +
+          '" height="30" rx="3"/>' +
+          (index % 2
+            ? '<rect x="156" y="' +
+              y +
+              '" width="' +
+              fixed(width) +
+              '" height="30" rx="3" fill="url(#' +
+              id +
+              '-bar-hatch)"/>'
+            : "") +
+          '<text class="mh-chart-bar-value" x="478" y="' +
+          (y + 20) +
+          '" text-anchor="end">' +
+          number(category.value) +
+          "</text></g>"
+        );
+      })
+      .join("");
+    return (
+      '<svg class="mh-chart-svg mh-chart-svg--bar" viewBox="0 0 500 ' +
+      (bottom + 59) +
+      '" role="img" aria-labelledby="' +
+      id +
+      "-bar-title " +
+      id +
+      '-bar-desc"><title id="' +
+      id +
+      '-bar-title">' +
+      dataKind(data) +
+      ' · Çalışma alanına göre eylem adedi</title><desc id="' +
+      id +
+      '-bar-desc">' +
+      escapeHTML(
+        data.categories
+          .map(function (c) {
+            return c.name + ": " + c.value + " adet";
+          })
+          .join(". "),
+      ) +
+      '. Çubuklar sıfırdan başlar.</desc><defs><pattern id="' +
+      id +
+      '-bar-hatch" patternUnits="userSpaceOnUse" width="8" height="8"><path d="M-2 2L2-2M0 8L8 0M6 10L10 6" fill="none" stroke="var(--mh-text)" stroke-opacity=".22" stroke-width="1"/></pattern></defs><text class="mh-chart-unit" x="156" y="16">EYLEM ADEDİ</text>' +
+      grid +
+      bars +
+      "</svg>"
+    );
+  }
+
+  function donutChart(data, id) {
+    var radius = 76;
+    var circumference = 2 * Math.PI * radius;
+    var offset = 0;
+    var slices = data.types
+      .map(function (type, index) {
+        if (!type.value || !data.totals.sources) return "";
+        var share = type.value / data.totals.sources;
+        var length = share * circumference;
+        var gap = Math.min(3, length / 5);
+        var middle =
+          ((offset + length / 2) / circumference) * Math.PI * 2 - Math.PI / 2;
+        var labelX = 135 + radius * Math.cos(middle);
+        var labelY = 135 + radius * Math.sin(middle);
+        var circle =
+          '<circle class="mh-chart-donut-segment mh-chart-donut-segment--' +
+          (index % 4) +
+          '" cx="135" cy="135" r="76" fill="none" stroke-width="40" stroke-dasharray="' +
+          fixed(length - gap) +
+          " " +
+          fixed(circumference - length + gap) +
+          '" stroke-dashoffset="' +
+          fixed(-offset) +
+          '" transform="rotate(-90 135 135)"/>';
+        if (index % 2)
+          circle +=
+            '<circle cx="135" cy="135" r="76" fill="none" stroke="url(#' +
+            id +
+            '-donut-hatch)" stroke-width="40" stroke-dasharray="' +
+            fixed(length - gap) +
+            " " +
+            fixed(circumference - length + gap) +
+            '" stroke-dashoffset="' +
+            fixed(-offset) +
+            '" transform="rotate(-90 135 135)"/>';
+        offset += length;
+        return (
+          circle +
+          (share >= 0.08
+            ? '<text class="mh-chart-donut-index mh-chart-label--' +
+              (index % 4) +
+              '" x="' +
+              fixed(labelX) +
+              '" y="' +
+              fixed(labelY - 5) +
+              '" text-anchor="middle">' +
+              (index + 1) +
+              '</text><text class="mh-chart-donut-percent mh-chart-label--' +
+              (index % 4) +
+              '" x="' +
+              fixed(labelX) +
+              '" y="' +
+              fixed(labelY + 10) +
+              '" text-anchor="middle">%' +
+              percent(type.value, data.totals.sources) +
+              "</text>"
+            : "")
+        );
+      })
+      .join("");
+    return (
+      '<svg class="mh-chart-svg mh-chart-svg--donut" viewBox="0 0 270 270" role="img" aria-labelledby="' +
+      id +
+      "-donut-title " +
+      id +
+      '-donut-desc"><title id="' +
+      id +
+      '-donut-title">' +
+      dataKind(data) +
+      ' · Kaynak türlerinin dağılımı</title><desc id="' +
+      id +
+      '-donut-desc">Toplam ' +
+      number(data.totals.sources) +
+      " kaynak. " +
+      escapeHTML(
+        data.types
+          .map(function (t) {
+            return (
+              t.name +
+              ": " +
+              number(t.value) +
+              " adet, yüzde " +
+              percent(t.value, data.totals.sources)
+            );
+          })
+          .join(". "),
+      ) +
+      '.</desc><defs><pattern id="' +
+      id +
+      '-donut-hatch" patternUnits="userSpaceOnUse" width="7" height="7"><path d="M0 7L7 0" stroke="var(--mh-text)" stroke-opacity=".14" stroke-width="1"/></pattern></defs><circle class="mh-chart-donut-base" cx="135" cy="135" r="76" fill="none" stroke-width="40"/>' +
+      slices +
+      '<text class="mh-chart-donut-total" x="135" y="134" text-anchor="middle">' +
+      number(data.totals.sources) +
+      '</text><text class="mh-chart-axis-label" x="135" y="156" text-anchor="middle">' +
+      (data.totals.sources ? "kaynak" : "kaynak yok") +
+      "</text></svg>"
+    );
+  }
+
+  function sparkChart(data, id) {
+    var values = data.rows.map(function (r) {
+      return r.connections;
+    });
+    var maximum = niceScale(values).max;
+    var points = linePoints(
+      values,
+      { x: 5, y: 5, width: 174, height: 46 },
+      maximum,
+    );
+    var last = points[points.length - 1];
+    return (
+      '<svg class="mh-chart-svg mh-chart-svg--spark" viewBox="0 0 184 76" role="img" aria-labelledby="' +
+      id +
+      '-spark-title"><title id="' +
+      id +
+      '-spark-title">' +
+      dataKind(data) +
+      " · Aylık kurulan bağlantılar, " +
+      escapeHTML(data.label) +
+      ": " +
+      values.join(", ") +
+      " adet. Dikey ölçek 0–" +
+      maximum +
+      '.</title><line class="mh-chart-spark-baseline" x1="5" x2="179" y1="51" y2="51"/><polyline class="mh-chart-line mh-chart-line--spark" points="' +
+      points
+        .map(function (p) {
+          return fixed(p.x) + "," + fixed(p.y);
+        })
+        .join(" ") +
+      '"/><circle class="mh-chart-spark-end" cx="' +
+      fixed(last.x) +
+      '" cy="' +
+      fixed(last.y) +
+      '" r="3.5"/><text class="mh-chart-spark-label" x="5" y="71">' +
+      escapeHTML(shortLabel(data.rows[0].shortMonth, 6)) +
+      '</text><text class="mh-chart-spark-label" x="179" y="71" text-anchor="end">' +
+      escapeHTML(shortLabel(data.rows[data.rows.length - 1].shortMonth, 6)) +
+      "</text></svg>"
+    );
+  }
+
+  function dataTable(caption, headers, rows) {
+    return (
+      '<div class="mh-chart-table-scroll" tabindex="0" role="region" aria-label="' +
+      escapeHTML(caption) +
+      '"><table><caption>' +
+      escapeHTML(caption) +
+      "</caption><thead><tr>" +
+      headers
+        .map(function (header) {
+          return '<th scope="col">' + escapeHTML(header) + "</th>";
+        })
+        .join("") +
+      "</tr></thead><tbody>" +
+      rows
+        .map(function (row) {
+          return (
+            "<tr>" +
+            row
+              .map(function (value, index) {
+                return index === 0
+                  ? '<th scope="row">' + escapeHTML(value) + "</th>"
+                  : "<td>" + escapeHTML(value) + "</td>";
+              })
+              .join("") +
+            "</tr>"
+          );
+        })
+        .join("") +
+      "</tbody></table></div>"
+    );
+  }
+
+  function csvForData(input) {
+    var data = normalizeData(input);
+    var rows = [
+      [
+        "Veri niteliği",
+        "Dönem",
+        "Grafik",
+        "Tarih veya kategori",
+        "Seri",
+        "Değer",
+        "Birim",
+      ],
+    ];
+    data.rows.forEach(function (row) {
+      series.forEach(function (s) {
+        rows.push([
+          dataKind(data),
+          data.label,
+          "Zaman",
+          row.date,
+          s.label,
+          row[s.key],
+          "adet",
+        ]);
+      });
+      rows.push([
+        dataKind(data),
+        data.label,
+        "Sparkline",
+        row.date,
+        "Kurulan bağlantı",
+        row.connections,
+        "adet",
+      ]);
+    });
+    data.categories.forEach(function (c) {
+      rows.push([
+        dataKind(data),
+        data.label,
+        "Kategori",
+        c.name,
+        "Eylem",
+        c.value,
+        "adet",
+      ]);
+    });
+    data.types.forEach(function (t) {
+      rows.push([
+        dataKind(data),
+        data.label,
+        "Dağılım",
+        t.name,
+        "Kaynak",
+        t.value,
+        "adet",
+      ]);
+    });
+    function cellText(cell) {
+      var value = String(cell);
+      // Spreadsheet programs must interpret caller-provided strings as text.
+      if (
+        typeof cell === "string" &&
+        /^[\s\u0000-\u001f\u007f\uFEFF]*[=+\-@]/.test(value)
+      )
+        value = "'" + value;
+      return '"' + value.replace(/"/g, '""') + '"';
+    }
+    return (
+      "\uFEFF" +
+      rows
+        .map(function (row) {
+          return row.map(cellText).join(",");
+        })
+        .join("\r\n")
+    );
+  }
+
+  function mount(container, options) {
+    options = options || {};
+    if (options.getData != null && typeof options.getData !== "function")
+      throw new TypeError("getData bir işlev olmalı.");
+    if (
+      options.onPeriodChange != null &&
+      typeof options.onPeriodChange !== "function"
+    )
+      throw new TypeError("onPeriodChange bir işlev olmalı.");
+    if (
+      options.periodControl !== undefined &&
+      typeof options.periodControl !== "boolean"
+    )
+      throw new TypeError("periodControl boolean olmalı.");
+    if (
+      options.showGuidance !== undefined &&
+      typeof options.showGuidance !== "boolean"
+    )
+      throw new TypeError("showGuidance boolean olmalı.");
+    var periodControl = options.periodControl !== false;
+    var initialPeriod =
+      options.initialPeriod == null ? 6 : Number(options.initialPeriod);
+    if (initialPeriod !== 6 && initialPeriod !== 12)
+      throw new RangeError("initialPeriod 6 veya 12 olmalı.");
+    var host =
+      typeof container === "string"
+        ? document.querySelector(container)
+        : container;
+    if (!host || host.nodeType !== 1)
+      throw new TypeError(
+        "MuhitCharts.mount bir kapsayıcı öğe veya geçerli seçici bekler.",
+      );
+    if (host.__muhitCharts) host.__muhitCharts.destroy();
+    var id = "mh-charts-" + ++instanceCount;
+    var hasProvider = typeof options.getData === "function";
+    var state = {
+      period: initialPeriod,
+      visible: { sources: true, actions: true },
+      phase: "loading",
+      demoMode: "example",
+      useExample: false,
+      manual: false,
+      error: "",
+    };
+    var data = null;
+    var requestId = 0;
+    var destroyed = false;
+    var demoTimers = new Map();
+    var root = document.createElement("div");
+    root.className = "mh-chart-demo mh-scope";
+    var content = document.createElement("div");
+    var statusRegion = document.createElement("p");
+    statusRegion.className = "mh-chart-sr-only";
+    statusRegion.setAttribute("role", "status");
+    statusRegion.setAttribute("aria-live", "polite");
+    statusRegion.setAttribute("aria-atomic", "true");
+    root.appendChild(content);
+    root.appendChild(statusRegion);
+    host.appendChild(root);
+
+    function focusControl(key) {
+      if (!key) return;
+      var target = root.querySelector('[data-focus-key="' + key + '"]');
+      if (target) target.focus();
+    }
+    function currentFocusKey() {
+      var active = document.activeElement;
+      return active && root.contains(active) && active.dataset
+        ? active.dataset.focusKey
+        : null;
+    }
+    function toolbar() {
+      var kind = data
+        ? dataKind(data)
+        : hasProvider && !state.useExample
+          ? "Veri kaynağı"
+          : "Örnek veri";
+      var label = data ? data.label : state.period + " aylık dönem";
+      var note =
+        data && data.isExample
+          ? "Rakamlar gerçek kullanım veya şirket performansı göstermez."
+          : periodControl
+            ? "Dönem seçimi veri sağlayıcısına iletilir; toplamlar kayıtlardan hesaplanır."
+            : "Sabit veri görünümü; toplamlar verilen kayıtlardan hesaplanır.";
+      var demo =
+        !hasProvider && !state.manual
+          ? '<div class="mh-chart-demo-control"><label for="' +
+            id +
+            '-demo">Veri durumunu dene</label><select id="' +
+            id +
+            '-demo" data-demo-mode data-focus-key="demo-mode"><option value="example"' +
+            (state.demoMode === "example" ? " selected" : "") +
+            '>Örnek veri</option><option value="empty"' +
+            (state.demoMode === "empty" ? " selected" : "") +
+            '>Boş veri</option><option value="error"' +
+            (state.demoMode === "error" ? " selected" : "") +
+            ">Bağlantı hatası</option></select><span>Yalnız bu oturumda; gerçek bağlantı kurulmaz.</span></div>"
+          : "";
+      return (
+        '<div class="mh-chart-toolbar"><div><span class="mh-badge mh-chart-example">' +
+        kind +
+        "</span><p>" +
+        escapeHTML(label) +
+        "<br><span>" +
+        note +
+        '</span></p></div><div class="mh-chart-toolbar-actions">' +
+        (periodControl
+          ? '<div class="mh-chart-period" role="group" aria-label="Grafik dönemi">' +
+            [6, 12]
+              .map(function (period) {
+                return (
+                  '<button type="button" data-period="' +
+                  period +
+                  '" data-focus-key="period-' +
+                  period +
+                  '" aria-pressed="' +
+                  (state.period === period) +
+                  '">' +
+                  period +
+                  " ay</button>"
+                );
+              })
+              .join("") +
+            "</div>"
+          : '<p class="mh-chart-fixed-period">Sabit veri görünümü · ' +
+            escapeHTML(label) +
+            "</p>") +
+        "" +
+        (hasProvider || state.manual
+          ? '<button type="button" class="mh-button mh-button--quiet" data-refresh data-focus-key="refresh">Yenile</button>'
+          : "") +
+        '<button type="button" class="mh-button mh-button--quiet mh-chart-csv" data-download data-focus-key="csv"' +
+        (state.phase !== "ready" ? " disabled" : "") +
+        '><svg class="mh-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 3v9m-3-3 3 3 3-3M4 13v3h12v-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>CSV indir</button></div></div>' +
+        demo
+      );
+    }
+    function integration() {
+      if (options.showGuidance !== true)
+        return data
+          ? '<footer class="mh-chart-footer"><p><strong>Kaynak:</strong> ' +
+              escapeHTML(data.source) +
+              "</p></footer>"
+          : "";
+      var example = [
+        'const charts = MuhitCharts.mount("#charts", {',
+        "  initialPeriod: 6,",
+        "  getData: async (period) => {",
+        "    // Endpoint ve kimlik doğrulama uygulamanıza aittir.",
+        "    const response = await fetch(`/api/metrics?months=${period}`);",
+        '    if (!response.ok) throw new Error("Veri alınamadı");',
+        "    return response.json();",
+        "  },",
+        "  onPeriodChange: (period) => console.log(period)",
+        "});",
+        "await charts.refresh();     // Sağlayıcıdan yeniden oku.",
+        "// charts.setData(payload); // Bekleyen yanıtı geçersiz kılar.",
+        "const snapshot = charts.getData(); // Bağımsız kopya veya null.",
+        "// charts.destroy();",
+      ].join("\n");
+      return (
+        '<footer class="mh-chart-footer">' +
+        (data
+          ? "<p><strong>Kaynak:</strong> " + escapeHTML(data.source) + "</p>"
+          : "") +
+        '<details class="mh-chart-details mh-chart-code"><summary>Entegrasyon örneği ve veri sözleşmesi</summary><pre><code>' +
+        escapeHTML(example) +
+        "</code></pre><p><code>getData(period)</code> bir nesne veya Promise döndürebilir. Sağlayıcı verilmezse yerel örnek veri kullanılır. <code>initialPeriod</code> 6 veya 12’dir. <code>onPeriodChange(period)</code> kullanıcı dönem değiştirdiğinde çalışır.</p><p><code>rows</code> en fazla 24 kayıttan oluşur. Her kayıtta <code>sources</code>, <code>actions</code>, <code>connections</code> negatif olmayan sonlu sayılardır; değer ve toplam üst sınırı <code>Number.MAX_SAFE_INTEGER</code>’dır. Boş <code>rows: []</code> boş durumunu açar. <code>month</code>, <code>shortMonth</code>, <code>date</code>, üst düzey <code>label</code>, <code>year</code> ve <code>source</code> metin alanlarıdır. <code>isExample: true</code> örnek veriyi açıkça etiketler.</p><p><code>totals</code> kayıtlardan yeniden hesaplanır. <code>categories: [{name, value}]</code> toplamı <code>actions</code> ile; <code>types: [{name, value}]</code> toplamı <code>sources</code> ile eşleşmelidir. En fazla 12 kategori ve 8 kaynak türü kabul edilir. Verilmezlerse tek toplam grubu kullanılır. İsteğe bağlı satır <code>categories/types</code> sayı dizileri de ilgili satır toplamıyla eşleşmelidir.</p><p><code>refresh()</code> ve <code>setData(data)</code> Promise döndürür: başarıda veri kopyası, hata veya geçersiz kalan istekte <code>null</code>. Hata arayüzde gösterilir. <code>refresh()</code> örnek veri geçişini sıfırlayıp yapılandırılmış sağlayıcıyı yeniden çağırır. <code>setData</code> tek seferlik veri yerleştirir; sonraki dönem değişimi sağlayıcıya döner. <code>getData()</code> son başarılı verinin bağımsız kopyasını verir; yüklenme, hata ve boş durumda <code>null</code>. <code>destroy()</code> yanıtları geçersiz kılar ve bileşeni kaldırır.</p><p>CSV seçili dönemin tüm çizgi serilerini, bağlantıları ve grup toplamlarını içerir. Seri görünürlüğü kapsamı değiştirmez. Metin hücrelerinin formül olarak çalışmasını önlemek için gerekli hücrelere kesme işareti eklenir. Bu örnek endpoint yalnız kod açıklamasıdır; varsayılan demo ağ isteği yapmaz.</p></details></footer>"
+      );
+    }
+    function chartMarkup() {
+      var first = data.rows[0].connections;
+      var last = data.rows[data.rows.length - 1].connections;
+      var change = first ? Math.round(((last - first) / first) * 100) : null;
+      var growth =
+        change == null
+          ? last
+            ? "İlk ay 0; yüzde hesaplanamaz."
+            : "Son ay / ilk ay: değişim yok."
+          : "Son ay / ilk ay: " +
+            (change < 0 ? "−" : change > 0 ? "+" : "") +
+            "%" +
+            Math.abs(change);
+      var kind = dataKind(data);
+      return (
+        '<section class="mh-panel mh-chart-card mh-chart-main" aria-labelledby="' +
+        id +
+        '-heading"><div class="mh-chart-main-head"><div><p class="mh-kicker">ZAMAN İÇİNDE</p><h3 id="' +
+        id +
+        '-heading">Bilgiden eyleme</h3><p class="mh-chart-subtitle">Aylık kaynak ve eylem adetleri. Her seri kendi sayımıyla gösterilir.</p></div><div class="mh-chart-summary"><span><strong>' +
+        number(data.totals.sources) +
+        "</strong>bağlanan kaynak</span><span><strong>" +
+        number(data.totals.actions) +
+        "</strong>eyleme dönüşen not</span></div></div>" +
+        '<div class="mh-chart-legend" role="group" aria-label="Görünür veri serileri">' +
+        series
+          .map(function (s) {
+            return (
+              '<button type="button" class="mh-chart-legend-button" data-series="' +
+              s.key +
+              '" data-focus-key="series-' +
+              s.key +
+              '" aria-pressed="' +
+              state.visible[s.key] +
+              '"><span class="mh-chart-legend-sample mh-chart-legend-sample--' +
+              s.className +
+              '" aria-hidden="true"></span>' +
+              s.label +
+              '<span class="mh-chart-series-state">' +
+              (state.visible[s.key] ? "Açık" : "Kapalı") +
+              "</span></button>"
+            );
+          })
+          .join("") +
+        "</div>" +
+        '<p class="mh-chart-scroll-hint">Grafiğin devamı için yatay kaydırın →</p><div class="mh-chart-line-frame"><div class="mh-chart-plot-scroll" tabindex="0" role="region" aria-label="Aylık çizgi grafiği; dar ekranda yatay kaydırılabilir">' +
+        lineChart(data, state, id) +
+        '</div><div class="mh-chart-tooltip" id="' +
+        id +
+        '-tooltip" role="tooltip" hidden></div></div>' +
+        '<p class="mh-chart-note">Noktaları fareyle veya Tab ile inceleyin. ← → aynı seride ilerler; Escape bilgiyi kapatır. En az bir seri açık kalır.</p>' +
+        '<details class="mh-chart-details"><summary>Aylık verileri tablo olarak gör</summary>' +
+        dataTable(
+          kind + " · " + data.label,
+          ["Ay", "Kaynak · adet", "Eylem · adet"],
+          data.rows.map(function (r) {
+            return [rowLabel(r, data), number(r.sources), number(r.actions)];
+          }),
+        ) +
+        '<p class="mh-chart-note">Seri gizlemek toplamları, tabloyu veya CSV dosyasını değiştirmez.</p></details></section>' +
+        '<div class="mh-chart-bottom"><section class="mh-panel mh-chart-card" aria-labelledby="' +
+        id +
+        '-category-heading"><p class="mh-kicker">ÇALIŞMA ALANLARI</p><h3 id="' +
+        id +
+        '-category-heading">Eylemin dağılımı</h3><p class="mh-chart-subtitle">Seçili dönemde toplam ' +
+        number(data.totals.actions) +
+        " eylem · " +
+        kind.toLocaleLowerCase("tr-TR") +
+        ".</p>" +
+        barChart(data, id) +
+        '<p class="mh-chart-note">Her eylem bir alana atanır. Eksen sıfırdan başlar; değerler adet cinsindedir.</p><details class="mh-chart-details"><summary>Kategori verilerini gör</summary>' +
+        dataTable(
+          kind + " · Kategori toplamları · " + data.label,
+          ["Çalışma alanı", "Eylem · adet"],
+          data.categories.map(function (c) {
+            return [c.name, number(c.value)];
+          }),
+        ) +
+        "</details></section>" +
+        '<section class="mh-panel mh-chart-card" aria-labelledby="' +
+        id +
+        '-distribution-heading"><p class="mh-kicker">BİLGİNİN BİÇİMLERİ</p><h3 id="' +
+        id +
+        '-distribution-heading">Kaynakların bileşimi</h3><p class="mh-chart-subtitle">Seçili dönemde bağlanan kaynak türleri · ' +
+        kind.toLocaleLowerCase("tr-TR") +
+        '.</p><div class="mh-chart-distribution">' +
+        donutChart(data, id) +
+        '<ul class="mh-chart-donut-legend">' +
+        data.types
+          .map(function (type, index) {
+            return (
+              '<li><span class="mh-chart-swatch mh-chart-swatch--' +
+              (index % 4) +
+              '" aria-hidden="true">' +
+              (index + 1) +
+              "</span><span>" +
+              escapeHTML(type.name) +
+              "<small>%" +
+              percent(type.value, data.totals.sources) +
+              "</small></span><strong>" +
+              number(type.value) +
+              "<small>adet</small></strong></li>"
+            );
+          })
+          .join("") +
+        '</ul></div><p class="mh-chart-note">Sıra, sayı ve desen rengi destekler. Küçük dilimlerin değerleri listede bulunur; yüzdeler yuvarlanır.</p><details class="mh-chart-details"><summary>Dağılım verilerini gör</summary>' +
+        dataTable(
+          kind + " · Kaynak dağılımı · " + data.label,
+          ["Kaynak türü", "Adet", "Pay"],
+          data.types.map(function (t) {
+            return [
+              t.name,
+              number(t.value),
+              "%" + percent(t.value, data.totals.sources),
+            ];
+          }),
+        ) +
+        "</details></section></div>" +
+        '<section class="mh-panel mh-chart-card mh-chart-metric" aria-labelledby="' +
+        id +
+        '-metric-heading"><div><p class="mh-kicker">KÜÇÜK GRAFİK · ' +
+        kind.toLocaleUpperCase("tr-TR") +
+        '</p><h3 id="' +
+        id +
+        '-metric-heading">Kurulan bağlantılar</h3><p class="mh-chart-subtitle">Seçili dönem toplamı. Kaynaklar arasındaki bağlantı sayımı.</p></div><div class="mh-chart-metric-number"><strong>' +
+        number(data.totals.connections) +
+        "<span> adet</span></strong><p>" +
+        growth +
+        '</p></div><div class="mh-chart-spark-wrap">' +
+        sparkChart(data, id) +
+        "<span>0–" +
+        niceScale(
+          data.rows.map(function (r) {
+            return r.connections;
+          }),
+        ).max +
+        ' adet / ay</span></div><details class="mh-chart-details"><summary>Bağlantı verilerini gör</summary>' +
+        dataTable(
+          kind + " · Aylık bağlantılar · " + data.label,
+          ["Ay", "Bağlantı · adet"],
+          data.rows.map(function (r) {
+            return [rowLabel(r, data), number(r.connections)];
+          }),
+        ) +
+        "</details></section>"
+      );
+    }
+    function stateMarkup() {
+      if (state.phase === "loading")
+        return (
+          '<section class="mh-panel mh-chart-card mh-chart-state" aria-labelledby="' +
+          id +
+          '-loading"><p class="mh-kicker">VERİ BAĞLANTISI</p><h3 id="' +
+          id +
+          '-loading">Grafikler hazırlanıyor</h3><p>Seçili dönemin verileri alınıyor.</p><div class="mh-chart-skeleton" aria-hidden="true"><span></span><span></span><span></span><div></div></div></section>'
+        );
+      if (state.phase === "error")
+        return (
+          '<section class="mh-panel mh-chart-card mh-chart-state mh-chart-state--error" aria-labelledby="' +
+          id +
+          '-error"><div role="alert"><p class="mh-kicker">VERİ ALINAMADI</p><h3 id="' +
+          id +
+          '-error">Bağlantıyı yeniden deneyin</h3><p>' +
+          escapeHTML(state.error) +
+          '</p></div><button type="button" class="mh-button mh-button--primary" data-retry data-focus-key="retry">Yeniden dene</button>' +
+          (!hasProvider
+            ? '<p class="mh-chart-note">Bu kontrollü bir demo hatasıdır. Grafiklere dönmek için veri durumunu “Örnek veri” olarak değiştirin.</p>'
+            : "") +
+          "</section>"
+        );
+      return (
+        '<section class="mh-panel mh-chart-card mh-chart-state" aria-labelledby="' +
+        id +
+        '-empty"><p class="mh-kicker">BOŞ DÖNEM</p><h3 id="' +
+        id +
+        '-empty">Henüz gösterilecek kayıt yok</h3><p>Bu dönem için veri dönmedi. Farklı bir dönem seçebilir veya bileşeni örnek veriyle inceleyebilirsiniz.</p><button type="button" class="mh-button mh-button--primary" data-example data-focus-key="example">Örnek veriyi göster</button><p class="mh-chart-note">Örnek veriye geçiş açıkça etiketlenir; gerçek kayıt oluşturmaz.</p></section>'
+      );
+    }
+    function render(focusKey, announcement) {
+      if (destroyed) return;
+      var preservedFocus = focusKey || currentFocusKey();
+      content.setAttribute(
+        "aria-busy",
+        state.phase === "loading" ? "true" : "false",
+      );
+      content.innerHTML =
+        toolbar() +
+        (state.phase === "ready" ? chartMarkup() : stateMarkup()) +
+        integration();
+      statusRegion.textContent = announcement || "";
+      focusControl(preservedFocus);
+    }
+    function commit(input, ticket) {
+      if (destroyed || ticket !== requestId) return null;
+      var normalized = normalizeData(input, state.period);
+      if (destroyed || ticket !== requestId) return null;
+      data = normalized;
+      state.phase = data.rows.length ? "ready" : "empty";
+      state.error = "";
+      render(
+        null,
+        data.rows.length
+          ? data.label + " için grafikler ve tablolar güncellendi."
+          : "Seçili dönemde gösterilecek kayıt yok.",
+      );
+      return data.rows.length ? clone(data) : null;
+    }
+    function fail(error, ticket) {
+      if (destroyed || ticket !== requestId) return null;
+      data = null;
+      state.phase = "error";
+      state.error =
+        error && typeof error.message === "string"
+          ? error.message.slice(0, 240)
+          : "Veri kaynağına ulaşılamadı. Lütfen yeniden deneyin.";
+      render();
+      return null;
+    }
+    function demoResult(period) {
+      if (state.demoMode === "example") return getExampleData(period);
+      var mode = state.demoMode;
+      return new Promise(function (resolve, reject) {
+        var timer = global.setTimeout(function () {
+          demoTimers.delete(timer);
+          if (mode === "error")
+            reject(new Error("Örnek veri bağlantısı şu anda kullanılamıyor."));
+          else
+            resolve({
+              period: period,
+              rows: [],
+              isExample: true,
+              label: "Boş örnek dönem",
+              source: "Boş durum gösterimi için kurgusal veri.",
+            });
+        }, 420);
+        demoTimers.set(timer, resolve);
+      });
+    }
+    function load(focusKey) {
+      if (destroyed) return Promise.resolve(null);
+      var ticket = ++requestId;
+      data = null;
+      state.phase = "loading";
+      state.error = "";
+      render(focusKey, "Seçili dönemin verileri yükleniyor.");
+      try {
+        var result = state.useExample
+          ? getExampleData(state.period)
+          : hasProvider
+            ? options.getData(state.period)
+            : demoResult(state.period);
+        if (result && typeof result.then === "function") {
+          return Promise.resolve(result)
+            .then(function (input) {
+              return commit(input, ticket);
+            })
+            .catch(function (error) {
+              return fail(error, ticket);
+            });
+        }
+        return Promise.resolve(commit(result, ticket));
+      } catch (error) {
+        return Promise.resolve(fail(error, ticket));
+      }
+    }
+    function hideTooltip() {
+      var tooltip = root.querySelector(".mh-chart-tooltip");
+      if (tooltip) tooltip.hidden = true;
+    }
+    function showTooltip(point) {
+      if (!data || state.phase !== "ready") return;
+      var row = data.rows[Number(point.dataset.index)];
+      var selected = series.find(function (s) {
+        return s.key === point.dataset.mhPoint;
+      });
+      if (!row || !selected) return;
+      var tooltip = root.querySelector(".mh-chart-tooltip");
+      if (!tooltip) return;
+      tooltip.innerHTML =
+        "<strong>" +
+        escapeHTML(rowLabel(row, data)) +
+        "</strong><span>" +
+        selected.label +
+        "</span><b>" +
+        number(row[selected.key]) +
+        " <small>adet · " +
+        dataKind(data).toLocaleLowerCase("tr-TR") +
+        "</small></b>";
+      tooltip.hidden = false;
+      var pointRect = point.getBoundingClientRect();
+      var frameRect = root
+        .querySelector(".mh-chart-line-frame")
+        .getBoundingClientRect();
+      var left = Math.max(
+        8,
+        Math.min(
+          pointRect.left -
+            frameRect.left +
+            pointRect.width / 2 -
+            tooltip.offsetWidth / 2,
+          frameRect.width - tooltip.offsetWidth - 8,
+        ),
+      );
+      var top = pointRect.top - frameRect.top - tooltip.offsetHeight - 12;
+      if (top < 4) top = pointRect.bottom - frameRect.top + 12;
+      tooltip.style.left = left + "px";
+      tooltip.style.top = top + "px";
+    }
+    function onClick(event) {
+      var periodButton = event.target.closest("[data-period]");
+      var seriesButton = event.target.closest("[data-series]");
+      if (periodButton) {
+        var period = Number(periodButton.dataset.period);
+        if (period === state.period) return;
+        state.period = period;
+        state.manual = false;
+        if (options.onPeriodChange) {
+          try {
+            options.onPeriodChange(period);
+          } catch (error) {
+            /* Notification hooks do not stop data loading. */
+          }
+        }
+        load("period-" + period);
+      } else if (event.target.closest("[data-example]")) {
+        state.useExample = hasProvider;
+        state.demoMode = "example";
+        state.manual = false;
+        load("period-" + state.period);
+      } else if (event.target.closest("[data-retry], [data-refresh]")) {
+        state.useExample = false;
+        state.manual = false;
+        load("period-" + state.period);
+      } else if (seriesButton && state.phase === "ready") {
+        var key = seriesButton.dataset.series;
+        if (
+          state.visible[key] &&
+          Object.keys(state.visible).filter(function (k) {
+            return state.visible[k];
+          }).length === 1
+        ) {
+          statusRegion.textContent =
+            "Grafikte en az bir seri açık kalmalıdır. Önce diğer seriyi açın.";
+          return;
+        }
+        state.visible[key] = !state.visible[key];
+        render(
+          "series-" + key,
+          series.find(function (s) {
+            return s.key === key;
+          }).label + (state.visible[key] ? " gösteriliyor." : " gizlendi."),
+        );
+      } else if (
+        event.target.closest("[data-download]") &&
+        data &&
+        state.phase === "ready"
+      ) {
+        var blob = new Blob([csvForData(data)], {
+          type: "text/csv;charset=utf-8;",
+        });
+        var url = URL.createObjectURL(blob);
+        var anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download =
+          "muhit-" +
+          (data.isExample ? "ornek-" : "") +
+          "grafik-verisi-" +
+          state.period +
+          "-ay.csv";
+        root.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+        global.setTimeout(function () {
+          URL.revokeObjectURL(url);
+        }, 1000);
+        statusRegion.textContent =
+          "Seçili dönemin verileri için CSV indirme başlatıldı.";
+      } else {
+        var point = event.target.closest("[data-mh-point]");
+        if (point) showTooltip(point);
+      }
+    }
+    function onChange(event) {
+      if (!event.target.matches("[data-demo-mode]")) return;
+      state.demoMode = event.target.value;
+      state.useExample = false;
+      state.manual = false;
+      load("demo-mode");
+    }
+    function onFocus(event) {
+      var point = event.target.closest("[data-mh-point]");
+      if (point) showTooltip(point);
+    }
+    function onMouseOut(event) {
+      var point = event.target.closest("[data-mh-point]");
+      if (
+        point &&
+        (!event.relatedTarget || !point.contains(event.relatedTarget)) &&
+        document.activeElement !== point
+      )
+        hideTooltip();
+    }
+    function onKey(event) {
+      var point = event.target.closest("[data-mh-point]");
+      if (event.key === "Escape") {
+        hideTooltip();
+        return;
+      }
+      if (!point || !data || state.phase !== "ready") return;
+      var index = Number(point.dataset.index);
+      if (event.key === "ArrowRight")
+        index = Math.min(data.rows.length - 1, index + 1);
+      else if (event.key === "ArrowLeft") index = Math.max(0, index - 1);
+      else if (event.key === "Home") index = 0;
+      else if (event.key === "End") index = data.rows.length - 1;
+      else if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        showTooltip(point);
+        return;
+      } else return;
+      event.preventDefault();
+      root
+        .querySelector(
+          '[data-mh-point="' +
+            point.dataset.mhPoint +
+            '"][data-index="' +
+            index +
+            '"]',
+        )
+        .focus();
+    }
+    root.addEventListener("click", onClick);
+    root.addEventListener("change", onChange);
+    root.addEventListener("focusin", onFocus);
+    root.addEventListener("focusout", hideTooltip);
+    root.addEventListener("mouseover", onFocus);
+    root.addEventListener("mouseout", onMouseOut);
+    root.addEventListener("keydown", onKey);
+    root.addEventListener("scroll", hideTooltip, true);
+    global.addEventListener("resize", hideTooltip);
+    var instance = {
+      refresh: function () {
+        if (destroyed) return Promise.resolve(null);
+        state.useExample = false;
+        state.manual = false;
+        return load();
+      },
+      setData: function (input) {
+        if (destroyed) return Promise.resolve(null);
+        var ticket = ++requestId;
+        state.manual = true;
+        state.useExample = false;
+        try {
+          if (
+            input &&
+            (Number(input.period) === 6 || Number(input.period) === 12)
+          )
+            state.period = Number(input.period);
+          return Promise.resolve(commit(input, ticket));
+        } catch (error) {
+          return Promise.resolve(fail(error, ticket));
+        }
+      },
+      getData: function () {
+        return !destroyed && state.phase === "ready" ? clone(data) : null;
+      },
+      destroy: function () {
+        if (destroyed) return;
+        destroyed = true;
+        ++requestId;
+        demoTimers.forEach(function (resolve, timer) {
+          global.clearTimeout(timer);
+          resolve(null);
+        });
+        demoTimers.clear();
+        root.removeEventListener("click", onClick);
+        root.removeEventListener("change", onChange);
+        root.removeEventListener("focusin", onFocus);
+        root.removeEventListener("focusout", hideTooltip);
+        root.removeEventListener("mouseover", onFocus);
+        root.removeEventListener("mouseout", onMouseOut);
+        root.removeEventListener("keydown", onKey);
+        root.removeEventListener("scroll", hideTooltip, true);
+        global.removeEventListener("resize", hideTooltip);
+        root.remove();
+        data = null;
+        if (host.__muhitCharts === instance) delete host.__muhitCharts;
+      },
+    };
+    host.__muhitCharts = instance;
+    load();
+    return instance;
+  }
+
+  global.MuhitCharts = {
+    mount: mount,
+    getExampleData: getExampleData,
+    normalizeData: normalizeData,
+    niceScale: niceScale,
+    linePoints: linePoints,
+    toCSV: csvForData,
+  };
+})(typeof window !== "undefined" ? window : globalThis);

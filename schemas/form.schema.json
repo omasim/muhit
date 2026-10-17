@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MuhitForm field definitions",
+  "type": "array",
+  "minItems": 1,
+  "maxItems": 50,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "name",
+      "label"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "pattern": "^[a-zA-Z][\\w-]{0,63}$",
+        "not": {
+          "enum": [
+            "constructor",
+            "prototype"
+          ]
+        }
+      },
+      "label": {
+        "type": "string",
+        "pattern": "\\S"
+      },
+      "type": {
+        "enum": [
+          "text",
+          "email",
+          "textarea",
+          "number",
+          "date",
+          "select",
+          "checkbox"
+        ],
+        "default": "text"
+      },
+      "help": {
+        "type": "string"
+      },
+      "required": {
+        "type": "boolean"
+      },
+      "min": {
+        "type": "number"
+      },
+      "max": {
+        "type": "number"
+      },
+      "maxLength": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 100000
+      },
+      "options": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 100,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "label"
+          ],
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1
+            },
+            "label": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        }
+      },
+      "disabled": {
+        "type": "boolean"
+      },
+      "readOnly": {
+        "type": "boolean"
+      },
+      "visibleWhen": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "field",
+          "equals"
+        ],
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "equals": {
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "allOf": [
+      {
+        "if": {
+          "required": [
+            "min"
+          ]
+        },
+        "then": {
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "const": "number"
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "required": [
+            "max"
+          ]
+        },
+        "then": {
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "const": "number"
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "required": [
+            "maxLength"
+          ]
+        },
+        "then": {
+          "properties": {
+            "type": {
+              "enum": [
+                "text",
+                "email",
+                "textarea"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "const": "select"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "options"
+          ]
+        },
+        "else": {
+          "not": {
+            "required": [
+              "options"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "$comment": "Runtime additionally validates unique names, option values, min <= max and conditional field references. Available standalone or in UI schema 1.1.0."
+}

@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "1.0.0",
+  "page": {
+    "title": "Ortak araştırma alanı",
+    "description": "Güvenli JSON ile üretilen sayfa ve zengin kartlar. Örnek içerik.",
+    "layout": "grid"
+  },
+  "components": [
+    {
+      "type": "card",
+      "id": "source",
+      "title": "Araştırma rehberi",
+      "variant": "horizontal",
+      "meta": "Kaynak · Taslak",
+      "description": "Kapsamı ve ortak soruları netleştir.",
+      "action": {
+        "id": "open",
+        "label": "İncele"
+      }
+    },
+    {
+      "type": "card",
+      "id": "loading",
+      "title": "Kaynaklar hazırlanıyor",
+      "state": "loading",
+      "description": "Bu kart bir yükleniyor durumu örneğidir.",
+      "action": {
+        "id": "open-loading",
+        "label": "Aç"
+      }
+    },
+    {
+      "type": "card",
+      "id": "error",
+      "title": "Belge yüklenemedi",
+      "state": "error",
+      "action": {
+        "id": "retry",
+        "label": "Yeniden dene"
+      }
+    },
+    {
+      "type": "card",
+      "id": "disabled",
+      "title": "Erişim bekleniyor",
+      "state": "disabled",
+      "action": {
+        "id": "edit",
+        "label": "Düzenle"
+      }
+    },
+    {
+      "type": "card",
+      "id": "selected",
+      "title": "Seçili çalışma",
+      "state": "selected"
+    }
+  ]
+}
