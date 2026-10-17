@@ -1,5 +1,5 @@
 {
-  "packageVersion": "0.10.0",
+  "packageVersion": "0.11.0",
   "themeSchema": 1,
   "agentSchema": "1.1.0",
   "agentComponentCount": 18,
@@ -58,7 +58,7 @@
     {
       "id": "editorial-translations",
       "status": "implemented",
-      "label": "İngilizce ayrı stüdyo ve entegrasyon rehberi; çekirdek için isteğe bağlı DE/AR katalogları"
+      "label": "TR/EN ortak tema kontrol modeli; çekirdek ve Table/Charts DE/AR katalogları (editoryal kabul ayrı)"
     },
     {
       "id": "scale-budgets",
@@ -69,6 +69,16 @@
       "id": "delivery",
       "status": "implemented",
       "label": "Fonttan bağımsız CSS girişleri, WOFF2 ve CSS/font/istek bütçeleri"
+    },
+    {
+      "id": "production-regressions",
+      "status": "implemented",
+      "label": "Geçerli sayfa CSV, form baseline snapshot, benzersiz grup adları ve NodeNext/Bundler paket tüketici testleri"
+    },
+    {
+      "id": "group-server-validation",
+      "status": "implemented",
+      "label": "Grup bazlı sunucu/async hata ve combobox native form bağlantısı"
     }
   ]
 }

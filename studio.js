@@ -1022,15 +1022,7 @@
     const el = event.target;
     if (el.dataset.config)
       setConfig({
-        [el.dataset.config]: [
-          "scale",
-          "headingScale",
-          "lineHeight",
-          "borderWidth",
-          "iconWeight",
-        ].includes(el.dataset.config)
-          ? Number(el.value)
-          : el.value,
+        [el.dataset.config]: globalThis.MuhitStudioModel.parse(el.dataset.config, el.value),
       });
     if (el.id === "accent-picker") {
       setConfig({ accent: el.value });

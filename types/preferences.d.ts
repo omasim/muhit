@@ -1,2 +1,2 @@
-export { MuhitPreferences } from "./index";
-export type * from "./index";
+export { MuhitPreferences } from "./index.js";
+export type * from "./index.js";

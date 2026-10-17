@@ -1,3 +1,9 @@
+# 0.11.0 · 18 Ekim 2026
+
+Güncel kapsam ve açık manuel kabul: [PRODUCTION-0.11.md](PRODUCTION-0.11.md). Önceki CI bağlantıları aşağıdaki sürümlere aittir; yeni sürüm için kanıt yerine kullanılamaz.
+
+---
+
 # 0.10.0 · 17 Ekim 2026
 
 64 Node testi; Chromium tam paket, React/Vue geliştirme/üretim/SSR hydration, logo ve dağıtım bütçeleri geçti. P3 akışları Firefox/WebKit üzerinde de geçti. Kanban klavye/fare taşıma ve iptal; Chromium dokunma emülasyonu; 20 bin satır × 20 uzun metin sütununda arama, filtre, sıralama ve sınırlı DOM doğrulandı.

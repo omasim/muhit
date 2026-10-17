@@ -1,9 +1,9 @@
 # Muhit UI için çalışma kuralları
 
-Bu paketle arayüz hazırlarken önce `schemas/ui.schema.json`, `schemas/theme.schema.json` ve `schemas/components.json` kaynaklarını okuyun. Çalışan API imzaları `types/index.d.ts`, insan odaklı kullanım örnekleri `README.md` içindedir. Tema sürümü `1`, görünüm şeması `1.1.0` (eski `1.0.0` desteklenir), paket sürümü `0.10.0` farklı sözleşmelerdir.
+Bu paketle arayüz hazırlarken önce `schemas/ui.schema.json`, `schemas/theme.schema.json` ve `schemas/components.json` kaynaklarını okuyun. Çalışan API imzaları `types/index.d.ts`, insan odaklı kullanım örnekleri `README.md` içindedir. Tema sürümü `1`, görünüm şeması `1.1.0` (eski `1.0.0` desteklenir), paket sürümü `0.11.0` farklı sözleşmelerdir.
 
 - Agent görünümü yalnız şemalarda tanımlı 18 bileşen türünden oluşur. Bilinmeyen alan eklemeyin. JSON'u `MuhitAgent.validate` ile denetleyin; başarısız sonucu arayüzün başarılı üretimi olarak raporlamayın.
-- Eylemleri `{id,label}` olarak tanımlayın. Eylemin yapılması gerçek kullanıcı tıklaması ve uygulamanın `onAction` işleyicisine bağlıdır. JSON içine işlev, HTML, URL veya çalıştırılabilir kod eklemeyin.
+- Eylemleri `{id,label}` olarak tanımlayın. Kart düğmesinin eylemi kullanıcı tıklamasıyla `onAction` işleyicisine ulaşır. Widget, form ve tablo durum olayları programatik güncellemeden de gelebilir; callback kullanıcı yetkisinin kanıtı değildir. Olay sözleşmesinin tek kaynağı `docs/AGENT-CONTRACT.md` dosyasıdır. JSON içine işlev, HTML, URL veya çalıştırılabilir kod eklemeyin.
 - Yeni bileşenlerde sabit renk yerine semantik `--mh-*` değişkenleri kullanın. Metin ve zemin eşlerini koruyun: `--mh-text`/`--mh-surface`, `--mh-on-accent`/`--mh-accent`, `--mh-on-chart-N`/`--mh-chart-N`. Koyu tema için sabit beyaz veya açık zemin kullanmayın.
 - Genel öğe sıfırlamalarını `.mh-scope` içine alın. Tüketici uygulamanın `body`, `button`, `input`, başlık veya bağlantılarını global seçiciyle değiştirmeyin. Bileşen sınıfları `mh-` önekini korur.
 - Tema yapılandırmasını `normalizeConfig`, `resolve` ve `apply` üzerinden geçirin. Ham JSON'u CSS olarak birleştirmeyin. Özel tema ve büyük metin ölçeğinde taşma, metin kontrastı ve odak görünürlüğünü kontrol edin.

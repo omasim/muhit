@@ -12,16 +12,21 @@ const host = ref<HTMLElement | null>(null);
 let form: FormInstance | undefined;
 function mount() {
   if (!host.value) return;
-  let values = form?.getValues() || props.values;
+  const snapshot = form?.getSnapshot();
+  let values = snapshot?.values || props.values;
+  let baseline = snapshot?.baseline ?? props.baseline;
   try {
     Forms.normalizeValues(props.fields, values);
+    if (baseline) Forms.normalizeValues(props.fields, baseline);
   } catch {
     values = props.values;
+    baseline = props.baseline;
   }
   form?.destroy();
   form = Forms.mount(host.value, {
     ...props,
     values,
+    baseline,
     onChange: (v, s) => props.onChange?.(v, s),
     onSubmit: props.onSubmit ? (v, s) => props.onSubmit?.(v, s) : undefined,
     validate: props.validate ? (v) => props.validate?.(v) || {} : undefined,

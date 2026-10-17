@@ -1,6 +1,6 @@
 {
   "name": "muhit-ui",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "Tema değişkenleri, erişilebilir etkileşimler ve şema tabanlı arayüz üretimi için bağımsız HTML/CSS/JavaScript bileşenleri.",
   "type": "module",
   "license": "MIT",
@@ -166,7 +166,8 @@
     "index.html",
     "studio.js",
     "studio-example.js",
-    "styles/studio.css"
+    "styles/studio.css",
+    "studio-model.js"
   ],
   "sideEffects": [
     "./src/*.js",
@@ -181,7 +182,7 @@
     "test:browser": "node tests/browser/run.mjs",
     "verify": "npm run check && npm test && npm run check:brand && npm run test:browser && npm run check:capabilities",
     "test:framework": "node tests/browser/frameworks.mjs",
-    "verify:all": "npm run verify && npm run test:extended && npm run test:framework && npm run test:accessibility && npm run test:release && npm run test:scale && npm run test:distribution",
+    "verify:all": "npm run verify && npm run test:extended && npm run test:framework && npm run test:accessibility && npm run test:release && npm run test:scale && npm run test:distribution && npm run test:production && npm run test:consumer-types",
     "build:modules": "node tools/build-modules.mjs",
     "pretest": "npm run build:modules",
     "test:extended": "npm run build:modules && node tests/browser/extended.mjs",
@@ -191,7 +192,10 @@
     "test:visual": "npm run build:modules && node tests/browser/visual.mjs",
     "check:capabilities": "node tools/capabilities.mjs --check",
     "test:scale": "npm run build:modules && node tests/browser/scale.mjs",
-    "test:distribution": "node tools/check-distribution.mjs"
+    "test:distribution": "node tools/check-distribution.mjs",
+    "test:production": "npm run build:modules && node tests/browser/production.mjs",
+    "test:consumer-types": "node tools/check-consumer-types.mjs",
+    "release:prepare": "node tools/prepare-release.mjs"
   },
   "engines": {
     "node": ">=18"
@@ -207,7 +211,8 @@
   "devDependencies": {
     "axe-core": "4.14.0",
     "playwright": "1.62.1",
-    "pngjs": "7.0.0"
+    "pngjs": "7.0.0",
+    "typescript": "5.9.3"
   },
   "repository": {
     "type": "git",

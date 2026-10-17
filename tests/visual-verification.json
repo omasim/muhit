@@ -2,39 +2,63 @@
   "platform": "darwin",
   "engine": "chromium",
   "browser": "155.0.8059.84",
-  "updated": false,
+  "updated": true,
   "cases": [
     {
       "name": "light",
-      "sha256": "21bbdd71c8c111183d760239ec80d444b315fdf2128a4e7fa112c51195532e24"
+      "sha256": "7f5ca70cb9496ecab7aa497af1bb90efa12a63342a2d920400ae033f13770a5c"
     },
     {
       "name": "dark",
-      "sha256": "2df9217d0e80070a58dafae394173a751ab360359fd55d716216ccd30726ed8f"
+      "sha256": "69e04d84efdff027cb69e7b2177ae3da3c7ab324f66e25faf8695016371530e0"
     },
     {
       "name": "compact",
-      "sha256": "d66ad9f634a17cad573d3260ee0b630475055ca75115b30486c303478937faef"
+      "sha256": "c825af94a155f05fb043a18a59b860001fb0b51ec95df0e5abd949b596ecd112"
     },
     {
       "name": "large-rtl",
-      "sha256": "78f50f9ba670cc6812f3ad06b1bb19558032688a68376c1d1bae3c7674a4dc2a"
+      "sha256": "ba923cd8893e4a42a12b47131b23d81453419ebee6804ea44ed768bb06e4c52a"
     },
     {
       "name": "custom",
-      "sha256": "a7528d193b4d0e025d5b9fd232cbe5981c34e703cc93297c17d012556bb2d208"
+      "sha256": "efebb9f959cdcb55082dd48c9897a946ebdcd786dba1434e45c58d3270992747"
     },
     {
       "name": "loading",
-      "sha256": "4d8d09113110f7e3af24ef067ffe759270c71c81d4dbfc910a940140f53f9fcf"
+      "sha256": "477f181ae4b0d16482a771373288e02d68a5b6a4699e3878c18c1275037c2a48"
     },
     {
       "name": "empty",
-      "sha256": "5143d9a81b3f3481938677665831944b0c2fdabee1e071d04dea53d86cce5b09"
+      "sha256": "da3323de452539b424b9fc9ee575ee6d82fbd14035177281f6bafadd882af5bb"
     },
     {
       "name": "error",
-      "sha256": "3f8d65e3a5f6907359c485ebb652d382c5d336a1ae25aaae2abc65fef53640e9"
+      "sha256": "10140b44f6636451ab8a58172fb1cfbcbcc0b32e13c32278065dd2026ba98769"
+    },
+    {
+      "name": "groups",
+      "sha256": "4f5e4778b5107d3428f3d9fbc9a9716b16ced163d5824f4ee36856a37f5c5874"
+    },
+    {
+      "name": "combo",
+      "sha256": "9e09c37703e95ea75f585aec4e8dc774a4fcfffc36645dd69ada63569cb709fa"
+    },
+    {
+      "name": "kanban",
+      "sha256": "2e0178bc70bca3cff44f6a18d8458e6a3522417e415a7491d71f2ef2a1d3d760"
+    },
+    {
+      "name": "german",
+      "sha256": "f82282009f3056860cab978f19c4cea84fd29acf50c6fb628aadb4a5ef3ea573"
+    },
+    {
+      "name": "arabic",
+      "sha256": "752b191d16362021519c2b7f9c275ec9ddbbc73d91d2fe98f7c6ac76280b8a60"
+    },
+    {
+      "name": "zoom",
+      "sha256": "1aa56f842da5d0a26218883d34c5f8b4247a4474c6fa0ff42a915f17c6769a1c"
     }
   ]
 }

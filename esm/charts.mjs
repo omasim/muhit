@@ -1220,7 +1220,7 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
             "</summary>") +
           dataTable(
             kind + " · " + data.label,
-            [t("Ay", "Month"), "Kaynak · adet", "Eylem · adet"],
+            [t("Ay", "Month"), t("Kaynak · adet", "Source count"), t("Eylem · adet", "Action count")],
             data.rows.map(function (r) {
               return [rowLabel(r, data), number(r.sources), number(r.actions)];
             }),
@@ -1264,7 +1264,7 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
             kind +
               t(" · Kategori toplamları · ", " · Category totals · ") +
               data.label,
-            [t("Çalışma alanı", "Work area"), "Eylem · adet"],
+            [t("Çalışma alanı", "Work area"), t("Eylem · adet", "Action count")],
             data.categories.map(function (c) {
               return [c.name, number(c.value)];
             }),

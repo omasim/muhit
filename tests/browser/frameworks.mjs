@@ -236,6 +236,14 @@ try {
           return document.fonts.check("14px Manrope");
         });
         assert.ok(font);
+        await page.getByLabel("Adınız *").fill("Unsaved draft");
+        await page.getByRole("button",{name:"Form dilini değiştir"}).click();
+        assert.equal(await page.getByLabel("Adınız *").inputValue(),"Unsaved draft");
+        await page.getByRole("button",{name:"Değişiklik durumunu kontrol et"}).click();
+        assert.equal(await page.getByTestId("dirty").textContent(),"true");
+        await page.getByRole("button",{name:"Reset",exact:true}).click();
+        assert.equal(await page.getByLabel("Adınız *").inputValue(),"Ada");
+        await page.getByRole("button",{name:"Form dilini değiştir"}).click();
         await page.getByRole("button", { name: "Profili güncelle" }).click();
         assert.equal(await page.getByLabel("Adınız *").inputValue(), "Deniz");
         await page.getByRole("button", { name: "Kaydet", exact: true }).click();

@@ -13,3 +13,13 @@ Durum: **manuel yürütülmedi**. Bu oturumda ekran okuyucu ses çıktısını d
 | Gerçek iOS / Android cihaz | Dokunma ve yatay tablo | 44 px hedefler, sütun kaydırma ve büyütmede kontroller kullanılabilir | Bekliyor |
 
 Kayda tarih, işletim sistemi, tarayıcı ve ekran okuyucu sürümü, yapılan adımlar, duyulan çıktı ve bulgu eklenmeli. Eksik testin yerine “uygun” yazılmamalı.
+
+## 0.11 kabul ekleri — yürütülmedi
+
+1. İki tekrar grubunu gezin: “Grup 1 / Grup 2” ayrı duyulmalı; birincisini silince ad ve odak doğru kalmalı.
+2. Grup sunucu hatasında yalnız ilgili e-posta alanı hatalı duyulmalı, odak ilk hataya gelmeli.
+3. Kanban taşıma tutamacında Space → oklar → Enter / Escape; başlangıç, hedef ve iptal duyurusu kontrol edilmeli.
+4. Combobox required/readOnly/disabled durumları; seçim kimliğinin formda doğru gönderildiği doğrulanmalı.
+5. Dil değiştirilen düzenlenmiş formda çıkış uyarısı ve reset davranışı korunmalı.
+
+Kabul kaydı: tarih / cihaz / OS / tarayıcı / ekran okuyucu sürümü / senaryo / duyulan çıktı / sonuç / bulgu. Gerçek cihaz ve sesli okuma oturumu olmadan bu maddeler kapatılmaz.

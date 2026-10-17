@@ -17,6 +17,9 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps ${{ matrix.browser }}
       - run: npm test && npm run check:brand
+      - run: npm run test:production
+        env:
+          MUHIT_BROWSER: ${{ matrix.browser }}
       - run: npm run test:extended
         env:
           MUHIT_BROWSER: ${{ matrix.browser }}

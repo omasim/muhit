@@ -542,7 +542,10 @@ export interface FormValidation {
   values: FormValues;
   errors: Record<string, string>;
 }
+export interface FormSnapshot { values: FormValues; baseline: FormValues; }
 export interface FormInstance {
+  getSnapshot(): FormSnapshot;
+  setErrors(errors?: Record<string,string>): FormInstance;
   getValues(): FormValues;
   isDirty(): boolean;
   setValues(values: FormValues): FormInstance;
@@ -551,6 +554,7 @@ export interface FormInstance {
   destroy(): void;
 }
 export interface FormOptions {
+  baseline?: FormValues;
   locale?: string;
   dir?: "ltr" | "rtl";
   messages?: Record<string, string>;
@@ -662,12 +666,18 @@ export const MuhitFields: Readonly<{
     options: LocaleOptions & {
       label?: string;
       value?: Choice | null;
+      name?: string;
+      required?: boolean;
+      disabled?: boolean;
+      readOnly?: boolean;
       delay?: number;
       load: (query: string, signal: AbortSignal) => Promise<Choice[]>;
       onChange?: (value: Choice | null) => void;
     },
   ): {
     getValue(): Choice | null;
+    setDisabled(disabled: boolean): unknown;
+    setReadOnly(readOnly: boolean): unknown;
     setValue(value: Choice | null): unknown;
     destroy(): void;
   };
@@ -681,7 +691,8 @@ export const MuhitFields: Readonly<{
       min?: number;
       max?: number;
       onChange?: (values: FormValues[]) => void;
-      onSubmit?: (values: FormValues[], signal: AbortSignal) => Promise<void>;
+      validateAsync?: (values: FormValues[], signal: AbortSignal) => Promise<Record<string,string>[]>;
+      onSubmit?: (values: FormValues[], signal: AbortSignal) => Promise<void | {errors?: Record<string,string>[]}>;
     },
   ): {
     getValues(): FormValues[];

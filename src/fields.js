@@ -61,6 +61,18 @@
     input.setAttribute("aria-expanded", "false");
     input.setAttribute("aria-controls", id + "-list");
     input.autocomplete = "off";
+    input.disabled = !!options.disabled;
+    input.readOnly = !!options.readOnly;
+    input.required = !!options.required;
+    const hidden = doc.createElement("input");
+    hidden.type = "hidden";
+    if (options.name) hidden.name = options.name;
+    hidden.disabled = input.disabled;
+    const syncValue = () => {
+      hidden.value = value?.id || "";
+      input.setCustomValidity(options.required && !value ? t("Listeden bir seçim yapın.", "Select an option from the list.") : "");
+    };
+    syncValue();
     input.value = value?.label || "";
     list.id = id + "-list";
     list.className = "mh-combobox-list";
@@ -69,7 +81,7 @@
     list.hidden = true;
     status.setAttribute("role", "status");
     status.className = "mh-field__help";
-    root.append(label, input, list, status);
+    root.append(label, input, hidden, list, status);
     const close = () => {
       list.hidden = true;
       input.setAttribute("aria-expanded", "false");
@@ -77,8 +89,9 @@
       active = -1;
     };
     function select(i) {
-      if (!items[i]) return;
+      if (!items[i] || input.disabled || input.readOnly) return;
       value = choice(items[i]);
+      syncValue();
       input.value = value.label;
       close();
       options.onChange?.({ ...value });
@@ -104,6 +117,7 @@
       } else input.removeAttribute("aria-activedescendant");
     }
     async function search() {
+      if (dead || input.disabled || input.readOnly) return;
       clearTimeout(timer);
       const ticket = ++serial;
       controller?.abort();
@@ -153,14 +167,17 @@
       status.textContent = "";
     }
     input.oninput = () => {
+      if (input.disabled || input.readOnly) return;
       cancel();
       value = null;
+      syncValue();
       items = [];
       close();
       options.onChange?.(null);
       timer = setTimeout(search, delay);
     };
     input.onkeydown = (e) => {
+      if (input.disabled || input.readOnly) return;
       if (e.key === "Escape") {
         cancel();
         close();
@@ -213,11 +230,20 @@
     host.append(root);
     const api = {
       getValue: () => (value ? { ...value } : null),
+      setDisabled(disabled) {
+        if (dead) throw new Error("Destroyed");
+        input.disabled = hidden.disabled = !!disabled; cancel(); close(); return api;
+      },
+      setReadOnly(readOnly) {
+        if (dead) throw new Error("Destroyed");
+        input.readOnly = !!readOnly; cancel(); close(); return api;
+      },
       setValue(next) {
         const checked = choice(next);
         if (dead) throw new Error("Destroyed");
         cancel();
         value = checked;
+        syncValue();
         input.value = value?.label || "";
         close();
         return api;
@@ -240,7 +266,7 @@
       lang = global.MuhitI18n.create(options),
       t = (tr, en) => lang.text(tr, en),
       fields = global.MuhitForm.normalizeFields(options.fields);
-    for (const key of ["onChange", "onSubmit"])
+    for (const key of ["onChange", "onSubmit", "validateAsync"])
       if (options[key] !== undefined && typeof options[key] !== "function")
         throw new TypeError(key + " must be a function");
     const min = options.min ?? 0,
@@ -292,6 +318,8 @@
       add.disabled = busy || entries.length >= max;
       save.disabled = busy;
       entries.forEach((e, i) => {
+        e.formElement.querySelector("h2").textContent =
+          (options.groupLabel || t("Grup", "Group")) + " " + lang.number(i + 1);
         e.remove.disabled = busy || entries.length <= min;
         e.remove.setAttribute(
           "aria-label",
@@ -320,6 +348,7 @@
           onChange: () => {
             if (!busy) change();
           },
+          validateAsync: undefined,
           onSubmit: async () => submit(),
         }),
       };
@@ -355,8 +384,17 @@
         errors: results.map((r) => r.errors),
       };
     }
+    function groupErrors(errors) {
+      if (!Array.isArray(errors) || errors.length > entries.length || errors.some(e =>
+        !e || typeof e !== "object" || Array.isArray(e) || Object.keys(e).some(k =>
+          !fields.some(f => f.name === k) || typeof e[k] !== "string")))
+        throw new TypeError("Invalid group errors");
+      entries.forEach((e,i)=>e.form.setErrors(errors[i] || {}));
+      return errors.some(e=>Object.values(e).some(Boolean));
+    }
     async function submit() {
       if (dead || busy) return;
+      entries.forEach(e=>e.form.setErrors({}));
       const result = validate();
       if (!result.valid) {
         root.querySelector("[aria-invalid=true]")?.focus();
@@ -371,9 +409,15 @@
         (e) => (e.formElement.querySelector("fieldset").disabled = true),
       );
       try {
-        await options.onSubmit(result.values, controller.signal);
-        if (!dead && current === revision && !controller.signal.aborted)
-          status.textContent = t("Kaydedildi.", "Saved.");
+        if (options.validateAsync) {
+          const errors = await options.validateAsync(result.values, controller.signal);
+          if (dead || current !== revision || controller.signal.aborted) return;
+          if (groupErrors(errors)) { status.textContent = t("Kaydedilemedi.", "Unable to save."); return; }
+        }
+        const response = await options.onSubmit(result.values, controller.signal);
+        if (dead || current !== revision || controller.signal.aborted) return;
+        const invalid = groupErrors(response?.errors || []);
+        status.textContent = invalid ? t("Kaydedilemedi.", "Unable to save.") : t("Kaydedildi.", "Saved.");
       } catch {
         if (!dead && current === revision)
           status.textContent = t("Kaydedilemedi.", "Unable to save.");
@@ -384,6 +428,7 @@
             (e) => (e.formElement.querySelector("fieldset").disabled = false),
           );
           controls();
+          root.querySelector("[aria-invalid=true]")?.focus();
         }
       }
     }

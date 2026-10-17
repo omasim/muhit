@@ -6,6 +6,7 @@ import {
   MuhitTheme,
   type WidgetInstance,
   type FormField,
+  type FormInstance,
   type FormValues,
 } from "muhit-ui";
 import MuhitForm from "./MuhitForm.vue";
@@ -14,6 +15,8 @@ const fields: FormField[] = [{ name: "name", label: "Adınız", required: true }
   saved = ref(""),
   visible = ref(true),
   host = ref<HTMLDivElement | null>(null);
+const locale=ref("tr"),dirty=ref(false);
+let currentForm:FormInstance|undefined;
 let widget: WidgetInstance | undefined, unsubscribe: (() => void) | undefined;
 onMounted(() => {
   const preferences = MuhitPreferences.create({ key: "muhit-vue-example" });
@@ -45,8 +48,15 @@ async function submit(values: FormValues, signal: AbortSignal) {
     <button @click="values = { name: 'Deniz' }">Profili güncelle</button
     ><button @click="visible = !visible">
       {{ visible ? "Formu kaldır" : "Formu aç" }}</button
-    ><MuhitForm
+    >
+    <button @click="locale=locale==='tr'?'en':'tr'">Form dilini değiştir</button>
+    <button @click="dirty=currentForm?.isDirty() ?? false">Değişiklik durumunu kontrol et</button>
+    <output data-testid="dirty">{{String(dirty)}}</output>
+    <MuhitForm
       v-if="visible"
+      :locale="locale"
+      :title="locale==='tr'?'Bilgiler':'Details'"
+      :on-ready="instance=>{currentForm=instance}"
       :fields="fields"
       :values="values"
       :on-submit="submit"

@@ -7,22 +7,26 @@ export function MuhitForm(props: MuhitFormProps) {
   const host = useRef<HTMLDivElement>(null),
     form = useRef<FormInstance | null>(null),
     latest = useRef(props),
-    draft = useRef<ReturnType<FormInstance["getValues"]> | null>(null);
+    draft = useRef<ReturnType<FormInstance["getSnapshot"]> | null>(null);
   useEffect(() => {
     latest.current = props;
   });
   useEffect(() => {
     if (!host.current) return;
     const p = latest.current;
-    let values = draft.current || p.values;
+    let baseline = draft.current?.baseline ?? p.baseline;
+    let values = draft.current?.values || p.values;
     try {
       Forms.normalizeValues(p.fields, values);
+      if (baseline) Forms.normalizeValues(p.fields, baseline);
     } catch {
       values = p.values;
+      baseline = p.baseline;
     }
     const instance = Forms.mount(host.current, {
       ...p,
       values,
+      baseline,
       onSubmit: p.onSubmit
         ? (v, s) => latest.current.onSubmit?.(v, s)
         : undefined,
@@ -37,7 +41,7 @@ export function MuhitForm(props: MuhitFormProps) {
     form.current = instance;
     p.onReady?.(instance);
     return () => {
-      draft.current = instance.getValues();
+      draft.current = instance.getSnapshot();
       instance.destroy();
       form.current = null;
     };

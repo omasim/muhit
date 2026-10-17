@@ -1,3 +1,17 @@
+# 0.11.0 — 18 Ekim 2026
+
+- Grid yükleniyor/hata durumunda sayfa CSV dışa aktarımı engellenir; eski kayıtlar seçilemez.
+- Bütün tip alt girişleri NodeNext ve Bundler ile çalışır.
+- Form getSnapshot/baseline ve setErrors; React/Vue yeniden kurulumda dirty bilgisi korunur.
+- Repeater benzersiz grup adları, async doğrulama ve grup bazlı sunucu hataları.
+- Combobox required/disabled/readOnly/name ve native FormData bağlantısı.
+- Table/Charts için DE/AR mesaj kapsamı; stüdyolarda ortak tema modeli.
+- 14 görsel durum, paket tüketici tip testleri ve üretim regresyonları.
+
+Geçiş: yükleme/hata sırasında toCSV artık hata verir. İndirme düğmesini güncel başarılı yüklemeye bağlayın ve hata yakalayın. Snapshot kişisel veri içerir; kütüphane bunu diske yazmaz. Eski değer-only yeniden mount kullanımı baseline taşımaz.
+
+---
+
 # 0.10.0
 
 Ölçüme dayalı büyük veri sorgu iyileştirmeleri; klavye/fare/dokunma Kanban taşıma; isteğe bağlı CSS/font girişleri ve WOFF2; DE/AR çekirdek katalogları; İngilizce stüdyo ve rehber. tokens.css artık font yüklemez; tam index.css davranışı korunur. P3 kapsam ve sınırlar docs/P3-0.10.md içinde.

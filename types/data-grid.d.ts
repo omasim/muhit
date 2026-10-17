@@ -1,2 +1,2 @@
-export { MuhitDataGrid } from "./index";
-export type * from "./index";
+export { MuhitDataGrid } from "./index.js";
+export type * from "./index.js";

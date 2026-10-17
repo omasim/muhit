@@ -59,6 +59,7 @@ try {
   );
   await mkdir(folder, { recursive: true });
   const report = [];
+  const missing = [];
   await p.emulateMedia({ reducedMotion: "reduce" });
   for (const name of [
     "light",
@@ -69,6 +70,7 @@ try {
     "loading",
     "empty",
     "error",
+    "groups", "combo", "kanban", "german", "arabic", "zoom",
   ]) {
     await p.setViewportSize({
       width: name === "large-rtl" ? 390 : 1100,
@@ -76,6 +78,10 @@ try {
     });
     await p.goto(url + "/examples/visual-catalog.html?case=" + name);
     await p.waitForFunction(() => window.catalogReady === true);
+    if (name === "kanban") {
+      const handle=p.locator('.mh-kanban-handle');
+      await handle.focus(); await p.keyboard.press('Space'); await p.keyboard.press('ArrowRight');
+    }
     await p.evaluate(() => document.activeElement?.blur());
     await p.waitForTimeout(100);
     assert.ok(
@@ -88,7 +94,13 @@ try {
       actual = await p.screenshot({ fullPage: true, animations: "disabled" });
     if (process.env.MUHIT_UPDATE_VISUAL === "1") await writeFile(file, actual);
     else {
-      const expected = await readFile(file);
+      let expected;
+      try { expected = await readFile(file); }
+      catch(error) {
+        if (error.code !== 'ENOENT') throw error;
+        await writeFile(path.join(folder,name+'.candidate.png'),actual);
+        missing.push(name); continue;
+      }
       const a = PNG.sync.read(actual),
         b = PNG.sync.read(expected);
       let changed = 0;
@@ -103,7 +115,7 @@ try {
             changed++;
       if (changed / (a.width * a.height) > 0.0001) {
         await writeFile(path.join(folder, name + ".actual.png"), actual);
-        throw Error("Visual baseline mismatch: " + name);
+        missing.push("mismatch: " + name);
       }
     }
     report.push({
@@ -126,6 +138,7 @@ try {
     ),
   );
   assert.deepEqual(errors, []);
+  assert.deepEqual(missing, [], "Review candidate images and explicitly add missing baselines");
   console.log("PASS visual baselines: " + report.length + " states");
 } finally {
   await browser?.close();

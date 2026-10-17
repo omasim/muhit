@@ -147,7 +147,8 @@
           );
     const selected = new Set();
     let visibleKeys = columns.map((c) => c.key),
-      currentRows = [];
+      currentRows = [],
+      pageReady = false;
     let layout = columns.map((c) => ({ key: c.key, width: 200, pin: null }));
     const validateLayout = (value) => layoutOf(value, columns);
     if (options.columnLayout) layout = validateLayout(options.columnLayout);
@@ -605,6 +606,9 @@
       const ticket = ++serial;
       controller?.abort();
       controller = new AbortController();
+      pageReady = false;
+      currentRows = [];
+      syncSelection();
       retry.hidden = true;
       root.setAttribute("aria-busy", "true");
       status.textContent = t("Yükleniyor…", "Loading…");
@@ -631,6 +635,7 @@
           return refresh();
         }
         currentRows = data;
+        pageReady = true;
         selectedLabel.textContent = options.selectable
           ? t(
               "{count} kayıt seçili",
@@ -772,6 +777,9 @@
         );
       } catch (error) {
         if (destroyed || ticket !== serial) return;
+        pageReady = false;
+        currentRows = [];
+        syncSelection();
         status.textContent = t(
           "Kayıtlar yüklenemedi. Yeniden deneyebilirsin.",
           "Unable to load records. Please retry.",
@@ -991,6 +999,8 @@
           (scope === "filtered" || scope === "selected" || selectedOnly)
         )
           throw new Error("Use exportCSV for remote filtered/selected exports");
+        if ((options.load || scope === "page") && !pageReady)
+          throw new Error("Current page is not ready for export");
         const source =
           options.load || scope === "page"
             ? currentRows

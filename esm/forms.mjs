@@ -263,6 +263,7 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
     const t = translator(options);
     const fields = fieldsOf(options.fields);
     const initial = representable(fields, options.values);
+    const initialBaseline = representable(fields, options.baseline ?? options.values);
     for (const key of ["onChange", "validate", "validateAsync"])
       if (options[key] !== undefined && typeof options[key] !== "function")
         throw new TypeError(key + " işlev olmalı.");
@@ -365,7 +366,7 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
         }
       }, validationDelay);
     }
-    let baseline = initial,
+    let baseline = initialBaseline,
       dead = false,
       busy = false,
       controller,
@@ -611,6 +612,7 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
     host.append(root);
     const api = {
       getValues: () => ({ ...read() }),
+      getSnapshot: () => ({ values: { ...read() }, baseline: { ...baseline } }),
       isDirty: () => JSON.stringify(read()) !== JSON.stringify(baseline),
       setValues(input) {
         if (dead) throw new Error("Form kaldırıldı.");
@@ -623,6 +625,15 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
         changed();
         showErrors();
         status.textContent = "";
+        return api;
+      },
+      setErrors(input = {}) {
+        if (dead) throw new Error("Form kaldırıldı.");
+        if (!input || typeof input !== "object" || Array.isArray(input) ||
+            Object.keys(input).some(k => !controls.has(k) || typeof input[k] !== "string"))
+          throw new TypeError("Invalid field errors");
+        serverErrors = { ...input };
+        showErrors(serverErrors);
         return api;
       },
       reset: () => onReset(),

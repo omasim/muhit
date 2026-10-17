@@ -4,6 +4,7 @@ import {
   MuhitTheme,
   MuhitWidgets,
   type FormField,
+  type FormInstance,
 } from "muhit-ui";
 import { MuhitForm } from "./MuhitForm";
 const fields: FormField[] = [{ name: "name", label: "Adınız", required: true }];
@@ -11,6 +12,9 @@ export function Integrations() {
   const [values, setValues] = useState({ name: "Ada" }),
     [saved, setSaved] = useState(""),
     [visible, setVisible] = useState(true);
+  const [locale,setLocale]=useState("tr");
+  const currentForm=useRef<FormInstance|null>(null);
+  const [dirty,setDirty]=useState(false);
   const host = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!host.current) return;
@@ -42,8 +46,14 @@ export function Integrations() {
       <button onClick={() => setVisible((v) => !v)}>
         {visible ? "Formu kaldır" : "Formu aç"}
       </button>
+      <button onClick={()=>setLocale(v=>v==="tr"?"en":"tr")}>Form dilini değiştir</button>
+      <button onClick={()=>setDirty(currentForm.current?.isDirty() ?? false)}>Değişiklik durumunu kontrol et</button>
+      <output data-testid="dirty">{String(dirty)}</output>
       {visible ? (
         <MuhitForm
+          locale={locale}
+          title={locale==="tr"?"Bilgiler":"Details"}
+          onReady={instance=>{currentForm.current=instance}}
           fields={fields}
           values={values}
           onSubmit={async (values, signal) => {

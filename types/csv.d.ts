@@ -1,2 +1,2 @@
-export { MuhitCSV } from "./index";
-export type * from "./index";
+export { MuhitCSV } from "./index.js";
+export type * from "./index.js";

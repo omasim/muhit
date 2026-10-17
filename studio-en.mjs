@@ -1,3 +1,4 @@
+import "./studio-model.js";
 import {
   MuhitTheme as Theme,
   MuhitDataGrid as Grid,
@@ -19,7 +20,7 @@ let config = Theme.normalizeConfig({}),
   agent,
   grid,
   form;
-const schema = await fetch("./schemas/theme.schema.json").then((r) => r.json());
+const schema = globalThis.MuhitStudioModel;
 const labels = {
   preset: "Palette",
   mode: "Appearance",
@@ -110,10 +111,7 @@ for (const [key, rule] of Object.entries(schema.properties)) {
   input.className = "mh-input";
   input.addEventListener("change", () => {
     try {
-      let value = input.value;
-      if (key === "accent") value = value || null;
-      else if (rule.type === "number") value = Number(value);
-      else if (rule.type === "boolean") value = value === "true";
+      const value = globalThis.MuhitStudioModel.parse(key, input.value);
       apply({ ...config, [key]: value });
     } catch {
       $("theme-status").textContent =
