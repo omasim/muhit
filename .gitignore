@@ -7,3 +7,5 @@ previews/
 tests/workspace-*.png
 tests/visual/**/*.actual.png
 tests/visual/**/*.candidate.png
+
+docs-site/

@@ -274,6 +274,11 @@ try {
         await page.getByRole("tab", { name: "Ayrıntı" }).click();
         await page.getByText("İnsan ve doğa uyumu.", { exact: true }).waitFor();
         await page.getByRole('button',{name:'Open lifecycle matrix'}).click();
+        assert.equal(await page.getByRole('img',{name:'Shared space'}).count(),1);
+        assert.equal(await page.locator('main').count(),1);
+        await page.getByRole('link',{name:'Skip to content'}).focus();
+        await page.keyboard.press('Enter');
+        assert.equal(await page.evaluate(()=>document.activeElement?.tagName),'MAIN');
         for(const prop of ['title','columns','messages','provider','locale']){
           await page.getByRole('button',{name:'Mutate internal state'}).click();
           await page.getByRole('button',{name:'Change '+prop,exact:true}).click();
@@ -301,6 +306,7 @@ try {
             "fonts",
             "form controlled update/save/remount",
             "widget tabs",
+            "per-icon adapter and page shell skip-link",
             "title/columns/messages/provider/locale remount prop priority",
             "baseline replacement and reset",
             "in-flight submit cancellation on locale change",

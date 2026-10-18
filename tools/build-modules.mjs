@@ -1,9 +1,24 @@
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 const root=new URL('../',import.meta.url);await mkdir(new URL('esm/',root),{recursive:true});
 const modules={icons:['MuhitIcons',[]],csv:['MuhitCSV',[]],i18n:['MuhitI18n',[]],components:['Muhit',['i18n','icons']],table:['MuhitTable',['i18n','csv','icons']],charts:['MuhitCharts',['i18n','csv','icons']],theme:['MuhitTheme',[]],'widget-schemas':['MuhitWidgetSchemas',[]],widgets:['MuhitWidgets',['widget-schemas','i18n','icons']],forms:['MuhitForm',['i18n']],fields:['MuhitFields',['i18n','forms']],'data-grid':['MuhitDataGrid',['i18n','csv','icons']],plot:['MuhitPlot',['i18n','csv']],preferences:['MuhitPreferences',['theme']],agent:['MuhitAgent',['i18n','theme','widgets','forms','data-grid','plot','table','charts']]};
+// Generate isolated icon entries from the same canonical renderer and geometry.
+const iconSource=await readFile(new URL('src/icons.js',root),'utf8');
+const geometry=JSON.parse(iconSource.slice(iconSource.indexOf('const paths=')+12,iconSource.indexOf('};')+1));
+const renderer=iconSource.slice(iconSource.indexOf('  const names='),iconSource.indexOf('  global.MuhitIcons='));
+await mkdir(new URL('esm/icons/',root),{recursive:true});
+await writeFile(new URL('esm/icons/core.mjs',root),'// Generated; edit src/icons.js.\nexport function createIconSet(paths){\n'+renderer+'return Object.freeze({names,svg,mount});\n}\n');
+for(const [name,body] of Object.entries(geometry)) {
+ await writeFile(new URL('esm/icons/'+name+'.mjs',root),`// Generated; canonical Muhit icon.
+import {createIconSet} from './core.mjs';
+export const MuhitIcons=createIconSet(${JSON.stringify({[name]:body})});
+export const svg=(options)=>MuhitIcons.svg('${name}',options);
+export const mount=(host,options)=>MuhitIcons.mount(host,'${name}',options);
+export default Object.freeze({svg,mount});
+`);
+}
 let index='// Generated isolated ESM exports. Classic scripts retain their global API.\n';
 for(const [name,[api,deps]]of Object.entries(modules)){
- const imports=deps.map(d=>`import {${modules[d][0]}} from './${d}.mjs';`).join('\n');
+ const imports=deps.map(d=>`import {${modules[d][0]}} from './${name==='data-grid' && d==='icons' ? 'icons/resize-horizontal' : d}.mjs';`).join('\n');
  const runtime=`const runtime={${deps.map(d=>modules[d][0]).join(',')}};\nfor(const key of ['document','localStorage'])Object.defineProperty(runtime,key,{get:()=>globalThis[key]});\nfor(const key of ['setTimeout','clearTimeout','addEventListener','removeEventListener'])runtime[key]=(...args)=>globalThis[key]?.(...args);\n`;
  let source=await readFile(new URL(`src/${name}.js`,root),'utf8');
  source=source.replace('typeof window !== "undefined" ? window : globalThis','runtime').replaceAll('globalThis','runtime');

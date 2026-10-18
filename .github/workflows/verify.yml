@@ -23,6 +23,7 @@ jobs:
       - run: node tools/record-test.mjs npm run test:foundations
         env:
           MUHIT_BROWSER: ${{ matrix.browser }}
+      - run: node tools/record-test.mjs npm run test:p3
       - run: node tools/record-test.mjs npm run test:production
         env:
           MUHIT_BROWSER: ${{ matrix.browser }}

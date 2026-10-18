@@ -1,7 +1,7 @@
 {
   "name": "muhit-ui",
-  "version": "0.14.0",
-  "description": "Tema de\u011fi\u015fkenleri, eri\u015filebilir etkile\u015fimler ve \u015fema tabanl\u0131 aray\u00fcz \u00fcretimi i\u00e7in ba\u011f\u0131ms\u0131z HTML/CSS/JavaScript bile\u015fenleri.",
+  "version": "0.15.0",
+  "description": "Tema değişkenleri, erişilebilir etkileşimler ve şema tabanlı arayüz üretimi için bağımsız HTML/CSS/JavaScript bileşenleri.",
   "type": "module",
   "license": "MIT",
   "main": "./src/index.mjs",
@@ -97,7 +97,239 @@
       "import": "./esm/icons.mjs",
       "default": "./esm/icons.mjs"
     },
-    "./assets/icons/*": "./assets/icons/*"
+    "./assets/icons/*": "./assets/icons/*",
+    "./icons/resize-horizontal": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/resize-horizontal.mjs"
+    },
+    "./icons/board": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/board.mjs"
+    },
+    "./icons/cards": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/cards.mjs"
+    },
+    "./icons/form": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/form.mjs"
+    },
+    "./icons/bell": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/bell.mjs"
+    },
+    "./icons/layout": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/layout.mjs"
+    },
+    "./icons/more": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/more.mjs"
+    },
+    "./icons/clock": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/clock.mjs"
+    },
+    "./icons/lock": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/lock.mjs"
+    },
+    "./icons/chevron-forward": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/chevron-forward.mjs"
+    },
+    "./icons/home": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/home.mjs"
+    },
+    "./icons/grid": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/grid.mjs"
+    },
+    "./icons/menu": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/menu.mjs"
+    },
+    "./icons/search": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/search.mjs"
+    },
+    "./icons/arrow-forward": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/arrow-forward.mjs"
+    },
+    "./icons/arrow-back": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/arrow-back.mjs"
+    },
+    "./icons/chevron-down": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/chevron-down.mjs"
+    },
+    "./icons/external-link": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/external-link.mjs"
+    },
+    "./icons/plus": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/plus.mjs"
+    },
+    "./icons/minus": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/minus.mjs"
+    },
+    "./icons/close": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/close.mjs"
+    },
+    "./icons/check": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/check.mjs"
+    },
+    "./icons/edit": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/edit.mjs"
+    },
+    "./icons/copy": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/copy.mjs"
+    },
+    "./icons/download": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/download.mjs"
+    },
+    "./icons/upload": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/upload.mjs"
+    },
+    "./icons/refresh": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/refresh.mjs"
+    },
+    "./icons/trash": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/trash.mjs"
+    },
+    "./icons/filter": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/filter.mjs"
+    },
+    "./icons/sort": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/sort.mjs"
+    },
+    "./icons/table": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/table.mjs"
+    },
+    "./icons/chart": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/chart.mjs"
+    },
+    "./icons/layers": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/layers.mjs"
+    },
+    "./icons/link": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/link.mjs"
+    },
+    "./icons/file": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/file.mjs"
+    },
+    "./icons/folder": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/folder.mjs"
+    },
+    "./icons/book": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/book.mjs"
+    },
+    "./icons/bookmark": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/bookmark.mjs"
+    },
+    "./icons/note": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/note.mjs"
+    },
+    "./icons/archive": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/archive.mjs"
+    },
+    "./icons/person": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/person.mjs"
+    },
+    "./icons/people": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/people.mjs"
+    },
+    "./icons/message": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/message.mjs"
+    },
+    "./icons/share": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/share.mjs"
+    },
+    "./icons/heart": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/heart.mjs"
+    },
+    "./icons/accessibility": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/accessibility.mjs"
+    },
+    "./icons/leaf": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/leaf.mjs"
+    },
+    "./icons/sprout": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/sprout.mjs"
+    },
+    "./icons/sun": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/sun.mjs"
+    },
+    "./icons/moon": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/moon.mjs"
+    },
+    "./icons/water": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/water.mjs"
+    },
+    "./icons/landscape": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/landscape.mjs"
+    },
+    "./icons/spark": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/spark.mjs"
+    },
+    "./icons/nodes": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/nodes.mjs"
+    },
+    "./icons/settings": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/settings.mjs"
+    },
+    "./icons/shield": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/shield.mjs"
+    },
+    "./icons/info": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/info.mjs"
+    },
+    "./icons/warning": {
+      "types": "./types/icon-entry.d.ts",
+      "import": "./esm/icons/warning.mjs"
+    }
   },
   "files": [
     "src/index.mjs",
@@ -193,7 +425,7 @@
     "test:browser": "node tests/browser/run.mjs",
     "verify": "npm run check && npm test && npm run check:brand && npm run test:browser && npm run check:capabilities",
     "test:framework": "node tests/browser/frameworks.mjs",
-    "verify:all": "npm run verify && npm run test:extended && npm run test:framework && npm run test:accessibility && npm run test:release && npm run test:scale && npm run test:distribution && npm run test:production && npm run test:consumer-types && npm run test:foundations && npm run test:migration && npm run test:consumer",
+    "verify:all": "npm run verify && npm run test:extended && npm run test:framework && npm run test:accessibility && npm run test:release && npm run test:scale && npm run test:distribution && npm run test:production && npm run test:consumer-types && npm run test:foundations && npm run test:migration && npm run test:consumer && npm run test:p3",
     "build:modules": "node tools/build-modules.mjs",
     "pretest": "npm run build:modules",
     "test:extended": "npm run build:modules && node tests/browser/extended.mjs",
@@ -209,7 +441,9 @@
     "release:prepare": "node tools/prepare-release.mjs",
     "test:foundations": "npm run build:modules && node tests/browser/foundations.mjs",
     "test:migration": "npm run build:modules && node tests/browser/migration.mjs",
-    "test:consumer": "npm run build:modules && node tests/browser/consumer.mjs"
+    "test:consumer": "npm run build:modules && node tests/browser/consumer.mjs",
+    "test:p3": "npm run build:modules && npm run docs:build && node tests/browser/p3.mjs",
+    "docs:build": "node tools/build-docs.mjs"
   },
   "engines": {
     "node": ">=18"

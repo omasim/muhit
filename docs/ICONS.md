@@ -39,3 +39,5 @@ Yalnız ikon içeren düğmede erişilebilir ad **düğmede** bulunmalıdır: `<
 Sıralama kontrolünde `chevron-down` işaretinin yukarı dönmesi aynı sıralama kavramının artan durumunu gösterir; `aria-sort` da güncellenir. Grafik yolları veri görselleştirmesidir ve ikon setiyle değiştirilmez.
 
 Agent yalnız manifestte bulunan `name` değerlerini seçmeli. SVG path, HTML, URL veya onClick kodu üretmek yerine izinli adı ve eylem kimliğini uygulamaya iletmeli. İkon ismi yürütme yetkisi değildir. Bu manifest agent’ın mevcut 18 bileşen şemasına yeni tür eklemez.
+
+0.15: Tek ikon için `muhit-ui/icons/leaf` girişini kullanın; mount/svg seçenekleri aynıdır. Tam katalog girişi korunur. [İngilizce ayrıntılar](ICONS.en.md).

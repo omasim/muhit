@@ -43,3 +43,7 @@
 @media(max-width:1199px){.mh-scope .mh-region-grid > :not(.mh-region) {grid-column:span 4}.mh-scope .mh-region-grid--context > * {grid-column:span 8}}
 @media(max-width:767px){.mh-scope .mh-region-grid > :not(.mh-region) {grid-column:span 4}}
 .mh-scope .mh-skip:not(:focus) {clip-path:inset(50%);width:1px;height:1px;overflow:hidden;white-space:nowrap;}
+
+.mh-scope .mh-shell--plain { grid-template-columns:minmax(0,1fr); }
+.mh-scope .mh-content[data-width=fluid] { max-width:none; width:100%; }
+.mh-scope .mh-icon-host { display:inline-flex; vertical-align:middle; }

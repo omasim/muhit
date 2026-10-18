@@ -80,3 +80,7 @@ Bu metaveri doğrudan render edilen yeni bir agent JSON türü değildir. Uygula
 ## Mevcut örneklerin geçişi · 0.13
 
 Stüdyo ve bağımsız HTML, React, Vue örnekleri aynı `mh-content`, sayfa kenarı ve 4/8/12 sütun ölçülerini kullanır. Mevcut `mh-page` sınıfları gömülü sayfa örnekleri için korunur; ana/yan bölge 8/4 sütundur, 1200 px altında sıralı akışa geçer. Bu gömülü örnekler yeni bir main oluşturmaz. Bileşenlerin kendi tablo/Kanban taşma alanları korunur. Örnek stilinde body ayarı olabilir; yeniden kullanılabilir sayfa CSS’i global body değiştirmez.
+
+## Çalışan durum kataloğu
+
+Altı tarifte sayfa durumu seçicisi vardır: yükleniyor, boş, hata, erişim gerekli ve hazır. `?state=loading|empty|error|unauthorized` bağlantıları paylaşılabilir. Bunlar örnektir; erişim kontrolü veya ağ servisi sağlamaz. [Kabul kontrol listesi ve framework kabukları](PAGES.en.md).

@@ -1,10 +1,29 @@
 import {MuhitIcons as Icons,MuhitTheme as Theme,MuhitDataGrid as Grid,MuhitForm as Form,MuhitWidgets as Widgets} from '../../src/index.mjs';
 Theme.apply({});
-document.querySelectorAll('[data-icon]').forEach(a=>a.insertAdjacentHTML('afterbegin',Icons.svg(a.dataset.icon,{size:20})));
+document.querySelectorAll('[data-icon]').forEach(a=>a.prepend(Icons.mount(a,a.dataset.icon,{size:20}).element));
 const regions=document.getElementById('regions');
 function region(kind,title,body){const section=document.createElement(kind==='rail'?'aside':'section');section.className='mh-region mh-region--'+kind;if(kind==='rail'&&title)section.setAttribute('aria-label',title); if(title){const heading=document.createElement('h2');heading.textContent=title;section.append(heading)} if(body){const p=document.createElement('p');p.textContent=body;section.append(p)}regions.append(section);return section}
 function card(host,title,body){const a=document.createElement('article');a.className='mh-card';const h=document.createElement(host.querySelector('h2')?'h3':'h2');h.textContent=title;const p=document.createElement('p');p.textContent=body;a.append(h,p);host.append(a);return a}
 const recipe=document.body.dataset.recipe;
+const states={ready:['Hazır',''],loading:['Yükleniyor','Veriler bekleniyor. Bu ekran bir durum örneğidir.'],empty:['Henüz içerik yok','İlk kaydı oluşturarak başlayabilirsin.'],error:['İçerik yüklenemedi','Bağlantıyı kontrol edip tekrar deneyebilirsin.'],unauthorized:['Erişim gerekli','Bu içeriği görmek için uygun erişim yetkisi gerekir.']};
+const requested=new URL(location.href).searchParams.get('state');
+const state=Object.hasOwn(states,requested)?requested:'ready';
+const controls=document.createElement('div');controls.className='mh-row';
+const label=document.createElement('label');label.textContent='Sayfa durumu ';const select=document.createElement('select');select.className='mh-input';
+for(const [key,[name]] of Object.entries(states)){const option=document.createElement('option');option.value=key;option.textContent=name;select.append(option)}
+select.value=state;label.append(select);controls.append(label);regions.before(controls);
+select.onchange=()=>{const url=new URL(location.href);url.searchParams.set('state',select.value);location.assign(url)};
+if(state!=='ready'){
+ regions.setAttribute('aria-busy',String(state==='loading'));
+ const panel=region('full');panel.classList.add('mh-card');panel.dataset.pageState=state;
+ const heading=document.createElement('h2');heading.textContent=states[state][0];
+ const message=document.createElement('p');message.textContent=states[state][1];message.setAttribute('role',state==='error'?'alert':'status');
+ panel.append(heading,message);
+ const button=document.createElement('button');button.className='mh-button';button.type='button';
+ button.textContent=state==='error'?'Tekrar dene':state==='empty'?'Örnek içeriği aç':state==='unauthorized'?'Erişim hakkında':'Yüklemeyi sonlandır';
+ button.onclick=()=>{if(state==='unauthorized'){message.textContent='Örnek ekran: erişim verilmedi. Gerçek uygulamada yöneticinizle iletişime geçin.';return;}const url=new URL(location.href);url.searchParams.set('state','ready');location.assign(url)};
+ panel.append(button);
+}else 
 if(recipe==='overview'){
  [['12','Etkin proje'],['36','Ortak kaynak'],['8','Ekip üyesi'],['4','Bekleyen karar']].forEach(([value,label])=>{const h=region('metric');card(h,label,value)});
  const main=region('main','Öncelikli çalışmalar');card(main,'Araştırma çerçevesi','Paylaşılan kaynakları ve açık soruları bir araya getiriyoruz.');

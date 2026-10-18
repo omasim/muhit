@@ -17,21 +17,22 @@
     ]
   },
   "data-grid": {
-    "bytes": 31891,
+    "bytes": 27093,
     "inputs": [
       "esm/i18n.mjs",
       "esm/csv.mjs",
-      "esm/icons.mjs",
+      "esm/icons/core.mjs",
+      "esm/icons/resize-horizontal.mjs",
       "esm/data-grid.mjs",
       "<stdin>"
     ]
   },
   "provenance": {
-    "version": "0.14.0",
-    "sourceSha256": "6f8500bc8148ee5ecd9a934dd0ea826dcd9f709a0226dd03b94dfb9e2be54b53",
+    "version": "0.15.0",
+    "sourceSha256": "7681c1ad81d96076624207bef3bc14e00ee0d01ce45616f5c99c8d71919eb7c1",
     "commit": null,
     "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests",
-    "date": "2026-10-18T18:12:48.848Z",
+    "date": "2026-10-18T18:24:31.109Z",
     "platform": "darwin",
     "node": "v25.9.0"
   }

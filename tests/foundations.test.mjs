@@ -28,3 +28,12 @@ test('legacy icon API delegates to the canonical set and keeps aliases safe',asy
  assert.equal(MuhitTheme.resolve({iconWeight:1.25}).tokens['--mh-icon-weight'],'1.5');
  assert.ok(I.svg('chevron-forward',{dir:'rtl'}).includes('scale(-1 1)'));
 });
+
+test('all isolated icon entries match the canonical renderer and remain SSR safe',async()=>{
+ for(const name of I.names){
+  const icon=await import('../esm/icons/'+name+'.mjs');
+  assert.deepEqual(icon.MuhitIcons.names,[name]);
+  for(const options of [{},{label:'A < B & C',dir:'rtl',size:20},{stroke:2}])assert.equal(icon.svg(options),I.svg(name,options));
+  assert.throws(()=>icon.MuhitIcons.svg('not-an-icon'));
+ }
+});

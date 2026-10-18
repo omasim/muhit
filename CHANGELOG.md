@@ -1,3 +1,11 @@
+# 0.15.0
+
+- 58 tek ikon ESM girişi; DataGrid yalnız kendi ikonunu yükler.
+- Altı sayfa tarifinde yükleniyor/boş/hata/erişim gerekli durumları.
+- React/Vue MuhitIcon ve MuhitPage referans adaptörleri.
+- Aramalı sürümlü belgeler ve İngilizce ikon/sayfa kılavuzu.
+- P3 tarayıcı, tip ve boyut regresyonları.
+
 # 0.14.0
 
 - CI tarayıcı seçimi tüm adımlara aktarıldı.

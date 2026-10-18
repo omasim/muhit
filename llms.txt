@@ -1,6 +1,6 @@
 # Muhit UI
 
-> Framework bağımsız HTML/CSS/JavaScript bileşenleri, semantik temalar ve doğrulanan JSON görünümleri. Paket 0.14.0; yerel kaynak dağıtımı.
+> Framework bağımsız HTML/CSS/JavaScript bileşenleri, semantik temalar ve doğrulanan JSON görünümleri. Paket 0.15.0; yerel kaynak dağıtımı.
 
 ## Önce okunacak kaynaklar
 

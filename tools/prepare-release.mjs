@@ -16,7 +16,7 @@ root=pathlib.Path(sys.argv[1]); out=pathlib.Path(sys.argv[2])
 with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED) as z:
  for p in sorted(root.rglob('*')):
   rel=p.relative_to(root)
-  if not p.is_file() or p.is_symlink() or any(x in ('node_modules','dist','.git','__pycache__') for x in rel.parts) or p.suffix in ('.tgz','.zip') or p.name=='.DS_Store' or '.actual.' in p.name or '.candidate.' in p.name: continue
+  if not p.is_file() or p.is_symlink() or any(x in ('node_modules','dist','docs-site','.git','__pycache__') for x in rel.parts) or p.suffix in ('.tgz','.zip') or p.name=='.DS_Store' or '.actual.' in p.name or '.candidate.' in p.name: continue
   z.write(p,'muhit-ui/'+str(rel))
 `,root,path.join(out,archive)],{stdio:'inherit'});
 await writeFile(path.join(out,'PROVENANCE.json'),JSON.stringify(await provenance(),null,2)+'\n');

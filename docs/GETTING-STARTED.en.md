@@ -4,7 +4,7 @@ Muhit is a framework-independent UI library for shared work. Semantic colors, ty
 
 ## Install and choose the delivery size
 
-Install the supplied `muhit-ui-0.14.0.tgz` with your package manager. The npm registry package has not been published. For local HTML, serve the distribution over HTTP and import `src/index.mjs`.
+Install the supplied `muhit-ui-0.15.0.tgz` with your package manager. The npm registry package has not been published. For local HTML, serve the distribution over HTTP and import `src/index.mjs`.
 
 ```js
 import { MuhitDataGrid } from 'muhit-ui/data-grid';
@@ -56,7 +56,7 @@ Run `npm run verify:all`, `npm run test:scale`, `npm run test:distribution` and 
 
 ## 0.11 upgrade
 
-Page CSV export throws while the current page is loading or has failed. Handle the error and only enable download for a successful current query. Form remounts should spread `getSnapshot()` (values and baseline), not only getValues. NodeNext and Bundler are checked against all 17 packaged type entries. Repeater accepts group-indexed async/server error maps; combobox supports name/required/readOnly/disabled and native FormData. See CURRENT.md for current evidence and manual acceptance.
+Page CSV export throws while the current page is loading or has failed. Handle the error and only enable download for a successful current query. Form remounts should spread `getSnapshot()` (values and baseline), not only getValues. NodeNext and Bundler are checked against all 75 packaged type entries. Repeater accepts group-indexed async/server error maps; combobox supports name/required/readOnly/disabled and native FormData. See CURRENT.md for current evidence and manual acceptance.
 
 ## Icons and page composition · 0.12
 

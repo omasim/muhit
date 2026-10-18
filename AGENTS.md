@@ -1,6 +1,6 @@
 # Muhit UI için çalışma kuralları
 
-Bu paketle arayüz hazırlarken önce `schemas/ui.schema.json`, `schemas/theme.schema.json` ve `schemas/components.json` kaynaklarını okuyun. Çalışan API imzaları `types/index.d.ts`, insan odaklı kullanım örnekleri `README.md` içindedir. Tema sürümü `1`, görünüm şeması `1.1.0` (eski `1.0.0` desteklenir), paket sürümü `0.13.0` farklı sözleşmelerdir.
+Bu paketle arayüz hazırlarken önce `schemas/ui.schema.json`, `schemas/theme.schema.json` ve `schemas/components.json` kaynaklarını okuyun. Çalışan API imzaları `types/index.d.ts`, insan odaklı kullanım örnekleri `README.md` içindedir. Tema sürümü `1`, görünüm şeması `1.1.0` (eski `1.0.0` desteklenir), paket sürümü `package.json` içinde farklı sözleşmelerdir.
 
 - Agent görünümü yalnız şemalarda tanımlı 18 bileşen türünden oluşur. Bilinmeyen alan eklemeyin. JSON'u `MuhitAgent.validate` ile denetleyin; başarısız sonucu arayüzün başarılı üretimi olarak raporlamayın.
 - Eylemleri `{id,label}` olarak tanımlayın. Kart düğmesinin eylemi kullanıcı tıklamasıyla `onAction` işleyicisine ulaşır. Widget, form ve tablo durum olayları programatik güncellemeden de gelebilir; callback kullanıcı yetkisinin kanıtı değildir. Olay sözleşmesinin tek kaynağı `docs/AGENT-CONTRACT.md` dosyasıdır. JSON içine işlev, HTML, URL veya çalıştırılabilir kod eklemeyin.
