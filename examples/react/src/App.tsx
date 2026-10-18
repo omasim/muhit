@@ -1,3 +1,6 @@
+import {MuhitPage} from '../MuhitPage';
+import {MuhitIcon} from '../MuhitIcon';
+import leaf from 'muhit-ui/icons/leaf';
 import {Lifecycle} from '../Lifecycle';
 import { Integrations } from "../Integrations";
 import { useState } from "react";
@@ -26,9 +29,7 @@ export default function App() {
     [dark, setDark] = useState(false);
   if(matrix)return <Lifecycle/>;
   return (
-    <main className="mh-scope demo-app mh-content" id="main" tabIndex={-1} data-page-recipe="collection" data-width="standard">
-      <a className="mh-skip" href="#main">İçeriğe geç</a><p>React · Muhit entegrasyonu · Örnek veri</p>
-      <h1>Ortak kaynaklar</h1>
+    <MuhitPage title="Ortak kaynaklar" description="React · Muhit entegrasyonu · Örnek veri" skipLabel="İçeriğe geç" actions={<MuhitIcon icon={leaf} label="Shared resources" />}>
       <div className="demo-actions">
         <button onClick={()=>setTitle(v=>v+"!")}>Tablo başlığını değiştir</button>
         <output data-testid="ready-selection">{ready}</output>
@@ -81,6 +82,6 @@ export default function App() {
       )}
       <Integrations />
       <button onClick={()=>setMatrix(true)}>Open lifecycle matrix</button>
-    </main>
+    </MuhitPage>
   );
 }

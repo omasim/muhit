@@ -168,6 +168,9 @@ try {
       try {
         await page.goto(mode === "ssr" ? url + "ssr" : url);
         await page.locator(".mh-data-grid tbody tr").first().waitFor();
+        assert.equal(await page.getByRole('img',{name:'Shared resources'}).count(),1);
+        assert.equal(await page.locator('main').count(),1);
+        assert.equal(await page.locator('h1').count(),1);
         assert.equal(await page.locator(".mh-data-grid").count(), 1);
         assert.equal(await page.locator("tbody tr").count(), 2);
         await page.locator('tbody tr').nth(1).getByRole('checkbox').check();

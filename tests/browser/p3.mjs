@@ -60,13 +60,14 @@ try {
         await p.goto(url+'/examples/foundations/'+recipe+'.html?state='+state);
         await p.waitForFunction(()=>window.foundationReady);
         if(width===390){await p.locator('#theme').click();await p.locator('#direction').click();}
+        await p.evaluate(async()=>{await document.fonts.ready;await Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>{})));});
         assert.equal(await p.locator('main').count(),1);assert.equal(await p.locator('h1').count(),1);
         assert.equal(await p.locator('[data-page-state]').getAttribute('data-page-state'),state);
         assert.equal(await p.locator('#regions').getAttribute('aria-busy'),String(state==='loading'));
         assert.equal(await p.locator('#regions table,#regions form,.mh-kanban').count(),0,'non-ready states must not expose data');
         assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
         await p.addScriptTag({path:path.join(root,'node_modules/axe-core/axe.min.js')});
-        assert.deepEqual(await p.evaluate(async()=>(await axe.run(document)).violations.map(v=>v.id)),[],recipe+' '+state+' '+width);
+        assert.deepEqual(await p.evaluate(async()=>(await axe.run(document)).violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}))),[],recipe+' '+state+' '+width);
         if(recipe==='overview' && engine==='chromium')await p.screenshot({path:path.join(root,'tests/previews/p3-'+state+'-'+width+'.png'),fullPage:true});
         const action=p.locator('[data-page-state] button');await action.focus();await p.keyboard.press('Enter');
         if(state==='unauthorized'){await p.getByText('Örnek ekran: erişim verilmedi.',{exact:false}).waitFor();assert.equal(await p.locator('[data-page-state]').count(),1);}
@@ -78,7 +79,7 @@ try {
   const pkg=JSON.parse(await readFile(path.join(root,'package.json'),'utf8'));
   await p.goto(url+'/docs-site/'+pkg.version+'/index.html');await p.waitForFunction(()=>window.docsReady);
   await p.addScriptTag({path:path.join(root,'node_modules/axe-core/axe.min.js')});
-  assert.deepEqual(await p.evaluate(async()=>(await axe.run(document)).violations.map(v=>v.id)),[],'documentation axe');
+  assert.deepEqual(await p.evaluate(async()=>(await axe.run(document)).violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}))),[],'documentation axe');
   if(engine==='chromium')await p.screenshot({path:path.join(root,'tests/previews/p3-docs.png'),fullPage:true});
   await p.getByRole('searchbox').fill('headingLevel');assert.ok(await p.locator('#results a').count()>0);
   await p.locator('#results a').first().click();assert.equal(await p.evaluate(()=>document.activeElement.id),'main');

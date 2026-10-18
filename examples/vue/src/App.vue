@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import MuhitPage from "../MuhitPage.vue";
+import MuhitIcon from "../MuhitIcon.vue";
+import leaf from "muhit-ui/icons/leaf";
 import Lifecycle from "../Lifecycle.vue";
 import Integrations from "../Integrations.vue";
 import { ref, computed } from "vue";
@@ -42,9 +45,7 @@ function theme() {
 </script>
 <template>
   <Lifecycle v-if="matrix"/>
-  <main v-else class="mh-scope demo-app mh-content" id="main" tabindex="-1" data-page-recipe="collection" data-width="standard">
-    <a class="mh-skip" href="#main">İçeriğe geç</a><p>Vue · Muhit entegrasyonu · Örnek veri</p>
-    <h1>Ortak kaynaklar</h1>
+  <MuhitPage v-else title="Ortak kaynaklar" description="Vue · Muhit entegrasyonu · Örnek veri" skip-label="İçeriğe geç"><template #actions><MuhitIcon :icon="leaf" label="Shared resources" /></template>
     <div class="demo-actions">
       <button @click="title += '!'">Tablo başlığını değiştir</button>
       <output data-testid="ready-selection">{{ready}}</output>
@@ -59,5 +60,5 @@ function theme() {
     <p v-else role="status">Tablo kaldırıldı.</p>
     <Integrations />
     <button @click="matrix=true">Open lifecycle matrix</button>
-  </main>
+  </MuhitPage>
 </template>
