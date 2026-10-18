@@ -1,6 +1,6 @@
 # Sürüm ve yayın politikası
 
-0.15.x güncel geliştirme ve düzeltme hattıdır. 0.x sürümlerinde davranış değişiklikleri sürüm notlarıyla duyurulur. Kararlı 1.0 taahhüdü henüz verilmez. Logo 3.1, tema şeması 1 ve agent şeması 1.1.0 paket sürümünden bağımsızdır.
+0.16.x güncel geliştirme ve düzeltme hattıdır. 0.x sürümlerinde davranış değişiklikleri sürüm notlarıyla duyurulur. Kararlı 1.0 taahhüdü henüz verilmez. Logo 3.1, tema şeması 1 ve agent şeması 1.1.0 paket sürümünden bağımsızdır.
 
 Her kaynak sürümü için: Node testleri, üç tarayıcılı davranış ve erişilebilirlik testleri, React/Vue geliştirme/üretim/SSR-hydration akışları, sabit logolar, paket içeriği ve modül boyutları doğrulanır. Görsel referanslar açık bir güncelleme komutuyla üretilir; normal test çalışması referansı değiştirmez. Referans değişiklikleri görüntü incelemesi gerektirir. Otomatik testler manuel ekran okuyucu uygunluk iddiası değildir.
 
@@ -12,7 +12,7 @@ Kırılan/güncellenen sözleşmeler: 0.9'da Grid locale yalnız mount seçeneğ
 
 ## Güncel tüketici geçişi ve destek matrisi
 
-- `npm install ./muhit-ui-0.15.0.tgz` ile sürümü sabitleyin; kaynak paket yanında SHA256SUMS dağıtılır. İndirmeden sonra `shasum -a 256 -c SHA256SUMS` ile doğrulayın.
+- `npm install ./muhit-ui-0.16.0.tgz` ile sürümü sabitleyin; kaynak paket yanında SHA256SUMS dağıtılır. İndirmeden sonra `shasum -a 256 -c SHA256SUMS` ile doğrulayın.
 - Tipler: TypeScript 5.9, strict NodeNext ve Bundler, paketlenmiş 75 giriş.
 - Çekirdek Node >=18; test/örnek araçları Node >=20.19 (bu yerel koşu Node 25). React 19.2, Vue 3.5 ve Vite 7 örnekleri destek matrisidir; başka sürümler tüketici tarafından doğrulanmalı.
 - Güncel Playwright Chromium/Firefox/WebKit otomasyonu hedeflenir; Safari uygulaması ve gerçek cihazlar ayrı kabul listesidir.

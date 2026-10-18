@@ -14,7 +14,7 @@ Model bağlantısı ve modelin doğruluğu uygulamanın sorumluluğudur. JSON al
 
 ## Yükleme ve ilk çizim
 
-Klasik betikler derleme gerektirmez. Temanın JavaScript olmadan kullanılan varsayılanları ve yerel fontlar `tokens.css` içindedir. CSS dosyalarının tamamı paket içindedir; stüdyo stilleri gerekmez.
+Klasik betikler derleme gerektirmez. Temanın JavaScript olmadan kullanılan varsayılanları `tokens.css` içindedir. Yerel fontlar için ayrıca `fonts.css` yükleyin. CSS dosyalarının tamamı paket içindedir; stüdyo stilleri gerekmez.
 
 ```html
 <link rel="stylesheet" href="./styles/tokens.css" />

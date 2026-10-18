@@ -4,7 +4,7 @@ Muhit is a framework-independent UI library for shared work. Semantic colors, ty
 
 ## Install and choose the delivery size
 
-Install the supplied `muhit-ui-0.15.0.tgz` with your package manager. The npm registry package has not been published. For local HTML, serve the distribution over HTTP and import `src/index.mjs`.
+Install the supplied `muhit-ui-0.16.0.tgz` with your package manager. The npm registry package has not been published. For local HTML, serve the distribution over HTTP and import `src/index.mjs`.
 
 ```js
 import { MuhitDataGrid } from 'muhit-ui/data-grid';

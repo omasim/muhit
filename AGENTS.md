@@ -39,3 +39,5 @@ Onaylı Muhit logosu **3.1** sürümüdür. Ana dosya `assets/brand/muhit-logo.s
 0.9: schemas/capabilities.json güncel yetenek kaynağıdır; docs/COVERAGE.md bu kaynaktan üretilir. Yeni form bağlantıları docs/ADVANCED-FORMS.md içinde. Grid locale mount seçeneğidir; dil değişiminde getView/restoreView kullanın. Uzak CSV kapsamını açıkça belirtin.
 
 İkon standardı: docs/ICONS.md ve schemas/icons.json. Sayfa standardı: docs/PAGE-STANDARDS.md, schemas/pages.json ve schemas/page.schema.json. Yeni sayfalarda izinli ikon adlarını ve altı yerleşim tarifini kullanın. Bunlar mevcut 18 agent bileşen türünü değiştirmez.
+
+Yeni tasarım kararlarında docs/DESIGN.md ve docs/PRINCIPLES.md uygulanır; schemas/design-principles.json inceleme kontrol listesidir, agent render şeması değildir. Bağlamın saklanma kapsamını ve işlemin gerçek sonucunu açık belirtin.

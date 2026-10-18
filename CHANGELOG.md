@@ -1,3 +1,10 @@
+# 0.16.0
+
+- Muhit felsefesi derinleştirildi; sekiz tasarım ilkesi ve makinece okunabilir inceleme listesi eklendi.
+- Bağlam, taslak, hata, iptal ve yalnız yerel onay davranışlarını gösteren çalışan sayfa eklendi. Stüdyo ve altı sayfa tarifinden erişilir.
+- Belge girişinde felsefe, belge gövdesinde dil bilgisi ve yayınlanan kaynaklara bağlantı desteği eklendi. Güncel sürüm/font açıklamaları düzeltildi.
+- Mevcut bileşen API’leri, 18 agent türü ve sabit logo 3.1 korunur.
+
 # 0.15.0
 
 - 58 tek ikon ESM girişi; DataGrid yalnız kendi ikonunu yükler.

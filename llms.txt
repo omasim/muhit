@@ -1,6 +1,6 @@
 # Muhit UI
 
-> Framework bağımsız HTML/CSS/JavaScript bileşenleri, semantik temalar ve doğrulanan JSON görünümleri. Paket 0.15.0; yerel kaynak dağıtımı.
+> Framework bağımsız HTML/CSS/JavaScript bileşenleri, semantik temalar ve doğrulanan JSON görünümleri. Paket 0.16.0; yerel kaynak dağıtımı.
 
 ## Önce okunacak kaynaklar
 
@@ -43,3 +43,5 @@ Preferences: MuhitPreferences.create; explicit local save only. Coverage and lim
 0.9: Current capability source: schemas/capabilities.json. Read docs/ADVANCED-FORMS.md, docs/FRAMEWORKS-0.9.md and docs/RELEASE-POLICY.md. Grid locale is immutable per mount; preserve user view via getView/restoreView. Remote full/selected CSV export requires exportRows. Fields provide combobox/repeater; forms support abortable validateAsync.
 
 İkon standardı: docs/ICONS.md ve schemas/icons.json. Sayfa standardı: docs/PAGE-STANDARDS.md, schemas/pages.json ve schemas/page.schema.json. Yeni sayfalarda izinli ikon adlarını ve altı yerleşim tarifini kullanın. Bunlar mevcut 18 agent bileşen türünü değiştirmez.
+
+Tasarım felsefesi: docs/DESIGN.md. Uygulanabilir ilkeler: docs/PRINCIPLES.md. Çalışan bağlam ve toparlanma örneği: examples/foundations/principles.html.

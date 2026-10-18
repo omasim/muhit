@@ -86,7 +86,33 @@ try {
   await p.getByRole('searchbox').fill('<img src=x onerror=alert(1)>');assert.equal(await p.locator('#results a').count(),0);assert.equal(await p.locator('#results img').count(),0);
   await p.getByRole('searchbox').fill('single-icon');await p.getByRole('link',{name:'Icons · English integration guide'}).click();
   await p.goBack();assert.ok(await p.locator('#document').textContent());
+  for(const width of [390,1440]){
+    await p.setViewportSize({width,height:950});
+    await p.goto(url+'/examples/foundations/principles.html');await p.waitForFunction(()=>window.principlesReady);
+    if(width===390)await p.locator('#theme').click();
+    await p.evaluate(async()=>{await document.fonts.ready;await Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>{})));});
+    assert.equal(await p.locator('main').count(),1);assert.equal(await p.locator('h1').count(),1);
+    assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+    await p.addScriptTag({path:path.join(root,'node_modules/axe-core/axe.min.js')});
+    assert.deepEqual(await p.evaluate(async()=>(await axe.run(document)).violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.failureSummary)}))),[],'principles page');
+    await p.locator('#filter').fill('Araştırma');await p.locator('#record-research').focus();await p.keyboard.press('Enter');
+    assert.equal(await p.evaluate(()=>document.activeElement.id),'detail-title');
+    await p.locator('#draft').fill('<img src=x onerror=alert(1)> Benim notum');
+    await p.locator('#back').click();assert.equal(await p.locator('#filter').inputValue(),'Araştırma');
+    assert.equal(await p.evaluate(()=>document.activeElement.id),'record-research');
+    await p.locator('#record-research').click();assert.ok((await p.locator('#draft').inputValue()).includes('Benim notum'));
+    await p.locator('#failure').check();await p.locator('#confirm').click();
+    await p.getByText('Örnek işlem başarısız oldu.',{exact:false}).waitFor();
+    assert.equal(await p.locator('#editor').getAttribute('aria-busy'),'false');
+    assert.ok((await p.locator('#draft').inputValue()).includes('Benim notum'));
+    await p.locator('#failure').uncheck();await p.locator('#confirm').click();await p.locator('#cancel').click();
+    await p.waitForTimeout(800);assert.match(await p.locator('#result').textContent(),/iptal edildi/);
+    await p.locator('#confirm').click();await p.getByText('Yalnız bu sekmenin belleğinde onaylandı.',{exact:false}).waitFor();
+    assert.equal(await p.locator('#detail-view img').count(),0);
+    if(engine==='chromium')await p.screenshot({path:path.join(root,'tests/previews/p3-principles-'+width+'.png'),fullPage:true});
+    await p.reload();await p.waitForFunction(()=>window.principlesReady);await p.locator('#record-research').click();assert.equal(await p.locator('#draft').inputValue(),'');
+  }
   assert.deepEqual(errors,[]);
-  await writeFile(path.join(root,'tests/p3-verification-'+engine+'.json'),JSON.stringify({provenance:await provenance(),engine,cases:reports,docsSearch:true},null,2));
+  await writeFile(path.join(root,'tests/p3-verification-'+engine+'.json'),JSON.stringify({provenance:await provenance(),engine,cases:reports,docsSearch:true,principlesFlow:true},null,2));
   console.log('PASS P3: 48 page states and searchable versioned documentation');
 }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));}
