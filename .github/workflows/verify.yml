@@ -52,4 +52,5 @@ jobs:
           path: |
             tests/*verification*.json
             tests/evidence/
+            tests/previews/p3-*.png
             tests/visual/linux-chromium/*.png

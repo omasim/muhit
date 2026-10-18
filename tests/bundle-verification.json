@@ -29,10 +29,10 @@
   },
   "provenance": {
     "version": "0.15.0",
-    "sourceSha256": "7681c1ad81d96076624207bef3bc14e00ee0d01ce45616f5c99c8d71919eb7c1",
+    "sourceSha256": "8d3da55a090b0325933888f5a6f88f78d95d5a3561a5dd2ff4b537a439b698c3",
     "commit": null,
     "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests",
-    "date": "2026-10-18T18:24:31.109Z",
+    "date": "2026-10-18T18:30:23.890Z",
     "platform": "darwin",
     "node": "v25.9.0"
   }

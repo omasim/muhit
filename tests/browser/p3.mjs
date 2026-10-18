@@ -1,7 +1,7 @@
 import {provenance} from '../../tools/provenance.mjs';
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 const engines = await import(
@@ -52,6 +52,7 @@ try {
   const errors = [];
   p.on("pageerror", (e) => errors.push(e.message));
   const reports=[];
+  await mkdir(path.join(root,"tests/previews"),{recursive:true});
   for(const recipe of ['overview','collection','detail','settings','workspace','editorial']){
     for(const state of ['loading','empty','error','unauthorized']){
       for(const width of [390,1440]){
@@ -66,6 +67,7 @@ try {
         assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
         await p.addScriptTag({path:path.join(root,'node_modules/axe-core/axe.min.js')});
         assert.deepEqual(await p.evaluate(async()=>(await axe.run(document)).violations.map(v=>v.id)),[],recipe+' '+state+' '+width);
+        if(recipe==='overview' && engine==='chromium')await p.screenshot({path:path.join(root,'tests/previews/p3-'+state+'-'+width+'.png'),fullPage:true});
         const action=p.locator('[data-page-state] button');await action.focus();await p.keyboard.press('Enter');
         if(state==='unauthorized'){await p.getByText('Örnek ekran: erişim verilmedi.',{exact:false}).waitFor();assert.equal(await p.locator('[data-page-state]').count(),1);}
         else {await p.waitForURL(/state=ready/);await p.waitForFunction(()=>window.foundationReady);assert.equal(await p.locator('[data-page-state]').count(),0);}
@@ -75,6 +77,9 @@ try {
   }
   const pkg=JSON.parse(await readFile(path.join(root,'package.json'),'utf8'));
   await p.goto(url+'/docs-site/'+pkg.version+'/index.html');await p.waitForFunction(()=>window.docsReady);
+  await p.addScriptTag({path:path.join(root,'node_modules/axe-core/axe.min.js')});
+  assert.deepEqual(await p.evaluate(async()=>(await axe.run(document)).violations.map(v=>v.id)),[],'documentation axe');
+  if(engine==='chromium')await p.screenshot({path:path.join(root,'tests/previews/p3-docs.png'),fullPage:true});
   await p.getByRole('searchbox').fill('headingLevel');assert.ok(await p.locator('#results a').count()>0);
   await p.locator('#results a').first().click();assert.equal(await p.evaluate(()=>document.activeElement.id),'main');
   await p.getByRole('searchbox').fill('<img src=x onerror=alert(1)>');assert.equal(await p.locator('#results a').count(),0);assert.equal(await p.locator('#results img').count(),0);
