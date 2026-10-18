@@ -15,6 +15,7 @@ const fields: FormField[] = [{ name: "name", label: "Adınız", required: true }
   saved = ref(""),
   visible = ref(true),
   host = ref<HTMLDivElement | null>(null);
+const slow=ref(false);
 const baseline=ref({name:"Ada"});
 const locale=ref("tr"),dirty=ref(false);
 let currentForm:FormInstance|undefined;
@@ -39,7 +40,7 @@ onBeforeUnmount(() => {
   widget?.destroy();
 });
 async function submit(values: FormValues, signal: AbortSignal) {
-  await Promise.resolve();
+  await new Promise(resolve=>setTimeout(resolve,slow.value?500:0));
   if (!signal.aborted) saved.value = String(values.name);
 }
 </script>
@@ -53,6 +54,7 @@ async function submit(values: FormValues, signal: AbortSignal) {
     <button @click="locale=locale==='tr'?'en':'tr'">Form dilini değiştir</button>
     <button @click="dirty=currentForm?.isDirty() ?? false">Değişiklik durumunu kontrol et</button>
     <button @click="baseline={name:'New baseline'}">Başlangıç değerini değiştir</button>
+    <button @click="slow=true">Gecikmeli kaydı aç</button>
     <output data-testid="dirty">{{String(dirty)}}</output>
     <MuhitForm
       v-if="visible"

@@ -1,0 +1,90 @@
+
+> muhit-ui@0.14.0 pretest
+> npm run build:modules
+
+
+> muhit-ui@0.14.0 build:modules
+> node tools/build-modules.mjs
+
+
+> muhit-ui@0.14.0 test
+> node --test tests/*.test.mjs
+
+✔ classic import touches no DOM and validation works in a clean Node context (9.046208ms)
+✔ all five kinds and the published fictional example validate without mutation (2.425042ms)
+✔ root, version, kinds and all nested unknown keys are strict (0.449ms)
+✔ non-JSON values, hidden properties, getters, cycles and nonfinite numbers are rejected (0.541459ms)
+✔ component IDs are unique; action IDs are scoped by their component (2.015959ms)
+✔ text has explicit types and limits; Unicode limits count code points (0.210417ms)
+✔ theme contract mirrors the strict normalizer and fills defaults only when rendering (3.773709ms)
+✔ table rows enforce dates, row IDs, status and size limits (1.860625ms)
+✔ chart counts never coerce strings, permit zero, and constrain aggregate magnitude (0.589292ms)
+✔ chart distributions match their rows, accept float roundoff, and bound categories/types (0.939958ms)
+✔ render uses literal text, native actions and only the scoped inner root for theme (2.117916ms)
+✔ omitted theme inherits host tokens, including after an explicit theme update (1.411083ms)
+✔ invalid render/update and missing dependency leave existing DOM untouched (0.626459ms)
+✔ chart/table lifecycle is cleaned on update, failure, remount and destroy; provider returns copies (1.910291ms)
+✔ published schema and manifest expose exactly the supported adapter kinds (0.685167ms)
+✔ generic data validates dates, unique ids, nullable values and numeric types (1.679083ms)
+✔ generic search, numeric sorting and paging preserve input (1.01525ms)
+✔ rich cards and page accept only explicit safe enums (0.603ms)
+✔ form rejects unrepresentable values before DOM; hidden fields do not weaken value safety (2.998625ms)
+✔ generic plots preserve missing/negative values, reject inconsistent series and escape CSV (1.631917ms)
+✔ agent schema 1.1 validates new adapters and protects legacy 1.0 (2.114ms)
+✔ column filter and locale search operate before pagination (0.387834ms)
+✔ isolated ESM does not publish globals and supports DOM-free import (62.187875ms)
+✔ forms: required, bounds, email, dates and zero values (2.324459ms)
+✔ forms: strict schema and independent snapshots (0.428917ms)
+✔ forms: selection and length errors use plain text (0.14275ms)
+✔ preferences: opt-in persistence, corruption, version, clear and quota failures (0.394125ms)
+✔ preferences: malformed envelope and reserved field identifiers are rejected (0.108416ms)
+✔ icon catalog has 58 safe standalone SVG sources with matching exports (26.9325ms)
+✔ icon API rejects invalid names/options and escapes accessible names (0.293417ms)
+✔ page recipes all provide a real template and reference existing icons (1.105166ms)
+✔ legacy icon API delegates to the canonical set and keeps aliases safe (0.8985ms)
+✔ locale contexts interpolate safely and isolate per-instance messages (0.947875ms)
+✔ catalog registration copies dictionaries and default locale leaves existing contexts unchanged (0.117208ms)
+✔ validation errors use selected language and caller field labels (0.517083ms)
+✔ agent column layouts validate widths, keys and pinning before rendering (0.652125ms)
+✔ extra catalogs preserve placeholders and regional overrides (3.83275ms)
+✔ optimized queries preserve locale matching, null-last ordering, filters and stable ties (0.399542ms)
+✔ both studios share the current theme schema and value parsing (10.955959ms)
+✔ legacy table and charts have DE/AR messages for every literal translation call (6.5115ms)
+✔ regional catalogs overlay base language and instance overrides (0.930833ms)
+✔ shared CSV protects whitespace and control-prefixed formulas (0.2255ms)
+✔ Node-safe IIFE publishes only its frozen API without reading DOM or storage (5.987167ms)
+✔ Partial configuration fills immutable defaults without retaining the input object (0.356458ms)
+✔ Presets have stable IDs, Turkish names, frozen metadata and valid six-digit color values (0.233791ms)
+✔ Unknown fields, types, unsafe records, inherited settings and accessors are rejected (0.888416ms)
+✔ Every permitted typography, density, shape, scale, motion and border option resolves (14.868792ms)
+✔ grove/light: all normal text, focus, semantic and chart checks pass including extreme custom accents (12.17375ms)
+✔ grove/dark: all normal text, focus, semantic and chart checks pass including extreme custom accents (10.131708ms)
+✔ clay/light: all normal text, focus, semantic and chart checks pass including extreme custom accents (8.8615ms)
+✔ clay/dark: all normal text, focus, semantic and chart checks pass including extreme custom accents (7.067208ms)
+✔ tide/light: all normal text, focus, semantic and chart checks pass including extreme custom accents (8.206958ms)
+✔ tide/dark: all normal text, focus, semantic and chart checks pass including extreme custom accents (8.016084ms)
+✔ atelier/light: all normal text, focus, semantic and chart checks pass including extreme custom accents (7.604375ms)
+✔ atelier/dark: all normal text, focus, semantic and chart checks pass including extreme custom accents (6.715708ms)
+✔ WCAG relative luminance contrast is symmetric, exact for black/white, and never rounded (0.157ms)
+✔ Audit computes actual minimum contrast over used surfaces, not display-rounded values (1.616708ms)
+✔ apply changes only its CSS variables and four theme attributes and returns the resolved frozen object (0.446541ms)
+✔ apply uses the browser document root when omitted; Node omission is a clear error (1.071042ms)
+✔ Invalid apply input is rejected before any root mutation (0.079334ms)
+✔ JSON export contains normalized configuration only and round-trips every palette/mode (0.51075ms)
+✔ CSS export has all resolved values, deterministic output and no configuration-derived injection path (0.358208ms)
+✔ Fallback CSS matches default resolved tokens and provides local font and reduced-motion support (0.518917ms)
+✔ CSS-only export preserves native color scheme, scoped reduced motion and system motion preference (0.272541ms)
+✔ Schema documents exactly the accepted fields, enums, defaults and six-digit accent syntax (0.132416ms)
+✔ layout preferences survive export and are accepted by the agent contract (0.149375ms)
+✔ all 10 widget contracts validate alone and inside the agent view (6.535084ms)
+✔ widget contracts reject unknown fields and invalid cross references (0.652917ms)
+✔ unsafe JavaScript values are rejected without executing getters (0.123833ms)
+✔ extended theme controls round-trip without losing types and all preset contrast audits pass (8.972083ms)
+ℹ tests 70
+ℹ suites 0
+ℹ pass 70
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 250.510541

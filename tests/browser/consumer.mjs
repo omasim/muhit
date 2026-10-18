@@ -64,6 +64,7 @@ try {
     const original=getComputedStyle(outside).fontSize;
     const icon=I.mount(host,'arrow-forward',{label:'A < B & "C"',dir:'rtl'});
     check(icon.element.getAttribute('aria-label')==='A < B & "C"','exact accessible label');icon.destroy();
+    for(const name of I.names){const i=I.mount(host,name);check(i.element.querySelector('path,rect,circle'),'icon geometry '+name);i.destroy();}
     const w=W.mount(host,{type:'pagination',id:'pages',title:'Pages',total:50,pageSize:10},{headingLevel:2});
     check(host.querySelectorAll('svg').length===2,'CSP widget icons');w.destroy();
     const grid=G.mount(host,{columns:[{key:'name',label:'Name'}],rows:[{id:'a',name:'Ada'}]});

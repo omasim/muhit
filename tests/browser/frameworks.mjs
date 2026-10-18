@@ -253,6 +253,15 @@ try {
         assert.equal(await page.getByLabel("Adınız *").inputValue(), "Deniz");
         await page.getByRole("button", { name: "Kaydet", exact: true }).click();
         await page.getByText("Örnek kayıt: Deniz", { exact: true }).waitFor();
+        await page.getByRole('button',{name:'Gecikmeli kaydı aç'}).click();
+        await page.getByLabel('Adınız *').fill('Canceled save');
+        await page.getByRole('button',{name:'Kaydet',exact:true}).click();
+        await page.waitForFunction(()=>document.querySelector('.mh-form [type=submit]')?.disabled);
+        await page.getByRole('button',{name:'Form dilini değiştir'}).click();
+        await page.waitForTimeout(600);
+        await page.getByText('Örnek kayıt: Deniz',{exact:true}).waitFor();
+        assert.equal(await page.getByLabel('Adınız *').inputValue(),'Canceled save');
+        await page.getByRole('button',{name:'Form dilini değiştir'}).click();
         await page.getByRole('button',{name:'Başlangıç değerini değiştir'}).click();
         await page.getByRole('button',{name:'Sıfırla',exact:true}).click();
         assert.equal(await page.getByLabel('Adınız *').inputValue(),'New baseline');

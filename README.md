@@ -6,7 +6,7 @@
 
 # Muhit UI
 
-**0.13.0 · HTML, CSS ve JavaScript ile tema uyarlayan bileşenler.**
+**0.14.0 · HTML, CSS ve JavaScript ile tema uyarlayan bileşenler.**
 
 Muhit; kartları, formları, tabloları ve grafikleri ortak bir görsel dille kurmanıza yardımcı olur. Klasik script olarak derleme olmadan çalışır; ESM girişi ve TypeScript tanımları da bulunur. Tema yapılandırması renk, yazı ailesi, yoğunluk, köşe, metin ölçeği ve hareket tercihini birlikte yönetir. JSON şemasına uyan bir görünüm, aynı bileşenlerle güvenilir biçimde çizilir.
 
@@ -29,7 +29,7 @@ npm pack
 Oluşan arşivi kendi projenizin klasöründe kurun:
 
 ```sh
-npm install /tam/yol/muhit-ui/muhit-ui-0.13.0.tgz
+npm install /tam/yol/muhit-ui/muhit-ui-0.14.0.tgz
 ```
 
 `npm pack`, kaynak modüllerini, stilleri, şemaları, tipleri, fontları ve kullanım örneklerini içerir. Tema stüdyosunun kök önizlemesi ve test dosyaları dağıtımın parçası değildir. `npm run check` Node ortamında ESM girişini yükler; tarayıcı etkileşim testlerinin yerine geçmez.
@@ -206,3 +206,5 @@ Güncel sözleşme ve sınırlar: [0.11 üretim hazırlığı](docs/PRODUCTION-0
 [58 ikon kataloğu](examples/foundations/icons.html) · [Altı sayfa düzeni](examples/foundations/overview.html) · [İkon kuralları](docs/ICONS.md) · [Sayfa kuralları](docs/PAGE-STANDARDS.md). `muhit-ui/icons` bağımsız SVG API; `styles/pages.css` isteğe bağlı sayfa stilleri. Eski ikon çağrıları ortak MuhitIcons kaynağına yönlenir. Klasik script kullanımında icons.js önce yüklenmelidir. Sayfa tarifleri HTML/CSS kompozisyonudur, yeni bir agent renderer değildir.
 
 [0.13 geçiş notları ve test kapsamı](docs/MIGRATION-0.13.md)
+
+Güncel kabul ve test kanıtı: [CURRENT](docs/CURRENT.md). Adaptör ve CSP kapsamı: [CONSUMER-CONTRACT](docs/CONSUMER-CONTRACT.md).

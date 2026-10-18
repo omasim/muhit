@@ -1,3 +1,4 @@
+import {provenance} from './provenance.mjs';
 // Creates local versioned artifacts. Does not publish to npm or GitHub.
 import {execFileSync} from 'node:child_process';
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
@@ -20,4 +21,5 @@ with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED) as z:
 `,root,path.join(out,archive)],{stdio:'inherit'});
 const files=[`${pkg.name}-${pkg.version}.tgz`,archive];
 await writeFile(path.join(out,'SHA256SUMS'),(await Promise.all(files.map(async f=>createHash('sha256').update(await readFile(path.join(out,f))).digest('hex')+'  '+f))).join('\n')+'\n');
+await writeFile(path.join(out,'PROVENANCE.json'),JSON.stringify(await provenance(),null,2)+'\n');
 console.log('Release artifacts:',out);

@@ -1,0 +1,17 @@
+import {spawn} from 'node:child_process';
+import {writeFile,mkdir} from 'node:fs/promises';
+import path from 'node:path';
+import {provenance,root} from './provenance.mjs';
+const [command,...args]=process.argv.slice(2);
+if(!command)throw Error('Command required');
+const before=await provenance();
+let output='';
+const child=spawn(command,args,{cwd:root,env:process.env,stdio:['ignore','pipe','pipe']});
+for(const [stream,dest] of [[child.stdout,process.stdout],[child.stderr,process.stderr]])stream.on('data',chunk=>{output+=chunk;dest.write(chunk)});
+const code=await new Promise((resolve,reject)=>{child.on('error',reject);child.on('close',resolve)});
+const after=await provenance();
+const name=[command,...args,process.env.MUHIT_BROWSER||'local'].join('-').replace(/[^a-zA-Z0-9_-]/g,'_');
+await mkdir(path.join(root,'tests/evidence'),{recursive:true});
+await writeFile(path.join(root,'tests/evidence',name+'.log'),output);
+await writeFile(path.join(root,'tests/evidence',name+'.json'),JSON.stringify({...before,command:[command,...args],exitCode:code,sourceChanged:before.sourceSha256!==after.sourceSha256,sourceSha256After:after.sourceSha256,finishedAt:new Date().toISOString()},null,2)+'\n');
+process.exitCode=code??1;

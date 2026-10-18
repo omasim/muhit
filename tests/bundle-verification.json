@@ -17,7 +17,7 @@
     ]
   },
   "data-grid": {
-    "bytes": 31631,
+    "bytes": 31891,
     "inputs": [
       "esm/i18n.mjs",
       "esm/csv.mjs",

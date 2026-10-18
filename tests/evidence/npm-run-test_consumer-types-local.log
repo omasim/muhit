@@ -1,0 +1,6 @@
+
+> muhit-ui@0.14.0 test:consumer-types
+> node tools/check-consumer-types.mjs
+
+PASS packed NodeNext: 17 public type entries
+PASS packed Bundler: 17 public type entries
