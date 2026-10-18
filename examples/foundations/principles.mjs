@@ -12,7 +12,7 @@ function list(){
  $('no-results').hidden=matches.length>0;
 }
 function busy(value){$('draft').readOnly=value;$('confirm').disabled=value;$('failure').disabled=value;$('cancel').hidden=!value;$('back').disabled=value;$('editor').setAttribute('aria-busy',String(value));}
-function open(record){current=record;$('list-view').hidden=true;$('detail-view').hidden=false;$('detail-title').textContent=record.title;$('draft').value=drafts.get(record.id)||'';announce(confirmed.has(record.id)?'Bu sekmede daha önce yerel olarak onaylandı. Yeni değişiklikler taslaktır.':'Taslak · henüz onaylanmadı.');$('detail-title').focus();}
+function open(record){current=record;$('confirm').textContent='Yerel olarak onayla';$('list-view').hidden=true;$('detail-view').hidden=false;$('detail-title').textContent=record.title;$('draft').value=drafts.get(record.id)||'';announce(confirmed.has(record.id)?'Bu sekmede daha önce yerel olarak onaylandı. Yeni değişiklikler taslaktır.':'Taslak · henüz onaylanmadı.');$('detail-title').focus();}
 $('filter').addEventListener('input',list);
 $('clear').onclick=()=>{$('filter').value='';list();$('filter').focus()};
 $('draft').addEventListener('input',()=>{drafts.set(current.id,$('draft').value);announce('Taslak değişti. Yalnız bu sayfanın belleğinde tutuluyor.')});
@@ -28,5 +28,5 @@ $('editor').addEventListener('submit',event=>{
 });
 $('cancel').onclick=()=>{revision++;clearTimeout(timer);timer=null;busy(false);announce('İşlem iptal edildi. Taslağın korunuyor; onay verilmedi.');$('confirm').focus()};
 $('theme').onclick=()=>{const dark=document.documentElement.dataset.mhMode!=='dark';Theme.apply({mode:dark?'dark':'light'});document.querySelector('header img').src='../../assets/brand/'+(dark?'muhit-logo-dark.svg':'muhit-logo.svg');$('theme').textContent=dark?'Açık tema':'Koyu tema'};
-window.addEventListener('pagehide',()=>{revision++;clearTimeout(timer);timer=null});
+window.addEventListener('pagehide',()=>{revision++;clearTimeout(timer);if(timer!==null){busy(false);announce('İşlem iptal edildi. Taslağın korunuyor; onay verilmedi.')}timer=null});
 list();window.principlesReady=true;
