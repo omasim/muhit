@@ -1,3 +1,9 @@
+# Güncel doğrulama
+
+Güncel sonuçlar ve açık kabul maddeleri: [CURRENT.md](CURRENT.md).
+
+Aşağıdaki kayıtlar tarihseldir; 0.14.0 için test kanıtı değildir.
+
 # 0.11.0 · 18 Ekim 2026
 
 66 Node testi, gerçek React/Vue tüketicileri, 16 paket tip girişi ve üç tarayıcılı CI geçti: https://github.com/omasim/muhit/actions/runs/39070676595. Kod commit’i `dd4c7d5b5987a568158d4f0048802c894dcd9fdb`. Linux ve macOS 14 görsel durumu karşılaştırıldı.

@@ -6,59 +6,59 @@
   "cases": [
     {
       "name": "light",
-      "sha256": "7f5ca70cb9496ecab7aa497af1bb90efa12a63342a2d920400ae033f13770a5c"
+      "sha256": "0b34e7c4f111bf19d17321d69a5955faca683847ab64a7f207ad7a3cd2528f65"
     },
     {
       "name": "dark",
-      "sha256": "2df9217d0e80070a58dafae394173a751ab360359fd55d716216ccd30726ed8f"
+      "sha256": "cccdeb5152a52629a75ac65b83b8838dd1ee1720786ea01bc94e16d012e50306"
     },
     {
       "name": "compact",
-      "sha256": "d66ad9f634a17cad573d3260ee0b630475055ca75115b30486c303478937faef"
+      "sha256": "0e466e3f90261213f839bcf6d0c9f00de39292008ec68ce514f0e3e332f5940d"
     },
     {
       "name": "large-rtl",
-      "sha256": "ba923cd8893e4a42a12b47131b23d81453419ebee6804ea44ed768bb06e4c52a"
+      "sha256": "1b9d70000c88e30132670adc26daa93ab57d7fcfb00cc945af414eb6a8266a52"
     },
     {
       "name": "custom",
-      "sha256": "efebb9f959cdcb55082dd48c9897a946ebdcd786dba1434e45c58d3270992747"
+      "sha256": "f2c066b751f1094c30bf9f9a3068da6a49a575afac64031d1299e7686a4b195b"
     },
     {
       "name": "loading",
-      "sha256": "54564ada63b613bc791b751b9444f01b0b949e830ec51cb5f4a46eebfdd83d4c"
+      "sha256": "48dd5e711aadab4e37876576ec69bb4b1e15df8a59e560fcc7280e81f5305cc0"
     },
     {
       "name": "empty",
-      "sha256": "da3323de452539b424b9fc9ee575ee6d82fbd14035177281f6bafadd882af5bb"
+      "sha256": "b7e4875b5b6a5c65829e7123bc73ea4cf095d2320a3f649e54459badc1b9ceaf"
     },
     {
       "name": "error",
-      "sha256": "10140b44f6636451ab8a58172fb1cfbcbcc0b32e13c32278065dd2026ba98769"
+      "sha256": "cdb75cfc7030bdbb594377e8c92c6a2d5b0cac7bf9793961e08645bce4a3c3fd"
     },
     {
       "name": "groups",
-      "sha256": "4f5e4778b5107d3428f3d9fbc9a9716b16ced163d5824f4ee36856a37f5c5874"
+      "sha256": "666b81af4b5aaa18b5af39cd6693b39575472ea959b9e35160aedf1ec92165cd"
     },
     {
       "name": "combo",
-      "sha256": "d1e4972d44a3b1fe5c3efdd4da4f2c5eb74376212a17831acc224482ea9032b3"
+      "sha256": "7b8fd8c306a8df273899153ca9e4fcd1e1850632a591817d0af231ce71f19911"
     },
     {
       "name": "kanban",
-      "sha256": "2e0178bc70bca3cff44f6a18d8458e6a3522417e415a7491d71f2ef2a1d3d760"
+      "sha256": "2671ae4bb61b9c8ce5ef952af46ddcb869a9139486d76745ae8c5082954dfe59"
     },
     {
       "name": "german",
-      "sha256": "844cef82d918e16e7def192220f6b7501c56664c59ca3dc66b7d37022fcb44d1"
+      "sha256": "00a1b20de65022d0d3d8279a449c357e437858cec23545b1f13c5b9415938f23"
     },
     {
       "name": "arabic",
-      "sha256": "e018091586b887ad094d817b506504cb7e9df5a8c572f31bdd07e41dadfadb0c"
+      "sha256": "0c139e28cc27ff0cd8761052c2d744a45d27aeb8ee7bd2bd81d080c64db0e53d"
     },
     {
       "name": "zoom",
-      "sha256": "4529e78ce8e3a2907762f1035f74548271c3a9492f8da777ced8c9cde559b8aa"
+      "sha256": "e82695ed47e9ff1a0f9a43581cfe57057904a5f447dbd81edfb874f10d219bd2"
     }
   ]
 }

@@ -31,6 +31,10 @@ export function MuhitGrid(props: MuhitGridProps) {
     });
     grid.current = instance;
     if (snapshot.current) instance.restoreView(snapshot.current);
+    // Explicit application state takes precedence over the remount snapshot.
+    if (p.state) instance.setState(p.state);
+    if (p.columnLayout) instance.setColumnLayout(p.columnLayout);
+    if (p.selected) instance.setSelected(p.selected);
     p.onReady?.(instance);
     return () => {
       snapshot.current = instance.getView();

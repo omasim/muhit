@@ -67,7 +67,7 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
     lineHeight: [1.45, 1.65, 1.85],
     contentWidth: ["focused", "balanced", "wide"],
     borderWidth: [1, 2],
-    iconWeight: [1.25, 1.5, 2],
+    iconWeight: [1.25, 1.5, 1.75, 2],
     accentIntensity: ["soft", "balanced", "vivid"],
     chartPalette: ["natural", "contrast", "mono"],
     cardSurface: ["plain", "tinted", "outline"],

@@ -1062,7 +1062,7 @@
             : "") +
           '<button type="button" class="mh-button mh-button--quiet mh-chart-csv" data-download data-focus-key="csv"' +
           (state.phase !== "ready" ? " disabled" : "") +
-          ('><svg class="mh-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 3v9m-3-3 3 3 3-3M4 13v3h12v-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+          ('>' + global.MuhitIcons.svg('download',{size:20}) +
             escapeHTML(t("CSV indir", "Download CSV")) +
             "</button></div></div>") +
           demo

@@ -1,6 +1,6 @@
 # Muhit UI için çalışma kuralları
 
-Bu paketle arayüz hazırlarken önce `schemas/ui.schema.json`, `schemas/theme.schema.json` ve `schemas/components.json` kaynaklarını okuyun. Çalışan API imzaları `types/index.d.ts`, insan odaklı kullanım örnekleri `README.md` içindedir. Tema sürümü `1`, görünüm şeması `1.1.0` (eski `1.0.0` desteklenir), paket sürümü `0.11.0` farklı sözleşmelerdir.
+Bu paketle arayüz hazırlarken önce `schemas/ui.schema.json`, `schemas/theme.schema.json` ve `schemas/components.json` kaynaklarını okuyun. Çalışan API imzaları `types/index.d.ts`, insan odaklı kullanım örnekleri `README.md` içindedir. Tema sürümü `1`, görünüm şeması `1.1.0` (eski `1.0.0` desteklenir), paket sürümü `0.13.0` farklı sözleşmelerdir.
 
 - Agent görünümü yalnız şemalarda tanımlı 18 bileşen türünden oluşur. Bilinmeyen alan eklemeyin. JSON'u `MuhitAgent.validate` ile denetleyin; başarısız sonucu arayüzün başarılı üretimi olarak raporlamayın.
 - Eylemleri `{id,label}` olarak tanımlayın. Kart düğmesinin eylemi kullanıcı tıklamasıyla `onAction` işleyicisine ulaşır. Widget, form ve tablo durum olayları programatik güncellemeden de gelebilir; callback kullanıcı yetkisinin kanıtı değildir. Olay sözleşmesinin tek kaynağı `docs/AGENT-CONTRACT.md` dosyasıdır. JSON içine işlev, HTML, URL veya çalıştırılabilir kod eklemeyin.
@@ -37,3 +37,5 @@ Onaylı Muhit logosu **3.1** sürümüdür. Ana dosya `assets/brand/muhit-logo.s
 `MuhitForm` için `schemas/form.schema.json` ve `docs/FORMS.md` kullanın. 1.1.0 şemasında form, datagrid ve plot türleri de kullanılabilir. Kayıt callback’i yoksa veri kaydedilmiş sayılmaz. `MuhitPreferences` yalnız açık save çağrısıyla yerel tema tercihlerini saklar; kişisel form verilerini bu depoya koymayın.
 
 0.9: schemas/capabilities.json güncel yetenek kaynağıdır; docs/COVERAGE.md bu kaynaktan üretilir. Yeni form bağlantıları docs/ADVANCED-FORMS.md içinde. Grid locale mount seçeneğidir; dil değişiminde getView/restoreView kullanın. Uzak CSV kapsamını açıkça belirtin.
+
+İkon standardı: docs/ICONS.md ve schemas/icons.json. Sayfa standardı: docs/PAGE-STANDARDS.md, schemas/pages.json ve schemas/page.schema.json. Yeni sayfalarda izinli ikon adlarını ve altı yerleşim tarifini kullanın. Bunlar mevcut 18 agent bileşen türünü değiştirmez.

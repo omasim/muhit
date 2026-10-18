@@ -69,7 +69,7 @@
 }
 .mh-page__body {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(180px, 1fr);
+  grid-template-columns: repeat(12,minmax(0,1fr));
   gap: var(--mh-layout-gap);
 }
 .mh-page__main,
@@ -87,8 +87,8 @@
   margin-bottom: var(--mh-layout-gap);
 }
 .mh-page__aside {
-  border-left: 1px solid var(--mh-border);
-  padding-left: var(--mh-layout-gap);
+  border-inline-start: 1px solid var(--mh-border);
+  padding-inline-start: var(--mh-layout-gap);
 }
 .mh-page__empty {
   padding: 32px;
@@ -130,9 +130,9 @@
     grid-template-columns: 1fr;
   }
   .mh-page__aside {
-    border-left: 0;
+    border-inline-start: 0;
     border-top: 1px solid var(--mh-border);
-    padding-left: 0;
+    padding-inline-start: 0;
     padding-top: var(--mh-layout-gap);
   }
   .mh-page__header {
@@ -279,7 +279,7 @@
 .mh-stack > * { min-width: 0; }
 .mh-data-grid input[type=checkbox] { flex: none; }
 .mh-data-grid :is(th,td), .mh-data-grid caption { text-align: start; }
-.mh-page__aside { border-left: 0; padding-left: 0; border-inline-start: 1px solid var(--mh-border); padding-inline-start: var(--mh-layout-gap); }
+.mh-page__aside { border-inline-start: 0; padding-inline-start: 0; border-inline-start: 1px solid var(--mh-border); padding-inline-start: var(--mh-layout-gap); }
 .mh-stack { align-content: start; }
 .mh-plot table { width:100%; border-collapse:collapse; }
 .mh-plot :is(th,td) { padding:12px 16px; text-align:start; border-bottom:1px solid var(--mh-border); }
@@ -305,3 +305,9 @@
 .mh-scope .mh-grid-check {display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;cursor:pointer;}
 .mh-scope .mh-data-grid .mh-grid-check input[type=checkbox] {min-width:24px;min-height:24px;width:24px;height:24px;cursor:pointer;margin:0;}
 .mh-scope .mh-grid-columns .mh-check {min-height:44px;}
+
+.mh-page__main {grid-column:span 8}
+.mh-page__aside {grid-column:span 4}
+.mh-page__header {flex-wrap:wrap}
+@media(max-width:1199px){.mh-page__body{grid-template-columns:repeat(8,minmax(0,1fr))}.mh-page__main,.mh-page__aside{grid-column:span 8}.mh-page__aside{border-inline-start:0;border-block-start:1px solid var(--mh-border);padding-inline-start:0;padding-block-start:var(--mh-layout-gap)}}
+@media(max-width:767px){.mh-page__body{grid-template-columns:repeat(4,minmax(0,1fr))}.mh-page__main,.mh-page__aside{grid-column:span 4}}

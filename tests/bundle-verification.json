@@ -1,6 +1,6 @@
 {
   "forms": {
-    "bytes": 17152,
+    "bytes": 17477,
     "inputs": [
       "esm/i18n.mjs",
       "esm/forms.mjs",
@@ -17,10 +17,11 @@
     ]
   },
   "data-grid": {
-    "bytes": 24824,
+    "bytes": 31631,
     "inputs": [
       "esm/i18n.mjs",
       "esm/csv.mjs",
+      "esm/icons.mjs",
       "esm/data-grid.mjs",
       "<stdin>"
     ]

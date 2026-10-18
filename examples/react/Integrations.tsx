@@ -12,6 +12,7 @@ export function Integrations() {
   const [values, setValues] = useState({ name: "Ada" }),
     [saved, setSaved] = useState(""),
     [visible, setVisible] = useState(true);
+  const [baseline,setBaseline]=useState({name:"Ada"});
   const [locale,setLocale]=useState("tr");
   const currentForm=useRef<FormInstance|null>(null);
   const [dirty,setDirty]=useState(false);
@@ -48,12 +49,14 @@ export function Integrations() {
       </button>
       <button onClick={()=>setLocale(v=>v==="tr"?"en":"tr")}>Form dilini değiştir</button>
       <button onClick={()=>setDirty(currentForm.current?.isDirty() ?? false)}>Değişiklik durumunu kontrol et</button>
+      <button onClick={()=>setBaseline({name:"New baseline"})}>Başlangıç değerini değiştir</button>
       <output data-testid="dirty">{String(dirty)}</output>
       {visible ? (
         <MuhitForm
           locale={locale}
           title={locale==="tr"?"Bilgiler":"Details"}
           onReady={instance=>{currentForm.current=instance}}
+          baseline={baseline}
           fields={fields}
           values={values}
           onSubmit={async (values, signal) => {

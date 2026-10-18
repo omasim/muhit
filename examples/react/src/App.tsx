@@ -2,6 +2,7 @@ import { Integrations } from "../Integrations";
 import { useState } from "react";
 import { MuhitTheme, type DataColumn, type DataRow } from "muhit-ui";
 import { MuhitGrid } from "../MuhitGrid";
+const selected = ["a"];
 const baseColumns: DataColumn[] = [
   { key: "name", label: "Kaynak" },
   { key: "count", label: "Adet", type: "number" },
@@ -15,15 +16,19 @@ const initialRows: DataRow[] = [
   { id: "b", name: "Görüşme", count: 2, date: null },
 ];
 export default function App() {
+  const [title,setTitle]=useState("Resources");
+  const [ready,setReady]=useState("");
   const [rows, setRows] = useState(initialRows),
     [visible, setVisible] = useState(true),
     [dated, setDated] = useState(false),
     [dark, setDark] = useState(false);
   return (
-    <main className="mh-scope demo-app">
-      <p>React · Muhit entegrasyonu · Örnek veri</p>
+    <main className="mh-scope demo-app mh-content" id="main" tabIndex={-1} data-page-recipe="collection" data-width="standard">
+      <a className="mh-skip" href="#main">İçeriğe geç</a><p>React · Muhit entegrasyonu · Örnek veri</p>
       <h1>Ortak kaynaklar</h1>
       <div className="demo-actions">
+        <button onClick={()=>setTitle(v=>v+"!")}>Tablo başlığını değiştir</button>
+        <output data-testid="ready-selection">{ready}</output>
         <button
           onClick={() =>
             setRows((current) =>
@@ -67,7 +72,7 @@ export default function App() {
         </button>
       </div>
       {visible ? (
-        <MuhitGrid columns={dated ? datedColumns : baseColumns} rows={rows} />
+        <MuhitGrid title={title} selectable selected={selected} onReady={g=>setReady(g.getSelected().join(","))} columns={dated ? datedColumns : baseColumns} rows={rows} />
       ) : (
         <p role="status">Tablo kaldırıldı.</p>
       )}

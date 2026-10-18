@@ -63,7 +63,7 @@
   height: 20px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.5;
+  stroke-width: 1.75;
   stroke-linecap: round;
   stroke-linejoin: round;
   flex-shrink: 0;
@@ -279,8 +279,8 @@
   color: var(--mh-danger);
 }
 .mh-badge .mh-icon {
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
 }
 .mh-avatar {
   display: inline-grid;
@@ -489,8 +489,8 @@
   color: var(--mh-muted);
 }
 .mh-empty .mh-icon {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
 }
 .mh-skeleton {
   background: var(--mh-border);
@@ -679,3 +679,11 @@
   border-radius: var(--mh-radius-md);
   min-width: 0;
 }
+
+.mh-symbol { flex-shrink:0; vertical-align:middle; }
+
+.mh-symbol[data-icon-direction="auto"]:is([data-icon="arrow-forward"],[data-icon="arrow-back"],[data-icon="chevron-forward"]):dir(rtl){transform:scaleX(-1)}
+/* Selection belongs to the control, not a second filled icon family. */
+.mh-scope .mh-button--icon[aria-pressed="true"] {background:var(--mh-accent-soft);color:var(--mh-link);border-color:currentColor;box-shadow:inset 0 0 0 1px currentColor;}
+
+.mh-scope .mh-symbol:not([data-icon-stroke]) {stroke-width:var(--mh-icon-weight,1.75);}

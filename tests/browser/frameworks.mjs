@@ -168,6 +168,11 @@ try {
         await page.locator(".mh-data-grid tbody tr").first().waitFor();
         assert.equal(await page.locator(".mh-data-grid").count(), 1);
         assert.equal(await page.locator("tbody tr").count(), 2);
+        await page.locator('tbody tr').nth(1).getByRole('checkbox').check();
+        await page.getByRole('button',{name:'Tablo başlığını değiştir'}).click();
+        assert.equal(await page.getByTestId('ready-selection').textContent(),'a');
+        assert.equal(await page.locator('tbody tr').nth(1).getByRole('checkbox').isChecked(),false);
+
         await page.getByRole("button", { name: "Veriyi güncelle" }).click();
         await page.waitForFunction(() =>
           document.querySelector("tbody")?.textContent.includes("24"),
@@ -248,6 +253,9 @@ try {
         assert.equal(await page.getByLabel("Adınız *").inputValue(), "Deniz");
         await page.getByRole("button", { name: "Kaydet", exact: true }).click();
         await page.getByText("Örnek kayıt: Deniz", { exact: true }).waitFor();
+        await page.getByRole('button',{name:'Başlangıç değerini değiştir'}).click();
+        await page.getByRole('button',{name:'Sıfırla',exact:true}).click();
+        assert.equal(await page.getByLabel('Adınız *').inputValue(),'New baseline');
         await page.getByRole("button", { name: "Formu kaldır" }).click();
         assert.equal(await page.locator(".mh-form").count(), 0);
         await page.getByRole("button", { name: "Formu aç" }).click();

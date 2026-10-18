@@ -53,9 +53,21 @@ try {
   await p.goto(url + "/examples/advanced.html");
   await p.addScriptTag({path:path.join(root,"node_modules/axe-core/axe.min.js")});
   const result = await p.evaluate(async () => {
-    const {MuhitDataGrid:G,MuhitForm:F,MuhitFields:Fields}=await import('/src/index.mjs');
+    const {MuhitDataGrid:G,MuhitForm:F,MuhitFields:Fields,MuhitWidgets:W}=await import('/src/index.mjs');
     const host=document.createElement('div');document.body.append(host);
     const check=(x,m)=>{if(!x)throw Error(m)};
+    const labels=['A → B','10 × 20','✓','مرحبا ← عالم'];
+    for (const locale of ['tr','en','de','ar']) {
+      const tabs={type:'tabs',id:'labels',title:'Labels',items:labels.map((label,i)=>({id:'x'+i,label,content:'Content'}))};
+      const widget=W.mount(host,tabs,{locale,headingLevel:2});
+      check(JSON.stringify([...host.querySelectorAll('[role=tab]')].map(n=>n.textContent))===JSON.stringify(labels),'literal user labels '+locale);
+      check(host.querySelector('h2')?.textContent==='Labels','heading level');
+      const before=host.firstChild;let rejected=false;
+      try { W.mount(host,tabs,{headingLevel:5}); } catch { rejected=true; }
+      check(rejected && host.firstChild===before,'invalid heading atomic');widget.destroy();
+    }
+    const timeline=W.mount(host,{type:'timeline',id:'headings',title:'Timeline',items:[{id:'one',title:'Step',description:'Details',state:'complete'}]},{headingLevel:2});
+    check(host.querySelector('h3')?.textContent==='Step','relative child heading');timeline.destroy();
     let mode='ok', release;
     const grid=G.mount(host,{selectable:true,columns:[{key:'name',label:'Name'}],load:async()=>{
       if(mode==='error')throw Error('offline');

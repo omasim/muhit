@@ -7,6 +7,7 @@ export function MuhitForm(props: MuhitFormProps) {
   const host = useRef<HTMLDivElement>(null),
     form = useRef<FormInstance | null>(null),
     latest = useRef(props),
+    previousBaseline = useRef(props.baseline),
     draft = useRef<ReturnType<FormInstance["getSnapshot"]> | null>(null);
   useEffect(() => {
     latest.current = props;
@@ -14,7 +15,8 @@ export function MuhitForm(props: MuhitFormProps) {
   useEffect(() => {
     if (!host.current) return;
     const p = latest.current;
-    let baseline = draft.current?.baseline ?? p.baseline;
+    let baseline = previousBaseline.current !== p.baseline
+      ? p.baseline : draft.current?.baseline ?? p.baseline;
     let values = draft.current?.values || p.values;
     try {
       Forms.normalizeValues(p.fields, values);
@@ -38,6 +40,7 @@ export function MuhitForm(props: MuhitFormProps) {
         ? (v, s) => latest.current.validateAsync?.(v, s) || Promise.resolve({})
         : undefined,
     });
+    previousBaseline.current = p.baseline;
     form.current = instance;
     p.onReady?.(instance);
     return () => {
@@ -47,6 +50,7 @@ export function MuhitForm(props: MuhitFormProps) {
     };
   }, [
     props.fields,
+    props.baseline,
     props.locale,
     props.dir,
     props.messages,

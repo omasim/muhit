@@ -183,6 +183,9 @@
       language
         ? language.text(text, undefined, params)
         : text.replace(/\{(\w+)\}/g, (_, k) => String(params?.[k] ?? ""));
+    const headingLevel = options.headingLevel ?? 3;
+    if (![1, 2, 3, 4].includes(headingLevel))
+      throw new TypeError("headingLevel must be 1, 2, 3 or 4.");
     const initial = checked(spec);
     if (typeof document === "undefined")
       throw new Error("mount için DOM gerekli.");
@@ -222,17 +225,18 @@
       root.dir = options.dir || language?.dir || "ltr";
       root.dataset.widget = s.type;
       root.dataset.widgetId = s.id;
-      const heading = el("h3", "mh-widget-title", s.title);
+      const heading = el("h" + headingLevel, "mh-widget-title", s.title);
       heading.id = prefix + "-title";
       root.setAttribute("aria-labelledby", heading.id);
       root.append(heading);
-      const button = (label, primary = false) => {
+      const button = (label, primary = false, mark = null) => {
         const b = el(
           "button",
           "mh-button" + (primary ? " mh-button--primary" : ""),
           label,
         );
         b.type = "button";
+        if (mark) b.prepend(g.MuhitIcons.mount(b, mark, {size:20,dir:root.dir}).element);
         return b;
       };
       const status = () => {
@@ -243,8 +247,8 @@
       const dialog = (cls, title) => {
         const d = el("dialog", "mh-dialog " + cls);
         const content = el("div", "mh-dialog__content"),
-          h = el("h3", "mh-dialog__title", title),
-          close = button(t("Kapat ×"));
+          h = el("h" + headingLevel, "mh-dialog__title", title),
+          close = button(t("Kapat ×").replace(/ ×$/, ""), false, "close");
         h.id = prefix + "-dialog-title";
         d.setAttribute("aria-labelledby", h.id);
         close.classList.add("mh-dialog__close");
@@ -333,15 +337,9 @@
         s.items.forEach((item) => {
           const li = el("li", "mh-timeline-item");
           li.dataset.state = item.state || "planned";
-          const marker = el(
-            "span",
-            "mh-timeline-marker",
-            item.state === "complete"
-              ? "✓"
-              : item.state === "active"
-                ? "●"
-                : "○",
-          );
+          const marker = el('span','mh-timeline-marker');
+          g.MuhitIcons.mount(marker, {complete:'check',active:'spark',planned:'clock'}[item.state||'planned'], {size:16});
+          marker.setAttribute('role','img');
           marker.setAttribute(
             "aria-label",
             {
@@ -351,7 +349,7 @@
             }[item.state || "planned"],
           );
           const body = el("div");
-          body.append(el("h4", "", item.title));
+          body.append(el("h" + (headingLevel + 1), "", item.title));
           if (item.description)
             body.append(el("p", "mh-muted", item.description));
           if (item.time) body.append(el("span", "mh-timeline-time", item.time));
@@ -438,7 +436,7 @@
             lane.dataset.lane = col.id;
             const rows = value.filter((x) => x.column === col.id);
             lane.append(
-              el("h4", "mh-kanban-heading", col.title + " · " + rows.length),
+              el("h" + (headingLevel + 1), "mh-kanban-heading", col.title + " · " + rows.length),
             );
             if (!rows.length)
               lane.append(
@@ -446,7 +444,7 @@
               );
             rows.forEach((item) => {
               const card = el("article", "mh-kanban-card");
-              card.append(el("h5", "", item.title));
+              card.append(el("h" + (headingLevel + 2), "", item.title));
               if (item.description)
                 card.append(el("p", "mh-muted", item.description));
               if (item.tag) card.append(el("span", "mh-badge", item.tag));
@@ -567,7 +565,7 @@
         root.append(group);
       } else if (s.type === "command") {
         value = null;
-        const open = button(t("Komut ara ⌕"));
+        const open = button(t("Komut ara"), false, "search");
         root.append(open);
         const [d, body] = dialog("mh-command-dialog", s.title);
         const input = el("input", "mh-input");
@@ -643,13 +641,13 @@
         });
       } else if (s.type === "drawer") {
         value = null;
-        const open = button(t("Ayrıntıları aç ↗"));
+        const open = button(t("Ayrıntıları aç ↗").replace(/ ↗$/, ""), false, "external-link");
         root.append(open);
         const [d, body] = dialog("mh-drawer", s.title);
         if (s.description) body.append(el("p", "mh-muted", s.description));
         s.items.forEach((item) => {
           const card = el("article", "mh-drawer-item");
-          card.append(el("h4", "", item.title));
+          card.append(el("h" + (headingLevel + 1), "", item.title));
           if (item.description)
             card.append(el("p", "mh-muted", item.description));
           body.append(card);
@@ -674,8 +672,8 @@
         const list = el("ol", "mh-stepper"),
           description = el("p", "mh-step-description"),
           actions = el("div", "mh-row"),
-          prev = button(t("← Önceki")),
-          next = button(t("Sonraki →"), true),
+          prev = button(t("← Önceki").replace(/^← /, ""), false, "arrow-back"),
+          next = button(t("Sonraki →").replace(/ →$/, ""), true, "arrow-forward"),
           message = status();
         actions.append(prev, next);
         root.append(list, description, actions, message);
@@ -683,7 +681,7 @@
           list.replaceChildren();
           s.steps.forEach((step, i) => {
             const li = el("li"),
-              b = button((i < index ? "✓" : i + 1) + "  " + step.title);
+              b = button((i + 1) + "  " + step.title, false, i < index ? "check" : null);
             if (i === index) b.setAttribute("aria-current", "step");
             b.onclick = () => {
               change(i);
@@ -828,8 +826,8 @@
         const totalPages = Math.max(1, Math.ceil(s.total / s.pageSize)),
           nav = el("nav", "mh-pagination"),
           message = status(),
-          prev = button(t("← Önceki")),
-          next = button(t("Sonraki →")),
+          prev = button(t("← Önceki").replace(/^← /, ""), false, "arrow-back"),
+          next = button(t("Sonraki →").replace(/ →$/, ""), false, "arrow-forward"),
           indicator = el("span");
         nav.setAttribute("aria-label", s.title);
         nav.append(prev, indicator, next);

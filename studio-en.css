@@ -103,3 +103,10 @@ footer {
 }
 
 label.mh-button:focus-within {outline:3px solid var(--mh-focus);outline-offset:3px}
+
+/* Match the shared page and card region rhythm. */
+body > header,body > footer {max-width:1600px;padding:var(--mh-page-gutter)}
+.cards {grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--mh-region-gap)}
+.cards > * {grid-column:span 6}
+@media(max-width:1199px){.cards{grid-template-columns:repeat(8,minmax(0,1fr))}.cards > *{grid-column:span 4}}
+@media(max-width:767px){.cards{grid-template-columns:repeat(4,minmax(0,1fr))}.cards > *{grid-column:span 4}}

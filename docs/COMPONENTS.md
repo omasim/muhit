@@ -9,6 +9,7 @@ Muhit iki kullanım katmanı sunar: native HTML üzerine `mh-` sınıfları ve k
 <main class="mh-scope mh-stack" id="project-app">
   <!-- Bileşenler burada -->
 </main>
+<script src="./src/icons.js"></script>
 <script src="./src/components.js"></script>
 <script src="./src/table.js"></script>
 <script src="./src/charts.js"></script>

@@ -162,9 +162,10 @@ globalThis.MuhitStudioModel = Object.freeze({
     "enum": [
       1.25,
       1.5,
+      1.75,
       2
     ],
-    "default": 1.5
+    "default": 1.75
   },
   "accentIntensity": {
     "type": "string",

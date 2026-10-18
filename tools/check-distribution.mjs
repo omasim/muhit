@@ -23,6 +23,7 @@ for (const entry of [
   "plot-entry.css",
   "interactive-entry.css",
   "index.css",
+  "pages.css",
 ]) {
   const files = await scan("styles/" + entry);
   const fonts = new Set();

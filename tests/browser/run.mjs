@@ -48,7 +48,7 @@ try {
   const p = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   p.setDefaultTimeout(10000);
   const errors = [];
-  p.on("pageerror", (e) => errors.push(e.message));
+  p.on("pageerror", (e) => errors.push(e.stack));
   await p.goto(url + "/?component=cards#components");
   const ratio = await p.evaluate(() => {
     MuhitTheme.apply({ accent: "#FFFF00" });

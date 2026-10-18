@@ -3,6 +3,8 @@ import Integrations from "../Integrations.vue";
 import { ref, computed } from "vue";
 import { MuhitTheme, type DataColumn, type DataRow } from "muhit-ui";
 import MuhitGrid from "../MuhitGrid.vue";
+const selected=["a"];
+const title=ref("Resources"), ready=ref("");
 const baseColumns: DataColumn[] = [
   { key: "name", label: "Kaynak" },
   { key: "count", label: "Adet", type: "number" },
@@ -37,10 +39,12 @@ function theme() {
 }
 </script>
 <template>
-  <main class="mh-scope demo-app">
-    <p>Vue · Muhit entegrasyonu · Örnek veri</p>
+  <main class="mh-scope demo-app mh-content" id="main" tabindex="-1" data-page-recipe="collection" data-width="standard">
+    <a class="mh-skip" href="#main">İçeriğe geç</a><p>Vue · Muhit entegrasyonu · Örnek veri</p>
     <h1>Ortak kaynaklar</h1>
     <div class="demo-actions">
+      <button @click="title += '!'">Tablo başlığını değiştir</button>
+      <output data-testid="ready-selection">{{ready}}</output>
       <button @click="update">Veriyi güncelle</button
       ><button @click="add">Metin kaydı ekle</button
       ><button @click="dated = !dated">Sütunları değiştir</button
@@ -48,7 +52,7 @@ function theme() {
         {{ visible ? "Tabloyu kaldır" : "Tabloyu aç" }}</button
       ><button @click="theme">Temayı değiştir</button>
     </div>
-    <MuhitGrid v-if="visible" :columns="columns" :rows="rows" />
+    <MuhitGrid :title="title" selectable :selected="selected" :on-ready="g=>ready=g.getSelected().join(',')" v-if="visible" :columns="columns" :rows="rows" />
     <p v-else role="status">Tablo kaldırıldı.</p>
     <Integrations />
   </main>

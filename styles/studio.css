@@ -113,8 +113,8 @@ summary:focus-visible {
   white-space: nowrap;
 }
 .studio-nav a .mh-icon {
-  width: 17px;
-  height: 17px;
+  width: 20px;
+  height: 20px;
 }
 .studio-nav a:hover {
   background: var(--mh-surface-2);
@@ -222,8 +222,8 @@ summary:focus-visible {
   color: var(--mh-muted);
 }
 .topbar-actions .mh-icon {
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
 }
 .studio-shell main {
   max-width: 1500px;
@@ -589,8 +589,8 @@ summary:focus-visible {
 }
 .preview-brand .mh-icon {
   color: var(--mh-link);
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 .preview-avatar {
   border-radius: 50%;
@@ -628,8 +628,8 @@ summary:focus-visible {
   padding: 9px 12px;
 }
 .preview-welcome .mh-icon {
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
 }
 .preview-metrics {
   display: grid;
@@ -755,8 +755,8 @@ summary:focus-visible {
   line-height: 1.7;
 }
 .preview-footnote .mh-icon {
-  width: 13px;
-  height: 13px;
+  width: 16px;
+  height: 16px;
   margin-top: 2px;
 }
 .token-section {
@@ -1183,7 +1183,7 @@ summary:focus-visible {
     grid-column: span 2;
   }
 }
-@media (max-width: 850px) {
+@media (max-width: 1023px) {
   .studio-sidebar {
     position: relative;
     width: auto;
@@ -1217,8 +1217,8 @@ summary:focus-visible {
     display: none;
   }
   .studio-nav .mh-icon {
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
   }
   .studio-shell {
     margin-left: 0;
@@ -1431,7 +1431,7 @@ summary:focus-visible {
   padding: 6px 0;
   text-underline-offset: 4px;
 }
-@media (max-width: 850px) {
+@media (max-width: 1023px) {
   .wordmark {
     width: 145px;
   }
@@ -1446,3 +1446,15 @@ summary:focus-visible {
 /* Muhit identity: exact outline master, theme-aware color only. */
 .wordmark{display:block;line-height:0;width:170px;max-width:100%}.brand-lockup{display:block;width:100%;height:auto}.sidebar-caption{margin-left:46px}.brand-resource-link{display:block;margin:12px 12px 0;color:var(--mh-link);font-size:11px;min-height:32px;padding:6px 0;text-underline-offset:4px}@media(max-width:850px){.wordmark{width:145px}.brand-resource-link{display:none}}
 
+
+.mh-scope .studio-shell main.mh-content {max-width:1600px;padding:var(--mh-page-gutter)}
+@media(max-width:1023px){.studio-nav{flex-wrap:wrap;overflow:visible;margin-inline:0}.studio-shell{margin-inline-start:0}}
+
+.studio-nav a[aria-current="page"] .nav-number {color:inherit;opacity:1}
+/* Page Standard 1.0: inspector/context regions share the 12/8/4 grid. */
+@media(min-width:1024px){.studio-sidebar{width:240px;inset-inline-start:0;inset-inline-end:auto;border-right:0;border-inline-end:1px solid var(--mh-border)}.studio-shell{margin-left:0;margin-inline-start:240px}}
+.studio-grid,.agent-layout,.install-grid {display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--mh-region-gap)}
+.studio-grid > :first-child{grid-column:span 4;min-width:0}.studio-grid > :nth-child(2){grid-column:span 8;min-width:0}
+.agent-layout > *,.install-grid > *{grid-column:span 6;min-width:0}
+@media(max-width:1199px){.studio-grid,.agent-layout,.install-grid{grid-template-columns:repeat(8,minmax(0,1fr))}.studio-grid > *, .agent-layout > *, .install-grid > *{grid-column:span 8}}
+@media(max-width:767px){.studio-grid,.agent-layout,.install-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.studio-grid > *, .agent-layout > *, .install-grid > *{grid-column:span 4}}

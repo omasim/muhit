@@ -380,7 +380,8 @@
           page: 1,
         });
       th.dataset.column = c.key;
-      const resize = node("button", "mh-grid-resize", "↔");
+      const resize = node("button", "mh-grid-resize");
+      global.MuhitIcons.mount(resize, "resize-horizontal", {size:16});
       resize.setAttribute("role", "separator");
       resize.setAttribute("aria-orientation", "vertical");
       resize.setAttribute("aria-valuemin", "120");

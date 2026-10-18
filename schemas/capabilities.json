@@ -1,5 +1,5 @@
 {
-  "packageVersion": "0.11.0",
+  "packageVersion": "0.14.0",
   "themeSchema": 1,
   "agentSchema": "1.1.0",
   "agentComponentCount": 18,
@@ -79,6 +79,16 @@
       "id": "group-server-validation",
       "status": "implemented",
       "label": "Grup bazlı sunucu/async hata ve combobox native form bağlantısı"
+    },
+    {
+      "id": "icons-v1",
+      "label": "Muhit Icons 1.1: 58 SVG, katalog, erişilebilir API ve manifest",
+      "status": "implemented"
+    },
+    {
+      "id": "pages-v1",
+      "label": "Sayfa standardı 1.0: altı HTML/CSS tarifi, 12/8/4 ızgara ve kompozisyon şeması",
+      "status": "implemented"
     }
   ]
 }

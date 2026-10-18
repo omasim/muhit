@@ -23,6 +23,7 @@ Klasik betikler derleme gerektirmez. Temanın JavaScript olmadan kullanılan var
 <link rel="stylesheet" href="./styles/charts.css" />
 
 <main id="agent-view"></main>
+<script src="./src/icons.js"></script>
 <script src="./src/theme.js"></script>
 <script src="./src/table.js"></script>
 <script src="./src/charts.js"></script>

@@ -165,7 +165,7 @@ export interface ThemeConfig {
   lineHeight: 1.45 | 1.65 | 1.85;
   contentWidth: "focused" | "balanced" | "wide";
   borderWidth: 1 | 2;
-  iconWeight: 1.25 | 1.5 | 2;
+  iconWeight: 1.25 | 1.5 | 1.75 | 2;
   accentIntensity: "soft" | "balanced" | "vivid";
   chartPalette: "natural" | "contrast" | "mono";
 }
@@ -354,6 +354,8 @@ export const MuhitWidgets: Readonly<{
     host: Host,
     spec: WidgetSpec,
     options?: LocaleOptions & {
+      /** Root heading; nested headings use the next levels. Default 3. */
+      headingLevel?: 1 | 2 | 3 | 4;
       onAction?: (event: {
         type: string;
         componentId: string;
@@ -705,4 +707,11 @@ export const MuhitFields: Readonly<{
     submit(): Promise<void>;
     destroy(): void;
   };
+}>;
+
+export interface IconOptions { size?: 16 | 20 | 24 | 32; stroke?: 1.5 | 1.75 | 2; label?: string; dir?: 'ltr' | 'rtl'; }
+export const MuhitIcons: Readonly<{
+ names: readonly string[];
+ svg(name: string, options?: IconOptions): string;
+ mount(host: Host, name: string, options?: IconOptions): {element: SVGElement; destroy(): void};
 }>;

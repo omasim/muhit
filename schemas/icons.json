@@ -1,0 +1,369 @@
+{
+  "version": "1.1.0",
+  "name": "Muhit Icons",
+  "license": "MIT",
+  "grid": 24,
+  "safeArea": [
+    2,
+    2,
+    22,
+    22
+  ],
+  "stroke": 1.75,
+  "sizes": [
+    16,
+    20,
+    24,
+    32
+  ],
+  "icons": [
+    {
+      "name": "resize-horizontal",
+      "label": "Genişliği değiştir",
+      "category": "actions",
+      "directional": false
+    },
+    {
+      "name": "board",
+      "label": "Pano",
+      "category": "data",
+      "directional": false
+    },
+    {
+      "name": "cards",
+      "label": "Kartlar",
+      "category": "data",
+      "directional": false
+    },
+    {
+      "name": "form",
+      "label": "Form",
+      "category": "data",
+      "directional": false
+    },
+    {
+      "name": "bell",
+      "label": "Bildirim",
+      "category": "system",
+      "directional": false
+    },
+    {
+      "name": "layout",
+      "label": "Yerleşim",
+      "category": "navigation",
+      "directional": false
+    },
+    {
+      "name": "more",
+      "label": "Diğer işlemler",
+      "category": "actions",
+      "directional": false
+    },
+    {
+      "name": "clock",
+      "label": "Zaman",
+      "category": "system",
+      "directional": false
+    },
+    {
+      "name": "lock",
+      "label": "Kilit",
+      "category": "system",
+      "directional": false
+    },
+    {
+      "name": "chevron-forward",
+      "label": "İlerle",
+      "category": "navigation",
+      "directional": true
+    },
+    {
+      "label": "Ana sayfa",
+      "category": "navigation",
+      "directional": false,
+      "name": "home"
+    },
+    {
+      "label": "Genel bakış",
+      "category": "navigation",
+      "directional": false,
+      "name": "grid"
+    },
+    {
+      "label": "Menü",
+      "category": "navigation",
+      "directional": false,
+      "name": "menu"
+    },
+    {
+      "label": "Ara",
+      "category": "navigation",
+      "directional": false,
+      "name": "search"
+    },
+    {
+      "label": "İleri",
+      "category": "navigation",
+      "directional": true,
+      "name": "arrow-forward"
+    },
+    {
+      "label": "Geri",
+      "category": "navigation",
+      "directional": true,
+      "name": "arrow-back"
+    },
+    {
+      "label": "Aç",
+      "category": "navigation",
+      "directional": false,
+      "name": "chevron-down"
+    },
+    {
+      "label": "Dış bağlantı",
+      "category": "navigation",
+      "directional": false,
+      "name": "external-link"
+    },
+    {
+      "label": "Ekle",
+      "category": "actions",
+      "directional": false,
+      "name": "plus"
+    },
+    {
+      "label": "Azalt",
+      "category": "actions",
+      "directional": false,
+      "name": "minus"
+    },
+    {
+      "label": "Kapat",
+      "category": "actions",
+      "directional": false,
+      "name": "close"
+    },
+    {
+      "label": "Onayla",
+      "category": "actions",
+      "directional": false,
+      "name": "check"
+    },
+    {
+      "label": "Düzenle",
+      "category": "actions",
+      "directional": false,
+      "name": "edit"
+    },
+    {
+      "label": "Kopyala",
+      "category": "actions",
+      "directional": false,
+      "name": "copy"
+    },
+    {
+      "label": "İndir",
+      "category": "actions",
+      "directional": false,
+      "name": "download"
+    },
+    {
+      "label": "Yükle",
+      "category": "actions",
+      "directional": false,
+      "name": "upload"
+    },
+    {
+      "label": "Yenile",
+      "category": "actions",
+      "directional": false,
+      "name": "refresh"
+    },
+    {
+      "label": "Sil",
+      "category": "actions",
+      "directional": false,
+      "name": "trash"
+    },
+    {
+      "label": "Filtrele",
+      "category": "data",
+      "directional": false,
+      "name": "filter"
+    },
+    {
+      "label": "Sırala",
+      "category": "data",
+      "directional": false,
+      "name": "sort"
+    },
+    {
+      "label": "Tablo",
+      "category": "data",
+      "directional": false,
+      "name": "table"
+    },
+    {
+      "label": "Grafik",
+      "category": "data",
+      "directional": false,
+      "name": "chart"
+    },
+    {
+      "label": "Katmanlar",
+      "category": "data",
+      "directional": false,
+      "name": "layers"
+    },
+    {
+      "label": "Bağlantı",
+      "category": "data",
+      "directional": false,
+      "name": "link"
+    },
+    {
+      "label": "Belge",
+      "category": "knowledge",
+      "directional": false,
+      "name": "file"
+    },
+    {
+      "label": "Klasör",
+      "category": "knowledge",
+      "directional": false,
+      "name": "folder"
+    },
+    {
+      "label": "Bilgi",
+      "category": "knowledge",
+      "directional": false,
+      "name": "book"
+    },
+    {
+      "label": "Yer imi",
+      "category": "knowledge",
+      "directional": false,
+      "name": "bookmark"
+    },
+    {
+      "label": "Not",
+      "category": "knowledge",
+      "directional": false,
+      "name": "note"
+    },
+    {
+      "label": "Arşiv",
+      "category": "knowledge",
+      "directional": false,
+      "name": "archive"
+    },
+    {
+      "label": "Kişi",
+      "category": "people",
+      "directional": false,
+      "name": "person"
+    },
+    {
+      "label": "Ekip",
+      "category": "people",
+      "directional": false,
+      "name": "people"
+    },
+    {
+      "label": "Görüşme",
+      "category": "people",
+      "directional": false,
+      "name": "message"
+    },
+    {
+      "label": "Paylaş",
+      "category": "people",
+      "directional": false,
+      "name": "share"
+    },
+    {
+      "label": "Özen",
+      "category": "people",
+      "directional": false,
+      "name": "heart"
+    },
+    {
+      "label": "Erişilebilirlik",
+      "category": "people",
+      "directional": false,
+      "name": "accessibility"
+    },
+    {
+      "label": "Doğa",
+      "category": "nature",
+      "directional": false,
+      "name": "leaf"
+    },
+    {
+      "label": "Gelişim",
+      "category": "nature",
+      "directional": false,
+      "name": "sprout"
+    },
+    {
+      "label": "Aydınlık",
+      "category": "nature",
+      "directional": false,
+      "name": "sun"
+    },
+    {
+      "label": "Karanlık",
+      "category": "nature",
+      "directional": false,
+      "name": "moon"
+    },
+    {
+      "label": "Su",
+      "category": "nature",
+      "directional": false,
+      "name": "water"
+    },
+    {
+      "label": "Çevre",
+      "category": "nature",
+      "directional": false,
+      "name": "landscape"
+    },
+    {
+      "label": "Zekâ",
+      "category": "system",
+      "directional": false,
+      "name": "spark"
+    },
+    {
+      "label": "İlişkiler",
+      "category": "system",
+      "directional": false,
+      "name": "nodes"
+    },
+    {
+      "label": "Tercihler",
+      "category": "system",
+      "directional": false,
+      "name": "settings"
+    },
+    {
+      "label": "Güven",
+      "category": "system",
+      "directional": false,
+      "name": "shield"
+    },
+    {
+      "label": "Bilgi mesajı",
+      "category": "system",
+      "directional": false,
+      "name": "info"
+    },
+    {
+      "label": "Uyarı",
+      "category": "system",
+      "directional": false,
+      "name": "warning"
+    }
+  ]
+}

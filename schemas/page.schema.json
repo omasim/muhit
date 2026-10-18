@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Muhit Page Composition 1.0",
+  "description": "Composition metadata, not executable HTML. Does not extend agent component kinds.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "recipe",
+    "title"
+  ],
+  "properties": {
+    "version": {
+      "const": "1.0.0"
+    },
+    "recipe": {
+      "enum": [
+        "overview",
+        "collection",
+        "detail",
+        "settings",
+        "workspace",
+        "editorial"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "width": {
+      "enum": [
+        "standard",
+        "wide",
+        "reading"
+      ]
+    },
+    "dir": {
+      "enum": [
+        "ltr",
+        "rtl"
+      ]
+    },
+    "primaryActionId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{0,63}$"
+    }
+  }
+}
