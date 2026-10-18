@@ -1,3 +1,4 @@
+import {provenance} from './provenance.mjs';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {writeFile} from 'node:fs/promises';
 import path from 'node:path';
@@ -10,4 +11,4 @@ for(const [name,api]of [['forms','MuhitForm'],['plot','MuhitPlot'],['data-grid',
  const bytes=result.outputFiles[0].contents.length;if(bytes>35000)throw Error('35KB per-module JS budget exceeded: '+name);
  report[name]={bytes,inputs};
 }
-await writeFile(path.join(root,'tests/bundle-verification.json'),JSON.stringify(report,null,2)+'\n');console.log('PASS isolated module bundles',report);
+await writeFile(path.join(root,'tests/bundle-verification.json'),JSON.stringify({...report,provenance:await provenance()},null,2)+'\n');console.log('PASS isolated module bundles',report);

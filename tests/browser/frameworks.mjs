@@ -1,3 +1,4 @@
+import {provenance} from '../../tools/provenance.mjs';
 import assert from "node:assert/strict";
 import {
   mkdtemp,
@@ -20,6 +21,7 @@ const work = await realpath(
   await mkdtemp(path.join(tmpdir(), "muhit-frameworks-")),
 );
 const report = {
+  provenance: await provenance(),
   date: new Date().toISOString(),
   packageVersion: JSON.parse(
     await readFile(path.join(root, "package.json"), "utf8"),
@@ -299,6 +301,9 @@ try {
             "fonts",
             "form controlled update/save/remount",
             "widget tabs",
+            "title/columns/messages/provider/locale remount prop priority",
+            "baseline replacement and reset",
+            "in-flight submit cancellation on locale change",
             "no console/runtime errors",
           ],
         });

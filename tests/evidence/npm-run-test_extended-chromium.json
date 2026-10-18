@@ -1,0 +1,18 @@
+{
+  "version": "0.14.0",
+  "sourceSha256": "6f8500bc8148ee5ecd9a934dd0ea826dcd9f709a0226dd03b94dfb9e2be54b53",
+  "commit": "c7b085aa77f4555c1933257b8d29115117e4b7d4",
+  "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests",
+  "date": "2026-10-18T18:11:10.207Z",
+  "platform": "linux",
+  "node": "v22.23.3",
+  "command": [
+    "npm",
+    "run",
+    "test:extended"
+  ],
+  "exitCode": 0,
+  "sourceChanged": false,
+  "sourceSha256After": "6f8500bc8148ee5ecd9a934dd0ea826dcd9f709a0226dd03b94dfb9e2be54b53",
+  "finishedAt": "2026-10-18T18:11:12.445Z"
+}

@@ -1,4 +1,6 @@
-# Form ve tercih sistemi · 0.6.0
+# Form ve tercih sistemi
+
+Güncel sürüm ve doğrulama: [CURRENT.md](CURRENT.md).
 
 ## Form sözleşmesi
 

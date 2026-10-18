@@ -1,3 +1,5 @@
+> Tarihsel sürüm kaydıdır. Güncel kapsam ve kanıt: [CURRENT.md](CURRENT.md).
+
 # Muhit 0.9.0 · P1/P2 tamamlamaları
 
 P1: bölgesel dil devralma düzeltildi; tablo locale değişiminin sözleşmesi netleştirildi; sürümlü görünüm kaydı ve seçim geri yükleme eklendi; tıklanabilir checkbox hedefi 44 px oldu; ortak CSV kaçışı ve uzak kapsam sağlayıcısı eklendi.

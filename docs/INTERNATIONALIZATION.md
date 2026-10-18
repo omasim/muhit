@@ -1,4 +1,6 @@
-# Dil ve yön sözleşmesi · 0.8
+# Dil ve yön sözleşmesi
+
+Güncel sürüm ve doğrulama: [CURRENT.md](CURRENT.md).
 
 Türkçe varsayılandır. İngilizce etkileşim metinleri form, veri tablosu, widget, bildirim, proje tablosu ve grafik modüllerinde bulunur. Uygulamanın başlığı, alan adları, kayıtları, özel doğrulama/sunucu hataları otomatik çevrilmez; uygulama bunları seçilen dilde sağlar. Stüdyonun tasarım açıklamaları ve eski demo rehberleri Türkçe içeriktir.
 

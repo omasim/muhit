@@ -1,0 +1,9 @@
+
+> muhit-ui@0.14.0 test:release
+> npm run build:modules && node tests/browser/release09.mjs
+
+
+> muhit-ui@0.14.0 build:modules
+> node tools/build-modules.mjs
+
+PASS chromium: P1 locale contract, view restore, selection, CSV scope and 44px targets

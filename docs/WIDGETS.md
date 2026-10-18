@@ -1,4 +1,6 @@
-# Etkileşim bileşenleri · 0.3.0
+# Etkileşim bileşenleri
+
+Güncel sürüm ve doğrulama: [CURRENT.md](CURRENT.md).
 
 MuhitWidgets, framework gerektirmeyen 10 bileşeni tek bir yaşam döngüsüyle sunar. Aynı tanımlar MuhitAgent içinde de kullanılabilir. Yapılandırmalar JSON verisidir; metinler textContent ile gösterilir.
 
@@ -62,3 +64,7 @@ MuhitAgent.render(container, {
 ```
 
 Agent çıktısında keyfi HTML, stil, URL veya JavaScript kabul edilmez. MuhitAgent bir model çalıştırmaz. Modeliniz tanımı üretir; uygulamanız doğrular, render eder ve olayları yetkili iş mantığına bağlar.
+
+## Başlık ve etiketler
+
+`mount(host, spec, {headingLevel: 2})` kökte h2, alt bölümlerde h3/h4 üretir. 1–4 kabul edilir; varsayılan 3. Hatalı seçenek DOM değişmeden reddedilir. Kullanıcı metnindeki matematik/yön işaretleri aynen korunur; simge metinden türetilmez.

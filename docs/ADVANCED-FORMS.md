@@ -1,4 +1,6 @@
-# Gelişmiş form bağlantıları · 0.9
+# Gelişmiş form bağlantıları
+
+Güncel sürüm ve doğrulama: [CURRENT.md](CURRENT.md).
 
 `MuhitForm.mount` artık `validateAsync(values, signal)` ve `validationDelay` (varsayılan 300 ms) alır. Sonuç alan adı → hata metni nesnesidir. Input değişiminde önceki istek iptal edilir; sağlayıcı iptali dikkate almasa bile eski yanıt uygulanmaz. Reset, setValues ve destroy bekleyen doğrulamayı iptal eder. Kaydetme öncesi uzak doğrulama yeniden yapılır; hatalı değer submit callback'ine gönderilmez. Sunucu hataları ve asenkron doğrulama uygulamanın dilinde sağlanmalıdır.
 

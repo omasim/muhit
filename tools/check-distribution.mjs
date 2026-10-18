@@ -1,3 +1,4 @@
+import {provenance} from './provenance.mjs';
 import { readFile, writeFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -54,6 +55,6 @@ for (const entry of [
 }
 await writeFile(
   path.join(root, "tests/distribution-verification.json"),
-  JSON.stringify(report, null, 2) + "\n",
+  JSON.stringify({...report,provenance:await provenance()}, null, 2) + "\n",
 );
 console.log("PASS CSS/font/request budgets", report);

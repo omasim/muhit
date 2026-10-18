@@ -2,7 +2,7 @@
 
 ## React ve Vue
 
-`examples/react` ve `examples/vue` desteklenen referans adaptörlerdir; ayrı resmi React/Vue paketleri değildir. Çekirdek sürümüyle birlikte kopyalayın ve kendi uygulamanızda test edin. Test matrisi React 19.2, Vue 3.5, Vite 7; geliştirme, üretim ve SSR/hydration. SSR uygulama kabuğunu üretir; interaktif Muhit içeriği istemcide mount edilir.
+`examples/react` ve `examples/vue` desteklenen referans adaptörlerdir; ayrı resmi React/Vue paketleri değildir. Çekirdek sürümüyle birlikte kopyalayın ve kendi uygulamanızda test edin. Test matrisi React 19.2, Vue 3.5, Vite 7; geliştirme, üretim ve SSR/hydration. Beş remount tetikleyicisi × altı kipte seçim/filtre/sütun düzeni; form baseline değişimi ve dil değişirken devam eden kaydın iptali test edilir. SSR uygulama kabuğunu üretir; interaktif Muhit içeriği istemcide mount edilir.
 
 Grid: columns, load, exportRows, locale, dir, messages, selectable, title ve description değişince yeniden kurulur. Snapshot, kullanıcı durumunu taşır. Açık `state`, `columnLayout`, `selected` prop'ları snapshot'tan önceliklidir; onReady bu son durumu görür. Verilmeyen değerler snapshot'tan korunur. Props iki yönlü otomatik bağlama değildir: sürekli uygulama kontrolü için onStateChange/onSelectionChange/onColumnLayoutChange olaylarını uygulama deposuna yansıtın. Sabit dizi/fonksiyon kimlikleri gereksiz yeniden kurulumları önler.
 

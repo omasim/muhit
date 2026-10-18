@@ -1,3 +1,5 @@
+> Tarihsel sürüm kaydıdır. Güncel kapsam ve kanıt: [CURRENT.md](CURRENT.md).
+
 # 0.11.0 — üretim hazırlığı düzeltmeleri
 
 18 Ekim 2026. Bu kayıt 0.10.0 değerlendirmesindeki P1/P2 maddelerini izler.

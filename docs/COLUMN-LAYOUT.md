@@ -1,4 +1,6 @@
-# İleri sütun işlemleri · 0.8
+# İleri sütun işlemleri
+
+Güncel sürüm ve doğrulama: [CURRENT.md](CURRENT.md).
 
 DataGrid sütun genişliğini, sırasını ve mantıksal başlangıç/son sabitlemesini destekler. Sütunlar menüsünden görünürlük, sırada öne/arkaya taşıma ve sabitleme yönetilir. Başlıktaki **Taşı** düğmesi sürüklenebilir; tıklanınca klavyeyle kullanılabilen sıra seçeneklerine gider. Aynı sabitleme grubu içindeki sıralama korunur; bir sütun başka grubun üzerine bırakılırsa hedef grubuna taşınır.
 

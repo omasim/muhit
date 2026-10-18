@@ -1,3 +1,5 @@
+> Tarihsel sürüm kaydıdır. Güncel kapsam ve kanıt: [CURRENT.md](CURRENT.md).
+
 # Muhit UI 0.8.0
 
 - DataGrid: klavye ve pointer ile genişlik, sürükleme ve düğmelerle sıralama, başlangıç/son sabitleme, doğrulanan düzen snapshot'ı ve callback.

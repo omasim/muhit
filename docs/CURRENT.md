@@ -15,7 +15,16 @@ Bu sayfa güncel sürümün tek doğrulama girişidir. Önceki sürümlerin rapo
 
 Güncel koşu sonuçları `tests/evidence/` altında komut, tarih, kaynak SHA-256, mevcutsa Git commit, çıkış kodu ve tam log ile kaydedilir. Kaynak parmak izi hesaplama kapsamı raporda yazılıdır; tüm arşivin hash'i değildir. Yayın arşivlerinin ayrı SHA256SUMS dosyası vardır. `tools/record-test.mjs` ile çalıştırılmayan tarihsel raporlar yeni kanıt sayılmaz.
 
-Yerel tarayıcı başlatımı bu oturumun işletim sistemi kısıtına takıldı. Tarayıcı kabulü GitHub CI üzerinden yürütülüyor; nihai sonuçlar bu sayfaya eklenecek. Başarısız/bekleyen koşular geçti olarak işaretlenmez.
+18 Ekim 2026: [üç tarayıcılı CI başarılı](https://github.com/omasim/muhit/actions/runs/39152881655), commit `c7b085aa77f4555c1933257b8d29115117e4b7d4`. Doğrulanan kaynak SHA-256: `6f8500bc8148ee5ecd9a934dd0ea826dcd9f709a0226dd03b94dfb9e2be54b53`.
+
+- 70 birim testi; 17 paket tip girişi (NodeNext/Bundler).
+- Chromium, Firefox, WebKit: her birinde 96 sayfa/görünüm ve 21 temel sayfa kontrolü; davranış, ölçek, erişilebilirlik ve üretim regresyonları.
+- React/Vue: paketlenmiş TGZ ile geliştirme, üretim ve SSR/hydration; 30 yeniden kurulum kombinasyonu; baseline ve iptal edilen kayıt kontrolleri.
+- Katı CSP/Trusted Types tüketici testi; host CSS ve yaşam döngüsü/odak kontrolü.
+- Linux Chromium: 14 görsel referans normal karşılaştırmayla geçti. Eşik değiştirilmedi.
+- DataGrid 31.891, Forms 17.477, Plot 11.206 bayt; her biri 35 KB bütçesinin altında. Logo 3.1 kontrolü geçti.
+
+Yerel tarayıcı başlatımı işletim sistemi kısıtına takıldığı için tarayıcı sonuçları Linux CI'ya aittir; bu tur macOS tarayıcı başarısı iddia edilmez. Sürüm paketinin PROVENANCE.json dosyası paketlenen commit'i, SHA256SUMS dosyası arşiv bütünlüğünü belirtir. Sonraki belge/rapor commit'leri aynı kaynak parmak izini korur.
 
 ## Açık kabul
 

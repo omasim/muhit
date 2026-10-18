@@ -1,3 +1,5 @@
+> Tarihsel sürüm kaydıdır. Güncel kapsam ve kanıt: [CURRENT.md](CURRENT.md).
+
 # Muhit 0.12 · ikon ve sayfa temelleri doğrulaması
 
 Tarih: 18 Ekim 2026. Bu kayıt yerel 0.12.0 paketi içindir; uzak CI veya npm yayını sonucu değildir.

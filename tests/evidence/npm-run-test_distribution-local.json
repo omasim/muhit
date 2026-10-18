@@ -3,7 +3,7 @@
   "sourceSha256": "6f8500bc8148ee5ecd9a934dd0ea826dcd9f709a0226dd03b94dfb9e2be54b53",
   "commit": null,
   "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests",
-  "date": "2026-10-18T18:07:01.714Z",
+  "date": "2026-10-18T18:12:48.987Z",
   "platform": "darwin",
   "node": "v25.9.0",
   "command": [
@@ -14,5 +14,5 @@
   "exitCode": 0,
   "sourceChanged": false,
   "sourceSha256After": "6f8500bc8148ee5ecd9a934dd0ea826dcd9f709a0226dd03b94dfb9e2be54b53",
-  "finishedAt": "2026-10-18T18:07:02.030Z"
+  "finishedAt": "2026-10-18T18:12:49.247Z"
 }

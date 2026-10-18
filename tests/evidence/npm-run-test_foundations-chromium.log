@@ -1,0 +1,9 @@
+
+> muhit-ui@0.14.0 test:foundations
+> npm run build:modules && node tests/browser/foundations.mjs
+
+
+> muhit-ui@0.14.0 build:modules
+> node tools/build-modules.mjs
+
+PASS 21 page/viewport combinations, light/dark RTL axe, skip link, icon search/download, grid search and form save
