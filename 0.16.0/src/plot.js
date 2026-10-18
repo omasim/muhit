@@ -1,0 +1,344 @@
+/* Generic, unit-labelled charts with an equivalent accessible data table. */
+(function (global) {
+  "use strict";
+  const instances = new WeakMap();
+  function normalize(input) {
+    function inspect(v, depth = 0) {
+      if (depth > 8) throw new TypeError("Chart nesting limit.");
+      if (
+        v === null ||
+        typeof v === "string" ||
+        typeof v === "boolean" ||
+        (typeof v === "number" && Number.isFinite(v))
+      )
+        return;
+      if (!v || typeof v !== "object")
+        throw new TypeError("JSON chart data required.");
+      if (
+        !Array.isArray(v) &&
+        ![Object.prototype, null].includes(Object.getPrototypeOf(v))
+      )
+        throw new TypeError("Plain chart data required.");
+      for (const [key, d] of Object.entries(
+        Object.getOwnPropertyDescriptors(v),
+      )) {
+        if (
+          !("value" in d) ||
+          ["__proto__", "constructor", "prototype"].includes(key)
+        )
+          throw new TypeError("Unsafe chart data.");
+        inspect(d.value, depth + 1);
+      }
+    }
+    inspect(input);
+    const d = JSON.parse(JSON.stringify(input));
+    if (
+      !d ||
+      Array.isArray(d) ||
+      Object.keys(d).some(
+        (k) =>
+          ![
+            "title",
+            "description",
+            "unit",
+            "labels",
+            "series",
+            "kind",
+            "locale",
+          ].includes(k),
+      )
+    )
+      throw new TypeError("Invalid plot definition.");
+    if (
+      typeof d.title !== "string" ||
+      !d.title.trim() ||
+      typeof d.unit !== "string" ||
+      !d.unit.trim()
+    )
+      throw new TypeError("Title and unit required.");
+    if (d.description !== undefined && typeof d.description !== "string")
+      throw new TypeError("Description must be text.");
+    d.kind ??= "line";
+    d.locale ??= global.MuhitI18n?.getLocale() || "tr-TR";
+    if (!["line", "bar"].includes(d.kind) || typeof d.locale !== "string")
+      throw new TypeError("Invalid plot options.");
+    new Intl.NumberFormat(d.locale);
+    if (
+      !Array.isArray(d.labels) ||
+      d.labels.length > 200 ||
+      d.labels.some((x) => typeof x !== "string")
+    )
+      throw new TypeError("Up to 200 text labels required.");
+    if (!Array.isArray(d.series) || !d.series.length || d.series.length > 6)
+      throw new TypeError("1–6 series required.");
+    const ids = new Set();
+    for (const s of d.series) {
+      if (
+        !s ||
+        Object.keys(s).some((k) => !["id", "label", "values"].includes(k)) ||
+        typeof s.id !== "string" ||
+        !s.id ||
+        ids.has(s.id) ||
+        typeof s.label !== "string" ||
+        !s.label.trim() ||
+        !Array.isArray(s.values) ||
+        s.values.length !== d.labels.length ||
+        s.values.some(
+          (v) =>
+            v !== null &&
+            (typeof v !== "number" ||
+              !Number.isFinite(v) ||
+              Math.abs(v) > 1e12),
+        )
+      )
+        throw new TypeError(
+          "Invalid series. Values must match labels; missing values use null.",
+        );
+      ids.add(s.id);
+    }
+    return d;
+  }
+  function csv(input) {
+    const d = normalize(input),
+      cell =
+        global.MuhitCSV?.cell ||
+        ((v) =>
+          '"' +
+          String(v ?? "")
+            .replace(/^[\s\u0000-\u001f\u007f\uFEFF]*[=+@\-]/, "'$&")
+            .replaceAll('"', '""') +
+          '"');
+    return (
+      "\uFEFF" +
+      [
+        [d.unit, ...d.series.map((s) => s.label)],
+        ...d.labels.map((x, i) => [x, ...d.series.map((s) => s.values[i])]),
+      ]
+        .map((row) => row.map(cell).join(","))
+        .join("\r\n")
+    );
+  }
+  function mount(target, input) {
+    let data = normalize(input);
+    const host =
+      typeof target === "string" ? document.querySelector(target) : target;
+    if (!host?.ownerDocument) throw new TypeError("Plot host required.");
+    const doc = host.ownerDocument,
+      root = doc.createElement("section");
+    root.className = "mh-scope mh-panel mh-stack mh-plot";
+    let dead = false;
+    const hidden = new Set();
+    function render() {
+      root.replaceChildren();
+      const language = global.MuhitI18n?.create({ locale: data.locale });
+      root.lang = data.locale;
+      root.dir = language?.dir || "ltr";
+      const t = (tr, en) =>
+        language
+          ? language.text(tr, en)
+          : data.locale.startsWith("en")
+            ? en
+            : tr;
+      const en = data.locale.startsWith("en"),
+        nf = new Intl.NumberFormat(data.locale, { maximumFractionDigits: 2 });
+      const el = (tag, text) => {
+        const n = doc.createElement(tag);
+        if (text !== undefined) n.textContent = text;
+        return n;
+      };
+      root.append(el("h2", data.title));
+      if (data.description) root.append(el("p", data.description));
+      const legend = el("div");
+      legend.className = "mh-row";
+      root.append(legend);
+      data.series.forEach((s, i) => {
+        const b = el("button", s.label);
+        b.type = "button";
+        b.className = "mh-button";
+        b.setAttribute("aria-pressed", String(!hidden.has(s.id)));
+        b.onclick = () => {
+          hidden.has(s.id) ? hidden.delete(s.id) : hidden.add(s.id);
+          render();
+          root.querySelectorAll("button")[i].focus();
+        };
+        legend.append(b);
+      });
+      const active = data.series.filter((s) => !hidden.has(s.id));
+      const values = active.flatMap((s) => s.values).filter((v) => v !== null);
+      if (!values.length)
+        root.append(el("p", t("Görünür veri yok.", "No visible data.")));
+      else {
+        const min = Math.min(0, ...values),
+          max = Math.max(0, ...values),
+          span = max - min || 1;
+        const svg = doc.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("viewBox", "0 0 800 320");
+        svg.setAttribute("role", "img");
+        svg.setAttribute(
+          "aria-label",
+          data.title +
+            " · " +
+            data.unit +
+            t(
+              " · Değerler aşağıdaki tabloda.",
+              " · Values in the table below.",
+            ),
+        );
+        const node = (tag, attrs, text) => {
+          const n = doc.createElementNS(svg.namespaceURI, tag);
+          for (const [k, v] of Object.entries(attrs))
+            n.setAttribute(k, String(v));
+          if (text !== undefined) n.textContent = text;
+          svg.append(n);
+          return n;
+        };
+        const x = (i) =>
+            72 + ((i + 0.5) * 700) / Math.max(1, data.labels.length),
+          y = (v) => 270 - ((v - min) / span) * 230;
+        for (let tick = 0; tick <= 4; tick++) {
+          const value = min + (span * tick) / 4;
+          node("line", {
+            x1: 65,
+            x2: 780,
+            y1: y(value),
+            y2: y(value),
+            stroke: "var(--mh-border)",
+          });
+          node(
+            "text",
+            {
+              x: 58,
+              y: y(value) + 4,
+              "text-anchor": "end",
+              fill: "var(--mh-muted)",
+              "font-size": 12,
+            },
+            nf.format(value),
+          );
+        }
+        node(
+          "text",
+          { x: 70, y: 20, fill: "var(--mh-text)", "font-size": 13 },
+          data.unit,
+        );
+        active.forEach((s, index) => {
+          const original = data.series.indexOf(s),
+            color = `var(--mh-chart-${(original % 4) + 1})`;
+          if (data.kind === "line") {
+            let segment = [];
+            const flush = () => {
+              if (segment.length)
+                node("polyline", {
+                  points: segment.join(" "),
+                  fill: "none",
+                  stroke: color,
+                  "stroke-width": 2,
+                  "stroke-dasharray": original % 2 ? "6 3" : "none",
+                });
+              segment = [];
+            };
+            s.values.forEach((v, i) => {
+              if (v === null) {
+                flush();
+                return;
+              }
+              segment.push(x(i) + "," + y(v));
+              node("circle", { cx: x(i), cy: y(v), r: 3, fill: color });
+            });
+            flush();
+          } else {
+            s.values.forEach((v, i) => {
+              if (v === null) return;
+              const width =
+                (700 /
+                  Math.max(1, data.labels.length) /
+                  Math.max(1, active.length)) *
+                0.8;
+              node("rect", {
+                x: x(i) - (700 / data.labels.length) * 0.4 + index * width,
+                y: Math.min(y(0), y(v)),
+                width: Math.max(0.5, width - 1),
+                height: Math.abs(y(v) - y(0)),
+                fill: color,
+              });
+            });
+          }
+        });
+        data.labels.forEach((label, i) => {
+          if (i % Math.max(1, Math.ceil(data.labels.length / 8)) === 0)
+            node(
+              "text",
+              {
+                x: x(i),
+                y: 300,
+                "text-anchor": "middle",
+                fill: "var(--mh-muted)",
+                "font-size": 12,
+              },
+              label,
+            );
+        });
+        root.append(svg);
+      }
+      const scroll = el("div");
+      scroll.className = "mh-data-grid__scroll";
+      scroll.tabIndex = 0;
+      scroll.setAttribute("role", "region");
+      scroll.setAttribute("aria-label", t("Grafik verisi", "Chart data"));
+      const table = el("table");
+      table.className = "mh-table";
+      table.append(el("caption", data.title + " · " + data.unit));
+      const head = el("thead"),
+        tr = el("tr");
+      [t("Etiket", "Label"), ...data.series.map((s) => s.label)].forEach(
+        (label) => {
+          const th = el("th", label);
+          th.scope = "col";
+          tr.append(th);
+        },
+      );
+      head.append(tr);
+      table.append(head);
+      const body = el("tbody");
+      data.labels.forEach((label, i) => {
+        const row = el("tr");
+        const th = el("th", label);
+        th.scope = "row";
+        row.append(th);
+        data.series.forEach((s) =>
+          row.append(
+            el("td", s.values[i] === null ? "—" : nf.format(s.values[i])),
+          ),
+        );
+        body.append(row);
+      });
+      table.append(body);
+      scroll.append(table);
+      root.append(scroll);
+    }
+    render();
+    instances.get(host)?.destroy();
+    host.append(root);
+    const api = {
+      setData(next) {
+        if (dead) throw new Error("Plot destroyed.");
+        const normalized = normalize(next);
+        data = normalized;
+        hidden.clear();
+        render();
+        return api;
+      },
+      getData: () => normalize(data),
+      toCSV: () => csv(data),
+      destroy() {
+        if (dead) return;
+        dead = true;
+        root.remove();
+        if (instances.get(host) === api) instances.delete(host);
+      },
+    };
+    instances.set(host, api);
+    return api;
+  }
+  global.MuhitPlot = Object.freeze({ normalize, mount, toCSV: csv });
+})(globalThis);

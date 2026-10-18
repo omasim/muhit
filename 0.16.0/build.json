@@ -1,0 +1,9 @@
+{
+  "version": "0.16.0",
+  "sourceSha256": "e7c3c77bcff5956810c7e97b212c2e7785dda7a29ea4443ff7f0e32610fa2356",
+  "commit": "bee77689b05f87ea84619bc76e58869e527ec5bd",
+  "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests",
+  "date": "2026-10-18T21:35:48.504Z",
+  "platform": "darwin",
+  "node": "v25.9.0"
+}

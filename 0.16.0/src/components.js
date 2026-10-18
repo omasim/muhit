@@ -1,0 +1,75 @@
+/* Muhit UI primitives — no framework, no network, no persistence. */
+(() => {
+  "use strict";
+  const aliases = Object.freeze({bookmarkFilled:'bookmark',sliders:'settings',arrow:'arrow-forward',chevron:'chevron-forward'});
+  function icon(name) {
+    const canonical = Object.hasOwn(aliases,name) ? aliases[name] : name;
+    const icons = globalThis.MuhitIcons;
+    if (!icons) throw new Error('Load src/icons.js before src/components.js.');
+    const known = icons.names.includes(canonical) ? canonical : 'grid';
+    return icons.svg(known,{size:20}).replace('class="mh-symbol"','class="mh-symbol mh-icon"');
+  }
+  function toast(message, options = {}) {
+    if (typeof document === "undefined")
+      throw new Error("Muhit.toast için bir tarayıcı DOM ortamı gerekli.");
+    const host = options.container || document.body;
+    if (!host || host.nodeType !== 1)
+      throw new TypeError("toast.container bir HTML elementi olmalı.");
+    const duration = options.duration === undefined ? 7000 : options.duration;
+    if (
+      typeof duration !== "number" ||
+      !Number.isFinite(duration) ||
+      duration < 0
+    )
+      throw new TypeError(
+        "toast.duration negatif olmayan sonlu bir sayı olmalı.",
+      );
+    let region = Array.from(host.children).find((node) =>
+      node.classList.contains("mh-toast-region"),
+    );
+    if (!region) {
+      region = document.createElement("div");
+      region.className = "mh-toast-region mh-scope";
+      region.setAttribute("role", "status");
+      region.setAttribute("aria-live", "polite");
+      host.append(region);
+    }
+    const item = document.createElement("div");
+    item.className = "mh-toast";
+    const text = document.createElement("span");
+    text.textContent = message;
+    let timer;
+    const dismiss = () => {
+      clearTimeout(timer);
+      item.remove();
+    };
+    item.__muhitDismiss = dismiss;
+    const close = document.createElement("button");
+    close.type = "button";
+    close.setAttribute(
+      "aria-label",
+      globalThis.MuhitI18n?.create(options).text(
+        "Bildirimi kapat",
+        "Dismiss notification",
+      ) || "Bildirimi kapat",
+    );
+    close.innerHTML = icon("close");
+    close.onclick = dismiss;
+    item.append(text, close);
+    region.append(item);
+    if (duration > 0) timer = setTimeout(dismiss, duration);
+    item.onmouseenter = () => clearTimeout(timer);
+    item.onfocusin = () => clearTimeout(timer);
+    while (region.children.length > 3)
+      region.firstElementChild.__muhitDismiss();
+  }
+  function openDialog(dialog) {
+    if (!dialog || typeof dialog.showModal !== "function")
+      throw new TypeError("Bir HTMLDialogElement gerekli.");
+    if (!dialog.open) dialog.showModal();
+  }
+  function closeDialog(dialog) {
+    if (dialog?.open) dialog.close();
+  }
+  globalThis.Muhit = Object.freeze({ icon, toast, openDialog, closeDialog });
+})();
