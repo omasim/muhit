@@ -1,3 +1,4 @@
+import {Lifecycle} from '../Lifecycle';
 import { Integrations } from "../Integrations";
 import { useState } from "react";
 import { MuhitTheme, type DataColumn, type DataRow } from "muhit-ui";
@@ -16,12 +17,14 @@ const initialRows: DataRow[] = [
   { id: "b", name: "Görüşme", count: 2, date: null },
 ];
 export default function App() {
+  const [matrix,setMatrix]=useState(false);
   const [title,setTitle]=useState("Resources");
   const [ready,setReady]=useState("");
   const [rows, setRows] = useState(initialRows),
     [visible, setVisible] = useState(true),
     [dated, setDated] = useState(false),
     [dark, setDark] = useState(false);
+  if(matrix)return <Lifecycle/>;
   return (
     <main className="mh-scope demo-app mh-content" id="main" tabIndex={-1} data-page-recipe="collection" data-width="standard">
       <a className="mh-skip" href="#main">İçeriğe geç</a><p>React · Muhit entegrasyonu · Örnek veri</p>
@@ -77,6 +80,7 @@ export default function App() {
         <p role="status">Tablo kaldırıldı.</p>
       )}
       <Integrations />
+      <button onClick={()=>setMatrix(true)}>Open lifecycle matrix</button>
     </main>
   );
 }

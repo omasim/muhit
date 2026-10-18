@@ -65,6 +65,12 @@ try {
       const before=host.firstChild;let rejected=false;
       try { W.mount(host,tabs,{headingLevel:5}); } catch { rejected=true; }
       check(rejected && host.firstChild===before,'invalid heading atomic');widget.destroy();
+      const command=W.mount(host,{type:'command',id:'commands',title:'Commands',items:labels.map((label,i)=>({id:'c'+i,label}))},{locale});
+      host.querySelector('button').click();
+      check(JSON.stringify([...host.querySelectorAll('.mh-command-item')].map(n=>n.textContent))===JSON.stringify(labels),'literal command labels '+locale);
+      command.destroy();
+      const stepper=W.mount(host,{type:'stepper',id:'steps',title:'Steps',current:'s1',steps:labels.map((title,i)=>({id:'s'+i,title}))},{locale});
+      check([...host.querySelectorAll('.mh-stepper button')].every((n,i)=>n.textContent.endsWith(labels[i])),'literal step titles '+locale);stepper.destroy();
     }
     const timeline=W.mount(host,{type:'timeline',id:'headings',title:'Timeline',items:[{id:'one',title:'Step',description:'Details',state:'complete'}]},{headingLevel:2});
     check(host.querySelector('h3')?.textContent==='Step','relative child heading');timeline.destroy();

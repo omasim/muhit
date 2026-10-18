@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import Lifecycle from "../Lifecycle.vue";
 import Integrations from "../Integrations.vue";
 import { ref, computed } from "vue";
 import { MuhitTheme, type DataColumn, type DataRow } from "muhit-ui";
 import MuhitGrid from "../MuhitGrid.vue";
+const matrix=ref(false);
 const selected=["a"];
 const title=ref("Resources"), ready=ref("");
 const baseColumns: DataColumn[] = [
@@ -39,7 +41,8 @@ function theme() {
 }
 </script>
 <template>
-  <main class="mh-scope demo-app mh-content" id="main" tabindex="-1" data-page-recipe="collection" data-width="standard">
+  <Lifecycle v-if="matrix"/>
+  <main v-else class="mh-scope demo-app mh-content" id="main" tabindex="-1" data-page-recipe="collection" data-width="standard">
     <a class="mh-skip" href="#main">İçeriğe geç</a><p>Vue · Muhit entegrasyonu · Örnek veri</p>
     <h1>Ortak kaynaklar</h1>
     <div class="demo-actions">
@@ -55,5 +58,6 @@ function theme() {
     <MuhitGrid :title="title" selectable :selected="selected" :on-ready="g=>ready=g.getSelected().join(',')" v-if="visible" :columns="columns" :rows="rows" />
     <p v-else role="status">Tablo kaldırıldı.</p>
     <Integrations />
+    <button @click="matrix=true">Open lifecycle matrix</button>
   </main>
 </template>

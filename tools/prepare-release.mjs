@@ -19,7 +19,7 @@ with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED) as z:
   if not p.is_file() or p.is_symlink() or any(x in ('node_modules','dist','.git','__pycache__') for x in rel.parts) or p.suffix in ('.tgz','.zip') or p.name=='.DS_Store' or '.actual.' in p.name or '.candidate.' in p.name: continue
   z.write(p,'muhit-ui/'+str(rel))
 `,root,path.join(out,archive)],{stdio:'inherit'});
-const files=[`${pkg.name}-${pkg.version}.tgz`,archive];
-await writeFile(path.join(out,'SHA256SUMS'),(await Promise.all(files.map(async f=>createHash('sha256').update(await readFile(path.join(out,f))).digest('hex')+'  '+f))).join('\n')+'\n');
 await writeFile(path.join(out,'PROVENANCE.json'),JSON.stringify(await provenance(),null,2)+'\n');
+const files=['PROVENANCE.json',`${pkg.name}-${pkg.version}.tgz`,archive];
+await writeFile(path.join(out,'SHA256SUMS'),(await Promise.all(files.map(async f=>createHash('sha256').update(await readFile(path.join(out,f))).digest('hex')+'  '+f))).join('\n')+'\n');
 console.log('Release artifacts:',out);

@@ -9,10 +9,11 @@ const engines = await import(
 const root = path.resolve(fileURLToPath(new URL("../../", import.meta.url)));
 const server = createServer(async (req, res) => {
   try {
+    if(req.url==='/__host.css'){res.setHeader('Content-Type','text/css');res.end('button { font-size: 17px; } body { margin: 13px; }');return;}
     if(req.url==='/__consumer'){
       res.setHeader('Content-Type','text/html');
       res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; require-trusted-types-for 'script'; trusted-types 'none'");
-      res.end('<!doctype html><html lang="en"><head><title>Consumer</title><link rel="stylesheet" href="/styles/index.css"></head><body><main><h1>Consumer</h1><button id="outside">Return</button><div id="host"></div></main></body></html>');return;
+      res.end('<!doctype html><html lang="en"><head><title>Consumer</title><link rel="stylesheet" href="/__host.css"><link rel="stylesheet" href="/styles/index.css"></head><body><main><h1>Consumer</h1><button id="outside">Return</button><div id="host"></div></main></body></html>');return;
     }
     const f = path.resolve(
       root,
@@ -62,6 +63,7 @@ try {
     const host=document.querySelector('#host');
     const outside=document.querySelector('#outside');
     const original=getComputedStyle(outside).fontSize;
+    check(original==='17px','consumer global CSS remains active');
     const icon=I.mount(host,'arrow-forward',{label:'A < B & "C"',dir:'rtl'});
     check(icon.element.getAttribute('aria-label')==='A < B & "C"','exact accessible label');icon.destroy();
     for(const name of I.names){const i=I.mount(host,name);check(i.element.querySelector('path,rect,circle'),'icon geometry '+name);i.destroy();}

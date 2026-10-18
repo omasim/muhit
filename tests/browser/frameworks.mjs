@@ -271,6 +271,13 @@ try {
         assert.equal(await page.locator(".mh-form").count(), 1);
         await page.getByRole("tab", { name: "Ayrıntı" }).click();
         await page.getByText("İnsan ve doğa uyumu.", { exact: true }).waitFor();
+        await page.getByRole('button',{name:'Open lifecycle matrix'}).click();
+        for(const prop of ['title','columns','messages','provider','locale']){
+          await page.getByRole('button',{name:'Mutate internal state'}).click();
+          await page.getByRole('button',{name:'Change '+prop,exact:true}).click();
+          await page.waitForFunction(()=>document.querySelector('[data-testid="matrix-ready"]')?.textContent?.startsWith('{'));
+          assert.deepEqual(JSON.parse(await page.getByTestId('matrix-ready').textContent()),{selected:['a'],query:'',layout:[{key:'name',width:240,pin:null}]},framework+' '+mode+' '+prop);
+        }
         assert.deepEqual(errors, []);
         report.results.push({
           framework,
