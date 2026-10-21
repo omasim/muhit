@@ -72,3 +72,7 @@ Otomatik saklama yoktur; yalnız açık `save` çağrısı yazar. Bozuk JSON, es
 `getSnapshot()` `{values, baseline}` döndürür. Dil veya görünüm değişiminde `mount(host,{...options,...snapshot})` kullanın. Yalnız `getValues()` ile yeniden kurulum yeni değerleri başlangıç sayar. `baseline` kaydedilmiş değerlerdir; reset buraya döner, başarılı submit günceller. React/Vue örnekleri snapshot taşır. Şema uyumsuzsa yeni başlangıç değerlerine dönülür; alan şemasını değiştirmeden önce taslağı uygulamada dönüştürün.
 
 `setErrors({alan: "mesaj"})` uygulama sunucu hatalarını gösterir; bilinmeyen alan ve metin olmayan hata reddedilir. `setErrors({})` temizler.
+
+## 0.17 taslak ve iptal davranışı
+
+Güncel [etkileşim sözleşmesi](INTERACTION-CONTRACT.md), yukarıdaki yaşam döngüsü açıklamalarını tamamlar. `cancelSubmit()` (Form/Repeater) ve `cancelPending()` (Agent) taslağı korur. `persisted:false` form baseline’ını güncellemez. Agent `update` değişmeyen bileşenleri ve uyumlu form/tablo durumunu korur; kirli formun kaldırılması veya uyumsuz alan değişimi açık `resetState:true` olmadan reddedilir.

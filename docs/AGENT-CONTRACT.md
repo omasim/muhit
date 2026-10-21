@@ -201,3 +201,7 @@ ESM için `import {MuhitAgent} from 'muhit-ui/agent'` bağımlılıkları taşı
 ## 0.9 olay sözleşmesi
 
 `form-change`: value içinde values ve dirty. `edit`: value içinde güncel rows ve change. `state`: sorgu/filtre/sayfalama durumu. `column-layout`: sıralı yerleşim. `selection`: seçili kimlikler. Hepsi componentId taşır. `submit` async sonucu bekler ve signal taşır; diğer olaylar bildirimdir. Yerleşim/durum güncellemeleri uygulama API’sinden de gelebilir. Eşit kontrollü değer tekrarları olay döngüsü üretmez. Ağ, kayıt ve yetkilendirme uygulamanın sorumluluğundadır.
+
+## 0.17 taslak ve iptal davranışı
+
+Güncel [etkileşim sözleşmesi](INTERACTION-CONTRACT.md), yukarıdaki yaşam döngüsü açıklamalarını tamamlar. `cancelSubmit()` (Form/Repeater) ve `cancelPending()` (Agent) taslağı korur. `persisted:false` form baseline’ını güncellemez. Agent `update` değişmeyen bileşenleri ve uyumlu form/tablo durumunu korur; kirli formun kaldırılması veya uyumsuz alan değişimi açık `resetState:true` olmadan reddedilir.

@@ -112,6 +112,11 @@ try {
     if(engine==='chromium')await p.screenshot({path:path.join(root,'tests/previews/p3-principles-'+width+'.png'),fullPage:true});
     await p.reload();await p.waitForFunction(()=>window.principlesReady);await p.locator('#record-research').click();assert.equal(await p.locator('#draft').inputValue(),'');
   }
+  await p.goto(url+'/docs-site/'+pkg.version+'/studio.html#agents');
+  await p.locator('#agent-extended-example').click();
+  await p.locator('#agent-output input[name=name]').fill('Published studio draft');
+  await p.locator('[data-route=palette]').click();await p.locator('[data-route=agents]').click();
+  assert.equal(await p.locator('#agent-output input[name=name]').inputValue(),'Published studio draft');
   assert.deepEqual(errors,[]);
   await writeFile(path.join(root,'tests/p3-verification-'+engine+'.json'),JSON.stringify({provenance:await provenance(),engine,cases:reports,docsSearch:true,principlesFlow:true},null,2));
   console.log('PASS P3: 48 page states and searchable versioned documentation');
