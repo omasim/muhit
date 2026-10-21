@@ -6,7 +6,7 @@
 
 # Muhit UI
 
-**0.16.0 · HTML, CSS ve JavaScript ile tema uyarlayan bileşenler.**
+**0.17.0 · HTML, CSS ve JavaScript ile tema uyarlayan bileşenler.**
 
 Muhit; kartları, formları, tabloları ve grafikleri ortak bir görsel dille kurmanıza yardımcı olur. Klasik script olarak derleme olmadan çalışır; ESM girişi ve TypeScript tanımları da bulunur. Tema yapılandırması renk, yazı ailesi, yoğunluk, köşe, metin ölçeği ve hareket tercihini birlikte yönetir. JSON şemasına uyan bir görünüm, aynı bileşenlerle güvenilir biçimde çizilir.
 
@@ -29,10 +29,10 @@ npm pack
 Oluşan arşivi kendi projenizin klasöründe kurun:
 
 ```sh
-npm install /tam/yol/muhit-ui/muhit-ui-0.16.0.tgz
+npm install /tam/yol/muhit-ui/muhit-ui-0.17.0.tgz
 ```
 
-`npm pack`, kaynak modüllerini, stilleri, şemaları, tipleri, fontları ve kullanım örneklerini içerir. Tema stüdyosunun kök önizlemesi ve test dosyaları dağıtımın parçası değildir. `npm run check` Node ortamında ESM girişini yükler; tarayıcı etkileşim testlerinin yerine geçmez.
+`npm pack`, kaynak modüllerini, stilleri, şemaları, tipleri, fontları ve kullanım örneklerini içerir. Tema stüdyosu dağıtılır; test dosyaları npm paketine dahil edilmez. `npm run check` Node ortamında ESM girişini yükler; tarayıcı etkileşim testlerinin yerine geçmez.
 
 Tam kaynak kopyasında `npm run dev` stüdyoyu yerel HTTP sunucusunda açar; `npm test` Node testlerini çalıştırır. `tools/` ve `tests/` npm arşivine dahil edilmez; bu iki komut kurulu npm paketinde çalıştırılmak için değildir. `npm run check` ise dağıtılan pakette de kullanılabilir.
 
@@ -210,3 +210,7 @@ Güncel sözleşme ve sınırlar: [0.11 üretim hazırlığı](docs/PRODUCTION-0
 Güncel kabul ve test kanıtı: [CURRENT](docs/CURRENT.md). Adaptör ve CSP kapsamı: [CONSUMER-CONTRACT](docs/CONSUMER-CONTRACT.md).
 
 Tasarım felsefesi: docs/DESIGN.md. Uygulanabilir ilkeler: docs/PRINCIPLES.md. Çalışan bağlam ve toparlanma örneği: examples/foundations/principles.html.
+
+## 0.17 davranış sözleşmesi
+
+[Taslak, bağlam, sonuç ve iptal](docs/INTERACTION-CONTRACT.md): Form ve Repeater `cancelSubmit()`, Agent `cancelPending()` ve `update(spec, {resetState:true})`. Stüdyo bölüm geçişlerinde taslakları aynı sekmenin belleğinde korur.

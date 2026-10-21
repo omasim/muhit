@@ -16,7 +16,7 @@ export async function provenance(){
     }
   }
   for(const dir of ['src','esm','styles','types','schemas','locales','examples'])await visit(dir);
-  for(const f of ['package.json','package-lock.json']){hash.update(f);hash.update(await readFile(path.join(root,f)));}
+  for(const f of ['package.json','package-lock.json','index.html','studio.js','studio-model.js','studio-example.js','studio-en.html','studio-en.mjs','studio-en.css']){hash.update(f);hash.update(await readFile(path.join(root,f)));}
   let commit=null;try{commit=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim()}catch{}
-  return {version:JSON.parse(await readFile(path.join(root,'package.json'),'utf8')).version,sourceSha256:hash.digest('hex'),commit,scope:'src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests',date:new Date().toISOString(),platform:process.platform,node:process.version};
+  return {version:JSON.parse(await readFile(path.join(root,'package.json'),'utf8')).version,sourceSha256:hash.digest('hex'),commit,scope:'src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints',date:new Date().toISOString(),platform:process.platform,node:process.version};
 }

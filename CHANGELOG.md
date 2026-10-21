@@ -1,3 +1,12 @@
+# 0.17.0
+
+- Form ve tekrarlanan alanlarda ayrı iptal eylemi: taslağı korur, bekleyen yanıtları geçersiz kılar. Sıfırlama ayrı kalır.
+- `persisted:false` sonucu kayıt yapılmadığını bildirir ve form taslağını korur. Ağ, yetki ve bilinmeyen hatalar ayrılır.
+- Agent güncellemesi değişmeyen bileşen örneklerini, uyumlu form taslağını ve tablo görünümünü korur. Kirli formu silen/uyumsuz güncelleme açık `resetState:true` olmadan reddedilir.
+- Stüdyo bölüm ve bileşen geçişleri sekme belleğinde korunur; bölümden ayrılırken bekleyen form işlemi iptal edilir.
+- Türkçe/İngilizce stüdyo, form, grup, React/Vue ve sayfa örneklerinin sonuç metinleri gerçek saklama kapsamını belirtir.
+- Sürümlü belgelerde çalışan stüdyo; üç motorlu ilke uyumluluk regresyonu.
+
 # 0.16.0
 
 - Muhit felsefesi derinleştirildi; sekiz tasarım ilkesi ve makinece okunabilir inceleme listesi eklendi.

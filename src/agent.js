@@ -769,7 +769,7 @@
             host.setAttribute("data-component", component.type);
             host.setAttribute("data-component-id", component.id);
             let mount;
-            const prior = !resetState && current?.records.get(component.id);
+            const prior = resetState ? undefined : current?.records.get(component.id);
             const compatible = prior?.component.type === component.type && JSON.stringify(prior.component.fields || prior.component.columns) === JSON.stringify(component.fields || component.columns);
             if (prior?.mount.isDirty?.() && !compatible) throw new Error("Unsaved draft: incompatible fields. Use resetState explicitly.");
             const snapshot = compatible && component.type === "form" ? prior.mount.getSnapshot() : null;
@@ -1015,7 +1015,10 @@
     }
     function commit(next, resetState) {
       if (!resetState && current) for(const [id,record] of current.records) {
-        if(record.mount.isDirty?.() && !next.components.some(c=>c.id===id)) throw new Error("Unsaved draft: removed component. Use resetState explicitly.");
+        if(record.mount.isDirty?.()) {
+          const replacement=next.components.find(c=>c.id===id);
+          if(!replacement || replacement.type!==record.component.type || JSON.stringify(replacement.fields)!==JSON.stringify(record.component.fields)) throw new Error("Unsaved draft: removed or incompatible component. Use resetState explicitly.");
+        }
       }
       var prepared = prepare(next, resetState);
       if(!resetState && current) for(const [id,entry] of current.entries) {
