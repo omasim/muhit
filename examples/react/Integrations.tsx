@@ -55,6 +55,7 @@ export function Integrations() {
       <output data-testid="dirty">{String(dirty)}</output>
       {visible ? (
         <MuhitForm
+          messages={{"Kaydedildi.":locale==="tr"?"Yalnız örnek uygulamanın belleğinde onaylandı.":"Confirmed only in this example’s memory."}}
           locale={locale}
           title={locale==="tr"?"Bilgiler":"Details"}
           onReady={instance=>{currentForm.current=instance}}

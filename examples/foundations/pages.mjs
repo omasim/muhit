@@ -36,7 +36,7 @@ if(recipe==='overview'){
  const aside=region('rail','Proje bağlamı');card(aside,'Sorumluluk','Araştırma ekibi · Örnek proje');card(aside,'Durum','İnceleme sürüyor. Henüz tamamlandı olarak işaretlenmedi.');
 }else if(recipe==='settings'){
  const h=region('main');const status=document.createElement('p');status.setAttribute('role','status');
- Form.mount(h,{title:'Çalışma alanı tercihleri',fields:[{name:'name',label:'Çalışma alanı adı',required:true},{name:'email',label:'İletişim e-postası',type:'email',required:true}],values:{name:'Ortak alan',email:'demo@example.com'},onSubmit:async()=>{status.textContent='Tercihler yalnız bu örnekte onaylandı. Sunucuya gönderilmedi.'}});h.append(status);
+ Form.mount(h,{title:'Çalışma alanı tercihleri',fields:[{name:'name',label:'Çalışma alanı adı',required:true},{name:'email',label:'İletişim e-postası',type:'email',required:true}],values:{name:'Ortak alan',email:'demo@example.com'},onSubmit:async()=>{status.textContent='Tercihler yalnız bu örnekte onaylandı. Sunucuya gönderilmedi.';return {persisted:false}}});h.append(status);
  card(region('rail','Bu alan hakkında'),'Açık kayıt durumu','Alanlar kaydedilene kadar taslaktır. Sıfırla düğmesi son onaylanan değerlere döner.');
 }else if(recipe==='workspace'){
  const workspace=region('full','İş akışı');const board=document.createElement('div');workspace.append(board);

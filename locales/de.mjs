@@ -1,5 +1,11 @@
 // Component messages. Application content is owned by the consuming project.
 export default Object.freeze({
+"İşlemi iptal et": "Vorgang abbrechen",
+"İşlem iptal edildi. Taslak korunuyor.": "Vorgang abgebrochen. Entwurf bleibt erhalten.",
+"İşlem tamamlandı. Veri kaydedilmedi; taslak korunuyor.": "Vorgang abgeschlossen. Keine Daten gespeichert; Entwurf bleibt erhalten.",
+"Bu işlem için yetkiniz yok. Taslak korunuyor.": "Keine Berechtigung für diesen Vorgang. Entwurf bleibt erhalten.",
+"İşlem tamamlanamadı. Taslak korunuyor; yeniden deneyebilirsiniz.": "Vorgang nicht abgeschlossen. Entwurf bleibt erhalten; erneut versuchen.",
+
   "Taşı": "Verschieben",
   "{title} kartını taşı": "Karte {title} verschieben",
   "Taşıma iptal edildi.": "Verschieben abgebrochen.",

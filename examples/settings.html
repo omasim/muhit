@@ -208,7 +208,7 @@
               { once: true },
             );
           });
-          if (response === "network") throw new Error("Örnek bağlantı hatası");
+          if (response === "network") throw Object.assign(new Error("Örnek bağlantı hatası"),{code:"network"});
           if (response === "validation")
             return {
               errors: { email: "Bu e-posta için başka bir çalışma alanı var." },
@@ -217,6 +217,7 @@
             "Örnek yanıt başarılı: " +
             values.name +
             ". Gerçek kayıt gönderilmedi.";
+          return {persisted:false};
         },
       });
       window.addEventListener(

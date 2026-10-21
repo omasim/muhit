@@ -688,6 +688,18 @@
     }
     if ($("#export-code")) $("#export-code").textContent = Theme.toJSON(config);
   }
+  const routeViews = new Map(), componentViews = new Map();
+  let displayedRoute = null, displayedComponent = null;
+  function mounts() { return {widgetInstances, dataGridInstance, tableInstance, chartInstance, agentInstance}; }
+  function useMounts(m = {}) { widgetInstances=m.widgetInstances||[]; dataGridInstance=m.dataGridInstance; tableInstance=m.tableInstance; chartInstance=m.chartInstance; agentInstance=m.agentInstance; }
+  function parkRoute() {
+    if(!displayedRoute)return;
+    agentInstance?.cancelPending();
+    document.querySelectorAll("dialog[open]").forEach(d=>d.close());
+    routeViews.set(displayedRoute,{nodes:[...$("#main").childNodes],mounts:mounts(),scroll:window.scrollY});
+    useMounts();
+  }
+  window.addEventListener("pagehide",()=>{agentInstance?.cancelPending();for(const v of routeViews.values())v.mounts.agentInstance?.cancelPending();});
   function cleanMounts() {
     widgetInstances.forEach((x) => x.destroy());
     widgetInstances = [];
@@ -699,7 +711,7 @@
   }
   function renderRoute(focus = false) {
     if ($("#agent-editor")) agentDraft = $("#agent-editor").value;
-    cleanMounts();
+    parkRoute();
     const incoming = location.hash.slice(1);
     route = names[incoming] ? incoming : "palette";
     $("#breadcrumb").textContent = names[route];
@@ -708,6 +720,9 @@
         ? el.setAttribute("aria-current", "page")
         : el.removeAttribute("aria-current"),
     );
+    const cached = routeViews.get(route);
+    if(cached) { $("#main").replaceChildren(...cached.nodes); useMounts(cached.mounts); }
+    else {
     $("#main").innerHTML = {
       palette: palettePage,
       customize: customizePage,
@@ -717,24 +732,27 @@
     }[route]();
     if (route === "components") mountComponent();
     if (route === "agents") renderAgent(false);
+    }
+    displayedRoute=route;
     syncTheme();
     if (focus) {
       $("#main").focus({ preventScroll: true });
-      window.scrollTo({ top: 0, behavior: "instant" });
+      window.scrollTo({ top: cached?.scroll || 0, behavior: "instant" });
     }
     document.title = `${names[route]} — Muhit UI`;
   }
   function mountComponent() {
-    widgetInstances.forEach((x) => x.destroy());
-    widgetInstances = [];
-    dataGridInstance?.destroy();
-    tableInstance?.destroy();
-    chartInstance?.destroy();
-    tableInstance = chartInstance = undefined;
+    const display=$("#component-display");
+    if(displayedComponent && display.childNodes.length) componentViews.set(displayedComponent,{nodes:[...display.childNodes],mounts:mounts()});
+    useMounts();
+    const key=componentTab+":"+(componentTab==="pages"?pageRecipe:"");
+    const cached=componentViews.get(key);
+    displayedComponent=key;
     $$("[data-component-tab]").forEach((el) =>
       el.setAttribute("aria-pressed", el.dataset.componentTab === componentTab),
     );
     const root = $("#component-display");
+    if(cached){root.replaceChildren(...cached.nodes);useMounts(cached.mounts);return;}
     root.innerHTML = (
       {
         cards: cardsDemo,
@@ -825,6 +843,7 @@
       const onAction = (event) => {
         $("#agent-event").textContent = `onAction → ${JSON.stringify(event)}`;
         UI.toast(`Eylem alındı: ${event.id}`);
+        if (event.id === "submit") return { persisted: false };
       };
       if (agentInstance) agentInstance.update(spec);
       else

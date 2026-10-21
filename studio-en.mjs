@@ -160,8 +160,7 @@ let records = [
   { id: "r1", name: "Human-centered research", score: 42 },
   { id: "r2", name: "Shared knowledge", score: 64 },
 ];
-const emit = (e) =>
-  ($("events").textContent = "Local event: " + JSON.stringify(e));
+const emit = (e) => { $("events").textContent = "Local event: " + JSON.stringify(e); if(e.id === "submit") return {persisted:false}; };
 function components() {
   const view = grid?.getView(),
     draft = form?.getSnapshot();
@@ -192,6 +191,7 @@ function components() {
     ],
     onSubmit: async (values) => {
       emit(values);
+      return { persisted: false };
     },
   });
   children = [

@@ -1,4 +1,4 @@
-# Muhit kapsam durumu · 0.16.0
+# Muhit kapsam durumu · 0.17.0
 
 Bu dosya schemas/capabilities.json kaynağından üretilir. Paket, logo, tema ve agent şeması bağımsız sürümlenir.
 

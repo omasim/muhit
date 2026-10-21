@@ -686,6 +686,7 @@
     }
     function release(view) {
       if (!view) return;
+      view.entries.forEach((entry,id)=>entry.lifetime.live.delete(id));
       view.listeners.forEach(function (item) {
         item.node.removeEventListener("click", item.handler);
       });
@@ -697,8 +698,10 @@
         }
       });
       view.root.remove();
+      view.root.replaceChildren();
+      view.entries.clear();view.records.clear();view.mounts=[];view.listeners=[];
     }
-    function prepare(next) {
+    function prepare(next, resetState = false) {
       if (
         own(next, "theme") &&
         (!global.MuhitTheme ||
@@ -722,6 +725,9 @@
       var view = {
         root: element("div", "mh-scope mh-agent mh-stack"),
         mounts: [],
+        records: new Map(),
+        entries: new Map(),
+        live: new Set(),
         listeners: [],
       };
       view.root.setAttribute("data-muhit-agent", VERSION);
@@ -756,19 +762,26 @@
             view.root,
           );
         next.components.forEach(function (component) {
+          const mountStart=view.mounts.length, listenerStart=view.listeners.length;
+          function renderComponent() {
           if (extendedKinds.includes(component.type)) {
             const host = element("section", "mh-stack");
             host.setAttribute("data-component", component.type);
             host.setAttribute("data-component-id", component.id);
             let mount;
+            const prior = !resetState && current?.records.get(component.id);
+            const compatible = prior?.component.type === component.type && JSON.stringify(prior.component.fields || prior.component.columns) === JSON.stringify(component.fields || component.columns);
+            if (prior?.mount.isDirty?.() && !compatible) throw new Error("Unsaved draft: incompatible fields. Use resetState explicitly.");
+            const snapshot = compatible && component.type === "form" ? prior.mount.getSnapshot() : null;
             if (component.type === "form")
               mount = global.MuhitForm.mount(host, {
                 locale: language?.locale,
                 dir: language?.dir,
                 messages: options.messages,
                 ...clone(component),
+                ...(snapshot || {}),
                 onChange: (values, state) => {
-                  if (!destroyed && current === view)
+                  if (!destroyed && view.live.has(component.id))
                     onAction?.({
                       id: "form-change",
                       componentId: component.id,
@@ -777,7 +790,7 @@
                 },
                 onSubmit: onAction
                   ? async (values, signal) => {
-                      if (destroyed || current !== view)
+                      if (destroyed || !view.live.has(component.id))
                         throw Error("Görünüm kaldırıldı.");
                       return onAction({
                         id: "submit",
@@ -795,7 +808,7 @@
                 messages: options.messages,
                 ...clone(component),
                 onRowsChange: (rows, change) => {
-                  if (!destroyed && current === view)
+                  if (!destroyed && view.live.has(component.id))
                     onAction?.({
                       id: "edit",
                       componentId: component.id,
@@ -803,7 +816,7 @@
                     });
                 },
                 onColumnLayoutChange: (value) => {
-                  if (!destroyed && current === view)
+                  if (!destroyed && view.live.has(component.id))
                     onAction?.({
                       id: "column-layout",
                       componentId: component.id,
@@ -811,7 +824,7 @@
                     });
                 },
                 onStateChange: (value) => {
-                  if (!destroyed && current === view)
+                  if (!destroyed && view.live.has(component.id))
                     onAction?.({
                       id: "state",
                       componentId: component.id,
@@ -819,7 +832,7 @@
                     });
                 },
                 onSelectionChange: (value) => {
-                  if (!destroyed && current === view)
+                  if (!destroyed && view.live.has(component.id))
                     onAction?.({
                       id: "selection",
                       componentId: component.id,
@@ -833,6 +846,8 @@
                 ...component.data,
               });
             view.mounts.push(mount);
+            if (compatible && component.type === "datagrid") mount.restoreView(prior.mount.getView());
+            view.records.set(component.id, {component:clone(component),mount});
             contentRoot.append(host);
             return;
           }
@@ -846,7 +861,7 @@
                 dir: language?.dir,
                 messages: options.messages,
                 onAction: function (event) {
-                  if (!destroyed && current === view && onAction)
+                  if (!destroyed && view.live.has(component.id) && onAction)
                     onAction({
                       id: event.type,
                       componentId: component.id,
@@ -914,7 +929,7 @@
                 component.state === "disabled" ||
                 component.state === "loading";
               var handler = function () {
-                if (!destroyed && current === view && onAction)
+                if (!destroyed && view.live.has(component.id) && onAction)
                   onAction({
                     id: component.action.id,
                     componentId: component.id,
@@ -984,6 +999,9 @@
           if (component.type !== "table")
             node.setAttribute("aria-labelledby", labelId);
           contentRoot.append(node);
+          }
+          renderComponent();
+          view.entries.set(component.id,{component:clone(component),root:contentRoot.children[contentRoot.children.length-1],mounts:view.mounts.slice(mountStart),listeners:view.listeners.slice(listenerStart),lifetime:view});
         });
         if (!next.components.length)
           view.root.append(
@@ -995,21 +1013,42 @@
         throw error;
       }
     }
-    function commit(next) {
-      var prepared = prepare(next);
+    function commit(next, resetState) {
+      if (!resetState && current) for(const [id,record] of current.records) {
+        if(record.mount.isDirty?.() && !next.components.some(c=>c.id===id)) throw new Error("Unsaved draft: removed component. Use resetState explicitly.");
+      }
+      var prepared = prepare(next, resetState);
+      if(!resetState && current) for(const [id,entry] of current.entries) {
+        const fresh=prepared.entries.get(id);
+        if(!fresh || JSON.stringify(entry.component)!==JSON.stringify(fresh.component))continue;
+        fresh.mounts.forEach(m=>m.destroy());fresh.listeners.forEach(l=>l.node.removeEventListener("click",l.handler));
+        const parent=fresh.root.parentNode;
+        parent.replaceChildren(...[...parent.children].map(n=>n===fresh.root?entry.root:n));
+        prepared.mounts=prepared.mounts.filter(m=>!fresh.mounts.includes(m)).concat(entry.mounts);
+        prepared.listeners=prepared.listeners.filter(l=>!fresh.listeners.includes(l)).concat(entry.listeners);
+        prepared.entries.set(id,entry);
+        if(current.records.has(id))prepared.records.set(id,current.records.get(id));
+        current.mounts=current.mounts.filter(m=>!entry.mounts.includes(m));
+        current.listeners=current.listeners.filter(l=>!entry.listeners.includes(l));
+        current.entries.delete(id);
+      }
       release(current);
+      prepared.entries.forEach((entry,id)=>entry.lifetime.live.add(id));
       current = prepared;
       container.replaceChildren(prepared.root);
     }
     var prepared = prepare(data);
     var previous = instances.get(container);
     if (previous) previous.destroy();
+    prepared.entries.forEach((entry,id)=>entry.lifetime.live.add(id));
     current = prepared;
     container.replaceChildren(prepared.root);
     var api = Object.freeze({
-      update: function (nextSpec) {
+      cancelPending: function () { current?.mounts.forEach(m=>m.cancelSubmit?.()); },
+      update: function (nextSpec, updateOptions = {}) {
         if (destroyed) throw new Error("Kaldırılmış görünüm güncellenemez.");
-        commit(checked(nextSpec));
+        if(!updateOptions || typeof updateOptions !== 'object' || Array.isArray(updateOptions) || Object.keys(updateOptions).some(k=>k!=='resetState') || (updateOptions.resetState!==undefined && typeof updateOptions.resetState!=='boolean'))throw new TypeError("Invalid update options");
+        commit(checked(nextSpec), updateOptions.resetState === true);
         return api;
       },
       destroy: function () {

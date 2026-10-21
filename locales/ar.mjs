@@ -1,5 +1,11 @@
 // Component messages. Application content is owned by the consuming project.
 export default Object.freeze({
+"İşlemi iptal et": "إلغاء العملية",
+"İşlem iptal edildi. Taslak korunuyor.": "أُلغيت العملية. تم الاحتفاظ بالمسودة.",
+"İşlem tamamlandı. Veri kaydedilmedi; taslak korunuyor.": "اكتملت العملية. لم تُحفظ البيانات؛ تم الاحتفاظ بالمسودة.",
+"Bu işlem için yetkiniz yok. Taslak korunuyor.": "ليس لديك إذن لهذه العملية. تم الاحتفاظ بالمسودة.",
+"İşlem tamamlanamadı. Taslak korunuyor; yeniden deneyebilirsiniz.": "تعذّر إكمال العملية. تم الاحتفاظ بالمسودة؛ يمكنك المحاولة مجددًا.",
+
   "Taşı": "نقل",
   "{title} kartını taşı": "نقل بطاقة {title}",
   "Taşıma iptal edildi.": "تم إلغاء النقل.",

@@ -308,8 +308,9 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
     area.className = "mh-stack";
     const add = doc.createElement("button"),
       save = doc.createElement("button"),
+      cancel = doc.createElement("button"),
       status = doc.createElement("p");
-    for (const b of [add, save]) {
+    for (const b of [add, save, cancel]) {
       b.type = "button";
       b.className = "mh-button";
     }
@@ -317,7 +318,9 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
     save.textContent = t("Kaydet", "Save");
     save.hidden = !options.onSubmit;
     status.setAttribute("role", "status");
-    root.append(heading, area, add, save, status);
+    cancel.textContent = t("İşlemi iptal et", "Cancel operation");
+    cancel.hidden = true; cancel.onclick = () => { cancelSubmit(); save.focus(); };
+    root.append(heading, area, add, save, cancel, status);
     const values = () => entries.map((e) => e.form.getValues());
     const change = () => options.onChange?.(values());
     function controls() {
@@ -398,6 +401,13 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
       entries.forEach((e,i)=>e.form.setErrors(errors[i] || {}));
       return errors.some(e=>Object.values(e).some(Boolean));
     }
+    function cancelSubmit() {
+      if (dead || !busy) return;
+      ++revision; controller?.abort(); busy=false; cancel.hidden=true;
+      entries.forEach(e=>{e.form.cancelSubmit();e.formElement.querySelector("fieldset").disabled=false});
+      controls(); root.setAttribute("aria-busy","false");
+      status.textContent=t("İşlem iptal edildi. Taslak korunuyor.","Operation cancelled. Draft preserved.");
+    }
     async function submit() {
       if (dead || busy) return;
       entries.forEach(e=>e.form.setErrors({}));
@@ -407,7 +417,7 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
         return;
       }
       if (!options.onSubmit) return;
-      busy = true;
+      busy = true; cancel.hidden=false;root.setAttribute("aria-busy","true");
       const current = ++revision;
       controller = new AbortController();
       controls();
@@ -422,14 +432,15 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
         }
         const response = await options.onSubmit(result.values, controller.signal);
         if (dead || current !== revision || controller.signal.aborted) return;
+        if(response?.persisted !== undefined && typeof response.persisted !== "boolean")throw new TypeError("Invalid persistence result");
         const invalid = groupErrors(response?.errors || []);
-        status.textContent = invalid ? t("Kaydedilemedi.", "Unable to save.") : t("Kaydedildi.", "Saved.");
+        status.textContent = invalid ? t("Kaydedilemedi.", "Unable to save.") : response?.persisted === false ? t("İşlem tamamlandı. Veri kaydedilmedi; taslak korunuyor.", "Operation completed. No data was saved; draft preserved.") : t("Kaydedildi.", "Saved.");
       } catch {
         if (!dead && current === revision)
           status.textContent = t("Kaydedilemedi.", "Unable to save.");
       } finally {
         if (!dead && current === revision) {
-          busy = false;
+          busy = false;cancel.hidden=true;root.setAttribute("aria-busy","false");
           entries.forEach(
             (e) => (e.formElement.querySelector("fieldset").disabled = false),
           );
@@ -455,6 +466,7 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
       setValues(next) {
         if (dead) throw new Error("Destroyed");
         const checked = normalize(next);
+        cancelSubmit();
         ++revision;
         controller?.abort();
         busy = false;
@@ -466,6 +478,7 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
         return api;
       },
       submit,
+      cancelSubmit,
       destroy() {
         if (dead) return;
         dead = true;

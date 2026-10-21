@@ -58,6 +58,7 @@ async function submit(values: FormValues, signal: AbortSignal) {
     <output data-testid="dirty">{{String(dirty)}}</output>
     <MuhitForm
       v-if="visible"
+      :messages="{'Kaydedildi.':locale==='tr'?'Yalnız örnek uygulamanın belleğinde onaylandı.':'Confirmed only in this example memory.'}"
       :locale="locale"
       :title="locale==='tr'?'Bilgiler':'Details'"
       :on-ready="instance=>{currentForm=instance}"

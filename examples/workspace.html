@@ -264,6 +264,7 @@
                 status: row.status,
               }
             : { focus: "Araştırma", count: 0, status: "Planlandı" },
+          messages: {"Kaydedildi.": "Örnek kayıt yalnız bu sayfanın belleğinde güncellendi."},
           async onSubmit(values, signal) {
             await Promise.resolve();
             if (signal.aborted) return;
@@ -354,6 +355,7 @@
             if (event.id === "submit")
               message.textContent =
                 "Agent formundan örnek eylem alındı; sunucu kaydı yapılmadı.";
+            if(event.id === "submit")return {persisted:false};
           },
         });
         e.target.textContent = "Agent örneğini kapat";

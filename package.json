@@ -1,6 +1,6 @@
 {
   "name": "muhit-ui",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "description": "Tema değişkenleri, erişilebilir etkileşimler ve şema tabanlı arayüz üretimi için bağımsız HTML/CSS/JavaScript bileşenleri.",
   "type": "module",
   "license": "MIT",
@@ -443,7 +443,8 @@
     "test:migration": "npm run build:modules && node tests/browser/migration.mjs",
     "test:consumer": "npm run build:modules && node tests/browser/consumer.mjs",
     "test:p3": "npm run build:modules && npm run docs:build && node tests/browser/p3.mjs",
-    "docs:build": "node tools/build-docs.mjs"
+    "docs:build": "node tools/build-docs.mjs",
+    "test:principles": "npm run build:modules && node tests/browser/principle-compliance.mjs"
   },
   "engines": {
     "node": ">=18"

@@ -309,7 +309,10 @@
     const reset = el("button", "mh-button", t("Sıfırla"));
     reset.type = "reset";
     const actions = el("div", "mh-row");
-    actions.append(submit, reset);
+    const cancel = el("button", "mh-button", t("İşlemi iptal et"));
+    cancel.type = "button"; cancel.hidden = true;
+    cancel.onclick = () => cancelSubmit(true);
+    actions.append(submit, reset, cancel);
     root.append(title, summary, group, actions, status);
     const controls = new Map();
     let serverErrors = {},
@@ -500,6 +503,13 @@
       group.disabled = false;
       submit.disabled = false;
       root.setAttribute("aria-busy", "false");
+      cancel.hidden = true;
+    }
+    function cancelSubmit(focus = false) {
+      if (dead || !busy) return;
+      abort();
+      status.textContent = t("İşlem iptal edildi. Taslak korunuyor.");
+      if (focus) submit.focus();
     }
     async function send(event) {
       event.preventDefault();
@@ -523,6 +533,7 @@
       group.disabled = true;
       submit.disabled = true;
       root.setAttribute("aria-busy", "true");
+      cancel.hidden = false;
       status.textContent = t("Kaydediliyor…");
       controller = new AbortController();
       const current = ++revision;
@@ -543,6 +554,7 @@
           controller.signal,
         );
         if (dead || current !== revision) return;
+        if (response?.persisted !== undefined && typeof response.persisted !== "boolean") throw new TypeError("Invalid persistence result");
         serverErrors = response?.errors || {};
         if (
           Object.keys(serverErrors).some(
@@ -555,15 +567,19 @@
           summary.focus();
           status.textContent = t("Kayıt tamamlanamadı.");
         } else {
-          baseline = { ...result.values };
-          changed();
-          status.textContent = t("Kaydedildi.");
+          if (response?.persisted === false) {
+            status.textContent = t("İşlem tamamlandı. Veri kaydedilmedi; taslak korunuyor.");
+          } else {
+            baseline = { ...result.values };
+            changed();
+            status.textContent = t("Kaydedildi.");
+          }
         }
       } catch (error) {
         if (dead || current !== revision) return;
         showErrors(
           {},
-          t("Kaydedilemedi. Bağlantınızı kontrol edip yeniden deneyin."),
+          t(error?.code === "network" ? "Kaydedilemedi. Bağlantınızı kontrol edip yeniden deneyin." : error?.code === "forbidden" ? "Bu işlem için yetkiniz yok. Taslak korunuyor." : "İşlem tamamlanamadı. Taslak korunuyor; yeniden deneyebilirsiniz."),
         );
         summary.focus();
         status.textContent = "";
@@ -573,6 +589,7 @@
           group.disabled = false;
           submit.disabled = false;
           root.setAttribute("aria-busy", "false");
+      cancel.hidden = true;
         }
       }
     }
@@ -631,6 +648,7 @@
         showErrors(serverErrors);
         return api;
       },
+      cancelSubmit: () => cancelSubmit(),
       reset: () => onReset(),
       validate() {
         const result = check();

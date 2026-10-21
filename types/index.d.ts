@@ -390,7 +390,8 @@ export interface ValidationResult {
   errors: ValidationIssue[];
 }
 export interface AgentInstance {
-  update(spec: UISpec): AgentInstance;
+  cancelPending(): void;
+  update(spec: UISpec, options?: {resetState?: boolean}): AgentInstance;
   destroy(): void;
 }
 export const MuhitAgent: Readonly<{
@@ -406,8 +407,8 @@ export const MuhitAgent: Readonly<{
         signal?: AbortSignal;
       }) =>
         | void
-        | { errors?: Record<string, string> }
-        | Promise<void | { errors?: Record<string, string> }>;
+        | { errors?: Record<string, string>; persisted?: boolean }
+        | Promise<void | { errors?: Record<string, string>; persisted?: boolean }>;
     },
   ): AgentInstance;
 }>;
@@ -546,6 +547,7 @@ export interface FormValidation {
 }
 export interface FormSnapshot { values: FormValues; baseline: FormValues; }
 export interface FormInstance {
+  cancelSubmit(): void;
   getSnapshot(): FormSnapshot;
   setErrors(errors?: Record<string,string>): FormInstance;
   getValues(): FormValues;
@@ -571,8 +573,8 @@ export interface FormOptions {
     signal: AbortSignal,
   ) =>
     | void
-    | { errors?: Record<string, string> }
-    | Promise<void | { errors?: Record<string, string> }>;
+    | { errors?: Record<string, string>; persisted?: boolean }
+    | Promise<void | { errors?: Record<string, string>; persisted?: boolean }>;
   validateAsync?: (
     values: FormValues,
     signal: AbortSignal,
@@ -694,7 +696,7 @@ export const MuhitFields: Readonly<{
       max?: number;
       onChange?: (values: FormValues[]) => void;
       validateAsync?: (values: FormValues[], signal: AbortSignal) => Promise<Record<string,string>[]>;
-      onSubmit?: (values: FormValues[], signal: AbortSignal) => Promise<void | {errors?: Record<string,string>[]}>;
+      onSubmit?: (values: FormValues[], signal: AbortSignal) => Promise<void | {errors?: Record<string,string>[]; persisted?: boolean}>;
     },
   ): {
     getValues(): FormValues[];
@@ -705,6 +707,7 @@ export const MuhitFields: Readonly<{
       errors: Record<string, string>[];
     };
     submit(): Promise<void>;
+      cancelSubmit(): void;
     destroy(): void;
   };
 }>;
