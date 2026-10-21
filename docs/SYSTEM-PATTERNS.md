@@ -18,7 +18,7 @@ flow.restore(snapshot); // Bekleyen işlemi devam ettirmez; editing durumuna ge�
 flow.destroy();
 ```
 
-Aynı işlemde çift gönderim engellenir. Geç yanıtlar revizyon kontrolünden geçer. Başarılı iptal sunucudaki bir yazmanın geri alındığı anlamına gelmez. Tüketici idempotency, yetki ve gerçek sonuç sorgulamasını uygulamalıdır. Değerler sonlu düz JSON olmalıdır; DOM, fonksiyon, accessor ve döngü reddedilir. JSON nesne anahtar sırası değişmişse dirty karşılaştırması konservatif olarak değişiklik sayabilir.
+Aynı işlemde çift gönderim engellenir. Geç yanıtlar revizyon kontrolünden geçer. Geçersiz kılınan submit çağrısının Promise sonucu kendi gönderim taslağıyla cancelled döner; daha yeni işlemin başarı sonucunu ödünç almaz. Başarılı iptal sunucudaki bir yazmanın geri alındığı anlamına gelmez. Tüketici idempotency, yetki ve gerçek sonuç sorgulamasını uygulamalıdır. Değerler sonlu düz JSON olmalıdır; DOM, fonksiyon, accessor ve döngü reddedilir. JSON nesne anahtar sırası değişmişse dirty karşılaştırması konservatif olarak değişiklik sayabilir.
 
 ## Sayfa API
 

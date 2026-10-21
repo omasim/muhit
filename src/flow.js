@@ -53,6 +53,8 @@
       if (["validating", "submitting"].includes(status)) return snapshot();
       if (!options.run) throw Error("A run handler is required");
       const values = json(draft);
+      const submitted = snapshot();
+      const abandoned = () => ({...submitted, status:"cancelled", errors:{}, result:null});
       controller = new AbortController();
       const signal = controller.signal,
         current = ++revision;
@@ -66,7 +68,7 @@
           object(e, Object.keys(e));
           if (Object.values(e).some((v) => typeof v !== "string"))
             throw TypeError("Validation messages must be strings");
-          if (dead || current !== revision) return snapshot();
+          if (dead || current !== revision) return abandoned();
           if (Object.keys(e).length) {
             errors = e;
             status = "error";
@@ -76,7 +78,7 @@
           emit();
         }
         const response = json(await options.run(values, signal));
-        if (dead || current !== revision) return snapshot();
+        if (dead || current !== revision) return abandoned();
         object(
           response,
           ["outcome", "persisted", "data", "errors"],
@@ -99,7 +101,7 @@
           baseline = json(values);
         return emit();
       } catch (error) {
-        if (dead || current !== revision) return snapshot();
+        if (dead || current !== revision) return abandoned();
         status = "error";
         errors = {
           operation:

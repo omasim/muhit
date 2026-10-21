@@ -141,7 +141,10 @@ test("late old results cannot overwrite a newer submission", async () => {
   f.setDraft({ name: "Second" });
   await f.submit();
   first({ outcome: "success", persisted: true });
-  await old;
+  const oldResult = await old;
+  assert.equal(oldResult.status, "cancelled");
+  assert.equal(oldResult.result, null);
+  assert.equal(oldResult.draft.name, "First");
   assert.equal(f.getSnapshot().baseline.name, "Second");
   assert.equal(f.getSnapshot().dirty, false);
 });
