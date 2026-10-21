@@ -44,3 +44,18 @@ Yeni başlık API'sinde sayfa h1 → widget h2 → alt bölüm h3 gezinmesini ko
 ## 0.19 beta — manuel kabul bekliyor
 
 Çoklu combobox aktif seçenek/seçim, hata özetinden alana odak, upload ilerleme/iptal, AI akışını durdurma ve mobil shell navigasyonu gerçek VoiceOver/NVDA/JAWS ile dinlenmeli. Fiziksel iOS/Android 44 px hedef ve büyütme kabulü henüz yapılmadı. Otomatik sonuçlar VERIFICATION-0.19.md içinde ayrı tutulur.
+
+## 0.21 beta — bu sürümün açık kabul kapıları
+
+Aşağıdaki kayıtlar **bekliyor**; otomatik axe/Playwright sonuçları yerine geçmez.
+
+| Senaryo | Beklenen davranış | Ortam |
+|---|---|---|
+| Boş belge başlığı / checkpoint | Başlık boş kalır, hata duyurulur; eski başlık geri gelmez | VoiceOver + Safari, NVDA + Firefox/Chrome, JAWS + Chrome |
+| Kayıt / iptal / geç yanıt | İptal duyurulur, taslak korunur; geç başarı okunmaz | Aynı ekran okuyucu matrisi |
+| Sekme taslağını etkinleştir / yenile | Açık tercih anlaşılır; içerik ve sürümler geri gelir | Masaüstü + fiziksel iOS/Android |
+| Kirli taslakla sayfadan çık / vazgeç | İletişim kutusu anlaşılır; vazgeçince odak ve içerik korunur | Aynı matris |
+| Dar takvim | Günler en az 44 px, yatay takvim gezilebilir, sayfa taşmaz | Fiziksel iOS/Android; büyük yazı ve zoom |
+| Bildirim tercihleri / kısmi hata | Kaydedilen ve kaydedilmeyen sonuçlar ayrı ve doğru duyurulur | Ekran okuyucu matrisi |
+
+Kayıt alanları: sürüm 0.21.0-beta.1, dağıtım SHA256, tarih, test eden, cihaz/OS, tarayıcı/ekran okuyucu sürümü, adımlar, duyulan çıktı, odak, sonuç, bulgu. Bekleyen kabul üretime hazır veya WCAG sertifikalı diye sunulmaz.
