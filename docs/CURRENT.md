@@ -2,15 +2,15 @@
 
 Yerel saat/tekrar/kapasite takvimi, seçili metin ve güvenli medya, kontrollü JSON aktarımı ve prepared/remote search. Ayrıntılar: P3-0.22.md ve MIGRATION-0.22.md. Beta; koşullu servis ve manuel kabul sınırları korunur.
 
-# Güncel sürüm: 0.21.0-beta.1
+# Önceki sürüm: 0.21.0-beta.1
 
 Güncel kaynaklar MIGRATION-0.21.md, INTEGRATION-0.21.md, VERIFICATION-0.21.md ve üretilen RELEASE-POLICY.md. Önceki sürüm kayıtları aşağıda korunur.
 
-# Güncel sürüm: 0.20.0-beta.1
+# Önceki sürüm: 0.20.0-beta.1
 
 P3 planlama/belge/bildirim modülleri ve sektör örnekleri tamamlandı. `PLANNING-0.20.md`, `VERIFICATION-0.20.md`, `MIGRATION-0.20.md`, `DESIGN-CODE-0.20.md` güncel kaynaklardır. Aşağıdaki 0.19/0.18 bölümleri tarihsel kayıttır.
 
-# Muhit 0.19.0-beta.1 — güncel çalışma sürümü
+# Önceki sürüm: 0.19.0-beta.1
 
 0.18 temelinin üzerine P0 paket düzeltmesi, ortak suite durum/görünüm sözleşmesi, ürün modülleri ve sayfa aileleri eklendi. Registry yayını yapılmadı. Logo 3.1, Agent 18 tür ve altı temel sayfa tarifi korunur.
 
@@ -20,7 +20,7 @@ Manuel ekran okuyucu/fiziksel cihaz kabulü bekliyor. Gerçek hesap, yetkilendir
 
 ## Önceki 0.18 kabul kaydı
 
-# Muhit 0.18.0 — güncel kabul kapsamı
+# Muhit 0.18.0 — tarihsel kabul kapsamı
 
 Muhit; ilkeler, tema/token grafiği, ortak etkileşimler, 30 bileşen sözleşmesi, 8 kullanım örüntüsü, 6 sayfa tarifi ve AI kompozisyon incelemesini aynı sürümde birleştirir. Yeni sistem katmanları beta; önceki 18 Agent türü ve API girişleri korunur.
 

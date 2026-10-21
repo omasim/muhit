@@ -1,0 +1,14 @@
+
+> muhit-ui@0.22.0-beta.1 test:p3
+> npm run build:modules && npm run docs:build && node tests/browser/p3.mjs
+
+
+> muhit-ui@0.22.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+
+> muhit-ui@0.22.0-beta.1 docs:build
+> node tools/build-docs.mjs
+
+Built versioned documentation: /home/runner/work/muhit/muhit/docs-site/0.22.0-beta.1
+PASS P3: 48 page states and searchable versioned documentation

@@ -1,3 +1,5 @@
+> Bu belge 0.20 temel API kaydıdır. Güncel 0.22 ekleri ve sınırları: [P3 kapsamı](P3-0.22.md), [geçiş](MIGRATION-0.22.md), [doğrulama](VERIFICATION-0.22.md).
+
 # Muhit 0.20 · Planlama, belgeler ve dikkat
 
 0.20.0-beta.1; 22 Ekim 2026. 0.19 ürün sistemine üç modül, dört yeni sayfa ve gelişmiş bildirim akışı ekler. Mevcut Muhit 3.1 logosu, semantik tokenlar, 16 renk modu ve altı yerleşim tarifi korunur. Yeni modüller açık ESM girişleridir; 18 türlük Agent JSON renderer kapsamına otomatik olarak eklenmez.
