@@ -54,7 +54,7 @@ Stüdyoda aynı vektör yolları kullanılır. Sembol `--mh-link`, yazı `curren
 
 Metin içinde **Muhit**, kütüphane adı olarak **Muhit UI** yazılır. Görsel yazı logosu küçük harfle `muhit` biçimindedir. Paket adı `muhit-ui`, JavaScript API öneki `Muhit`, CSS öneki `mh-` olarak kullanılır.
 
-Logo ve isim değişikliği kütüphanenin kimliğini belirler. Bir npm veya GitHub yayın işlemi bu sürümde yapılmamıştır.
+Logo ve isim değişikliği kütüphanenin kimliğini belirler. Logo sabitleme sürümü paket yayınından bağımsızdır. Güncel paket/yayın durumu CURRENT.md ve sürüm notlarında belirtilir.
 
 
 ## Onaylı ana sürüm

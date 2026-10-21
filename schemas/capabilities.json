@@ -1,5 +1,5 @@
 {
-  "packageVersion": "0.17.0",
+  "packageVersion": "0.18.0",
   "themeSchema": 1,
   "agentSchema": "1.1.0",
   "agentComponentCount": 18,
@@ -89,6 +89,31 @@
       "id": "pages-v1",
       "label": "Sayfa standardı 1.0: altı HTML/CSS tarifi, 12/8/4 ızgara ve kompozisyon şeması",
       "status": "implemented"
+    },
+    {
+      "id": "system-tokens",
+      "status": "implemented",
+      "label": "16 typed token exports, semantic references and theme-layer composition"
+    },
+    {
+      "id": "system-flow",
+      "status": "implemented",
+      "label": "Explicit outcomes, partial results, cancellation, draft snapshots"
+    },
+    {
+      "id": "system-pages",
+      "status": "implemented",
+      "label": "Six runtime page recipes with DOM-preserving content states"
+    },
+    {
+      "id": "system-ai",
+      "status": "implemented",
+      "label": "Composition review, preview without side effects, approval and authorization hooks"
+    },
+    {
+      "id": "system-primitives",
+      "status": "implemented",
+      "label": "Menu, popover, tooltip and tree keyboard/snapshot behavior"
     }
   ]
 }

@@ -1,5 +1,9 @@
 // Component messages. Application content is owned by the consuming project.
 export default Object.freeze({
+"İçeriğe geç": "Zum Inhalt springen",
+"İşlem tamamlanamadı. Yeniden deneyebilirsiniz.": "Der Vorgang konnte nicht abgeschlossen werden. Versuchen Sie es erneut.",
+"Bu alan için erişim gerekli.": "Für diesen Bereich ist eine Zugriffsberechtigung erforderlich.",
+"Bazı kayıtlar işlenemedi. Ayrıntıları inceleyin.": "Einige Einträge konnten nicht verarbeitet werden. Prüfen Sie die Details.",
 "İşlemi iptal et": "Vorgang abbrechen",
 "İşlem iptal edildi. Taslak korunuyor.": "Vorgang abgebrochen. Entwurf bleibt erhalten.",
 "İşlem tamamlandı. Veri kaydedilmedi; taslak korunuyor.": "Vorgang abgeschlossen. Keine Daten gespeichert; Entwurf bleibt erhalten.",

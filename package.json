@@ -1,6 +1,6 @@
 {
   "name": "muhit-ui",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "Tema değişkenleri, erişilebilir etkileşimler ve şema tabanlı arayüz üretimi için bağımsız HTML/CSS/JavaScript bileşenleri.",
   "type": "module",
   "license": "MIT",
@@ -329,7 +329,32 @@
     "./icons/warning": {
       "types": "./types/icon-entry.d.ts",
       "import": "./esm/icons/warning.mjs"
-    }
+    },
+    "./tokens": {
+      "types": "./types/tokens.d.ts",
+      "import": "./esm/tokens.mjs",
+      "default": "./esm/tokens.mjs"
+    },
+    "./flow": {
+      "types": "./types/flow.d.ts",
+      "import": "./esm/flow.mjs",
+      "default": "./esm/flow.mjs"
+    },
+    "./pages": {
+      "types": "./types/pages.d.ts",
+      "import": "./esm/pages.mjs",
+      "default": "./esm/pages.mjs"
+    },
+    "./system": {
+      "types": "./types/system.d.ts",
+      "import": "./esm/system.mjs",
+      "default": "./esm/system.mjs"
+    },
+    "./primitives": {
+      "types": "./types/primitives.d.ts",
+      "import": "./esm/primitives.mjs"
+    },
+    "./tokens/*": "./tokens/*"
   },
   "files": [
     "src/index.mjs",
@@ -410,7 +435,24 @@
     "assets/icons",
     "styles/pages.css",
     "examples/foundations",
-    "tools/provenance.mjs"
+    "tools/provenance.mjs",
+    "src/contracts.js",
+    "src/foundations.js",
+    "src/registry.js",
+    "src/tokens.js",
+    "src/flow.js",
+    "src/pages.js",
+    "src/system.js",
+    "tokens",
+    "examples/system",
+    "tools/build-foundations.mjs",
+    "tools/build-registry.mjs",
+    "tools/build-tokens.mjs",
+    "tools/check-system.mjs",
+    "src/primitives.js",
+    "styles/foundations.css",
+    "styles/system.css",
+    "design"
   ],
   "sideEffects": [
     "./src/*.js",
@@ -418,15 +460,15 @@
   ],
   "scripts": {
     "check": "npm run build:modules && node --input-type=module -e \"await import('./src/index.mjs')\"",
-    "prepack": "npm run check && npm run check:brand",
+    "prepack": "npm run check:system && npm run check:brand",
     "dev": "node tools/serve.mjs",
     "test": "node --test tests/*.test.mjs",
     "check:brand": "node tools/check-brand.mjs",
     "test:browser": "node tests/browser/run.mjs",
     "verify": "npm run check && npm test && npm run check:brand && npm run test:browser && npm run check:capabilities",
     "test:framework": "node tests/browser/frameworks.mjs",
-    "verify:all": "npm run verify && npm run test:extended && npm run test:framework && npm run test:accessibility && npm run test:release && npm run test:scale && npm run test:distribution && npm run test:production && npm run test:consumer-types && npm run test:foundations && npm run test:migration && npm run test:consumer && npm run test:p3",
-    "build:modules": "node tools/build-modules.mjs",
+    "verify:all": "npm run verify && npm run test:extended && npm run test:framework && npm run test:accessibility && npm run test:release && npm run test:scale && npm run test:distribution && npm run test:production && npm run test:consumer-types && npm run test:foundations && npm run test:migration && npm run test:consumer && npm run test:p3 && npm run check:system && npm run test:system && npm run test:principles",
+    "build:modules": "node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs",
     "pretest": "npm run build:modules",
     "test:extended": "npm run build:modules && node tests/browser/extended.mjs",
     "test:bundles": "npm run build:modules && node tools/check-bundles.mjs",
@@ -444,7 +486,10 @@
     "test:consumer": "npm run build:modules && node tests/browser/consumer.mjs",
     "test:p3": "npm run build:modules && npm run docs:build && node tests/browser/p3.mjs",
     "docs:build": "node tools/build-docs.mjs",
-    "test:principles": "npm run build:modules && node tests/browser/principle-compliance.mjs"
+    "test:principles": "npm run build:modules && node tests/browser/principle-compliance.mjs",
+    "build:tokens": "npm run build:modules && node tools/build-tokens.mjs",
+    "check:system": "npm run build:tokens && node tools/check-system.mjs",
+    "test:system": "npm run build:modules && node tests/browser/system.mjs"
   },
   "engines": {
     "node": ">=18"

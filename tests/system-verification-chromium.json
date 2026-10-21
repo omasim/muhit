@@ -1,0 +1,168 @@
+{
+  "provenance": {
+    "version": "0.18.0",
+    "sourceSha256": "1ff9d37243bf121767bbc9398b1e79562180a3247dc171f4cc6129af03df3514",
+    "commit": "9b7f1ba632949670a0fc19c4f48f78c50159279d",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-21T02:48:06.277Z",
+    "platform": "darwin",
+    "node": "v26.12.0"
+  },
+  "engine": "chromium",
+  "scans": [
+    {
+      "name": "index",
+      "width": 390,
+      "mode": "light",
+      "overflow": false,
+      "mains": 1,
+      "h1": 1,
+      "axe": []
+    },
+    {
+      "name": "index",
+      "width": 390,
+      "mode": "dark",
+      "overflow": false,
+      "mains": 1,
+      "h1": 1,
+      "axe": []
+    },
+    {
+      "name": "index",
+      "width": 1440,
+      "mode": "light",
+      "overflow": false,
+      "mains": 1,
+      "h1": 1,
+      "axe": []
+    },
+    {
+      "name": "index",
+      "width": 1440,
+      "mode": "dark",
+      "overflow": false,
+      "mains": 1,
+      "h1": 1,
+      "axe": []
+    },
+    {
+      "name": "corporate",
+      "width": 390,
+      "mode": "light",
+      "overflow": false,
+      "mains": 1,
+      "h1": 1,
+      "axe": []
+    },
+    {
+      "name": "corporate",
+      "width": 390,
+      "mode": "dark",
+      "overflow": false,
+      "mains": 1,
+      "h1": 1,
+      "axe": []
+    },
+    {
+      "name": "corporate",
+      "width": 1440,
+      "mode": "light",
+      "overflow": false,
+      "mains": 1,
+      "h1": 1,
+      "axe": []
+    },
+    {
+      "name": "corporate",
+      "width": 1440,
+      "mode": "dark",
+      "overflow": false,
+      "mains": 1,
+      "h1": 1,
+      "axe": []
+    },
+    {
+      "name": "admin",
+      "width": 390,
+      "mode": "light",
+      "overflow": false,
+      "mains": 1,
+      "h1": 1,
+      "axe": []
+    },
+    {
+      "name": "admin",
+      "width": 390,
+      "mode": "dark",
+      "overflow": false,
+      "mains": 1,
+      "h1": 1,
+      "axe": []
+    },
+    {
+      "name": "admin",
+      "width": 1440,
+      "mode": "light",
+      "overflow": false,
+      "mains": 1,
+      "h1": 1,
+      "axe": []
+    },
+    {
+      "name": "admin",
+      "width": 1440,
+      "mode": "dark",
+      "overflow": false,
+      "mains": 1,
+      "h1": 1,
+      "axe": []
+    },
+    {
+      "name": "data",
+      "width": 390,
+      "mode": "light",
+      "overflow": false,
+      "mains": 1,
+      "h1": 1,
+      "axe": []
+    },
+    {
+      "name": "data",
+      "width": 390,
+      "mode": "dark",
+      "overflow": false,
+      "mains": 1,
+      "h1": 1,
+      "axe": []
+    },
+    {
+      "name": "data",
+      "width": 1440,
+      "mode": "light",
+      "overflow": false,
+      "mains": 1,
+      "h1": 1,
+      "axe": []
+    },
+    {
+      "name": "data",
+      "width": 1440,
+      "mode": "dark",
+      "overflow": false,
+      "mains": 1,
+      "h1": 1,
+      "axe": []
+    }
+  ],
+  "menuKeyboard": true,
+  "treeKeyboard": true,
+  "tooltipEscape": true,
+  "draftCancellation": true,
+  "approvalBoundary": true,
+  "recordContext": true,
+  "importPreview": true,
+  "downloadTruth": true,
+  "bulkPartialRetry": true,
+  "wizardDraft": true
+}

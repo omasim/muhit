@@ -1,0 +1,538 @@
+{
+  "fileKey": "PllwZjMHfzcRJfEoMrMJkg",
+  "url": "https://www.figma.com/design/PllwZjMHfzcRJfEoMrMJkg",
+  "team": "ömer's Starter team",
+  "version": "0.18.0",
+  "collections": [
+    {
+      "id": "VariableCollectionId:2:2",
+      "name": "Muhit/grove/light",
+      "count": 185
+    },
+    {
+      "id": "VariableCollectionId:2:188",
+      "name": "Muhit/grove/dark",
+      "count": 185
+    },
+    {
+      "id": "VariableCollectionId:2:379",
+      "name": "Muhit/clay/light",
+      "count": 185
+    },
+    {
+      "id": "VariableCollectionId:2:565",
+      "name": "Muhit/clay/dark",
+      "count": 185
+    },
+    {
+      "id": "VariableCollectionId:2:751",
+      "name": "Muhit/tide/light",
+      "count": 185
+    },
+    {
+      "id": "VariableCollectionId:2:937",
+      "name": "Muhit/tide/dark",
+      "count": 185
+    },
+    {
+      "id": "VariableCollectionId:2:1123",
+      "name": "Muhit/atelier/light",
+      "count": 185
+    },
+    {
+      "id": "VariableCollectionId:2:1309",
+      "name": "Muhit/atelier/dark",
+      "count": 185
+    },
+    {
+      "id": "VariableCollectionId:2:1495",
+      "name": "Muhit/sand/light",
+      "count": 185
+    },
+    {
+      "id": "VariableCollectionId:2:1681",
+      "name": "Muhit/sand/dark",
+      "count": 185
+    },
+    {
+      "id": "VariableCollectionId:2:1867",
+      "name": "Muhit/moss/light",
+      "count": 185
+    },
+    {
+      "id": "VariableCollectionId:2:2053",
+      "name": "Muhit/moss/dark",
+      "count": 185
+    },
+    {
+      "id": "VariableCollectionId:2:2239",
+      "name": "Muhit/plum/light",
+      "count": 185
+    },
+    {
+      "id": "VariableCollectionId:2:2425",
+      "name": "Muhit/plum/dark",
+      "count": 185
+    },
+    {
+      "id": "VariableCollectionId:2:2611",
+      "name": "Muhit/slate/light",
+      "count": 185
+    },
+    {
+      "id": "VariableCollectionId:2:2797",
+      "name": "Muhit/slate/dark",
+      "count": 185
+    }
+  ],
+  "pages": [
+    {
+      "id": "0:1",
+      "name": "Başlangıç ve temeller"
+    },
+    {
+      "id": "3:191",
+      "name": "Bileşenler"
+    },
+    {
+      "id": "3:192",
+      "name": "Sayfa tarifleri"
+    }
+  ],
+  "components": [
+    {
+      "id": "card",
+      "nodeId": "4:37",
+      "variants": [
+        {
+          "id": "4:14",
+          "name": "State=Default"
+        },
+        {
+          "id": "4:20",
+          "name": "State=Sage"
+        },
+        {
+          "id": "4:26",
+          "name": "State=Ink"
+        },
+        {
+          "id": "4:30",
+          "name": "State=Loading"
+        },
+        {
+          "id": "4:36",
+          "name": "State=Error"
+        }
+      ],
+      "source": "ui.schema.json#/$defs/card"
+    },
+    {
+      "id": "metric",
+      "nodeId": "4:46",
+      "variants": [
+        {
+          "id": "4:46",
+          "name": "Muhit/metric"
+        }
+      ],
+      "source": "ui.schema.json#/$defs/metric"
+    },
+    {
+      "id": "notice",
+      "nodeId": "4:67",
+      "variants": [
+        {
+          "id": "4:54",
+          "name": "State=Info"
+        },
+        {
+          "id": "4:58",
+          "name": "State=Success"
+        },
+        {
+          "id": "4:62",
+          "name": "State=Warning"
+        },
+        {
+          "id": "4:66",
+          "name": "State=Danger"
+        }
+      ],
+      "source": "ui.schema.json#/$defs/notice"
+    },
+    {
+      "id": "table",
+      "nodeId": "4:91",
+      "variants": [
+        {
+          "id": "4:91",
+          "name": "Muhit/table"
+        }
+      ],
+      "source": "ui.schema.json#/$defs/table"
+    },
+    {
+      "id": "chart",
+      "nodeId": "4:105",
+      "variants": [
+        {
+          "id": "4:105",
+          "name": "Muhit/chart"
+        }
+      ],
+      "source": "ui.schema.json#/$defs/chart"
+    },
+    {
+      "id": "tabs",
+      "nodeId": "4:117",
+      "variants": [
+        {
+          "id": "4:117",
+          "name": "Muhit/tabs"
+        }
+      ],
+      "source": "widgets.schema.json#/$defs/tabs"
+    },
+    {
+      "id": "accordion",
+      "nodeId": "4:129",
+      "variants": [
+        {
+          "id": "4:129",
+          "name": "Muhit/accordion"
+        }
+      ],
+      "source": "widgets.schema.json#/$defs/accordion"
+    },
+    {
+      "id": "timeline",
+      "nodeId": "4:138",
+      "variants": [
+        {
+          "id": "4:138",
+          "name": "Muhit/timeline"
+        }
+      ],
+      "source": "widgets.schema.json#/$defs/timeline"
+    },
+    {
+      "id": "kanban",
+      "nodeId": "4:149",
+      "variants": [
+        {
+          "id": "4:149",
+          "name": "Muhit/kanban"
+        }
+      ],
+      "source": "widgets.schema.json#/$defs/kanban"
+    },
+    {
+      "id": "choices",
+      "nodeId": "4:160",
+      "variants": [
+        {
+          "id": "4:160",
+          "name": "Muhit/choices"
+        }
+      ],
+      "source": "widgets.schema.json#/$defs/choices"
+    },
+    {
+      "id": "command",
+      "nodeId": "4:172",
+      "variants": [
+        {
+          "id": "4:172",
+          "name": "Muhit/command"
+        }
+      ],
+      "source": "widgets.schema.json#/$defs/command"
+    },
+    {
+      "id": "drawer",
+      "nodeId": "4:184",
+      "variants": [
+        {
+          "id": "4:184",
+          "name": "Muhit/drawer"
+        }
+      ],
+      "source": "widgets.schema.json#/$defs/drawer"
+    },
+    {
+      "id": "stepper",
+      "nodeId": "4:197",
+      "variants": [
+        {
+          "id": "4:197",
+          "name": "Muhit/stepper"
+        }
+      ],
+      "source": "widgets.schema.json#/$defs/stepper"
+    },
+    {
+      "id": "filepicker",
+      "nodeId": "4:207",
+      "variants": [
+        {
+          "id": "4:207",
+          "name": "Muhit/filepicker"
+        }
+      ],
+      "source": "widgets.schema.json#/$defs/filepicker"
+    },
+    {
+      "id": "pagination",
+      "nodeId": "4:218",
+      "variants": [
+        {
+          "id": "4:218",
+          "name": "Muhit/pagination"
+        }
+      ],
+      "source": "widgets.schema.json#/$defs/pagination"
+    },
+    {
+      "id": "form",
+      "nodeId": "4:235",
+      "variants": [
+        {
+          "id": "4:235",
+          "name": "Muhit/form"
+        }
+      ],
+      "source": "ui.schema.json#/$defs/form"
+    },
+    {
+      "id": "datagrid",
+      "nodeId": "4:263",
+      "variants": [
+        {
+          "id": "4:263",
+          "name": "Muhit/datagrid"
+        }
+      ],
+      "source": "ui.schema.json#/$defs/datagrid"
+    },
+    {
+      "id": "plot",
+      "nodeId": "4:277",
+      "variants": [
+        {
+          "id": "4:277",
+          "name": "Muhit/plot"
+        }
+      ],
+      "source": "ui.schema.json#/$defs/plot"
+    },
+    {
+      "id": "button",
+      "nodeId": "4:294",
+      "variants": [
+        {
+          "id": "4:284",
+          "name": "State=Default"
+        },
+        {
+          "id": "4:287",
+          "name": "State=Primary"
+        },
+        {
+          "id": "4:290",
+          "name": "State=Danger"
+        },
+        {
+          "id": "4:293",
+          "name": "State=Disabled"
+        }
+      ]
+    },
+    {
+      "id": "badge",
+      "nodeId": "4:311",
+      "variants": [
+        {
+          "id": "4:301",
+          "name": "State=Default"
+        },
+        {
+          "id": "4:304",
+          "name": "State=Success"
+        },
+        {
+          "id": "4:307",
+          "name": "State=Warning"
+        },
+        {
+          "id": "4:310",
+          "name": "State=Danger"
+        }
+      ]
+    },
+    {
+      "id": "checkbox",
+      "nodeId": "4:334",
+      "variants": [
+        {
+          "id": "4:321",
+          "name": "State=Off"
+        },
+        {
+          "id": "4:327",
+          "name": "State=On"
+        },
+        {
+          "id": "4:333",
+          "name": "State=Disabled"
+        }
+      ]
+    },
+    {
+      "id": "switch",
+      "nodeId": "4:357",
+      "variants": [
+        {
+          "id": "4:344",
+          "name": "State=Off"
+        },
+        {
+          "id": "4:350",
+          "name": "State=On"
+        },
+        {
+          "id": "4:356",
+          "name": "State=Disabled"
+        }
+      ]
+    },
+    {
+      "id": "dialog",
+      "nodeId": "4:369",
+      "variants": [
+        {
+          "id": "4:369",
+          "name": "Muhit/dialog"
+        }
+      ]
+    },
+    {
+      "id": "empty",
+      "nodeId": "4:392",
+      "variants": [
+        {
+          "id": "4:379",
+          "name": "State=Empty"
+        },
+        {
+          "id": "4:385",
+          "name": "State=Error"
+        },
+        {
+          "id": "4:391",
+          "name": "State=Forbidden"
+        }
+      ]
+    },
+    {
+      "id": "skeleton",
+      "nodeId": "4:402",
+      "variants": [
+        {
+          "id": "4:402",
+          "name": "Muhit/skeleton"
+        }
+      ]
+    },
+    {
+      "id": "layout",
+      "nodeId": "4:414",
+      "variants": [
+        {
+          "id": "4:414",
+          "name": "Muhit/layout"
+        }
+      ]
+    },
+    {
+      "id": "menu",
+      "nodeId": "4:426",
+      "variants": [
+        {
+          "id": "4:426",
+          "name": "Muhit/menu"
+        }
+      ]
+    },
+    {
+      "id": "popover",
+      "nodeId": "4:438",
+      "variants": [
+        {
+          "id": "4:438",
+          "name": "Muhit/popover"
+        }
+      ]
+    },
+    {
+      "id": "tooltip",
+      "nodeId": "4:445",
+      "variants": [
+        {
+          "id": "4:445",
+          "name": "Muhit/tooltip"
+        }
+      ]
+    },
+    {
+      "id": "tree",
+      "nodeId": "4:456",
+      "variants": [
+        {
+          "id": "4:456",
+          "name": "Muhit/tree"
+        }
+      ]
+    }
+  ],
+  "boards": [
+    {
+      "id": "5:2",
+      "recipe": "overview"
+    },
+    {
+      "id": "5:33",
+      "recipe": "collection"
+    },
+    {
+      "id": "5:75",
+      "recipe": "detail"
+    },
+    {
+      "id": "5:97",
+      "recipe": "settings"
+    },
+    {
+      "id": "5:123",
+      "recipe": "workspace"
+    },
+    {
+      "id": "5:148",
+      "recipe": "editorial"
+    }
+  ],
+  "acceptance": {
+    "variables": 2960,
+    "brokenAliases": 0,
+    "missingCodeSyntax": 0,
+    "unscopedAll": 0,
+    "families": 30,
+    "representativeVariants": 49,
+    "pageRecipes": 6
+  },
+  "codeConnect": {
+    "status": "not-published",
+    "reason": "Starter team; published library and eligible plan required"
+  },
+  "scope": "Editable representative component specimens; not exhaustive behavioral parity or production-screen prototypes"
+}

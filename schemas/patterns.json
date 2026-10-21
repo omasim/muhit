@@ -1,0 +1,117 @@
+{
+  "version": "1.0.0",
+  "patterns": [
+    {
+      "id": "list-detail",
+      "recipes": [
+        "collection",
+        "detail"
+      ],
+      "components": [
+        "datagrid",
+        "form"
+      ],
+      "contract": "Keep query, selection, scroll and per-record drafts; focus returns to origin.",
+      "status": "beta",
+      "persistence": "application-owned",
+      "example": "examples/system/index.html"
+    },
+    {
+      "id": "draft-form",
+      "recipes": [
+        "settings"
+      ],
+      "components": [
+        "form",
+        "notice"
+      ],
+      "contract": "Explicit submit, cancel and reset; distinguish persisted from local result.",
+      "status": "beta",
+      "persistence": "application-owned",
+      "example": "examples/system/index.html"
+    },
+    {
+      "id": "bulk-operation",
+      "recipes": [
+        "collection"
+      ],
+      "components": [
+        "datagrid",
+        "notice"
+      ],
+      "contract": "Show scope, require confirmation for destructive effects, retain failures on partial result.",
+      "status": "beta",
+      "persistence": "application-owned",
+      "example": "examples/system/index.html"
+    },
+    {
+      "id": "import-review",
+      "recipes": [
+        "workspace"
+      ],
+      "components": [
+        "filepicker",
+        "datagrid"
+      ],
+      "contract": "Selection \u2192 validation \u2192 preview \u2192 application; file selection is not upload.",
+      "status": "beta",
+      "persistence": "application-owned",
+      "example": "examples/system/index.html"
+    },
+    {
+      "id": "agent-review",
+      "recipes": [
+        "workspace"
+      ],
+      "components": [
+        "form",
+        "notice"
+      ],
+      "contract": "Validate proposal \u2192 preview \u2192 explicit application authorization \u2192 truthful result.",
+      "status": "beta",
+      "persistence": "application-owned",
+      "example": "examples/system/index.html"
+    },
+    {
+      "id": "analytics",
+      "recipes": [
+        "overview"
+      ],
+      "components": [
+        "plot",
+        "metric"
+      ],
+      "contract": "State source, unit, period and missing data; provide table alternative.",
+      "status": "beta",
+      "persistence": "application-owned",
+      "example": "examples/system/index.html"
+    },
+    {
+      "id": "multi-step",
+      "recipes": [
+        "settings"
+      ],
+      "components": [
+        "stepper",
+        "form"
+      ],
+      "contract": "Per-step draft preserved; final submission is explicit.",
+      "status": "beta",
+      "persistence": "application-owned",
+      "example": "examples/system/index.html"
+    },
+    {
+      "id": "permission-recovery",
+      "recipes": [
+        "detail"
+      ],
+      "components": [
+        "notice"
+      ],
+      "contract": "Explain inaccessible scope without leaking private record details.",
+      "status": "beta",
+      "persistence": "application-owned",
+      "example": "examples/system/index.html"
+    }
+  ]
+}

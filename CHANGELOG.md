@@ -1,3 +1,16 @@
+# 0.18.0
+
+- Mimari ve teknoloji katmanları, 30 bileşen sözleşmesi ve 8 kullanım örüntüsü.
+- MuhitTokens: üç düzey tipli token grafiği, referans doğrulama, 16 görünüm dosyası ve tema önceliği.
+- MuhitFlow: explicit sonuç/kalıcılık, kısmi sonuç, iptal, geç yanıt koruması ve restore.
+- MuhitPages: altı tariften semantik kabuk, içerik korunarak durum geçişleri.
+- MuhitPrimitives: menu, popover, tooltip ve tree için klavye/lifecycle davranışları.
+- MuhitSystem: sayfa–bileşen–eylem kompozisyonu, güvenli önizleme, açık onay ve yetki callback sınırı.
+- Sistem stüdyosu ile kurumsal, yönetim ve veri referans ürünleri; toplu işlem, çok adımlı hazırlık ve JSON içe aktarma incelemesi.
+- Figma: 16 koleksiyon, 2.960 değişken, 30 aile / 49 tasarım örneği, 6 sayfa kompozisyonu. Code Connect plan sınırı belgeli.
+- Tema değişiminde düğme zemin animasyonu kaynaklı geçici kontrast kaybı giderildi.
+- Yeni modüller beta; manuel yardımcı teknoloji ve fiziksel cihaz kabulü açık.
+
 # 0.17.0
 
 - Form ve tekrarlanan alanlarda ayrı iptal eylemi: taslağı korur, bekleyen yanıtları geçersiz kılar. Sıfırlama ayrı kalır.

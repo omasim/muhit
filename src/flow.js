@@ -1,0 +1,181 @@
+/* A bounded, cancellable operation model. Applications own persistence and authorization. */
+(function (global) {
+  "use strict";
+  const { json, object } = global.MuhitContracts;
+  function create(initial = {}, options = {}) {
+    object(options, ["run", "validate", "onChange"]);
+    for (const k of ["run", "validate", "onChange"])
+      if (options[k] !== undefined && typeof options[k] !== "function")
+        throw TypeError("Invalid " + k);
+    let draft = json(initial),
+      baseline = json(initial),
+      status = "idle",
+      errors = {},
+      result = null,
+      revision = 0,
+      controller,
+      dead = false;
+    const listeners = new Set();
+    if (options.onChange) listeners.add(options.onChange);
+    const snapshot = () => ({
+      version: 1,
+      draft: json(draft),
+      baseline: json(baseline),
+      status,
+      errors: json(errors),
+      result: result === null ? null : json(result),
+      dirty: JSON.stringify(draft) !== JSON.stringify(baseline),
+    });
+    function emit() {
+      const value = snapshot();
+      for (const fn of listeners) fn(value);
+      return value;
+    }
+    function live() {
+      if (dead) throw Error("Destroyed operation");
+    }
+    function abort() {
+      revision++;
+      controller?.abort();
+      controller = null;
+    }
+    function cancel() {
+      live();
+      if (status !== "validating" && status !== "submitting") return snapshot();
+      abort();
+      status = "cancelled";
+      errors = {};
+      result = null;
+      return emit();
+    }
+    async function submit() {
+      live();
+      if (["validating", "submitting"].includes(status)) return snapshot();
+      if (!options.run) throw Error("A run handler is required");
+      const values = json(draft);
+      controller = new AbortController();
+      const signal = controller.signal,
+        current = ++revision;
+      status = options.validate ? "validating" : "submitting";
+      errors = {};
+      result = null;
+      emit();
+      try {
+        if (options.validate) {
+          const e = json(await options.validate(values, signal));
+          object(e, Object.keys(e));
+          if (Object.values(e).some((v) => typeof v !== "string"))
+            throw TypeError("Validation messages must be strings");
+          if (dead || current !== revision) return snapshot();
+          if (Object.keys(e).length) {
+            errors = e;
+            status = "error";
+            return emit();
+          }
+          status = "submitting";
+          emit();
+        }
+        const response = json(await options.run(values, signal));
+        if (dead || current !== revision) return snapshot();
+        object(
+          response,
+          ["outcome", "persisted", "data", "errors"],
+          ["outcome", "persisted"],
+        );
+        if (
+          !["success", "partial"].includes(response.outcome) ||
+          typeof response.persisted !== "boolean"
+        )
+          throw TypeError("Explicit outcome and persistence required");
+        if (response.errors !== undefined) {
+          object(response.errors, Object.keys(response.errors));
+          if (Object.values(response.errors).some((v) => typeof v !== "string"))
+            throw TypeError("Invalid errors");
+        }
+        result = response;
+        errors = response.errors || {};
+        status = response.outcome;
+        if (response.outcome === "success" && response.persisted)
+          baseline = json(values);
+        return emit();
+      } catch (error) {
+        if (dead || current !== revision) return snapshot();
+        status = "error";
+        errors = {
+          operation:
+            error?.code === "forbidden"
+              ? "permission"
+              : error?.code === "network"
+                ? "network"
+                : "unknown",
+        };
+        result = null;
+        return emit();
+      } finally {
+        if (current === revision) controller = null;
+      }
+    }
+    return Object.freeze({
+      getSnapshot: snapshot,
+      setDraft(value) {
+        live();
+        const next = json(value);
+        abort();
+        draft = next;
+        status = "editing";
+        errors = {};
+        result = null;
+        return emit();
+      },
+      submit,
+      cancel,
+      reset() {
+        live();
+        abort();
+        draft = json(baseline);
+        status = "idle";
+        errors = {};
+        result = null;
+        return emit();
+      },
+      restore(value) {
+        live();
+        const next = json(value);
+        object(
+          next,
+          [
+            "version",
+            "draft",
+            "baseline",
+            "status",
+            "errors",
+            "result",
+            "dirty",
+          ],
+          ["version", "draft", "baseline"],
+        );
+        if (next.version !== 1) throw TypeError("Unsupported snapshot");
+        abort();
+        draft = next.draft;
+        baseline = next.baseline;
+        status = "editing";
+        errors = {};
+        result = null;
+        return emit();
+      },
+      subscribe(fn) {
+        live();
+        if (typeof fn !== "function") throw TypeError("Listener required");
+        listeners.add(fn);
+        return () => listeners.delete(fn);
+      },
+      destroy() {
+        if (dead) return;
+        abort();
+        listeners.clear();
+        dead = true;
+      },
+    });
+  }
+  global.MuhitFlow = Object.freeze({ version: "1.0.0", create });
+})(typeof window !== "undefined" ? window : globalThis);

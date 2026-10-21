@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Muhit System Composition 1.0",
+  "description": "UI proposals carry no execution authority. Runtime also checks unique action ids and component references.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "page",
+    "view",
+    "actions",
+    "data"
+  ],
+  "properties": {
+    "version": {
+      "const": "1.0.0"
+    },
+    "page": {
+      "$ref": "./page.schema.json"
+    },
+    "view": {
+      "$ref": "./ui.schema.json"
+    },
+    "actions": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "componentId",
+          "event",
+          "kind",
+          "label"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$"
+          },
+          "componentId": {
+            "type": "string"
+          },
+          "event": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "kind": {
+            "enum": [
+              "read",
+              "write",
+              "destructive"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "confirmation": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "write",
+                    "destructive"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "confirmation"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "example",
+        "persistence"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "example": {
+          "type": "boolean"
+        },
+        "persistence": {
+          "enum": [
+            "none",
+            "memory",
+            "external"
+          ]
+        }
+      }
+    }
+  }
+}
