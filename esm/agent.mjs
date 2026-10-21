@@ -1026,6 +1026,9 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
       }
     }
     function commit(next, resetState) {
+      const focused=doc.activeElement;
+      const activeEntry=!resetState && current && [...current.entries].find(([,entry])=>entry.root.contains?.(focused));
+      const selection=activeEntry && typeof focused.selectionStart==='number' ? [focused.selectionStart,focused.selectionEnd] : null;
       if (!resetState && current) for(const [id,record] of current.records) {
         if(record.mount.isDirty?.()) {
           const replacement=next.components.find(c=>c.id===id);
@@ -1051,6 +1054,12 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
       prepared.entries.forEach((entry,id)=>entry.lifetime.live.add(id));
       current = prepared;
       container.replaceChildren(prepared.root);
+      if(activeEntry) {
+        const entry=prepared.entries.get(activeEntry[0]);
+        const target=entry?.root.contains(focused) ? focused : entry && focused.name ? [...entry.root.querySelectorAll('[name]')].find(n=>n.name===focused.name) : null;
+        target?.focus({preventScroll:true});
+        if(selection && target?.setSelectionRange)try{target.setSelectionRange(...selection)}catch(_){}
+      }
     }
     var prepared = prepare(data);
     var previous = instances.get(container);

@@ -6,7 +6,7 @@ Muhit, kullanıcı emeğini korumayı görsel bir tercihten önce davranış kur
 
 Form ve Repeater `cancelSubmit()` bekleyen doğrulama/gönderimi iptal eder. Görünür “İşlemi iptal et” düğmesi yalnız işlem sürerken sunulur. Değerler korunur; geç dönen yanıt ekrana başarı yazamaz. Form `reset()` ise değerleri son kabul edilmiş başlangıca döndürür. İptal sıfırlama değildir.
 
-Form callback'ine verilen AbortSignal veri katmanına iletilmelidir. İptal, sunucuda tamamlanmış bir yazmayı geri alamaz; sunucu işlemleri için idempotency ve sonuç sorgulama uygulama sorumluluğudur. Repeater geç yanıtı geçersiz kılar; mevcut callback sözleşmesi AbortSignal iletmez.
+Form callback'ine verilen AbortSignal veri katmanına iletilmelidir. İptal, sunucuda tamamlanmış bir yazmayı geri alamaz; sunucu işlemleri için idempotency ve sonuç sorgulama uygulama sorumluluğudur. Repeater da validateAsync ve onSubmit callback’lerine AbortSignal iletir.
 
 ## Doğru sonuç bildirimi
 
@@ -18,7 +18,7 @@ Form hatalarında `code:'network'` bağlantı mesajına, `code:'forbidden'` yetk
 
 ## Agent güncellemesi
 
-`update(spec)` aynı kimlik ve aynı tanıma sahip bileşenin DOM ve instance'ını korur. Tanımı değişen form, alan tanımı aynıysa mevcut değer ve baseline snapshot'ını; DataGrid sütun tanımı aynıysa görünümünü taşır. Mevcut taslak yeni spec başlangıç değerlerinden önce gelir. Değişmiş widget/table/chart tanımlarında genel durum göçü vaat edilmez.
+`update(spec)` aynı kimlik ve aynı tanıma sahip bileşenin DOM ve instance'ını korur. Etkin alan ve metin seçimi, aynı alan yaşamaya devam ediyorsa geri yüklenir. Tanımı değişen form, alan tanımı aynıysa mevcut değer ve baseline snapshot'ını; DataGrid sütun tanımı aynıysa görünümünü taşır. Mevcut taslak yeni spec başlangıç değerlerinden önce gelir. Değişmiş widget/table/chart tanımlarında genel durum göçü vaat edilmez.
 
 Kirli formu kaldıran veya alan tanımını değiştiren güncelleme atomik olarak reddedilir; eski arayüz korunur. Bilinçli veri atma için `update(spec, {resetState:true})` kullanılır. Bu seçenek uygulama tarafından kullanıcı niyeti doğrulandıktan sonra kullanılmalıdır. `cancelPending()` bağlı formları/grupları taslağı bozmadan iptal eder. `destroy()` yaşam döngüsünü sonlandırır; sonrasında durum koruma vaat edilmez.
 

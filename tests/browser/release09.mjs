@@ -162,7 +162,7 @@ try {
     .getByRole("button", { name: "Save", exact: true })
     .click();
   await p
-    .getByText("2 members saved in this example.", { exact: true })
+    .getByText("2 members handled in this example; not stored.", { exact: true })
     .waitFor();
   await p.locator("#profile input").fill("used@example.com");
   await p
@@ -175,7 +175,7 @@ try {
     .getByRole("button", { name: "Save", exact: true })
     .click();
   await p
-    .getByText("Profile saved in this example: fresh@example.com", {
+    .getByText("Profile handled without storage: fresh@example.com", {
       exact: true,
     })
     .waitFor();

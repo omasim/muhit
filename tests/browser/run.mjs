@@ -196,8 +196,8 @@ try {
   );
   await p.getByLabel("İletişim e-postası *").fill("hello@example.com");
   await p.getByRole("button", { name: "Örnek kaydı dene" }).click();
-  await p.getByText("Kaydedildi.", { exact: true }).waitFor();
-  assert.equal(await p.evaluate(() => exampleForm.isDirty()), false);
+  await p.getByText("İşlem tamamlandı. Veri kaydedilmedi; taslak korunuyor.", { exact: true }).waitFor();
+  assert.equal(await p.evaluate(() => exampleForm.isDirty()), true);
   await p.getByLabel("Örnek yanıt").selectOption("validation");
   await p.getByRole("button", { name: "Örnek kaydı dene" }).click();
   await p.getByText("Kayıt tamamlanamadı.", { exact: true }).waitFor();
