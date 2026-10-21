@@ -22,4 +22,6 @@ Kullanıcı tercihi ürün politikasıyla filtrelenmelidir. Tema config’i dı�
 
 `styles/system.css`, `foundations.css` ölçeklerini ve ortak layout yardımcılarını yükler. Mevcut `--mh-*` isimleri semantik uyumluluk katmanıdır; kaldırılmaz. Token graph bu isimlerle aynı kaynağa bağlıdır. Var olan light/dark görünüm değişmez.
 
-Figma: DTCG destekleyen içe aktarma aracı ile `tokens/*.tokens.json` aktarılabilir. Koleksiyon/mode ve font eşlemesi tasarım dosyasında kontrol edilmelidir. Native Figma bileşen kütüphanesi bu kod paketinin oluşturduğu bir çıktı değildir; bu sürümde tasarım dosyası eşitliği iddia edilmez.
+Figma: DTCG destekleyen içe aktarma aracı ile `tokens/*.tokens.json` aktarılabilir. Koleksiyon/mode ve font eşlemesi tasarım dosyasında kontrol edilmelidir. Native Figma kaynağı, node kimlikleri ve temsil kapsamı [Figma rehberinde](FIGMA.md) kayıtlıdır. Code Connect yayını ve bütün davranışların prototip eşitliği iddia edilmez.
+
+Bileşen tokenları CSS tüketimini izler: primary button renkleri button-bg/button-fg, card yüzeyi card-surface, card köşesi radius-md semantik uyumluluk rollerine bağlanır. Böylece outline düğme ve renkli kart kişiselleştirmeleri token çıktısına da yansır.

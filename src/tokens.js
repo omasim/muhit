@@ -24,14 +24,14 @@
     "typography.body.lineHeight": "line-height",
   };
   const componentAliases = {
-    "button.primary.background": "color.action.primary",
-    "button.primary.foreground": "color.action.onPrimary",
+    "button.primary.background": "legacy.button-bg",
+    "button.primary.foreground": "legacy.button-fg",
     "button.height": "size.control",
     "input.border": "color.border.strong",
     "input.radius": "radius.control",
     "card.padding": "space.component",
-    "card.background": "color.surface.primary",
-    "card.radius": "radius.surface",
+    "card.background": "legacy.card-surface",
+    "card.radius": "legacy.radius-md",
     "dialog.background": "color.surface.primary",
     "table.foreground": "color.text.primary",
     "chart.label": "color.text.primary",
@@ -150,7 +150,7 @@
         $description: "Semantic role " + path,
       });
     for (const [path, ref] of Object.entries(componentAliases)) {
-      const key = aliases[ref];
+      const key = ref.startsWith("legacy.") ? ref.slice(7) : aliases[ref];
       put(out, "component." + path, {
         $type: typed(tokens["--mh-" + key]).$type,
         $value: "{semantic." + ref + "}",

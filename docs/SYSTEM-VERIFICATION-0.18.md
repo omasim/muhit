@@ -6,7 +6,7 @@ Yeni token, flow, page, primitives ve system girişleri; dört referans ekranı;
 
 ## Yerel sonuçlar
 
-- 82 Node testi geçti (11 yeni sistem testi dahil).
+- 83 Node testi geçti (12 yeni sistem testi dahil).
 - Paketlenmiş 80 public TypeScript girişi NodeNext ve Bundler çözümlemesinde geçti.
 - Sistem sözleşmeleri: 30 bileşen, 6 sayfa, 16 token dosyası; her dosyada 185 token; referans döngüsü ve eksik hedef denetimi geçti.
 - Chromium sistem testi: 4 ekran × 2 genişlik × 2 görünüm = 16 axe/taşma/landmark kontrolü; koyu görünümde gerçek sayfa RTL. Menü, tooltip, tree, iptal, AI onay sınırı, kayıt taslağı, import önizlemesi, çok adımlı geri dönüş ve toplu kısmi sonuç/retry senaryoları.

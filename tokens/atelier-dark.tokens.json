@@ -1732,12 +1732,12 @@
       "primary": {
         "background": {
           "$type": "color",
-          "$value": "{semantic.color.action.primary}",
+          "$value": "{semantic.legacy.button-bg}",
           "$description": "Component role button.primary.background"
         },
         "foreground": {
           "$type": "color",
-          "$value": "{semantic.color.action.onPrimary}",
+          "$value": "{semantic.legacy.button-fg}",
           "$description": "Component role button.primary.foreground"
         }
       },
@@ -1767,12 +1767,12 @@
       },
       "background": {
         "$type": "color",
-        "$value": "{semantic.color.surface.primary}",
+        "$value": "{semantic.legacy.card-surface}",
         "$description": "Component role card.background"
       },
       "radius": {
         "$type": "dimension",
-        "$value": "{semantic.radius.surface}",
+        "$value": "{semantic.legacy.radius-md}",
         "$description": "Component role card.radius"
       }
     },

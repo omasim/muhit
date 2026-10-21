@@ -45,13 +45,21 @@ test("all 16 modes export valid typed graphs and keep aliases connected", () => 
       assert.ok(T.validate(doc).valid);
       assert.equal(
         doc.component.button.primary.background.$value,
-        "{semantic.color.action.primary}",
+        "{semantic.legacy.button-bg}",
       );
       assert.equal(
         doc.semantic.color.action.primary.$value,
         "{primitive.theme.accent}",
       );
     }
+});
+test("component tokens follow custom button and card theme settings", () => {
+  const doc=T.document({buttonStyle:'outline',cardSurface:'tinted',radius:'square'});
+  assert.ok(T.validate(doc).valid);
+  assert.equal(doc.component.button.primary.foreground.$value,'{semantic.legacy.button-fg}');
+  assert.equal(doc.component.card.background.$value,'{semantic.legacy.card-surface}');
+  assert.equal(doc.component.card.radius.$value,'{semantic.legacy.radius-md}');
+  assert.deepEqual(doc.primitive.theme['button-bg'].$value,{colorSpace:'srgb',components:[0,0,0],alpha:0});
 });
 test("token graph rejects cycles, absent references and incompatible types", () => {
   let doc = T.document();
