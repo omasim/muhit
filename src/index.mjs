@@ -1,4 +1,9 @@
 // Generated isolated ESM exports. Classic scripts retain their global API.
+export {MuhitPrimitives} from '../esm/primitives.mjs';
+export {MuhitTokens} from '../esm/tokens.mjs';
+export {MuhitFlow} from '../esm/flow.mjs';
+export {MuhitPages} from '../esm/pages.mjs';
+export {MuhitSystem} from '../esm/system.mjs';
 export {MuhitIcons} from '../esm/icons.mjs';
 export {MuhitCSV} from '../esm/csv.mjs';
 export {MuhitI18n} from '../esm/i18n.mjs';

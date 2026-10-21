@@ -41,3 +41,7 @@ Onaylı Muhit logosu **3.1** sürümüdür. Ana dosya `assets/brand/muhit-logo.s
 İkon standardı: docs/ICONS.md ve schemas/icons.json. Sayfa standardı: docs/PAGE-STANDARDS.md, schemas/pages.json ve schemas/page.schema.json. Yeni sayfalarda izinli ikon adlarını ve altı yerleşim tarifini kullanın. Bunlar mevcut 18 agent bileşen türünü değiştirmez.
 
 Yeni tasarım kararlarında docs/DESIGN.md ve docs/PRINCIPLES.md uygulanır; schemas/design-principles.json inceleme kontrol listesidir, agent render şeması değildir. Bağlamın saklanma kapsamını ve işlemin gerçek sonucunu açık belirtin.
+
+## Sistem katmanı 1.0
+
+Yeni sistem işleri için docs/SYSTEM-ARCHITECTURE.md, schemas/component-contracts.json ve schemas/system.schema.json okunur. Agent JSON türleri hâlâ 18 adettir. MuhitSystem üst kompozisyon katmanıdır; preview dış etki başlatmaz. approve ve authorize callback’leri ürünün gerçek sunucu yetkilendirmesinin yerine geçmez. Yeni modüller: tokens, flow, pages, primitives, system.

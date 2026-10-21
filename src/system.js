@@ -1,0 +1,217 @@
+/* Composition review and application-owned action boundary. */
+(function (global) {
+  "use strict";
+  const { json, object, text } = global.MuhitContracts;
+  function review(input) {
+    const errors = [],
+      warnings = [];
+    let proposal;
+    try {
+      proposal = json(input);
+      object(
+        proposal,
+        ["version", "page", "view", "actions", "data"],
+        ["version", "page", "view", "actions", "data"],
+      );
+      if (proposal.version !== "1.0.0")
+        throw Error("Unsupported composition version");
+      const page = global.MuhitPages.validate(proposal.page),
+        view = global.MuhitAgent.validate(proposal.view);
+      errors.push(
+        ...page.errors.map((e) => "page: " + e),
+        ...view.errors.map((e) => "view: " + e.path + " " + e.message),
+      );
+      object(
+        proposal.data,
+        ["source", "example", "persistence"],
+        ["source", "example", "persistence"],
+      );
+      if (
+        !text(proposal.data.source, 500) ||
+        typeof proposal.data.example !== "boolean" ||
+        !["none", "memory", "external"].includes(proposal.data.persistence)
+      )
+        throw Error("Invalid data disclosure");
+      if (!Array.isArray(proposal.actions) || proposal.actions.length > 100)
+        throw Error("Invalid actions");
+      const ids = new Set();
+      for (const action of proposal.actions) {
+        object(
+          action,
+          ["id", "componentId", "event", "kind", "label", "confirmation"],
+          ["id", "componentId", "event", "kind", "label"],
+        );
+        if (!/^[A-Za-z][\w-]{0,63}$/.test(action.id) || ids.has(action.id))
+          throw Error("Invalid or duplicate action id");
+        ids.add(action.id);
+        if (
+          !text(action.event, 120) ||
+          !text(action.label, 120) ||
+          !["read", "write", "destructive"].includes(action.kind)
+        )
+          throw Error("Invalid action");
+        const component = proposal.view.components?.find(
+          (c) => c.id === action.componentId,
+        );
+        if (!component) throw Error("Action references missing component");
+        if (component.type === "card" && component.action?.id !== action.event)
+          throw Error("Card event does not match action");
+        if (component.type === "form" && action.event !== "submit")
+          throw Error("Form effects must use submit, never change");
+        if (action.kind !== "read" && !text(action.confirmation, 500))
+          throw Error("Write actions require a confirmation explanation");
+        if (
+          action.confirmation !== undefined &&
+          !text(action.confirmation, 500)
+        )
+          throw Error("Invalid confirmation");
+      }
+      if (
+        proposal.page.primaryActionId &&
+        !ids.has(proposal.page.primaryActionId)
+      )
+        errors.push("Page primary action is not declared");
+      if (proposal.view.components?.length > 12)
+        warnings.push("High component count: review information hierarchy");
+      if (proposal.data.persistence === "external")
+        warnings.push(
+          "External service authorization and idempotency must be implemented by the application",
+        );
+      for (const component of proposal.view.components || []) {
+        if (component.type === "plot" && !component.data?.unit)
+          warnings.push(component.id + ": document the measurement unit");
+        if (
+          component.type === "card" &&
+          component.state === "loading" &&
+          component.action
+        )
+          warnings.push(component.id + ": review interaction while loading");
+      }
+    } catch (e) {
+      errors.push(e.message);
+    }
+    return {
+      valid: errors.length === 0,
+      errors,
+      warnings,
+      ...(!errors.length ? { proposal } : {}),
+    };
+  }
+  function createSession(input, options = {}) {
+    const checked = review(input);
+    if (!checked.valid) throw TypeError(checked.errors.join("; "));
+    object(options, ["approve", "authorize", "execute", "onEvent"]);
+    for (const key of Object.keys(options))
+      if (typeof options[key] !== "function")
+        throw TypeError("Callback required: " + key);
+    let proposal = json(checked.proposal),
+      reviewResult = checked,
+      dead = false,
+      preview,
+      previewHost;
+    const operations = new Map();
+    function live() {
+      if (dead) throw Error("Destroyed session");
+    }
+    function apply(actionId, payload = null) {
+      live();
+      const action = proposal.actions.find((a) => a.id === actionId);
+      if (!action) throw TypeError("Unknown action");
+      const value = json(payload);
+      if (
+        operations.has(actionId) &&
+        ["validating", "submitting"].includes(
+          operations.get(actionId).getSnapshot().status,
+        )
+      )
+        throw Error("Action already pending");
+      operations.get(actionId)?.destroy();
+      const operation = global.MuhitFlow.create(value, {
+        run: async (data, signal) => {
+          if (action.kind !== "read") {
+            if (
+              !options.approve ||
+              (await options.approve(json(action), json(data), signal)) !== true ||
+              signal.aborted
+            )
+              throw Object.assign(Error("Approval required"), {
+                code: "forbidden",
+              });
+          }
+          if (
+            !options.authorize ||
+            (await options.authorize(json(action), signal)) !== true ||
+            signal.aborted
+          )
+            throw Object.assign(Error("Authorization required"), {
+              code: "forbidden",
+            });
+          if (!options.execute) throw Error("Executor required");
+          return options.execute(json(action), json(data), signal);
+        },
+        onChange: (state) =>
+          options.onEvent?.({ type: "operation", actionId, state }),
+      });
+      operations.set(actionId, operation);
+      return operation.submit();
+    }
+    return Object.freeze({
+      get review() {
+        return json(reviewResult);
+      },
+      update(input) {
+        live();
+        const next = review(input);
+        if (!next.valid) throw TypeError(next.errors.join("; "));
+        preview?.update(next.proposal.view);
+        operations.forEach((o) => o.cancel());
+        proposal = json(next.proposal);
+        reviewResult = next;
+        return json(next);
+      },
+      preview(host) {
+        live();
+        if (preview) {
+          if (host !== previewHost)
+            throw Error("Destroy the session before changing preview host");
+          preview.update(proposal.view);
+          return preview;
+        }
+        previewHost = host;
+        preview = global.MuhitAgent.render(host, proposal.view, {
+          onAction: (event) => {
+            options.onEvent?.({ type: "preview", event });
+            if (event.id === "submit") return { persisted: false };
+          },
+        });
+        return preview;
+      },
+      apply,
+      cancel(actionId) {
+        live();
+        if (actionId !== undefined) {
+          if (!proposal.actions.some((a) => a.id === actionId))
+            throw TypeError("Unknown action");
+          operations.get(actionId)?.cancel();
+        } else {
+          operations.forEach((o) => o.cancel());
+          preview?.cancelPending();
+        }
+      },
+      destroy() {
+        if (dead) return;
+        dead = true;
+        preview?.destroy();
+        operations.forEach((o) => o.destroy());
+        operations.clear();
+      },
+    });
+  }
+  global.MuhitSystem = Object.freeze({
+    version: "1.0.0",
+    review,
+    createSession,
+    contracts: global.MuhitRegistry.components.contracts,
+    patterns: global.MuhitRegistry.patterns.patterns,
+  });
+})(typeof window !== "undefined" ? window : globalThis);

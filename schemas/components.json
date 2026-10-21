@@ -393,7 +393,7 @@
         "aria-label for icon-only"
       ],
       "agentSpecType": null,
-      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+      "note": "Native CSS API; this list does not extend the 18 JSON render kinds."
     },
     {
       "name": "card",
@@ -413,7 +413,7 @@
         "native action button"
       ],
       "agentSpecType": "card",
-      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+      "note": "Native CSS API; this list does not extend the 18 JSON render kinds."
     },
     {
       "name": "badge",
@@ -430,7 +430,7 @@
         "visible status label"
       ],
       "agentSpecType": null,
-      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+      "note": "Native CSS API; this list does not extend the 18 JSON render kinds."
     },
     {
       "name": "form",
@@ -452,7 +452,7 @@
         "disabled"
       ],
       "agentSpecType": null,
-      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+      "note": "Native CSS API; this list does not extend the 18 JSON render kinds."
     },
     {
       "name": "checkbox",
@@ -466,7 +466,7 @@
         "disabled"
       ],
       "agentSpecType": null,
-      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+      "note": "Native CSS API; this list does not extend the 18 JSON render kinds."
     },
     {
       "name": "switch",
@@ -480,7 +480,7 @@
         "accessible label"
       ],
       "agentSpecType": null,
-      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+      "note": "Native CSS API; this list does not extend the 18 JSON render kinds."
     },
     {
       "name": "notice",
@@ -496,7 +496,7 @@
         "visible title and message"
       ],
       "agentSpecType": "notice",
-      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+      "note": "Native CSS API; this list does not extend the 18 JSON render kinds."
     },
     {
       "name": "dialog",
@@ -513,7 +513,7 @@
         "focus restoration"
       ],
       "agentSpecType": null,
-      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+      "note": "Native CSS API; this list does not extend the 18 JSON render kinds."
     },
     {
       "name": "empty",
@@ -525,7 +525,7 @@
         "meaningful heading and next action"
       ],
       "agentSpecType": null,
-      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+      "note": "Native CSS API; this list does not extend the 18 JSON render kinds."
     },
     {
       "name": "skeleton",
@@ -541,7 +541,7 @@
         "separate accessible loading status"
       ],
       "agentSpecType": null,
-      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+      "note": "Native CSS API; this list does not extend the 18 JSON render kinds."
     },
     {
       "name": "tabs",
@@ -556,7 +556,7 @@
         "keyboard behavior supplied by app"
       ],
       "agentSpecType": null,
-      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+      "note": "Native CSS API; this list does not extend the 18 JSON render kinds."
     },
     {
       "name": "layout",
@@ -572,7 +572,7 @@
         "theme applied to scope root"
       ],
       "agentSpecType": null,
-      "note": "Native CSS API; this list does not expand the five allowed JSON component kinds."
+      "note": "Native CSS API; this list does not extend the 18 JSON render kinds."
     }
   ],
   "widgetSchema": "./widgets.schema.json",

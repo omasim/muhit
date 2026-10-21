@@ -718,3 +718,34 @@ export const MuhitIcons: Readonly<{
  svg(name: string, options?: IconOptions): string;
  mount(host: Host, name: string, options?: IconOptions): {element: SVGElement; destroy(): void};
 }>;
+
+/** Design-system layer 1.0; independent from the UI schema version. */
+export type JSONValue = null | boolean | number | string | JSONValue[] | {[key:string]: JSONValue};
+export interface TokenDocument { [key:string]: unknown }
+export const MuhitTokens: Readonly<{
+ version:string;
+ compose(layers?: Array<Omit<Partial<ThemeConfig>, 'mode'> & {mode?:'light'|'dark'|'system'}>, options?:{systemMode?:'light'|'dark'}):ThemeConfig;
+ document(config?:Partial<ThemeConfig>):TokenDocument;
+ validate(document:unknown):{valid:boolean;errors:string[];count:number};
+ exportJSON(config?:Partial<ThemeConfig>):string;
+}>;
+export interface FlowResult {outcome:'success'|'partial';persisted:boolean;data?:JSONValue;errors?:Record<string,string>}
+export interface FlowSnapshot {version:1;draft:JSONValue;baseline:JSONValue;status:'idle'|'editing'|'validating'|'submitting'|'success'|'partial'|'error'|'cancelled';errors:Record<string,string>;result:FlowResult|null;dirty:boolean}
+export interface FlowInstance {
+ getSnapshot():FlowSnapshot; setDraft(value:JSONValue):FlowSnapshot;submit():Promise<FlowSnapshot>;cancel():FlowSnapshot;reset():FlowSnapshot;restore(snapshot:FlowSnapshot):FlowSnapshot;subscribe(fn:(snapshot:FlowSnapshot)=>void):()=>void;destroy():void;
+}
+export const MuhitFlow:Readonly<{version:string;create(initial?:JSONValue,options?:{run?:(values:JSONValue,signal:AbortSignal)=>FlowResult|Promise<FlowResult>;validate?:(values:JSONValue,signal:AbortSignal)=>Record<string,string>|Promise<Record<string,string>>;onChange?:(snapshot:FlowSnapshot)=>void}):FlowInstance}>;
+export type PageRecipe = 'overview'|'collection'|'detail'|'settings'|'workspace'|'editorial';
+export interface PageSpec {version:'1.0.0';recipe:PageRecipe;title:string;description?:string;width?:'standard'|'wide'|'reading';dir?:'ltr'|'rtl';primaryActionId?:string}
+export interface PageInstance {root:HTMLElement;main:HTMLElement;regions:Readonly<Record<string,HTMLElement>>;setState(state?:'content'|'loading'|'empty'|'error'|'forbidden'|'partial',message?:string):PageInstance;update(page:PageSpec):PageInstance;focus():void;destroy():void}
+export const MuhitPages:Readonly<{version:string;recipes:ReadonlyArray<{id:PageRecipe;label:string;regions:readonly string[];width:string;description:string;icon:string;example:string}>;validate(input:unknown):{valid:boolean;errors:string[]};mount(host:Host,page:PageSpec,options?:LocaleOptions&{onRetry?:()=>void}):PageInstance}>;
+export interface SystemAction {id:string;componentId:string;event:string;kind:'read'|'write'|'destructive';label:string;confirmation?:string}
+export interface SystemProposal {version:'1.0.0';page:PageSpec;view:UISpec;actions:SystemAction[];data:{source:string;example:boolean;persistence:'none'|'memory'|'external'}}
+export interface SystemReview {valid:boolean;errors:string[];warnings:string[];proposal?:SystemProposal}
+export interface SystemSession {readonly review:SystemReview;update(input:SystemProposal):SystemReview;preview(host:Host):AgentInstance;apply(actionId:string,payload?:JSONValue):Promise<FlowSnapshot>;cancel(actionId?:string):void;destroy():void}
+export const MuhitSystem:Readonly<{version:string;contracts:ReadonlyArray<Record<string,unknown>>;patterns:ReadonlyArray<Record<string,unknown>>;review(input:unknown):SystemReview;createSession(input:SystemProposal,options?:{approve?:(action:SystemAction,payload:JSONValue,signal:AbortSignal)=>boolean|Promise<boolean>;authorize?:(action:SystemAction,signal:AbortSignal)=>boolean|Promise<boolean>;execute?:(action:SystemAction,payload:JSONValue,signal:AbortSignal)=>FlowResult|Promise<FlowResult>;onEvent?:(event:{type:'preview';event:unknown}|{type:'operation';actionId:string;state:FlowSnapshot})=>void}):SystemSession}>;
+export interface OverlayInstance {open(last?:boolean):void;close(focus?:boolean):void;destroy():void}
+export interface TreeNode {id:string;label:string;children?:TreeNode[]}
+export interface TreeView {selected:string|null;active:string|null;expanded:string[]}
+export interface TreeInstance {getView():TreeView;restoreView(view:TreeView):void;select(id:string):TreeInstance;destroy():void}
+export const MuhitPrimitives:Readonly<{menu(trigger:HTMLButtonElement,panel:HTMLElement):OverlayInstance;popover(trigger:HTMLButtonElement,panel:HTMLElement):OverlayInstance;tooltip(trigger:HTMLElement,message:string):{destroy():void};tree(host:Host,data:TreeNode[],options:{label:string;onSelect?:(id:string)=>void}):TreeInstance}>;

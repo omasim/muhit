@@ -45,3 +45,14 @@ Preferences: MuhitPreferences.create; explicit local save only. Coverage and lim
 İkon standardı: docs/ICONS.md ve schemas/icons.json. Sayfa standardı: docs/PAGE-STANDARDS.md, schemas/pages.json ve schemas/page.schema.json. Yeni sayfalarda izinli ikon adlarını ve altı yerleşim tarifini kullanın. Bunlar mevcut 18 agent bileşen türünü değiştirmez.
 
 Tasarım felsefesi: docs/DESIGN.md. Uygulanabilir ilkeler: docs/PRINCIPLES.md. Çalışan bağlam ve toparlanma örneği: examples/foundations/principles.html.
+
+Design system architecture: docs/SYSTEM-ARCHITECTURE.md
+Component contracts: schemas/component-contracts.json
+Composition schema: schemas/system.schema.json
+Typed token exports: tokens/manifest.json
+Patterns: schemas/patterns.json
+Lifecycle and governance: docs/SYSTEM-GOVERNANCE.md
+
+- docs/SYSTEM-TECHNOLOGY.md: technology boundaries and integration
+- docs/FIGMA.md: native design source, coverage and Code Connect limitations
+- docs/MIGRATION-0.18.md: additive migration to the system layer

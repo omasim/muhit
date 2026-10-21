@@ -1,0 +1,34 @@
+{
+  "provenance": {
+    "version": "0.18.0",
+    "sourceSha256": "4d375ec34a82aadfa47f1a3c8dc7a60e8ba709f95c34555b3943911ddd507be7",
+    "commit": "9b7f1ba632949670a0fc19c4f48f78c50159279d",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-21T02:40:37.806Z",
+    "platform": "darwin",
+    "node": "v26.12.0"
+  },
+  "engine": "chromium",
+  "checks": [
+    "form busy",
+    "cancel preserves draft and aborts",
+    "late response ignored",
+    "explicit unpersisted result",
+    "permission error",
+    "neutral safe error",
+    "reset separate from cancel",
+    "repeater cancellation preserves values",
+    "repeater late response ignored",
+    "unchanged child identity preserved",
+    "agent focus and caret preserved",
+    "agent grid context",
+    "adopted callback active",
+    "compatible form snapshot preserved",
+    "compatible form focus preserved",
+    "incompatible dirty update atomic",
+    "dirty form type replacement blocked",
+    "explicit reset accepted"
+  ],
+  "studioContext": true,
+  "keyboardRecovery": true
+}

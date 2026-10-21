@@ -1,0 +1,44 @@
+// Generated from schemas/foundations.json.
+(function(global){"use strict";const data={
+  "version": "1.0.0",
+  "space": {
+    "0": 0,
+    "1": 4,
+    "2": 8,
+    "3": 12,
+    "4": 16,
+    "5": 24,
+    "6": 32,
+    "7": 48,
+    "8": 64,
+    "9": 96
+  },
+  "layer": {
+    "base": 0,
+    "sticky": 10,
+    "dropdown": 20,
+    "overlay": 30,
+    "dialog": 40,
+    "toast": 50,
+    "tooltip": 60,
+    "skip": 100
+  },
+  "duration": {
+    "instant": 0,
+    "fast": 100,
+    "normal": 160,
+    "slow": 240
+  },
+  "size": {
+    "touch": 44,
+    "iconSmall": 16,
+    "iconMedium": 20,
+    "iconLarge": 24,
+    "reading": 720
+  },
+  "breakpoint": {
+    "small": 768,
+    "large": 1200
+  },
+  "description": "Numbers use px for space/size/breakpoint, ms for duration. Layers are unitless. Native top-layer dialogs supersede z-index."
+};Object.values(data).forEach(v=>{if(v&&typeof v==="object")Object.freeze(v)});global.MuhitFoundations=Object.freeze(data);})(typeof window !== "undefined" ? window : globalThis);

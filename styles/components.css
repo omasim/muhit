@@ -113,9 +113,8 @@
   font-weight: 600;
   line-height: 1.4;
   text-decoration: none;
-  transition:
-    background var(--mh-motion),
-    border-color var(--mh-motion);
+  /* Keep foreground/background changes atomic when switching theme. */
+  transition: border-color var(--mh-motion);
 }
 .mh-button:hover {
   background: var(--mh-surface-2);

@@ -6,7 +6,7 @@
 
 # Muhit UI
 
-**0.17.0 · HTML, CSS ve JavaScript ile tema uyarlayan bileşenler.**
+**0.18.0 · HTML, CSS ve JavaScript ile tema uyarlayan bileşenler.**
 
 Muhit; kartları, formları, tabloları ve grafikleri ortak bir görsel dille kurmanıza yardımcı olur. Klasik script olarak derleme olmadan çalışır; ESM girişi ve TypeScript tanımları da bulunur. Tema yapılandırması renk, yazı ailesi, yoğunluk, köşe, metin ölçeği ve hareket tercihini birlikte yönetir. JSON şemasına uyan bir görünüm, aynı bileşenlerle güvenilir biçimde çizilir.
 
@@ -29,7 +29,7 @@ npm pack
 Oluşan arşivi kendi projenizin klasöründe kurun:
 
 ```sh
-npm install /tam/yol/muhit-ui/muhit-ui-0.17.0.tgz
+npm install /tam/yol/muhit-ui/muhit-ui-0.18.0.tgz
 ```
 
 `npm pack`, kaynak modüllerini, stilleri, şemaları, tipleri, fontları ve kullanım örneklerini içerir. Tema stüdyosu dağıtılır; test dosyaları npm paketine dahil edilmez. `npm run check` Node ortamında ESM girişini yükler; tarayıcı etkileşim testlerinin yerine geçmez.
@@ -214,3 +214,13 @@ Tasarım felsefesi: docs/DESIGN.md. Uygulanabilir ilkeler: docs/PRINCIPLES.md. �
 ## 0.17 davranış sözleşmesi
 
 [Taslak, bağlam, sonuç ve iptal](docs/INTERACTION-CONTRACT.md): Form ve Repeater `cancelSubmit()`, Agent `cancelPending()` ve `update(spec, {resetState:true})`. Stüdyo bölüm geçişlerinde taslakları aynı sekmenin belleğinde korur.
+
+## Muhit tasarım sistemi
+
+[Çalışan sistem ve üç referans ürün](examples/system/index.html) · [Mimari](docs/SYSTEM-ARCHITECTURE.md) · [Tokenlar](docs/SYSTEM-TOKENS.md) · [Bileşenler](docs/SYSTEM-COMPONENTS.md) · [Sayfalar ve akışlar](docs/SYSTEM-PATTERNS.md) · [AI sözleşmesi](docs/SYSTEM-AI.md) · [Yönetim ve kabul](docs/SYSTEM-GOVERNANCE.md).
+
+Yeni bağımsız ESM girişleri: `muhit-ui/tokens`, `muhit-ui/flow`, `muhit-ui/pages`, `muhit-ui/primitives`, `muhit-ui/system`. Sistem stilleri: `muhit-ui/styles/system.css`; sayfa stilleri: `muhit-ui/styles/pages.css`.
+
+[Figma tasarım kaynağı](docs/FIGMA.md) · [Teknoloji ve entegrasyon](docs/SYSTEM-TECHNOLOGY.md) · [0.18 geçişi](docs/MIGRATION-0.18.md) · [Güncel kabul](docs/CURRENT.md)
+
+[System overview in English](docs/SYSTEM.en.md)

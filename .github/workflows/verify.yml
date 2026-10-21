@@ -18,11 +18,12 @@ jobs:
           node-version: 22
       - run: npm ci
       - run: npx playwright install --with-deps ${{ matrix.browser }}
-      - run: npm test && npm run check:brand
+      - run: npm test && npm run check:brand && npm run check:system
       - run: node tools/record-test.mjs npm run test:migration
       - run: node tools/record-test.mjs npm run test:foundations
         env:
           MUHIT_BROWSER: ${{ matrix.browser }}
+      - run: node tools/record-test.mjs npm run test:system
       - run: node tools/record-test.mjs npm run test:principles
       - run: node tools/record-test.mjs npm run test:p3
       - run: node tools/record-test.mjs npm run test:production

@@ -1,5 +1,9 @@
 // Component messages. Application content is owned by the consuming project.
 export default Object.freeze({
+"İçeriğe geç": "انتقل إلى المحتوى",
+"İşlem tamamlanamadı. Yeniden deneyebilirsiniz.": "تعذر إكمال العملية. يمكنك المحاولة مجددًا.",
+"Bu alan için erişim gerekli.": "يلزم إذن للوصول إلى هذه المنطقة.",
+"Bazı kayıtlar işlenemedi. Ayrıntıları inceleyin.": "تعذرت معالجة بعض السجلات. راجع التفاصيل.",
 "İşlemi iptal et": "إلغاء العملية",
 "İşlem iptal edildi. Taslak korunuyor.": "أُلغيت العملية. تم الاحتفاظ بالمسودة.",
 "İşlem tamamlandı. Veri kaydedilmedi; taslak korunuyor.": "اكتملت العملية. لم تُحفظ البيانات؛ تم الاحتفاظ بالمسودة.",

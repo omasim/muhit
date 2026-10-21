@@ -1,6 +1,15 @@
 {
-  "date": "2026-10-18T18:11:35.104Z",
-  "packageVersion": "0.14.0",
+  "provenance": {
+    "version": "0.18.0",
+    "sourceSha256": "fa3871515f7a2639afc4e1200a6de521bf246282836c2950abb33b12d536b5d9",
+    "commit": "9b7f1ba632949670a0fc19c4f48f78c50159279d",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-21T02:47:34.953Z",
+    "platform": "darwin",
+    "node": "v26.12.0"
+  },
+  "date": "2026-10-21T02:47:34.953Z",
+  "packageVersion": "0.18.0",
   "results": [
     {
       "framework": "react",
@@ -22,6 +31,10 @@
         "fonts",
         "form controlled update/save/remount",
         "widget tabs",
+        "per-icon adapter and page shell skip-link",
+        "title/columns/messages/provider/locale remount prop priority",
+        "baseline replacement and reset",
+        "in-flight submit cancellation on locale change",
         "no console/runtime errors"
       ]
     },
@@ -45,6 +58,10 @@
         "fonts",
         "form controlled update/save/remount",
         "widget tabs",
+        "per-icon adapter and page shell skip-link",
+        "title/columns/messages/provider/locale remount prop priority",
+        "baseline replacement and reset",
+        "in-flight submit cancellation on locale change",
         "no console/runtime errors"
       ]
     },
@@ -68,6 +85,10 @@
         "fonts",
         "form controlled update/save/remount",
         "widget tabs",
+        "per-icon adapter and page shell skip-link",
+        "title/columns/messages/provider/locale remount prop priority",
+        "baseline replacement and reset",
+        "in-flight submit cancellation on locale change",
         "no console/runtime errors"
       ]
     },
@@ -91,6 +112,10 @@
         "fonts",
         "form controlled update/save/remount",
         "widget tabs",
+        "per-icon adapter and page shell skip-link",
+        "title/columns/messages/provider/locale remount prop priority",
+        "baseline replacement and reset",
+        "in-flight submit cancellation on locale change",
         "no console/runtime errors"
       ]
     },
@@ -114,6 +139,10 @@
         "fonts",
         "form controlled update/save/remount",
         "widget tabs",
+        "per-icon adapter and page shell skip-link",
+        "title/columns/messages/provider/locale remount prop priority",
+        "baseline replacement and reset",
+        "in-flight submit cancellation on locale change",
         "no console/runtime errors"
       ]
     },
@@ -137,6 +166,10 @@
         "fonts",
         "form controlled update/save/remount",
         "widget tabs",
+        "per-icon adapter and page shell skip-link",
+        "title/columns/messages/provider/locale remount prop priority",
+        "baseline replacement and reset",
+        "in-flight submit cancellation on locale change",
         "no console/runtime errors"
       ]
     }
