@@ -1,0 +1,9 @@
+
+> muhit-ui@0.21.0-beta.1 test:system
+> npm run build:modules && node tests/browser/system.mjs
+
+
+> muhit-ui@0.21.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+PASS system: webkit 16 responsive/axe scans and product workflows

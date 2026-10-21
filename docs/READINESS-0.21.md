@@ -5,7 +5,7 @@
 | P1.1 | Geç loader yanıtı yerel değişikliği eziyordu | Yerel içerik değişmişse sonuç uygulanmaz; programatik update eski isteği iptal eder. Readiness yarış testleri. |
 | P1.2 | Boş başlık modelden ayrılıyor, checkpoint eski başlığı geri getiriyordu | Ham taslak ve kayıt doğrulaması ayrıldı; boş başlık korunur, checkpoint reddedilir. Unit + browser. |
 | P1.3 | Taslak, geçmiş ve dirty sözleşmesi yoktu | Sürümlü snapshot, restore, dirty/change callback; opt-in sekme saklama ve çıkış koruması. React/Vue remount. |
-| P1.4 | Güncel sürüm entegrasyon ve kabul kanıtı eksikti | Gerçek 0.21 TGZ ile framework ve tüketici testleri eklendi. Uzak CI sonucu VERIFICATION-0.21 içinde. **Manuel fiziksel cihaz/ekran okuyucu kabulü bekliyor.** |
+| P1.4 | Güncel sürüm entegrasyon ve kabul kanıtı eksikti | Gerçek 0.21 TGZ ile framework ve tüketici testleri eklendi. Üç tarayıcılı uzak CI başarılı; sonuç VERIFICATION-0.21 içinde. **Manuel fiziksel cihaz/ekran okuyucu kabulü bekliyor.** |
 | P2.1 | 320 px takvim hedefleri küçülüyordu | 44 px alt sınırı ve takvim içinde kaydırma; sayfa taşması yok. |
 | P2.2 | İngilizce sayfada Türkçe örnek içerik ve ham diff kodları | Uygulama sözlüğü ve okunabilir diff çevirileri; EN taramaları, TR regresyonları. |
 | P2.3 | Sürüm ve export sayıları belgelerde eskiydi | RELEASE-POLICY ve support.json paket manifestinden üretilir; prepack tutarlılığı denetler. |

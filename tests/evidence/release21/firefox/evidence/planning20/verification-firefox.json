@@ -1,0 +1,180 @@
+{
+  "date": "2026-10-21T22:32:08.417Z",
+  "scans": [
+    {
+      "engine": "firefox",
+      "mode": "light",
+      "width": 1440,
+      "route": "calendar",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "light",
+      "width": 1440,
+      "route": "editor",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "light",
+      "width": 1440,
+      "route": "notifications",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "light",
+      "width": 1440,
+      "route": "research",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "light",
+      "width": 1440,
+      "route": "team",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "light",
+      "width": 390,
+      "route": "calendar",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "light",
+      "width": 390,
+      "route": "editor",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "light",
+      "width": 390,
+      "route": "notifications",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "light",
+      "width": 390,
+      "route": "research",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "light",
+      "width": 390,
+      "route": "team",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "dark",
+      "width": 1440,
+      "route": "calendar",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "dark",
+      "width": 1440,
+      "route": "editor",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "dark",
+      "width": 1440,
+      "route": "notifications",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "dark",
+      "width": 1440,
+      "route": "research",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "dark",
+      "width": 1440,
+      "route": "team",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "dark",
+      "width": 390,
+      "route": "calendar",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "dark",
+      "width": 390,
+      "route": "editor",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "dark",
+      "width": 390,
+      "route": "notifications",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "dark",
+      "width": 390,
+      "route": "research",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "firefox",
+      "mode": "dark",
+      "width": 390,
+      "route": "team",
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "flows": [
+    {
+      "engine": "firefox",
+      "calendar500ms": 12,
+      "calendarConflict": true,
+      "localCommit": true,
+      "documentRestoreUndo": true,
+      "saveFailureDraft": true,
+      "literalMarkup": true,
+      "snoozeUndoWake": true,
+      "preferences": true,
+      "abortAndDestroy": true
+    }
+  ],
+  "errors": []
+}

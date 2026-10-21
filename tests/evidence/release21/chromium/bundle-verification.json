@@ -1,0 +1,110 @@
+{
+  "forms": {
+    "bytes": 18690,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/forms.mjs",
+      "<stdin>"
+    ]
+  },
+  "plot": {
+    "bytes": 11742,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/csv.mjs",
+      "esm/plot.mjs",
+      "<stdin>"
+    ]
+  },
+  "data-grid": {
+    "bytes": 27629,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/csv.mjs",
+      "esm/icons/core.mjs",
+      "esm/icons/resize-horizontal.mjs",
+      "esm/data-grid.mjs",
+      "<stdin>"
+    ]
+  },
+  "resources-mountResources": {
+    "bytes": 42156,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "src/content.mjs",
+      "esm/csv.mjs",
+      "esm/icons/core.mjs",
+      "esm/icons/resize-horizontal.mjs",
+      "esm/data-grid.mjs",
+      "src/resources.mjs",
+      "<stdin>"
+    ]
+  },
+  "product-mountAssistant": {
+    "bytes": 13606,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "esm/flow.mjs",
+      "src/product.mjs",
+      "<stdin>"
+    ]
+  },
+  "shell-mountShell": {
+    "bytes": 62596,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "esm/registry.mjs",
+      "esm/pages.mjs",
+      "src/shell.mjs",
+      "<stdin>"
+    ]
+  },
+  "planning-mountCalendar": {
+    "bytes": 17287,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "src/inbox.mjs",
+      "src/planning.mjs",
+      "<stdin>"
+    ]
+  },
+  "planning-mountDocumentEditor": {
+    "bytes": 19596,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "src/inbox.mjs",
+      "src/planning.mjs",
+      "<stdin>"
+    ]
+  },
+  "planning-mountNotificationCenter": {
+    "bytes": 22279,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "src/inbox.mjs",
+      "src/planning.mjs",
+      "<stdin>"
+    ]
+  },
+  "provenance": {
+    "version": "0.21.0-beta.1",
+    "sourceSha256": "8ed8fa0cdd99e6af73b38751a496177d132d6c865bf6250d10e1e60a36d9167a",
+    "commit": "7a219ea6185db32c0378d49c4a297cf5dda12524",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-21T22:36:16.095Z",
+    "platform": "linux",
+    "node": "v22.23.3"
+  }
+}

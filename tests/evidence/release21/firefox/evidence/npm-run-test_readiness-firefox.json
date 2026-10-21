@@ -1,0 +1,18 @@
+{
+  "version": "0.21.0-beta.1",
+  "sourceSha256": "8ed8fa0cdd99e6af73b38751a496177d132d6c865bf6250d10e1e60a36d9167a",
+  "commit": "7a219ea6185db32c0378d49c4a297cf5dda12524",
+  "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+  "date": "2026-10-21T22:32:20.771Z",
+  "platform": "linux",
+  "node": "v22.23.3",
+  "command": [
+    "npm",
+    "run",
+    "test:readiness"
+  ],
+  "exitCode": 0,
+  "sourceChanged": false,
+  "sourceSha256After": "8ed8fa0cdd99e6af73b38751a496177d132d6c865bf6250d10e1e60a36d9167a",
+  "finishedAt": "2026-10-21T22:32:34.097Z"
+}

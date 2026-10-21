@@ -1,0 +1,311 @@
+{
+  "fileKey": "PllwZjMHfzcRJfEoMrMJkg",
+  "families": [
+    {
+      "id": "20:1385",
+      "name": "Muhit/Planning21/calendar",
+      "variants": [
+        {
+          "id": "20:29",
+          "name": "Width=360, State=Content",
+          "width": 360,
+          "height": 1108,
+          "textCount": 55,
+          "boundNodes": 95
+        },
+        {
+          "id": "20:142",
+          "name": "Width=360, State=Focus",
+          "width": 360,
+          "height": 1112,
+          "textCount": 55,
+          "boundNodes": 95
+        },
+        {
+          "id": "20:255",
+          "name": "Width=360, State=ActionDisabled",
+          "width": 360,
+          "height": 1108,
+          "textCount": 55,
+          "boundNodes": 95
+        },
+        {
+          "id": "20:368",
+          "name": "Width=360, State=Loading",
+          "width": 360,
+          "height": 1108,
+          "textCount": 55,
+          "boundNodes": 95
+        },
+        {
+          "id": "20:481",
+          "name": "Width=360, State=Partial",
+          "width": 360,
+          "height": 1108,
+          "textCount": 55,
+          "boundNodes": 95
+        },
+        {
+          "id": "20:594",
+          "name": "Width=360, State=Error",
+          "width": 360,
+          "height": 1108,
+          "textCount": 55,
+          "boundNodes": 95
+        },
+        {
+          "id": "20:707",
+          "name": "Width=800, State=Content",
+          "width": 800,
+          "height": 1018,
+          "textCount": 55,
+          "boundNodes": 95
+        },
+        {
+          "id": "20:820",
+          "name": "Width=800, State=Focus",
+          "width": 800,
+          "height": 1022,
+          "textCount": 55,
+          "boundNodes": 95
+        },
+        {
+          "id": "20:933",
+          "name": "Width=800, State=ActionDisabled",
+          "width": 800,
+          "height": 1018,
+          "textCount": 55,
+          "boundNodes": 95
+        },
+        {
+          "id": "20:1046",
+          "name": "Width=800, State=Loading",
+          "width": 800,
+          "height": 1018,
+          "textCount": 55,
+          "boundNodes": 95
+        },
+        {
+          "id": "20:1159",
+          "name": "Width=800, State=Partial",
+          "width": 800,
+          "height": 1018,
+          "textCount": 55,
+          "boundNodes": 95
+        },
+        {
+          "id": "20:1272",
+          "name": "Width=800, State=Error",
+          "width": 800,
+          "height": 1018,
+          "textCount": 55,
+          "boundNodes": 95
+        }
+      ]
+    },
+    {
+      "id": "20:1794",
+      "name": "Muhit/Planning21/document-editor",
+      "variants": [
+        {
+          "id": "20:1386",
+          "name": "Width=360, State=Content",
+          "width": 360,
+          "height": 828,
+          "textCount": 17,
+          "boundNodes": 27
+        },
+        {
+          "id": "20:1420",
+          "name": "Width=360, State=Focus",
+          "width": 360,
+          "height": 832,
+          "textCount": 17,
+          "boundNodes": 27
+        },
+        {
+          "id": "20:1454",
+          "name": "Width=360, State=ActionDisabled",
+          "width": 360,
+          "height": 828,
+          "textCount": 17,
+          "boundNodes": 27
+        },
+        {
+          "id": "20:1488",
+          "name": "Width=360, State=Loading",
+          "width": 360,
+          "height": 828,
+          "textCount": 17,
+          "boundNodes": 27
+        },
+        {
+          "id": "20:1522",
+          "name": "Width=360, State=Partial",
+          "width": 360,
+          "height": 828,
+          "textCount": 17,
+          "boundNodes": 27
+        },
+        {
+          "id": "20:1556",
+          "name": "Width=360, State=Error",
+          "width": 360,
+          "height": 828,
+          "textCount": 17,
+          "boundNodes": 27
+        },
+        {
+          "id": "20:1590",
+          "name": "Width=800, State=Content",
+          "width": 800,
+          "height": 696,
+          "textCount": 17,
+          "boundNodes": 27
+        },
+        {
+          "id": "20:1624",
+          "name": "Width=800, State=Focus",
+          "width": 800,
+          "height": 700,
+          "textCount": 17,
+          "boundNodes": 27
+        },
+        {
+          "id": "20:1658",
+          "name": "Width=800, State=ActionDisabled",
+          "width": 800,
+          "height": 696,
+          "textCount": 17,
+          "boundNodes": 27
+        },
+        {
+          "id": "20:1692",
+          "name": "Width=800, State=Loading",
+          "width": 800,
+          "height": 696,
+          "textCount": 17,
+          "boundNodes": 27
+        },
+        {
+          "id": "20:1726",
+          "name": "Width=800, State=Partial",
+          "width": 800,
+          "height": 696,
+          "textCount": 17,
+          "boundNodes": 27
+        },
+        {
+          "id": "20:1760",
+          "name": "Width=800, State=Error",
+          "width": 800,
+          "height": 696,
+          "textCount": 17,
+          "boundNodes": 27
+        }
+      ]
+    },
+    {
+      "id": "20:2131",
+      "name": "Muhit/Planning21/notification-center",
+      "variants": [
+        {
+          "id": "20:1795",
+          "name": "Width=360, State=Content",
+          "width": 360,
+          "height": 865,
+          "textCount": 15,
+          "boundNodes": 24
+        },
+        {
+          "id": "20:1823",
+          "name": "Width=360, State=Focus",
+          "width": 360,
+          "height": 869,
+          "textCount": 15,
+          "boundNodes": 24
+        },
+        {
+          "id": "20:1851",
+          "name": "Width=360, State=ActionDisabled",
+          "width": 360,
+          "height": 865,
+          "textCount": 15,
+          "boundNodes": 24
+        },
+        {
+          "id": "20:1879",
+          "name": "Width=360, State=Loading",
+          "width": 360,
+          "height": 865,
+          "textCount": 15,
+          "boundNodes": 24
+        },
+        {
+          "id": "20:1907",
+          "name": "Width=360, State=Partial",
+          "width": 360,
+          "height": 865,
+          "textCount": 15,
+          "boundNodes": 24
+        },
+        {
+          "id": "20:1935",
+          "name": "Width=360, State=Error",
+          "width": 360,
+          "height": 865,
+          "textCount": 15,
+          "boundNodes": 24
+        },
+        {
+          "id": "20:1963",
+          "name": "Width=800, State=Content",
+          "width": 800,
+          "height": 807,
+          "textCount": 15,
+          "boundNodes": 24
+        },
+        {
+          "id": "20:1991",
+          "name": "Width=800, State=Focus",
+          "width": 800,
+          "height": 811,
+          "textCount": 15,
+          "boundNodes": 24
+        },
+        {
+          "id": "20:2019",
+          "name": "Width=800, State=ActionDisabled",
+          "width": 800,
+          "height": 807,
+          "textCount": 15,
+          "boundNodes": 24
+        },
+        {
+          "id": "20:2047",
+          "name": "Width=800, State=Loading",
+          "width": 800,
+          "height": 807,
+          "textCount": 15,
+          "boundNodes": 24
+        },
+        {
+          "id": "20:2075",
+          "name": "Width=800, State=Partial",
+          "width": 800,
+          "height": 807,
+          "textCount": 15,
+          "boundNodes": 24
+        },
+        {
+          "id": "20:2103",
+          "name": "Width=800, State=Error",
+          "width": 800,
+          "height": 807,
+          "textCount": 15,
+          "boundNodes": 24
+        }
+      ]
+    }
+  ]
+}

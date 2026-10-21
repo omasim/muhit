@@ -1,0 +1,5 @@
+
+> muhit-ui@0.21.0-beta.1 test:planning
+> node tests/browser/planning20.mjs
+
+{"scans":20,"flows":[{"engine":"chromium","calendar500ms":7.099999999976717,"calendarConflict":true,"localCommit":true,"documentRestoreUndo":true,"saveFailureDraft":true,"literalMarkup":true,"snoozeUndoWake":true,"preferences":true,"abortAndDestroy":true}],"errors":[]}

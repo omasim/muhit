@@ -1,0 +1,180 @@
+{
+  "date": "2026-10-21T22:32:55.966Z",
+  "scans": [
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 1440,
+      "route": "calendar",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 1440,
+      "route": "editor",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 1440,
+      "route": "notifications",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 1440,
+      "route": "research",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 1440,
+      "route": "team",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 390,
+      "route": "calendar",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 390,
+      "route": "editor",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 390,
+      "route": "notifications",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 390,
+      "route": "research",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 390,
+      "route": "team",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 1440,
+      "route": "calendar",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 1440,
+      "route": "editor",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 1440,
+      "route": "notifications",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 1440,
+      "route": "research",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 1440,
+      "route": "team",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 390,
+      "route": "calendar",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 390,
+      "route": "editor",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 390,
+      "route": "notifications",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 390,
+      "route": "research",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 390,
+      "route": "team",
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "flows": [
+    {
+      "engine": "webkit",
+      "calendar500ms": 13,
+      "calendarConflict": true,
+      "localCommit": true,
+      "documentRestoreUndo": true,
+      "saveFailureDraft": true,
+      "literalMarkup": true,
+      "snoozeUndoWake": true,
+      "preferences": true,
+      "abortAndDestroy": true
+    }
+  ],
+  "errors": []
+}
