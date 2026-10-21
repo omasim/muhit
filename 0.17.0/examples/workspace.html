@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Muhit · Ortak çalışma alanı</title>
+    <link rel="stylesheet" href="../styles/index.css" />
+    <link rel="icon" href="../assets/brand/favicon.svg" />
+    <style>
+      body {
+        margin: 0;
+        background: var(--mh-bg);
+        color: var(--mh-text);
+      }
+      main {
+        max-width: 1280px;
+        margin: auto;
+        padding: clamp(16px, 3vw, 40px);
+      }
+      .work-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+        align-items:start;
+        gap: 24px;
+      }
+      .work-grid[hidden] {
+        display: none;
+      }
+      .work-grid > * {
+        min-width: 0;
+      }
+      .mh-plot h2 {
+        font-size: 1.4rem;
+      }
+      .work-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        gap: 12px;
+      }
+      .work-toolbar label {
+        min-width: 160px;
+        flex: 1;
+      }
+      #state:empty {
+        display: none;
+      }
+      @media (max-width: 950px) {
+        .work-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  <link rel="stylesheet" href="../styles/pages.css"></head>
+  <body class="mh-scope"><a class="mh-skip" href="#main">İçeriğe geç</a>
+    <main class="mh-stack mh-content" id="main" tabindex="-1" data-page-recipe="workspace" data-width="wide">
+      <header class="mh-stack">
+        <a href="../index.html" class="mh-text-link">← Muhit stüdyosu</a
+        ><img src="../assets/brand/muhit-logo.svg" alt="Muhit" width="140" />
+        <p class="mh-kicker">Muhit 0.7 · Çalışan uygulama örneği</p>
+        <h1>Birlikte düşün. Anlamlı işler üret.</h1><a href="international.html" class="mh-text-link">Dil ve ileri sütun düzenini dene →</a>
+        <p>Liste, ayrıntı, düzenleme ve veri görünümü aynı tasarım dilinde.</p>
+      </header>
+      <div class="mh-alert" role="note">
+        Örnek veriler kullanılır. Değişiklikler bu sayfanın belleğindedir;
+        gerçek bir hesaba veya sunucuya kaydedilmez.
+      </div>
+      <div class="work-toolbar">
+        <label class="mh-field" for="filter"
+          >Çalışma odağı<select id="filter" class="mh-select">
+            <option value="">Tümü</option>
+            <option>Araştırma</option>
+            <option>Tasarım</option>
+          </select></label
+        ><label class="mh-field" for="scenario"
+          >Sayfa durumu<select id="scenario" class="mh-select">
+            <option value="ready">Hazır</option>
+            <option value="empty">Boş</option>
+            <option value="error">Bağlantı hatası</option>
+            <option value="forbidden">Erişim yok</option>
+          </select></label
+        ><button type="button" class="mh-button" id="theme">Açık / koyu</button
+        ><button type="button" class="mh-button" id="new">Yeni çalışma</button>
+      </div>
+      <p id="state" class="mh-alert" role="status"></p>
+      <div class="work-grid mh-region-grid mh-region-grid--context">
+        <section class="mh-stack">
+          <div class="mh-panel" id="records"></div>
+          <div class="mh-row">
+            <button type="button" class="mh-button" id="edit">
+              Seçili kaydı düzenle</button
+            ><button type="button" class="mh-button" id="complete">
+              Seçilileri tamamla</button
+            ><button type="button" class="mh-button" id="csv">
+              Görünür sütunları CSV indir
+            </button>
+          </div>
+          <div id="plot"></div>
+        </section>
+        <aside class="mh-panel mh-stack">
+          <h2>Ayrıntı ve düzenleme</h2>
+          <p id="detail">
+            Listeden bir kayıt seçebilir veya yeni çalışma açabilirsiniz.
+          </p>
+          <div id="editor"></div>
+        </aside>
+      </div>
+      <section class="mh-panel mh-stack">
+        <h2>Agent ile aynı yapı</h2>
+        <p>
+          1.1 sözleşmesi form, genel tablo ve birimli grafik üretir. Aşağıdaki
+          örnek yalnız doğrulanmış tanımı gösterir.
+        </p>
+        <button type="button" class="mh-button" id="agent-toggle">
+          Agent örneğini aç
+        </button>
+        <div id="agent"></div>
+      </section>
+    </main>
+    <script type="module">
+      import {
+        MuhitDataGrid,
+        MuhitForm,
+        MuhitPlot,
+        MuhitPreferences,
+        MuhitTheme,
+        MuhitAgent,
+      } from "../src/index.mjs";
+      const pref = MuhitPreferences.create({ key: "muhit-workspace" });
+      let config = pref.load().config;
+      MuhitTheme.apply(config);
+      const unsubscribe = pref.subscribe((result) => {
+        config = result.config;
+        MuhitTheme.apply(config);
+      });
+      let rows = [
+          {
+            id: "one",
+            name: "İnsan odaklı hizmet",
+            focus: "Araştırma",
+            count: 12,
+            status: "Devam ediyor",
+          },
+          {
+            id: "two",
+            name: "Kaynak verimliliği",
+            focus: "Tasarım",
+            count: 8,
+            status: "Planlandı",
+          },
+          {
+            id: "three",
+            name: "Ortak bilgi alanı",
+            focus: "Araştırma",
+            count: 18,
+            status: "Devam ediyor",
+          },
+        ],
+        form,
+        active = null,
+        agent;
+      const message = document.querySelector("#state"),
+        detail = document.querySelector("#detail");
+      const columns = [
+        { key: "name", label: "Çalışma", editable: true },
+        { key: "focus", label: "Odak" },
+        { key: "count", label: "Kaynak", type: "number", editable: true },
+        { key: "status", label: "Durum" },
+      ];
+      const grid = MuhitDataGrid.mount("#records", {
+        title: "Çalışmalar",
+        columns,
+        rows,
+        selectable: true,
+        onRowsChange(next) {
+          rows = next;
+          draw();
+        },
+      });
+      const chart = MuhitPlot.mount("#plot", plotData());
+      function plotData() {
+        return {
+          title: "Çalışmalardaki kaynaklar",
+          description: "Örnek kayıtlar · her çalışma için mevcut kaynak sayısı",
+          unit: "adet",
+          kind: "bar",
+          labels: rows.map((r) => r.name),
+          series: [
+            {
+              id: "sources",
+              label: "Kaynak",
+              values: rows.map((r) => r.count),
+            },
+          ],
+        };
+      }
+      function draw() {
+        chart.setData(plotData());
+      }
+      function canLeave() {
+        return (
+          !form?.isDirty() ||
+          confirm("Kaydedilmemiş değişiklikleri bırakmak istiyor musunuz?")
+        );
+      }
+      function edit(row) {
+        if (!canLeave()) return;
+        form?.destroy();
+        active = row?.id || null;
+        detail.textContent = row
+          ? "Düzenlenen kayıt: " + row.name
+          : "Yeni çalışma";
+        form = MuhitForm.mount("#editor", {
+          title: "Çalışma bilgileri",
+          fields: [
+            {
+              name: "name",
+              label: "Çalışma adı",
+              required: true,
+              maxLength: 120,
+            },
+            {
+              name: "focus",
+              label: "Odak",
+              type: "select",
+              required: true,
+              options: [
+                { value: "Araştırma", label: "Araştırma" },
+                { value: "Tasarım", label: "Tasarım" },
+              ],
+            },
+            {
+              name: "count",
+              label: "Kaynak sayısı",
+              type: "number",
+              min: 0,
+              max: 100000,
+              required: true,
+            },
+            {
+              name: "status",
+              label: "Durum",
+              type: "select",
+              options: [
+                { value: "Planlandı", label: "Planlandı" },
+                { value: "Devam ediyor", label: "Devam ediyor" },
+                { value: "Tamamlandı", label: "Tamamlandı" },
+              ],
+            },
+            { name: "extra", label: "Ek açıklama ekle", type: "checkbox" },
+            {
+              name: "note",
+              label: "Açıklama",
+              type: "textarea",
+              maxLength: 500,
+              visibleWhen: { field: "extra", equals: true },
+            },
+          ],
+          values: row
+            ? {
+                name: row.name,
+                focus: row.focus,
+                count: row.count,
+                status: row.status,
+              }
+            : { focus: "Araştırma", count: 0, status: "Planlandı" },
+          messages: {"Kaydedildi.": "Örnek kayıt yalnız bu sayfanın belleğinde güncellendi."},
+          async onSubmit(values, signal) {
+            await Promise.resolve();
+            if (signal.aborted) return;
+            const item = {
+              id: active || crypto.randomUUID(),
+              name: values.name,
+              focus: values.focus,
+              count: values.count,
+              status: values.status,
+            };
+            rows = active
+              ? rows.map((r) => (r.id === active ? item : r))
+              : [...rows, item];
+            active = item.id;
+            grid.setRows(rows);
+            draw();
+            message.textContent = "Örnek kayıt bellekte güncellendi.";
+          },
+        });
+      }
+      document.querySelector("#new").onclick = () => edit(null);
+      document.querySelector("#edit").onclick = () => {
+        const id = grid.getSelected()[0];
+        if (!id) {
+          message.textContent = "Önce listeden bir kayıt seçin.";
+          return;
+        }
+        edit(rows.find((r) => r.id === id));
+      };
+      document.querySelector("#complete").onclick = () => {
+        const ids = grid.getSelected();
+        if (!ids.length) {
+          message.textContent = "Önce kayıt seçin.";
+          return;
+        }
+        rows = rows.map((r) =>
+          ids.includes(r.id) ? { ...r, status: "Tamamlandı" } : r,
+        );
+        grid.setRows(rows);
+        message.textContent = ids.length + " örnek kayıt tamamlandı.";
+      };
+      document.querySelector("#filter").onchange = (e) =>
+        grid.setState({ filters: { focus: e.target.value }, page: 1 });
+      document.querySelector("#theme").onclick = () => {
+        config = { ...config, mode: config.mode === "dark" ? "light" : "dark" };
+        MuhitTheme.apply(config);
+        const saved = pref.save(config);
+        if (!saved.saved)
+          message.textContent = "Tema uygulandı ancak tarayıcıda saklanamadı.";
+      };
+      document.querySelector("#scenario").onchange = (e) => {
+        const state = e.target.value;
+        document.querySelector(".work-grid").hidden = [
+          "error",
+          "forbidden",
+        ].includes(state);
+        message.textContent = {
+          ready: "",
+          empty: "Henüz çalışma yok. Yeni çalışma ekleyebilirsiniz.",
+          error:
+            "Örnek bağlantı hatası. Yeniden denemek için Hazır durumunu seçin.",
+          forbidden:
+            "Bu alanı görüntüleme izniniz yok. Bu, arayüz örneğidir; yetki kontrolü sunucuda yapılmalıdır.",
+        }[state];
+        grid.setRows(state === "empty" ? [] : rows);
+      };
+      document.querySelector("#csv").onclick = () => {
+        const blob = new Blob([grid.toCSV()], {
+            type: "text/csv;charset=utf-8",
+          }),
+          url = URL.createObjectURL(blob),
+          a = document.createElement("a");
+        a.href = url;
+        a.download = "muhit-calismalar.csv";
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      };
+      document.querySelector("#agent-toggle").onclick = async (e) => {
+        if (agent) {
+          agent.destroy();
+          agent = null;
+          e.target.textContent = "Agent örneğini aç";
+          return;
+        }
+        const spec = await (await fetch("./extended-agent.json")).json();
+        agent = MuhitAgent.render("#agent", spec, {
+          onAction: async (event) => {
+            if (event.id === "submit")
+              message.textContent =
+                "Agent formundan örnek eylem alındı; sunucu kaydı yapılmadı.";
+            if(event.id === "submit")return {persisted:false};
+          },
+        });
+        e.target.textContent = "Agent örneğini kapat";
+      };
+      window.addEventListener("beforeunload", (e) => {
+        if (form?.isDirty()) {
+          e.preventDefault();
+          e.returnValue = "";
+        }
+      });
+      window.addEventListener(
+        "pagehide",
+        () => {
+          form?.destroy();
+          grid.destroy();
+          chart.destroy();
+          agent?.destroy();
+          unsubscribe();
+        },
+        { once: true },
+      );
+    </script>
+  </body>
+</html>

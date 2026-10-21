@@ -1,0 +1,230 @@
+[
+  {
+    "title": "Bir fikrin etrafında",
+    "items": [
+      {
+        "id": "purpose",
+        "label": "Niyet",
+        "content": "Mahallenin ortak bahçesini insan, doğa ve sanatın buluştuğu bir alana dönüştürüyoruz."
+      },
+      {
+        "id": "people",
+        "label": "İnsanlar",
+        "content": "Tasarımcılar, komşular ve yerel üreticiler birlikte karar verir."
+      },
+      {
+        "id": "impact",
+        "label": "Etki",
+        "content": "Katılım, erişilebilirlik ve bakım sürekliliğini birlikte değerlendiririz."
+      }
+    ],
+    "type": "tabs",
+    "id": "demo-tabs"
+  },
+  {
+    "title": "Birlikte çalışma rehberi",
+    "items": [
+      {
+        "id": "join",
+        "title": "Nasıl katkı sunabilirim?",
+        "content": "Küçük bir fikir, bir saatlik emek veya bir deneyim paylaşımıyla başlayabilirsin."
+      },
+      {
+        "id": "care",
+        "title": "Bakımı nasıl paylaşırız?",
+        "content": "Görevleri görünür tutar, sorumlulukları gönüllü katılımla sırayla üstleniriz."
+      },
+      {
+        "id": "decisions",
+        "title": "Kararları kim alır?",
+        "content": "Katılımcılar bağlamı inceler, önerileri tartışır ve ortak karar verir."
+      }
+    ],
+    "type": "accordion",
+    "id": "demo-accordion"
+  },
+  {
+    "title": "Arşivde gezin",
+    "total": 126,
+    "pageSize": 12,
+    "type": "pagination",
+    "id": "demo-pagination"
+  },
+  {
+    "title": "Birlikte büyüyen bir süreç",
+    "items": [
+      {
+        "id": "listen",
+        "title": "Mahalleyle tanışma",
+        "description": "İhtiyaçları ve beklentileri dinledik.",
+        "time": "12 Haziran",
+        "state": "complete"
+      },
+      {
+        "id": "design",
+        "title": "Ortak tasarım atölyesi",
+        "description": "Fikirleri küçük denemelere dönüştürüyoruz.",
+        "time": "20 Haziran",
+        "state": "active"
+      },
+      {
+        "id": "grow",
+        "title": "İlk ekim günü",
+        "time": "28 Haziran",
+        "state": "planned"
+      }
+    ],
+    "type": "timeline",
+    "id": "demo-timeline"
+  },
+  {
+    "title": "Ortak çalışma panosu",
+    "columns": [
+      {
+        "id": "ideas",
+        "title": "Fikirler"
+      },
+      {
+        "id": "doing",
+        "title": "Üretiyoruz"
+      },
+      {
+        "id": "done",
+        "title": "Tamamlandı"
+      }
+    ],
+    "items": [
+      {
+        "id": "seeds",
+        "title": "Yerel tohum arşivi",
+        "column": "ideas",
+        "description": "Üreticilerle ilk görüşmeler.",
+        "tag": "Doğa"
+      },
+      {
+        "id": "workshop",
+        "title": "Açık atölye",
+        "column": "doing",
+        "description": "Birlikte üretmek için masa başına.",
+        "tag": "Sanat"
+      },
+      {
+        "id": "map",
+        "title": "Mahalle haritası",
+        "column": "done",
+        "tag": "İnsan"
+      }
+    ],
+    "type": "kanban",
+    "id": "demo-kanban"
+  },
+  {
+    "title": "Yeni bir ortak alan",
+    "steps": [
+      {
+        "id": "intent",
+        "title": "Niyet",
+        "description": "Neyi değiştirmek istediğini anlat."
+      },
+      {
+        "id": "team",
+        "title": "Katılımcılar",
+        "description": "Birlikte çalışacağın kişileri belirle."
+      },
+      {
+        "id": "review",
+        "title": "Değerlendirme",
+        "description": "Kapsamı, kaynakları ve sorumlulukları gözden geçir."
+      }
+    ],
+    "type": "stepper",
+    "id": "demo-stepper"
+  },
+  {
+    "title": "Çalışmanın odağını seç",
+    "multiple": true,
+    "value": [
+      "nature"
+    ],
+    "options": [
+      {
+        "id": "nature",
+        "label": "Doğa",
+        "description": "Yaşamı destekleyen yerel çalışmalar."
+      },
+      {
+        "id": "people",
+        "label": "İnsan",
+        "description": "Erişilebilir ve ortak üretim alanları."
+      },
+      {
+        "id": "art",
+        "label": "Sanat",
+        "description": "Yeni bakışlara yer açan deneyimler."
+      }
+    ],
+    "type": "choices",
+    "id": "demo-choices"
+  },
+  {
+    "title": "Referanslarını ekle",
+    "accept": "images",
+    "maxFiles": 4,
+    "maxSizeMB": 5,
+    "type": "filepicker",
+    "id": "demo-filepicker"
+  },
+  {
+    "title": "Çalışma alanında bul",
+    "placeholder": "Sayfa, proje veya eylem ara…",
+    "items": [
+      {
+        "id": "garden",
+        "label": "Mahalle bahçesi",
+        "description": "Ortak proje",
+        "group": "Projeler"
+      },
+      {
+        "id": "atelier",
+        "label": "Açık atölye",
+        "description": "Sanat ve üretim",
+        "group": "Projeler"
+      },
+      {
+        "id": "new",
+        "label": "Yeni çalışma oluştur",
+        "group": "Eylemler"
+      },
+      {
+        "id": "archive",
+        "label": "Araştırma arşivi",
+        "group": "Kaynaklar"
+      }
+    ],
+    "type": "command",
+    "id": "demo-command"
+  },
+  {
+    "title": "Çalışma bağlamı",
+    "description": "Bir kararın arkasındaki kaynaklar ve insanlar.",
+    "items": [
+      {
+        "id": "owner",
+        "title": "Sorumluluk",
+        "description": "Mahalle çalışma grubu"
+      },
+      {
+        "id": "source",
+        "title": "Kaynaklar",
+        "description": "Yerel görüşmeler ve açık atölye notları"
+      },
+      {
+        "id": "next",
+        "title": "Sonraki adım",
+        "description": "Katılımcı geri bildirimlerini birlikte incele"
+      }
+    ],
+    "type": "drawer",
+    "id": "demo-drawer"
+  }
+]

@@ -1,0 +1,47 @@
+# Muhit UI
+
+> Framework bağımsız HTML/CSS/JavaScript bileşenleri, semantik temalar ve doğrulanan JSON görünümleri. Paket 0.16.0; yerel kaynak dağıtımı.
+
+## Önce okunacak kaynaklar
+
+- [Kullanım](README.md): yerel kurulum, klasik HTML, ESM, API ve erişilebilirlik sınırları.
+- [Bileşen tarifleri](docs/COMPONENTS.md): native HTML, durumlar, tablo/grafik API ve yaşam döngüsü.
+- [Tema tokenları](docs/TOKENS.md): semantik eşler, kapsam, kişisel config ve CSS dışa aktarımı.
+- [JSON adaptörü](docs/AGENT-CONTRACT.md): doğrulama, izinli türler ve eylem sınırı.
+- [Çalışma kuralları](AGENTS.md): kapsam, tokenlar, doğrulama, güvenli metin ve paketleme.
+- [TypeScript API](types/index.d.ts): Muhit, MuhitTable, MuhitCharts, MuhitTheme, MuhitAgent, MuhitWidgets.
+- [UI şeması](schemas/ui.schema.json): schemaVersion 1.1.0 (1.0.0 compatible); 18 tür, widget şemasına yerel referanslar.
+- [Tema şeması](schemas/theme.schema.json): version 1; grove, clay, tide, atelier, sand, moss, plum, slate; light/dark.
+- [Bileşen manifestosu](schemas/components.json): makine tarafından okunabilen bileşen sözleşmesi.
+- [Agent görünümü](examples/agent-view.json): geçerli örnek JSON.
+- [Çevrimdışı HTML](examples/basic.html): yerel font ve klasik scriptlerle çalışan örnek.
+
+## Uygulama sınırları
+
+ESM girişi src/index.mjs; stil girişi styles/index.css. Genel CSS sıfırlamaları yalnız .mh-scope içinde uygulanır. Tema renklerini --mh-* semantik değişkenlerinden alın. Kontrollerde 44 px hedef ve 3 px odak korunur. JSON'u MuhitAgent.validate ile doğrulayın; sonuç geçersizse render etmeyin. Metin alanlarına HTML veya çalıştırılabilir kod koymayın. Agent adaptörü model veya ağ çalıştırmaz; kart eylemleri kullanıcı tıklamasıyla, widget/form/tablo durum olayları ise kullanıcı veya programatik güncellemeyle callback'e ulaşabilir. Olay almak kullanıcı yetkilendirmesi değildir. Tek olay sözleşmesi docs/AGENT-CONTRACT.md içindedir. Tablo/grafik veri bağlantısı ve kalıcılık tüketici uygulamanın sorumluluğudur. Kontrast denetimi bütün uygulamanın WCAG uygunluğunu garanti etmez.
+
+## Lisans
+
+- [MIT kod lisansı](LICENSE)
+- [Font hakları ve dağıtım notları](NOTICE): Manrope ve Source Serif 4, SIL OFL 1.1.
+
+Identity: assets/brand/brand.json; docs/BRAND.md. Use the canonical SVG logo files.
+Migration from the prior working name: docs/MIGRATION.md.
+
+
+0.7.0: MuhitWidgets 10 yeni tür sağlar; kart, metrik, not, tablo ve grafikle birlikte adaptör toplam 18 tür destekler. [Etkileşim bileşenleri](docs/WIDGETS.md) ve schemas/widgets.schema.json sözleşmesini okuyun. Widget olayları id, componentId ve value taşır; kalıcılık uygulamada yönetilir.
+
+Approved identity: Muhit 3.1, locked. Use assets/brand/muhit-logo.svg and muhit-symbol.svg unchanged. Read assets/brand/brand-lock.json and docs/BRAND.md. Change geometry only on explicit user request, as a new preserved version.
+
+0.7.0: Optional UISpec.page and card variant/state/meta are validated. MuhitDataGrid is available as an imperative API and as the datagrid agent kind. Read docs/PRODUCTION.md and examples/rich-agent.json. Use npm run verify for packaged regression tests. React/Vue host examples live under examples/react and examples/vue.
+
+Forms: docs/FORMS.md; schemas/form.schema.json; MuhitForm also renders via schemaVersion 1.1.0 form kind; datagrid and plot are supported too.
+Preferences: MuhitPreferences.create; explicit local save only. Coverage and limits: docs/COVERAGE.md.
+
+0.8: docs/COLUMN-LAYOUT.md ve docs/INTERNATIONALIZATION.md. Layout tüm anahtarları bir kez içerir; width 120–800, pin null/start/end. Locale seçenekleri uygulama metnini çevirmeden bileşen metinlerini belirler.
+
+0.9: Current capability source: schemas/capabilities.json. Read docs/ADVANCED-FORMS.md, docs/FRAMEWORKS-0.9.md and docs/RELEASE-POLICY.md. Grid locale is immutable per mount; preserve user view via getView/restoreView. Remote full/selected CSV export requires exportRows. Fields provide combobox/repeater; forms support abortable validateAsync.
+
+İkon standardı: docs/ICONS.md ve schemas/icons.json. Sayfa standardı: docs/PAGE-STANDARDS.md, schemas/pages.json ve schemas/page.schema.json. Yeni sayfalarda izinli ikon adlarını ve altı yerleşim tarifini kullanın. Bunlar mevcut 18 agent bileşen türünü değiştirmez.
+
+Tasarım felsefesi: docs/DESIGN.md. Uygulanabilir ilkeler: docs/PRINCIPLES.md. Çalışan bağlam ve toparlanma örneği: examples/foundations/principles.html.

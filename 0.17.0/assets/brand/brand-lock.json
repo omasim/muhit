@@ -1,0 +1,24 @@
+{
+  "brand": "Muhit",
+  "version": "3.1",
+  "status": "locked",
+  "approvedOn": "2026-10-09",
+  "canonicalLogo": "muhit-logo.svg",
+  "canonicalSymbol": "muhit-symbol.svg",
+  "files": {
+    "favicon.svg": "8cd46825f6739d442361dbf7811a7e15180d6afb8f97fc103c3d958d47de91a6",
+    "muhit-app-icon.svg": "3f36a73c2a4344446bc5186dda50f28f4324575d8fe5b3d9faa30e3adbf636b8",
+    "muhit-logo-dark.svg": "be73e11d3580fc8eb3fb4a233e1136a44e4a81acc2ded08dac1f766d5d12b878",
+    "muhit-logo-mono.svg": "5e3d16f0eec823dad8d9310b7b7175dc3ec86667068d5703e9f43f1085779885",
+    "muhit-logo.svg": "484fab88c3583465767b7cac4c59497ea7874ea70aae1b438e4f15d4d5e56b2a",
+    "muhit-symbol-dark.svg": "a2eb9090348721e9a760e806e0d3a5ea07f05cfc33e30c149cfffe2f2fbd3c07",
+    "muhit-symbol-mono.svg": "98fc9a240879d1d56a13ae6f9f163c1ca222f0cb1227ca20bdc4ba9a7ff851de",
+    "muhit-symbol.svg": "edcbacda00f9f6b12d70b6466a4d1a2068a86efd13084eefb28785ed7223f6a2",
+    "muhit-ui-dark.svg": "e35e36f84ea76ada35d267d371d036f675a0d40db41322029dec7d28e54616f5",
+    "muhit-ui-mono.svg": "5bcefd769b7c84511123c4324c6fa5da9ad6dcb8c3000394a0695e06f596dc45",
+    "muhit-ui.svg": "d163b326b92b642e1fc7345fa8afde342643e6ef6ec7e59dc762f6c10b116db2",
+    "muhit-wordmark-dark.svg": "e5cadc579402061d89f1c23060503c0f745aec5a7f8fd03d7d2308d6d6a90368",
+    "muhit-wordmark-mono.svg": "9c38b4a0ca10a5575c2be03f5077d330b419d1bd0d7c5c76d0517314bffe515b",
+    "muhit-wordmark.svg": "29f60dc94896ee13021b38b643f771ddc8ed5b2e8edaaf71dc2adb50b381a136"
+  }
+}

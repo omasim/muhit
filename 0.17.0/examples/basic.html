@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Muhit UI · Bağımsız kullanım örneği</title>
+    <link rel="stylesheet" href="../styles/index.css" />
+    <style>
+      body {
+        margin: 0;
+        background: var(--mh-bg);
+      }
+      .example-page {
+        max-width: 1120px;
+        margin: auto;
+        padding: 48px 24px 64px;
+      }
+      .example-header {
+        max-width: 720px;
+        margin-bottom: 28px;
+      }
+      .example-header h1 {
+        font: 400 calc(42px * var(--mh-text-scale, 1))/1.12
+          var(--mh-font-heading);
+        margin: 12px 0 18px;
+        letter-spacing: -0.03em;
+      }
+      .example-header p:last-child {
+        color: var(--mh-muted);
+      }
+      .example-controls {
+        display: flex;
+        gap: 16px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        margin-bottom: 28px;
+      }
+      .example-controls .mh-field {
+        min-width: 150px;
+        flex: 1;
+      }
+      .example-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 24px 0;
+      }
+      .example-section {
+        margin-top: 36px;
+        min-width: 0;
+      }
+      .example-section > h2 {
+        font: 400 calc(28px * var(--mh-text-scale, 1))/1.2
+          var(--mh-font-heading);
+        margin-bottom: 18px;
+      }
+      .example-foot {
+        margin-top: 32px;
+        color: var(--mh-muted);
+        font-size: 12px;
+      }
+      @media (max-width: 620px) {
+        .example-page {
+          padding: 28px 18px 40px;
+        }
+        .example-grid {
+          grid-template-columns: 1fr;
+        }
+        .example-header h1 {
+          font-size: calc(34px * var(--mh-text-scale, 1));
+        }
+      }
+    </style>
+  <link rel="stylesheet" href="../styles/pages.css"></head>
+  <body class="mh-scope"><a class="mh-skip" href="#example">İçeriğe geç</a>
+    <main class="mh-scope example-page mh-content" id="example" tabindex="-1" data-page-recipe="overview" data-width="standard">
+      <header class="example-header">
+        <p class="mh-kicker">MUHIT UI / 0.2.0</p>
+        <h1>Aynı bileşenler, sizin bağlamınız.</h1>
+        <p>
+          Bu sayfa klasik scriptler ve yerel fontlarla çevrimdışı çalışır.
+          Veriler kurgudur; değişiklikler bu sayfanın belleğinde kalır.
+        </p>
+      </header>
+      <div class="example-controls">
+        <div class="mh-field">
+          <label for="preset">Tema</label
+          ><select class="mh-select" id="preset">
+            <option value="grove">Grove</option>
+            <option value="clay">Clay</option>
+            <option value="tide">Tide</option>
+            <option value="atelier">Atelier</option>
+          </select>
+        </div>
+        <div class="mh-field">
+          <label for="mode">Görünüm</label
+          ><select class="mh-select" id="mode">
+            <option value="light">Açık</option>
+            <option value="dark">Koyu</option>
+          </select>
+        </div>
+        <div class="mh-field">
+          <label for="density">Yoğunluk</label
+          ><select class="mh-select" id="density">
+            <option value="comfortable">Rahat</option>
+            <option value="compact">Sık</option>
+          </select>
+        </div>
+        <button class="mh-button" type="button" id="notify">
+          Bildirimi dene
+        </button>
+      </div>
+      <div class="example-grid mh-region-grid">
+        <article class="mh-card">
+          <span class="mh-badge mh-badge--info">HTML BİLEŞENİ</span>
+          <h2 class="mh-card__title">Açık bir sonraki adım</h2>
+          <p class="mh-card__body">
+            Başlık, açıklama ve eylemi ortak bir yapı içinde birleştirin.
+          </p>
+          <div class="mh-card__footer">
+            <span class="mh-small mh-muted">Örnek içerik</span
+            ><button
+              class="mh-button mh-button--primary"
+              type="button"
+              id="open-dialog"
+            >
+              Ayrıntıyı aç
+            </button>
+          </div>
+        </article>
+        <article class="mh-card">
+          <h2 class="mh-card__title">Bir düşünceyi kaydedin</h2>
+          <div class="mh-field">
+            <label for="idea">Çalışma başlığı</label
+            ><input
+              class="mh-input"
+              id="idea"
+              placeholder="Örneğin: Ortak bilgi alanı"
+              aria-describedby="idea-help"
+            />
+            <p class="mh-field__help" id="idea-help">
+              Bu alan bir sunucuya gönderilmez.
+            </p>
+          </div>
+          <label class="mh-check"
+            ><input type="checkbox" /> Birlikte gözden geçirilecek</label
+          >
+        </article>
+      </div>
+      <section class="example-section" aria-labelledby="agent-title">
+        <h2 id="agent-title">JSON ile aynı yapı</h2>
+        <div id="agent-example"></div>
+      </section>
+      <section class="example-section" aria-labelledby="table-title">
+        <h2 id="table-title">Çalışan tablo</h2>
+        <div id="table-example"></div>
+      </section>
+      <section class="example-section" aria-labelledby="chart-title">
+        <h2 id="chart-title">Okunabilir veri görünümü</h2>
+        <div id="chart-example"></div>
+      </section>
+      <p class="example-foot">
+        Kod MIT; dahil edilen fontlar SIL OFL 1.1. Tam açıklamalar README.md ve
+        NOTICE dosyalarında.
+      </p>
+      <dialog
+        class="mh-dialog"
+        id="example-dialog"
+        aria-labelledby="dialog-title"
+      >
+        <div class="mh-dialog__content">
+          <h2 class="mh-dialog__title" id="dialog-title">
+            Bağlamı görünür tutun.
+          </h2>
+          <p>
+            Bu yerel örnek native dialog kullanır. Escape ile veya aşağıdaki
+            düğmeyle kapatabilirsiniz.
+          </p>
+          <div class="mh-dialog__actions">
+            <button
+              class="mh-button mh-button--primary"
+              type="button"
+              id="close-dialog"
+            >
+              Kapat
+            </button>
+          </div>
+        </div>
+      </dialog>
+    </main>
+    <script src="../src/i18n.js"></script>
+<script src="../src/csv.js"></script>
+<script src="../src/icons.js"></script><script src="../src/components.js"></script>
+    <script src="../src/table.js"></script>
+    <script src="../src/charts.js"></script>
+    <script src="../src/theme.js"></script>
+    <script src="../src/widget-schemas.js"></script><script src="../src/widgets.js"></script><script src="../src/agent.js"></script>
+    <script>
+      (() => {
+        const page = document.getElementById("example");
+        const spec = {
+          schemaVersion: "1.0.0",
+          components: [
+            {
+              type: "card",
+              id: "agent-card",
+              title: "Birlikte değerlendirin",
+              description:
+                "JSON metni aynı kart bileşenine dönüşür. Eylem yalnız tıklamayla çalışır.",
+              action: { id: "review", label: "İncele" },
+            },
+            {
+              type: "notice",
+              id: "agent-note",
+              title: "Örnek görünüm",
+              message: "Bu adaptör ağ bağlantısı veya model çağrısı yapmaz.",
+              tone: "info",
+            },
+          ],
+        };
+        const agent = MuhitAgent.render("#agent-example", spec, {
+          onAction: ({ id }) =>
+            Muhit.toast("Örnek eylem: " + id, { container: page }),
+        });
+        function theme() {
+          const config = {
+            preset: document.getElementById("preset").value,
+            mode: document.getElementById("mode").value,
+            density: document.getElementById("density").value,
+          };
+          MuhitTheme.apply(config);
+          agent.update({ ...spec, theme: config });
+        }
+        ["preset", "mode", "density"].forEach((id) =>
+          document.getElementById(id).addEventListener("change", theme),
+        );
+        theme();
+        document.getElementById("notify").onclick = () =>
+          Muhit.toast("Bileşenler etkin temayı kullanıyor.", {
+            container: page,
+          });
+        const dialog = document.getElementById("example-dialog");
+        document.getElementById("open-dialog").onclick = () =>
+          Muhit.openDialog(dialog);
+        document.getElementById("close-dialog").onclick = () =>
+          Muhit.closeDialog(dialog);
+        MuhitTable.mount("#table-example", {
+          title: "Örnek çalışma listesi",
+          description: "Arayın, seçin veya durumları birlikte değiştirin.",
+          demo: true,
+          rows: [
+            {
+              id: "P-01",
+              title: "Birlikte öğrenme",
+              status: "active",
+              owner: "Ada Deniz",
+              theme: "Örnek çalışma",
+              updated: "2026-10-09",
+            },
+            {
+              id: "P-02",
+              title: "Açık bilgi alanı",
+              status: "planned",
+              owner: "Ekin Yalın",
+              theme: "Örnek çalışma",
+              updated: "2026-10-08",
+            },
+            {
+              id: "P-03",
+              title: "Ortak dil",
+              status: "complete",
+              owner: "Mira Aydın",
+              theme: "Örnek çalışma",
+              updated: "2026-10-07",
+            },
+          ],
+        });
+        MuhitCharts.mount("#chart-example");
+      })();
+    </script>
+  </body>
+</html>

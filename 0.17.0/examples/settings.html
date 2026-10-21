@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Muhit · Çalışma alanı ayarları</title>
+    <link rel="icon" href="../assets/brand/favicon.svg" />
+    <link rel="stylesheet" href="../styles/index.css" />
+    <style>
+      body {
+        margin: 0;
+        background: var(--mh-bg);
+        color: var(--mh-text);
+      }
+      main {
+        max-width: 960px;
+        margin: auto;
+        padding: clamp(16px, 4vw, 48px);
+      }
+      header {
+        margin-bottom: 32px;
+      }
+      .settings-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+        gap: 24px;
+      }
+      .settings-grid > * {
+        min-width: 0;
+      }
+      @media (max-width: 720px) {
+        .settings-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      img {
+        max-width: 100%;
+      }
+    </style>
+  <link rel="stylesheet" href="../styles/pages.css"></head>
+  <body class="mh-scope"><a class="mh-skip" href="#main">İçeriğe geç</a>
+    <main class="mh-stack mh-content" id="main" tabindex="-1" data-page-recipe="settings" data-width="standard">
+      <header class="mh-stack">
+        <a href="../index.html" class="mh-text-link">← Muhit stüdyosu</a
+        ><img src="../assets/brand/muhit-logo.svg" alt="Muhit" width="140" />
+        <p class="mh-kicker">Uygulama örneği · 0.6</p>
+        <h1>Çalışma alanını kendine uyarla.</h1>
+        <p>Herkes için anlaşılır, sakin ve erişilebilir bir çalışma ortamı.</p>
+      </header>
+      <div class="mh-alert" role="note">
+        Bu bir yerel örnektir. Form sunucuya gönderilmez; kayıt yanıtı simüle
+        edilir. Yalnız görünüm tercihleriniz bu tarayıcıda saklanır.
+      </div>
+      <div class="settings-grid mh-region-grid mh-region-grid--context">
+        <section class="mh-panel" id="workspace-form"></section>
+        <aside class="mh-stack">
+          <section class="mh-panel mh-stack">
+            <h2 class="mh-panel__title">Görünüm</h2>
+            <div class="mh-field">
+              <label for="palette">Renk paleti</label
+              ><select class="mh-select" id="palette"></select>
+            </div>
+            <div class="mh-field">
+              <label for="mode">Tema</label
+              ><select class="mh-select" id="mode">
+                <option value="light">Açık</option>
+                <option value="dark">Koyu</option>
+              </select>
+            </div>
+            <div class="mh-field">
+              <label for="scale">Metin ölçeği</label
+              ><select class="mh-select" id="scale">
+                <option value="1">%100</option>
+                <option value="1.125">%112,5</option>
+                <option value="1.25">%125</option>
+              </select>
+            </div>
+            <button class="mh-button" id="clear">Görünümü sıfırla</button>
+            <p role="status" id="preference-status"></p>
+          </section>
+          <section class="mh-panel mh-stack">
+            <h2 class="mh-panel__title">Kayıt senaryosu</h2>
+            <div class="mh-field">
+              <label for="response">Örnek yanıt</label
+              ><select class="mh-select" id="response">
+                <option value="success">Başarılı</option>
+                <option value="validation">Alan hatası</option>
+                <option value="network">Bağlantı hatası</option>
+              </select>
+            </div>
+            <p class="mh-field__help">
+              Form hata özeti, tekrar deneme ve kayıt sırasında sıfırlamayı
+              deneyebilirsiniz.
+            </p>
+            <p id="record-status" role="status">Henüz örnek kayıt yapılmadı.</p>
+          </section>
+        </aside>
+      </div>
+    </main>
+    <script type="module">
+      import {
+        MuhitForm,
+        MuhitTheme,
+        MuhitPreferences,
+      } from "../src/index.mjs";
+      const prefs = MuhitPreferences.create({ key: "muhit-settings-example" });
+      const palette = document.querySelector("#palette"),
+        mode = document.querySelector("#mode"),
+        scale = document.querySelector("#scale"),
+        status = document.querySelector("#preference-status");
+      MuhitTheme.presets.forEach((p) => {
+        const o = document.createElement("option");
+        o.value = p.id;
+        o.textContent = p.name;
+        palette.append(o);
+      });
+      let config;
+      function apply(result) {
+        config = result.config;
+        MuhitTheme.apply(config);
+        palette.value = config.preset;
+        mode.value = config.mode;
+        scale.value = String(config.scale);
+        status.textContent = result.error
+          ? "Tercihler okunamadı; varsayılan görünüm kullanılıyor."
+          : "Görünüm hazır.";
+      }
+      apply(prefs.load());
+      for (const c of [palette, mode, scale])
+        c.addEventListener("change", () => {
+          config = {
+            ...config,
+            preset: palette.value,
+            mode: mode.value,
+            scale: Number(scale.value),
+          };
+          MuhitTheme.apply(config);
+          const result = prefs.save(config);
+          status.textContent = result.saved
+            ? "Görünüm bu tarayıcıda saklandı."
+            : "Görünüm uygulandı; tarayıcı saklamaya izin vermedi.";
+        });
+      document.querySelector("#clear").onclick = () => {
+        const result = prefs.clear();
+        if (result.cleared) apply(prefs.load());
+        else status.textContent = "Saklanan tercih silinemedi.";
+      };
+      const unsubscribe = prefs.subscribe(apply);
+      window.exampleForm = MuhitForm.mount("#workspace-form", {
+        title: "Çalışma alanı bilgileri",
+        submitLabel: "Örnek kaydı dene",
+        fields: [
+          {
+            name: "name",
+            label: "Çalışma alanı adı",
+            required: true,
+            maxLength: 80,
+            help: "Ekibinizin birlikte ürettiği alanın adı.",
+          },
+          {
+            name: "email",
+            label: "İletişim e-postası",
+            type: "email",
+            required: true,
+          },
+          {
+            name: "people",
+            label: "Ekip büyüklüğü",
+            type: "number",
+            min: 1,
+            max: 500,
+          },
+          {
+            name: "purpose",
+            label: "Çalışma odağı",
+            type: "select",
+            required: true,
+            options: [
+              { value: "research", label: "Araştırma" },
+              { value: "design", label: "Tasarım" },
+              { value: "operations", label: "Operasyon" },
+            ],
+          },
+          { name: "date", label: "Başlangıç tarihi", type: "date" },
+          {
+            name: "description",
+            label: "Ortak amaç",
+            type: "textarea",
+            maxLength: 500,
+          },
+          {
+            name: "digest",
+            label: "Haftalık özeti etkinleştir",
+            type: "checkbox",
+          },
+        ],
+        values: { name: "Ortak Atölye", people: 8, purpose: "research" },
+        async onSubmit(values, signal) {
+          const response = document.querySelector("#response").value;
+          await new Promise((resolve, reject) => {
+            const timer = setTimeout(resolve, 500);
+            signal.addEventListener(
+              "abort",
+              () => {
+                clearTimeout(timer);
+                reject(new DOMException("İptal", "AbortError"));
+              },
+              { once: true },
+            );
+          });
+          if (response === "network") throw Object.assign(new Error("Örnek bağlantı hatası"),{code:"network"});
+          if (response === "validation")
+            return {
+              errors: { email: "Bu e-posta için başka bir çalışma alanı var." },
+            };
+          document.querySelector("#record-status").textContent =
+            "Örnek yanıt başarılı: " +
+            values.name +
+            ". Gerçek kayıt gönderilmedi.";
+          return {persisted:false};
+        },
+      });
+      window.addEventListener(
+        "pagehide",
+        () => {
+          unsubscribe();
+          window.exampleForm.destroy();
+        },
+        { once: true },
+      );
+    </script>
+  </body>
+</html>
