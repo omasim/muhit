@@ -1,0 +1,54 @@
+{
+  "version": "1.0",
+  "purpose": "Design review checklist; not an executable agent schema",
+  "principles": [
+    {
+      "id": "P01",
+      "title": "Bağlamı ve emeği koru",
+      "rule": "Görünümler arasında filtre, seçim ve taslak doğru kapsamda korunur. Saklama süresi açıkça belirtilir; hassas veri kendiliğinden kalıcı depoya yazılmaz.",
+      "acceptance": "Liste → ayrıntı → geri akışında aynı filtre ve seçim bulunur; yenilemede kaybolacak taslak önceden açıklanır."
+    },
+    {
+      "id": "P02",
+      "title": "Yalnız gerçekleşen sonucu bildir",
+      "rule": "Bekleyen işlem başarı sayılmaz. Eksik veri sıfır diye doldurulmaz. Yerel onay, sunucu kaydı ve örnek veri ayrı adlandırılır.",
+      "acceptance": "Hata senaryosu başarı mesajı üretmez; tamamlanan işlem kapsamını açıkça söyler."
+    },
+    {
+      "id": "P03",
+      "title": "Kararı insanda bırak",
+      "rule": "Eylemler sonuçlarını anlatır. İptal, inceleme ve geri dönüş yolları görünürdür. Onay ihtiyacı işlemin etkisiyle orantılıdır.",
+      "acceptance": "Bekleyen işlem iptal edilebilir; iptal edilmiş yanıt sonradan başarıya dönüşmez."
+    },
+    {
+      "id": "P04",
+      "title": "Farklı erişim biçimlerini temel kabul et",
+      "rule": "Anlam yalnız renk, hareket veya sürüklemeyle taşınmaz. Klavye, okunabilir metin, görünür odak ve azaltılmış hareket temel sözleşmedir.",
+      "acceptance": "Klavye ile bütün görev tamamlanır; açık/koyu ve dar ekranda içerik kaybolmaz. Manuel ekran okuyucu kabulü ayrıca kaydedilir."
+    },
+    {
+      "id": "P05",
+      "title": "Hatadan dönüş yolunu tasarla",
+      "rule": "Boş, hata, yükleniyor ve yetki durumları ayrıdır. Hata kullanıcının yaptığı işi silmez; sonraki adım sorunla ilişkilidir.",
+      "acceptance": "Başarısız onay taslağı korur ve yeniden deneme sunar; erişim bilgisi eylemi yetki verilmiş gibi davranmaz."
+    },
+    {
+      "id": "P06",
+      "title": "Dikkati ve kaynağı ölçülü kullan",
+      "rule": "Her vurgu bir öncelik, her hareket bir anlam taşır. Gereken modül ve font yüklenir; dikkat gerektirmeyen alanlar yarışmaz.",
+      "acceptance": "Tek ikon tam kataloğu getirmez; animasyonsuz kullanım mümkündür. Ölçülmeyen çevresel kazanç ileri sürülmez."
+    },
+    {
+      "id": "P07",
+      "title": "İfade değişsin, anlam korunsun",
+      "rule": "Projeler palet, tipografi ve yoğunlukla kendi karakterini kurar. Eylem, durum, odak ve metin-zemin ilişkileri korunur.",
+      "acceptance": "Tema değişimi veri ve taslağı değiştirmez; seçili ve hatalı durum metinle de anlaşılır."
+    },
+    {
+      "id": "P08",
+      "title": "Öneriyi yetkiden ayır",
+      "rule": "AI çıktısı izinli şemadan geçer. Görünüm tanımı kod, doğruluk belgesi veya işlem izni değildir. Uygulama yetkiyi ve gerçek sonucu doğrular.",
+      "acceptance": "Bilinmeyen tanım reddedilir; callback yokken yapılmamış işlem tamamlandı gösterilmez."
+    }
+  ]
+}

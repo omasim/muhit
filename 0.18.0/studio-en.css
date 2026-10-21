@@ -1,0 +1,112 @@
+body {
+  margin: 0;
+  background: var(--mh-bg);
+}
+header,
+main,
+footer {
+  max-width: 1280px;
+  margin: auto;
+  padding: 24px;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 1px solid var(--mh-border);
+}
+nav,
+.mh-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+a {
+  color: var(--mh-link);
+}
+main {
+  display: grid;
+  gap: 64px;
+}
+main > section {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
+.intro {
+  max-width: 800px;
+  padding-block: 24px;
+}
+.intro h1 {
+  font: 400 clamp(36px, 5vw, 72px)/1.06 var(--mh-font-display);
+  letter-spacing: -0.04em;
+}
+.intro p {
+  max-width: 640px;
+}
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 24px;
+  margin-block: 24px;
+}
+.cards > * {
+  min-width: 0;
+}
+#grid,
+#board,
+#widgets {
+  margin-block: 24px;
+}
+pre {
+  max-width: 100%;
+  overflow: auto;
+  padding: 20px;
+  background: var(--mh-surface-2);
+  border-radius: var(--mh-radius-card);
+}
+textarea {
+  width: 100%;
+}
+input[type="file"] {
+  max-width: 220px;
+}
+#audit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 8px;
+}
+.skip {
+  position: absolute;
+  left: 16px;
+  top: -80px;
+  background: var(--mh-surface);
+  padding: 12px;
+}
+.skip:focus {
+  top: 0;
+}
+footer {
+  border-top: 1px solid var(--mh-border);
+}
+@media (max-width: 600px) {
+  header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+label.mh-button:focus-within {outline:3px solid var(--mh-focus);outline-offset:3px}
+
+/* Match the shared page and card region rhythm. */
+body > header,body > footer {max-width:1600px;padding:var(--mh-page-gutter)}
+.cards {grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--mh-region-gap)}
+.cards > * {grid-column:span 6}
+@media(max-width:1199px){.cards{grid-template-columns:repeat(8,minmax(0,1fr))}.cards > *{grid-column:span 4}}
+@media(max-width:767px){.cards{grid-template-columns:repeat(4,minmax(0,1fr))}.cards > *{grid-column:span 4}}

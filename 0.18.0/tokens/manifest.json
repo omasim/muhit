@@ -1,0 +1,104 @@
+{
+  "version": "1.0.0",
+  "format": "DTCG typed portable subset",
+  "source": "src/theme.js + schemas/foundations.json",
+  "modes": [
+    {
+      "preset": "grove",
+      "mode": "light",
+      "file": "grove-light.tokens.json",
+      "count": 185
+    },
+    {
+      "preset": "grove",
+      "mode": "dark",
+      "file": "grove-dark.tokens.json",
+      "count": 185
+    },
+    {
+      "preset": "clay",
+      "mode": "light",
+      "file": "clay-light.tokens.json",
+      "count": 185
+    },
+    {
+      "preset": "clay",
+      "mode": "dark",
+      "file": "clay-dark.tokens.json",
+      "count": 185
+    },
+    {
+      "preset": "tide",
+      "mode": "light",
+      "file": "tide-light.tokens.json",
+      "count": 185
+    },
+    {
+      "preset": "tide",
+      "mode": "dark",
+      "file": "tide-dark.tokens.json",
+      "count": 185
+    },
+    {
+      "preset": "atelier",
+      "mode": "light",
+      "file": "atelier-light.tokens.json",
+      "count": 185
+    },
+    {
+      "preset": "atelier",
+      "mode": "dark",
+      "file": "atelier-dark.tokens.json",
+      "count": 185
+    },
+    {
+      "preset": "sand",
+      "mode": "light",
+      "file": "sand-light.tokens.json",
+      "count": 185
+    },
+    {
+      "preset": "sand",
+      "mode": "dark",
+      "file": "sand-dark.tokens.json",
+      "count": 185
+    },
+    {
+      "preset": "moss",
+      "mode": "light",
+      "file": "moss-light.tokens.json",
+      "count": 185
+    },
+    {
+      "preset": "moss",
+      "mode": "dark",
+      "file": "moss-dark.tokens.json",
+      "count": 185
+    },
+    {
+      "preset": "plum",
+      "mode": "light",
+      "file": "plum-light.tokens.json",
+      "count": 185
+    },
+    {
+      "preset": "plum",
+      "mode": "dark",
+      "file": "plum-dark.tokens.json",
+      "count": 185
+    },
+    {
+      "preset": "slate",
+      "mode": "light",
+      "file": "slate-light.tokens.json",
+      "count": 185
+    },
+    {
+      "preset": "slate",
+      "mode": "dark",
+      "file": "slate-dark.tokens.json",
+      "count": 185
+    }
+  ],
+  "figma": "Import with a DTCG-capable tool; font families and compound CSS may require explicit mapping. Native Figma parity has not been certified."
+}

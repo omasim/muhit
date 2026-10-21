@@ -1,0 +1,27 @@
+{
+  "brand": "Muhit UI",
+  "version": "3.1",
+  "libraryVersion": "0.3.1",
+  "meaning": "İnsan, doğa ve çevre için ortak yaşam ve üretim alanı.",
+  "concept": "Üç akışkan yay ortak bir açık merkezi çevreler. Ortalarda hafifçe dolgunlaşan, uçlara doğru incelen formlar doğanın yumuşak ritmini taşır. Tek renk ve açık merkez korunur.",
+  "primaryColors": {
+    "forest": "#356752",
+    "ink": "#202A25",
+    "paper": "#F5F4EF"
+  },
+  "typeface": "Manrope weight 620; outlined SVG paths",
+  "sourceFontLicense": "../fonts/Manrope-OFL.txt",
+  "symbolGrid": "64 × 64",
+  "clearSpace": "Sembolün genişliğinin 1/4’ü; 64 birimlik kutuda 16 birim.",
+  "minimumDigitalSize": {
+    "symbolPx": 24,
+    "fullLogoPx": 110,
+    "uiLockupPx": 124
+  },
+  "uiColorBehavior": "Stüdyoda sembol --mh-link, yazı currentColor kullanır. Ana sembol tek renktir.",
+  "status": "locked",
+  "approvedOn": "2026-10-09",
+  "canonicalLogo": "muhit-logo.svg",
+  "canonicalSymbol": "muhit-symbol.svg",
+  "changePolicy": "Geometri, oranlar ve wordmark yalnız kullanıcının açık değişiklik isteğiyle yeni sürüm olarak değiştirilir. Önceki sürümler korunur. Tema uyarlamasında yalnız belgelenen renk tokenları kullanılabilir."
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MuhitPlot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "title",
+    "unit",
+    "labels",
+    "series"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "description": {
+      "type": "string"
+    },
+    "unit": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "kind": {
+      "enum": [
+        "line",
+        "bar"
+      ]
+    },
+    "locale": {
+      "type": "string"
+    },
+    "labels": {
+      "type": "array",
+      "maxItems": 200,
+      "items": {
+        "type": "string"
+      }
+    },
+    "series": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "values"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "label": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "values": {
+            "type": "array",
+            "maxItems": 200,
+            "items": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": -1000000000000.0,
+              "maximum": 1000000000000.0
+            }
+          }
+        }
+      }
+    }
+  },
+  "$comment": "Runtime enforces unique series IDs and series lengths equal to label count. All series share one unit; null is missing data."
+}

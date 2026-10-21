@@ -1,0 +1,34 @@
+/* Generated from schemas/foundations.json. */
+.mh-scope {
+  --mh-space-0: 0px;
+  --mh-space-1: 4px;
+  --mh-space-2: 8px;
+  --mh-space-3: 12px;
+  --mh-space-4: 16px;
+  --mh-space-5: 24px;
+  --mh-space-6: 32px;
+  --mh-space-7: 48px;
+  --mh-space-8: 64px;
+  --mh-space-9: 96px;
+  --mh-layer-base: 0;
+  --mh-layer-sticky: 10;
+  --mh-layer-dropdown: 20;
+  --mh-layer-overlay: 30;
+  --mh-layer-dialog: 40;
+  --mh-layer-toast: 50;
+  --mh-layer-tooltip: 60;
+  --mh-layer-skip: 100;
+  --mh-duration-instant: 0ms;
+  --mh-duration-fast: 100ms;
+  --mh-duration-normal: 160ms;
+  --mh-duration-slow: 240ms;
+  --mh-size-touch: 44px;
+  --mh-size-iconSmall: 16px;
+  --mh-size-iconMedium: 20px;
+  --mh-size-iconLarge: 24px;
+  --mh-size-reading: 720px;
+  --mh-breakpoint-small: 768px;
+  --mh-breakpoint-large: 1200px;
+}
+@media(prefers-reduced-motion:reduce){.mh-scope{--mh-duration-fast:0ms;--mh-duration-normal:0ms;--mh-duration-slow:0ms}}
+[data-mh-motion="reduced"],[data-mh-motion="reduced"] .mh-scope{--mh-duration-fast:0ms;--mh-duration-normal:0ms;--mh-duration-slow:0ms}

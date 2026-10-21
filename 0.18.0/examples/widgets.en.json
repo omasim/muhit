@@ -1,0 +1,230 @@
+[
+  {
+    "title": "Around an idea",
+    "items": [
+      {
+        "id": "purpose",
+        "label": "Purpose",
+        "content": "A shared garden where people, nature and art meet."
+      },
+      {
+        "id": "people",
+        "label": "People",
+        "content": "Designers, neighbors and local makers decide together."
+      },
+      {
+        "id": "impact",
+        "label": "Impact",
+        "content": "We consider participation, accessibility and ongoing care together."
+      }
+    ],
+    "type": "tabs",
+    "id": "demo-tabs"
+  },
+  {
+    "title": "Working together",
+    "items": [
+      {
+        "id": "join",
+        "title": "How can I contribute?",
+        "content": "Start with an idea, an hour of work or an experience to share."
+      },
+      {
+        "id": "care",
+        "title": "How do we share responsibility?",
+        "content": "Keep tasks visible and share responsibilities through voluntary participation."
+      },
+      {
+        "id": "decisions",
+        "title": "Who makes decisions?",
+        "content": "Participants review the context, discuss proposals and decide together."
+      }
+    ],
+    "type": "accordion",
+    "id": "demo-accordion"
+  },
+  {
+    "title": "Browse the archive",
+    "total": 126,
+    "pageSize": 12,
+    "type": "pagination",
+    "id": "demo-pagination"
+  },
+  {
+    "title": "A process that grows together",
+    "items": [
+      {
+        "id": "listen",
+        "title": "Meeting the neighborhood",
+        "description": "We listened to needs and expectations.",
+        "time": "12 June",
+        "state": "complete"
+      },
+      {
+        "id": "design",
+        "title": "Shared design workshop",
+        "description": "We turn ideas into small experiments.",
+        "time": "20 June",
+        "state": "active"
+      },
+      {
+        "id": "grow",
+        "title": "First planting day",
+        "time": "28 June",
+        "state": "planned"
+      }
+    ],
+    "type": "timeline",
+    "id": "demo-timeline"
+  },
+  {
+    "title": "Shared work board",
+    "columns": [
+      {
+        "id": "ideas",
+        "title": "Ideas"
+      },
+      {
+        "id": "doing",
+        "title": "In progress"
+      },
+      {
+        "id": "done",
+        "title": "Complete"
+      }
+    ],
+    "items": [
+      {
+        "id": "seeds",
+        "title": "Local seed archive",
+        "column": "ideas",
+        "description": "First conversations with local growers.",
+        "tag": "Nature"
+      },
+      {
+        "id": "workshop",
+        "title": "Open workshop",
+        "column": "doing",
+        "description": "A place to make things together.",
+        "tag": "Art"
+      },
+      {
+        "id": "map",
+        "title": "Neighborhood map",
+        "column": "done",
+        "tag": "People"
+      }
+    ],
+    "type": "kanban",
+    "id": "demo-kanban"
+  },
+  {
+    "title": "A new shared space",
+    "steps": [
+      {
+        "id": "intent",
+        "title": "Purpose",
+        "description": "Describe what you want to change."
+      },
+      {
+        "id": "team",
+        "title": "Participants",
+        "description": "Identify the people you will work with."
+      },
+      {
+        "id": "review",
+        "title": "Review",
+        "description": "Review the scope, resources and responsibilities."
+      }
+    ],
+    "type": "stepper",
+    "id": "demo-stepper"
+  },
+  {
+    "title": "Choose a focus",
+    "multiple": true,
+    "value": [
+      "nature"
+    ],
+    "options": [
+      {
+        "id": "nature",
+        "label": "Nature",
+        "description": "Local work that supports life."
+      },
+      {
+        "id": "people",
+        "label": "People",
+        "description": "Accessible spaces for shared work."
+      },
+      {
+        "id": "art",
+        "label": "Art",
+        "description": "Experiences that welcome new perspectives."
+      }
+    ],
+    "type": "choices",
+    "id": "demo-choices"
+  },
+  {
+    "title": "Add references",
+    "accept": "images",
+    "maxFiles": 4,
+    "maxSizeMB": 5,
+    "type": "filepicker",
+    "id": "demo-filepicker"
+  },
+  {
+    "title": "Find in your workspace",
+    "placeholder": "Search pages, projects or actions…",
+    "items": [
+      {
+        "id": "garden",
+        "label": "Community garden",
+        "description": "Shared project",
+        "group": "Projects"
+      },
+      {
+        "id": "atelier",
+        "label": "Open workshop",
+        "description": "Art and making",
+        "group": "Projects"
+      },
+      {
+        "id": "new",
+        "label": "Create a workspace",
+        "group": "Actions"
+      },
+      {
+        "id": "archive",
+        "label": "Research archive",
+        "group": "Resources"
+      }
+    ],
+    "type": "command",
+    "id": "demo-command"
+  },
+  {
+    "title": "Work in context",
+    "description": "The resources and people behind a decision.",
+    "items": [
+      {
+        "id": "owner",
+        "title": "Responsibility",
+        "description": "Neighborhood working group"
+      },
+      {
+        "id": "source",
+        "title": "Resources",
+        "description": "Local interviews and open workshop notes"
+      },
+      {
+        "id": "next",
+        "title": "Next step",
+        "description": "Review participant feedback together"
+      }
+    ],
+    "type": "drawer",
+    "id": "demo-drawer"
+  }
+]

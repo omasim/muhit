@@ -1,0 +1,119 @@
+{
+  "packageVersion": "0.18.0",
+  "themeSchema": 1,
+  "agentSchema": "1.1.0",
+  "agentComponentCount": 18,
+  "npmPublished": false,
+  "features": [
+    {
+      "id": "locale",
+      "status": "implemented",
+      "label": "TR/EN, bölgesel sözlük devralma ve mount düzeyinde locale sözleşmesi"
+    },
+    {
+      "id": "grid-view",
+      "status": "implemented",
+      "label": "Sütun sıra/genişlik/sabitleme/görünürlük, filtre ve seçim snapshot’ı"
+    },
+    {
+      "id": "csv",
+      "status": "implemented",
+      "label": "Ortak CSV kaçışı; sayfa, filtrelenmiş ve seçilmiş kayıtlar için açık dışa aktarma sözleşmesi"
+    },
+    {
+      "id": "fields",
+      "status": "implemented",
+      "label": "Tekrarlanan alan grupları, uzak combobox ve iptal edilebilir async doğrulama"
+    },
+    {
+      "id": "adapters",
+      "status": "implemented",
+      "label": "React/Vue seçenek ve olay aktarımı; uygulama kabuğu SSR ve hydration"
+    },
+    {
+      "id": "agent-events",
+      "status": "implemented",
+      "label": "form-change, edit, state, column-layout, selection ve submit olayları"
+    },
+    {
+      "id": "visual",
+      "status": "implemented",
+      "label": "Sekiz durum için karşılaştırmalı PNG referansları; ayrı platform kayıtları"
+    },
+    {
+      "id": "manual-accessibility",
+      "status": "pending-manual",
+      "label": "Gerçek ekran okuyucu ve fiziksel mobil cihaz kabul testi"
+    },
+    {
+      "id": "virtualization",
+      "status": "deferred",
+      "label": "Sanallaştırma, gruplama ve çoklu sıralama: sayfalı DOM ölçümüne göre gerekçelendirilmedi"
+    },
+    {
+      "id": "kanban-drag",
+      "status": "implemented",
+      "label": "Kanban sütunlar arası fare/dokunma sürükleme, klavye ve native seçim alternatifi"
+    },
+    {
+      "id": "editorial-translations",
+      "status": "implemented",
+      "label": "TR/EN ortak tema kontrol modeli; çekirdek ve Table/Charts DE/AR katalogları (editoryal kabul ayrı)"
+    },
+    {
+      "id": "scale-budgets",
+      "status": "implemented",
+      "label": "20 bin × 20 uzun metin veri kümesinde arama/sıralama/filtre/DOM bütçeleri"
+    },
+    {
+      "id": "delivery",
+      "status": "implemented",
+      "label": "Fonttan bağımsız CSS girişleri, WOFF2 ve CSS/font/istek bütçeleri"
+    },
+    {
+      "id": "production-regressions",
+      "status": "implemented",
+      "label": "Geçerli sayfa CSV, form baseline snapshot, benzersiz grup adları ve NodeNext/Bundler paket tüketici testleri"
+    },
+    {
+      "id": "group-server-validation",
+      "status": "implemented",
+      "label": "Grup bazlı sunucu/async hata ve combobox native form bağlantısı"
+    },
+    {
+      "id": "icons-v1",
+      "label": "Muhit Icons 1.1: 58 SVG, katalog, erişilebilir API ve manifest",
+      "status": "implemented"
+    },
+    {
+      "id": "pages-v1",
+      "label": "Sayfa standardı 1.0: altı HTML/CSS tarifi, 12/8/4 ızgara ve kompozisyon şeması",
+      "status": "implemented"
+    },
+    {
+      "id": "system-tokens",
+      "status": "implemented",
+      "label": "16 typed token exports, semantic references and theme-layer composition"
+    },
+    {
+      "id": "system-flow",
+      "status": "implemented",
+      "label": "Explicit outcomes, partial results, cancellation, draft snapshots"
+    },
+    {
+      "id": "system-pages",
+      "status": "implemented",
+      "label": "Six runtime page recipes with DOM-preserving content states"
+    },
+    {
+      "id": "system-ai",
+      "status": "implemented",
+      "label": "Composition review, preview without side effects, approval and authorization hooks"
+    },
+    {
+      "id": "system-primitives",
+      "status": "implemented",
+      "label": "Menu, popover, tooltip and tree keyboard/snapshot behavior"
+    }
+  ]
+}

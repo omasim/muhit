@@ -1,0 +1,1801 @@
+{
+  "$description": "Muhit resolved token graph; values derived from the canonical theme engine.",
+  "$extensions": {
+    "org.muhit": {
+      "version": "1.0.0",
+      "theme": {
+        "version": 1,
+        "preset": "tide",
+        "mode": "dark",
+        "accent": null,
+        "font": "editorial",
+        "density": "comfortable",
+        "radius": "soft",
+        "scale": 1,
+        "motion": "system",
+        "border": "subtle",
+        "elevation": "flat",
+        "buttonStyle": "solid",
+        "controlSize": "md",
+        "headingScale": 1,
+        "lineHeight": 1.65,
+        "contentWidth": "balanced",
+        "borderWidth": 1,
+        "iconWeight": 1.75,
+        "accentIntensity": "balanced",
+        "chartPalette": "natural",
+        "cardSurface": "plain",
+        "layoutGap": "balanced",
+        "tableRows": "plain",
+        "tableHeader": "static"
+      },
+      "scope": "Typed portable subset; non-token CSS values in cssValues. Theme modes exported separately",
+      "cssValues": {
+        "--mh-table-header-position": "static",
+        "--mh-motion": "160ms ease",
+        "--mh-elevation": "none",
+        "--mh-backdrop": "rgba(0, 0, 0, 0.68)",
+        "--mh-shadow-overlay": "0 16px 48px rgba(0, 0, 0, 0.4)"
+      }
+    }
+  },
+  "primitive": {
+    "theme": {
+      "bg": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0784313725490196,
+            0.13725490196078433,
+            0.1568627450980392
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-bg",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-bg"
+          }
+        }
+      },
+      "surface": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.10980392156862745,
+            0.1803921568627451,
+            0.20392156862745098
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-surface",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-surface"
+          }
+        }
+      },
+      "surface-2": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.1607843137254902,
+            0.23921568627450981,
+            0.26666666666666666
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-surface-2",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-surface-2"
+          }
+        }
+      },
+      "text": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9058823529411765,
+            0.9490196078431372,
+            0.9450980392156862
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-text",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-text"
+          }
+        }
+      },
+      "muted": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.6901960784313725,
+            0.7843137254901961,
+            0.792156862745098
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-muted",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-muted"
+          }
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.2196078431372549,
+            0.3333333333333333,
+            0.3686274509803922
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-border",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-border"
+          }
+        }
+      },
+      "border-strong": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5490196078431373,
+            0.6705882352941176,
+            0.6941176470588235
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-border-strong",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-border-strong"
+          }
+        }
+      },
+      "accent": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5764705882352941,
+            0.807843137254902,
+            0.8156862745098039
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-accent",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-accent"
+          }
+        }
+      },
+      "on-accent": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-on-accent",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-on-accent"
+          }
+        }
+      },
+      "accent-soft": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.17647058823529413,
+            0.26666666666666666,
+            0.2901960784313726
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-accent-soft",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-accent-soft"
+          }
+        }
+      },
+      "link": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5764705882352941,
+            0.807843137254902,
+            0.8156862745098039
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-link",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-link"
+          }
+        }
+      },
+      "focus": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5764705882352941,
+            0.807843137254902,
+            0.8156862745098039
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-focus",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-focus"
+          }
+        }
+      },
+      "success": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.6431372549019608,
+            0.807843137254902,
+            0.6862745098039216
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-success",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-success"
+          }
+        }
+      },
+      "success-bg": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.12941176470588237,
+            0.23921568627450981,
+            0.16862745098039217
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-success-bg",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-success-bg"
+          }
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9058823529411765,
+            0.7529411764705882,
+            0.49411764705882355
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-warning",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-warning"
+          }
+        }
+      },
+      "warning-bg": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.25098039215686274,
+            0.2,
+            0.12941176470588237
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-warning-bg",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-warning-bg"
+          }
+        }
+      },
+      "danger": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9490196078431372,
+            0.6901960784313725,
+            0.6313725490196078
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-danger",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-danger"
+          }
+        }
+      },
+      "danger-bg": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.2823529411764706,
+            0.17254901960784313,
+            0.1607843137254902
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-danger-bg",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-danger-bg"
+          }
+        }
+      },
+      "info": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.6745098039215687,
+            0.7843137254901961,
+            0.9333333333333333
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-info",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-info"
+          }
+        }
+      },
+      "info-bg": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.14901960784313725,
+            0.2196078431372549,
+            0.2980392156862745
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-info-bg",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-info-bg"
+          }
+        }
+      },
+      "chart-1": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5725490196078431,
+            0.7843137254901961,
+            0.8274509803921568
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-chart-1",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-chart-1"
+          }
+        }
+      },
+      "on-chart-1": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-on-chart-1",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-on-chart-1"
+          }
+        }
+      },
+      "chart-2": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.7254901960784313,
+            0.6980392156862745,
+            0.8705882352941177
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-chart-2",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-chart-2"
+          }
+        }
+      },
+      "on-chart-2": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-on-chart-2",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-on-chart-2"
+          }
+        }
+      },
+      "chart-3": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8862745098039215,
+            0.7568627450980392,
+            0.5019607843137255
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-chart-3",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-chart-3"
+          }
+        }
+      },
+      "on-chart-3": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-on-chart-3",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-on-chart-3"
+          }
+        }
+      },
+      "chart-4": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8705882352941177,
+            0.6431372549019608,
+            0.5607843137254902
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-chart-4",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-chart-4"
+          }
+        }
+      },
+      "on-chart-4": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-on-chart-4",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-on-chart-4"
+          }
+        }
+      },
+      "font-sans": {
+        "$type": "fontFamily",
+        "$value": [
+          "Manrope",
+          "Arial",
+          "sans-serif"
+        ],
+        "$description": "Canonical --mh-font-sans",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-font-sans"
+          }
+        }
+      },
+      "font-serif": {
+        "$type": "fontFamily",
+        "$value": [
+          "Source Serif 4",
+          "Georgia",
+          "serif"
+        ],
+        "$description": "Canonical --mh-font-serif",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-font-serif"
+          }
+        }
+      },
+      "font-ui": {
+        "$type": "fontFamily",
+        "$value": [
+          "Manrope",
+          "Arial",
+          "sans-serif"
+        ],
+        "$description": "Canonical --mh-font-ui",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-font-ui"
+          }
+        }
+      },
+      "font-display": {
+        "$type": "fontFamily",
+        "$value": [
+          "Source Serif 4",
+          "Georgia",
+          "serif"
+        ],
+        "$description": "Canonical --mh-font-display",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-font-display"
+          }
+        }
+      },
+      "font-body": {
+        "$type": "fontFamily",
+        "$value": [
+          "Manrope",
+          "Arial",
+          "sans-serif"
+        ],
+        "$description": "Canonical --mh-font-body",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-font-body"
+          }
+        }
+      },
+      "font-heading": {
+        "$type": "fontFamily",
+        "$value": [
+          "Source Serif 4",
+          "Georgia",
+          "serif"
+        ],
+        "$description": "Canonical --mh-font-heading",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-font-heading"
+          }
+        }
+      },
+      "radius-sm": {
+        "$type": "dimension",
+        "$value": {
+          "value": 6,
+          "unit": "px"
+        },
+        "$description": "Canonical --mh-radius-sm",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-radius-sm"
+          }
+        }
+      },
+      "radius-md": {
+        "$type": "dimension",
+        "$value": {
+          "value": 10,
+          "unit": "px"
+        },
+        "$description": "Canonical --mh-radius-md",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-radius-md"
+          }
+        }
+      },
+      "radius-lg": {
+        "$type": "dimension",
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "$description": "Canonical --mh-radius-lg",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-radius-lg"
+          }
+        }
+      },
+      "space-card": {
+        "$type": "dimension",
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "$description": "Canonical --mh-space-card",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-space-card"
+          }
+        }
+      },
+      "cell-y": {
+        "$type": "dimension",
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "$description": "Canonical --mh-cell-y",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-cell-y"
+          }
+        }
+      },
+      "card-surface": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.10980392156862745,
+            0.1803921568627451,
+            0.20392156862745098
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-card-surface",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-card-surface"
+          }
+        }
+      },
+      "layout-gap": {
+        "$type": "dimension",
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "$description": "Canonical --mh-layout-gap",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-layout-gap"
+          }
+        }
+      },
+      "table-stripe": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0
+        },
+        "$description": "Canonical --mh-table-stripe",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-table-stripe"
+          }
+        }
+      },
+      "text-scale": {
+        "$type": "number",
+        "$value": 1,
+        "$description": "Canonical --mh-text-scale",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-text-scale"
+          }
+        }
+      },
+      "button-bg": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5764705882352941,
+            0.807843137254902,
+            0.8156862745098039
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-button-bg",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-button-bg"
+          }
+        }
+      },
+      "button-fg": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-button-fg",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-button-fg"
+          }
+        }
+      },
+      "button-border": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5764705882352941,
+            0.807843137254902,
+            0.8156862745098039
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-button-border",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-button-border"
+          }
+        }
+      },
+      "control-height": {
+        "$type": "dimension",
+        "$value": {
+          "value": 44,
+          "unit": "px"
+        },
+        "$description": "Canonical --mh-control-height",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-control-height"
+          }
+        }
+      },
+      "control-x": {
+        "$type": "dimension",
+        "$value": {
+          "value": 17,
+          "unit": "px"
+        },
+        "$description": "Canonical --mh-control-x",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-control-x"
+          }
+        }
+      },
+      "heading-scale": {
+        "$type": "number",
+        "$value": 1,
+        "$description": "Canonical --mh-heading-scale",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-heading-scale"
+          }
+        }
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.65,
+        "$description": "Canonical --mh-line-height",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-line-height"
+          }
+        }
+      },
+      "content-width": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1240,
+          "unit": "px"
+        },
+        "$description": "Canonical --mh-content-width",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-content-width"
+          }
+        }
+      },
+      "border-width": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "$description": "Canonical --mh-border-width",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-border-width"
+          }
+        }
+      },
+      "icon-weight": {
+        "$type": "number",
+        "$value": 1.75,
+        "$description": "Canonical --mh-icon-weight",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-icon-weight"
+          }
+        }
+      },
+      "sand": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0784313725490196,
+            0.13725490196078433,
+            0.1568627450980392
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-sand",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-sand"
+          }
+        }
+      },
+      "ink": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9058823529411765,
+            0.9490196078431372,
+            0.9450980392156862
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-ink",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-ink"
+          }
+        }
+      },
+      "line": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.2196078431372549,
+            0.3333333333333333,
+            0.3686274509803922
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-line",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-line"
+          }
+        }
+      },
+      "line-strong": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5490196078431373,
+            0.6705882352941176,
+            0.6941176470588235
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-line-strong",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-line-strong"
+          }
+        }
+      },
+      "logo-ink": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5764705882352941,
+            0.807843137254902,
+            0.8156862745098039
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-logo-ink",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-logo-ink"
+          }
+        }
+      },
+      "logo-sage": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5725490196078431,
+            0.7843137254901961,
+            0.8274509803921568
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-logo-sage",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-logo-sage"
+          }
+        }
+      },
+      "sage": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.17647058823529413,
+            0.26666666666666666,
+            0.2901960784313726
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-sage",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-sage"
+          }
+        }
+      },
+      "sky": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.14901960784313725,
+            0.2196078431372549,
+            0.2980392156862745
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-sky",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-sky"
+          }
+        }
+      },
+      "terra": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8705882352941177,
+            0.6431372549019608,
+            0.5607843137254902
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-terra",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-terra"
+          }
+        }
+      },
+      "ochre": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8862745098039215,
+            0.7568627450980392,
+            0.5019607843137255
+          ],
+          "alpha": 1
+        },
+        "$description": "Canonical --mh-ochre",
+        "$extensions": {
+          "org.muhit": {
+            "css": "--mh-ochre"
+          }
+        }
+      }
+    },
+    "space": {
+      "0": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0,
+          "unit": "px"
+        },
+        "$description": "space scale 0"
+      },
+      "1": {
+        "$type": "dimension",
+        "$value": {
+          "value": 4,
+          "unit": "px"
+        },
+        "$description": "space scale 1"
+      },
+      "2": {
+        "$type": "dimension",
+        "$value": {
+          "value": 8,
+          "unit": "px"
+        },
+        "$description": "space scale 2"
+      },
+      "3": {
+        "$type": "dimension",
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "$description": "space scale 3"
+      },
+      "4": {
+        "$type": "dimension",
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "$description": "space scale 4"
+      },
+      "5": {
+        "$type": "dimension",
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "$description": "space scale 5"
+      },
+      "6": {
+        "$type": "dimension",
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        },
+        "$description": "space scale 6"
+      },
+      "7": {
+        "$type": "dimension",
+        "$value": {
+          "value": 48,
+          "unit": "px"
+        },
+        "$description": "space scale 7"
+      },
+      "8": {
+        "$type": "dimension",
+        "$value": {
+          "value": 64,
+          "unit": "px"
+        },
+        "$description": "space scale 8"
+      },
+      "9": {
+        "$type": "dimension",
+        "$value": {
+          "value": 96,
+          "unit": "px"
+        },
+        "$description": "space scale 9"
+      }
+    },
+    "layer": {
+      "base": {
+        "$type": "number",
+        "$value": 0,
+        "$description": "layer scale base"
+      },
+      "sticky": {
+        "$type": "number",
+        "$value": 10,
+        "$description": "layer scale sticky"
+      },
+      "dropdown": {
+        "$type": "number",
+        "$value": 20,
+        "$description": "layer scale dropdown"
+      },
+      "overlay": {
+        "$type": "number",
+        "$value": 30,
+        "$description": "layer scale overlay"
+      },
+      "dialog": {
+        "$type": "number",
+        "$value": 40,
+        "$description": "layer scale dialog"
+      },
+      "toast": {
+        "$type": "number",
+        "$value": 50,
+        "$description": "layer scale toast"
+      },
+      "tooltip": {
+        "$type": "number",
+        "$value": 60,
+        "$description": "layer scale tooltip"
+      },
+      "skip": {
+        "$type": "number",
+        "$value": 100,
+        "$description": "layer scale skip"
+      }
+    },
+    "duration": {
+      "instant": {
+        "$type": "duration",
+        "$value": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "$description": "duration scale instant"
+      },
+      "fast": {
+        "$type": "duration",
+        "$value": {
+          "value": 100,
+          "unit": "ms"
+        },
+        "$description": "duration scale fast"
+      },
+      "normal": {
+        "$type": "duration",
+        "$value": {
+          "value": 160,
+          "unit": "ms"
+        },
+        "$description": "duration scale normal"
+      },
+      "slow": {
+        "$type": "duration",
+        "$value": {
+          "value": 240,
+          "unit": "ms"
+        },
+        "$description": "duration scale slow"
+      }
+    },
+    "size": {
+      "touch": {
+        "$type": "dimension",
+        "$value": {
+          "value": 44,
+          "unit": "px"
+        },
+        "$description": "size scale touch"
+      },
+      "iconSmall": {
+        "$type": "dimension",
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "$description": "size scale iconSmall"
+      },
+      "iconMedium": {
+        "$type": "dimension",
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "$description": "size scale iconMedium"
+      },
+      "iconLarge": {
+        "$type": "dimension",
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "$description": "size scale iconLarge"
+      },
+      "reading": {
+        "$type": "dimension",
+        "$value": {
+          "value": 720,
+          "unit": "px"
+        },
+        "$description": "size scale reading"
+      }
+    },
+    "breakpoint": {
+      "small": {
+        "$type": "dimension",
+        "$value": {
+          "value": 768,
+          "unit": "px"
+        },
+        "$description": "breakpoint scale small"
+      },
+      "large": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1200,
+          "unit": "px"
+        },
+        "$description": "breakpoint scale large"
+      }
+    }
+  },
+  "semantic": {
+    "legacy": {
+      "bg": {
+        "$type": "color",
+        "$value": "{primitive.theme.bg}",
+        "$description": "Compatibility role --mh-bg"
+      },
+      "surface": {
+        "$type": "color",
+        "$value": "{primitive.theme.surface}",
+        "$description": "Compatibility role --mh-surface"
+      },
+      "surface-2": {
+        "$type": "color",
+        "$value": "{primitive.theme.surface-2}",
+        "$description": "Compatibility role --mh-surface-2"
+      },
+      "text": {
+        "$type": "color",
+        "$value": "{primitive.theme.text}",
+        "$description": "Compatibility role --mh-text"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{primitive.theme.muted}",
+        "$description": "Compatibility role --mh-muted"
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{primitive.theme.border}",
+        "$description": "Compatibility role --mh-border"
+      },
+      "border-strong": {
+        "$type": "color",
+        "$value": "{primitive.theme.border-strong}",
+        "$description": "Compatibility role --mh-border-strong"
+      },
+      "accent": {
+        "$type": "color",
+        "$value": "{primitive.theme.accent}",
+        "$description": "Compatibility role --mh-accent"
+      },
+      "on-accent": {
+        "$type": "color",
+        "$value": "{primitive.theme.on-accent}",
+        "$description": "Compatibility role --mh-on-accent"
+      },
+      "accent-soft": {
+        "$type": "color",
+        "$value": "{primitive.theme.accent-soft}",
+        "$description": "Compatibility role --mh-accent-soft"
+      },
+      "link": {
+        "$type": "color",
+        "$value": "{primitive.theme.link}",
+        "$description": "Compatibility role --mh-link"
+      },
+      "focus": {
+        "$type": "color",
+        "$value": "{primitive.theme.focus}",
+        "$description": "Compatibility role --mh-focus"
+      },
+      "success": {
+        "$type": "color",
+        "$value": "{primitive.theme.success}",
+        "$description": "Compatibility role --mh-success"
+      },
+      "success-bg": {
+        "$type": "color",
+        "$value": "{primitive.theme.success-bg}",
+        "$description": "Compatibility role --mh-success-bg"
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "{primitive.theme.warning}",
+        "$description": "Compatibility role --mh-warning"
+      },
+      "warning-bg": {
+        "$type": "color",
+        "$value": "{primitive.theme.warning-bg}",
+        "$description": "Compatibility role --mh-warning-bg"
+      },
+      "danger": {
+        "$type": "color",
+        "$value": "{primitive.theme.danger}",
+        "$description": "Compatibility role --mh-danger"
+      },
+      "danger-bg": {
+        "$type": "color",
+        "$value": "{primitive.theme.danger-bg}",
+        "$description": "Compatibility role --mh-danger-bg"
+      },
+      "info": {
+        "$type": "color",
+        "$value": "{primitive.theme.info}",
+        "$description": "Compatibility role --mh-info"
+      },
+      "info-bg": {
+        "$type": "color",
+        "$value": "{primitive.theme.info-bg}",
+        "$description": "Compatibility role --mh-info-bg"
+      },
+      "chart-1": {
+        "$type": "color",
+        "$value": "{primitive.theme.chart-1}",
+        "$description": "Compatibility role --mh-chart-1"
+      },
+      "on-chart-1": {
+        "$type": "color",
+        "$value": "{primitive.theme.on-chart-1}",
+        "$description": "Compatibility role --mh-on-chart-1"
+      },
+      "chart-2": {
+        "$type": "color",
+        "$value": "{primitive.theme.chart-2}",
+        "$description": "Compatibility role --mh-chart-2"
+      },
+      "on-chart-2": {
+        "$type": "color",
+        "$value": "{primitive.theme.on-chart-2}",
+        "$description": "Compatibility role --mh-on-chart-2"
+      },
+      "chart-3": {
+        "$type": "color",
+        "$value": "{primitive.theme.chart-3}",
+        "$description": "Compatibility role --mh-chart-3"
+      },
+      "on-chart-3": {
+        "$type": "color",
+        "$value": "{primitive.theme.on-chart-3}",
+        "$description": "Compatibility role --mh-on-chart-3"
+      },
+      "chart-4": {
+        "$type": "color",
+        "$value": "{primitive.theme.chart-4}",
+        "$description": "Compatibility role --mh-chart-4"
+      },
+      "on-chart-4": {
+        "$type": "color",
+        "$value": "{primitive.theme.on-chart-4}",
+        "$description": "Compatibility role --mh-on-chart-4"
+      },
+      "font-sans": {
+        "$type": "fontFamily",
+        "$value": "{primitive.theme.font-sans}",
+        "$description": "Compatibility role --mh-font-sans"
+      },
+      "font-serif": {
+        "$type": "fontFamily",
+        "$value": "{primitive.theme.font-serif}",
+        "$description": "Compatibility role --mh-font-serif"
+      },
+      "font-ui": {
+        "$type": "fontFamily",
+        "$value": "{primitive.theme.font-ui}",
+        "$description": "Compatibility role --mh-font-ui"
+      },
+      "font-display": {
+        "$type": "fontFamily",
+        "$value": "{primitive.theme.font-display}",
+        "$description": "Compatibility role --mh-font-display"
+      },
+      "font-body": {
+        "$type": "fontFamily",
+        "$value": "{primitive.theme.font-body}",
+        "$description": "Compatibility role --mh-font-body"
+      },
+      "font-heading": {
+        "$type": "fontFamily",
+        "$value": "{primitive.theme.font-heading}",
+        "$description": "Compatibility role --mh-font-heading"
+      },
+      "radius-sm": {
+        "$type": "dimension",
+        "$value": "{primitive.theme.radius-sm}",
+        "$description": "Compatibility role --mh-radius-sm"
+      },
+      "radius-md": {
+        "$type": "dimension",
+        "$value": "{primitive.theme.radius-md}",
+        "$description": "Compatibility role --mh-radius-md"
+      },
+      "radius-lg": {
+        "$type": "dimension",
+        "$value": "{primitive.theme.radius-lg}",
+        "$description": "Compatibility role --mh-radius-lg"
+      },
+      "space-card": {
+        "$type": "dimension",
+        "$value": "{primitive.theme.space-card}",
+        "$description": "Compatibility role --mh-space-card"
+      },
+      "cell-y": {
+        "$type": "dimension",
+        "$value": "{primitive.theme.cell-y}",
+        "$description": "Compatibility role --mh-cell-y"
+      },
+      "card-surface": {
+        "$type": "color",
+        "$value": "{primitive.theme.card-surface}",
+        "$description": "Compatibility role --mh-card-surface"
+      },
+      "layout-gap": {
+        "$type": "dimension",
+        "$value": "{primitive.theme.layout-gap}",
+        "$description": "Compatibility role --mh-layout-gap"
+      },
+      "table-stripe": {
+        "$type": "color",
+        "$value": "{primitive.theme.table-stripe}",
+        "$description": "Compatibility role --mh-table-stripe"
+      },
+      "text-scale": {
+        "$type": "number",
+        "$value": "{primitive.theme.text-scale}",
+        "$description": "Compatibility role --mh-text-scale"
+      },
+      "button-bg": {
+        "$type": "color",
+        "$value": "{primitive.theme.button-bg}",
+        "$description": "Compatibility role --mh-button-bg"
+      },
+      "button-fg": {
+        "$type": "color",
+        "$value": "{primitive.theme.button-fg}",
+        "$description": "Compatibility role --mh-button-fg"
+      },
+      "button-border": {
+        "$type": "color",
+        "$value": "{primitive.theme.button-border}",
+        "$description": "Compatibility role --mh-button-border"
+      },
+      "control-height": {
+        "$type": "dimension",
+        "$value": "{primitive.theme.control-height}",
+        "$description": "Compatibility role --mh-control-height"
+      },
+      "control-x": {
+        "$type": "dimension",
+        "$value": "{primitive.theme.control-x}",
+        "$description": "Compatibility role --mh-control-x"
+      },
+      "heading-scale": {
+        "$type": "number",
+        "$value": "{primitive.theme.heading-scale}",
+        "$description": "Compatibility role --mh-heading-scale"
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": "{primitive.theme.line-height}",
+        "$description": "Compatibility role --mh-line-height"
+      },
+      "content-width": {
+        "$type": "dimension",
+        "$value": "{primitive.theme.content-width}",
+        "$description": "Compatibility role --mh-content-width"
+      },
+      "border-width": {
+        "$type": "dimension",
+        "$value": "{primitive.theme.border-width}",
+        "$description": "Compatibility role --mh-border-width"
+      },
+      "icon-weight": {
+        "$type": "number",
+        "$value": "{primitive.theme.icon-weight}",
+        "$description": "Compatibility role --mh-icon-weight"
+      },
+      "sand": {
+        "$type": "color",
+        "$value": "{primitive.theme.sand}",
+        "$description": "Compatibility role --mh-sand"
+      },
+      "ink": {
+        "$type": "color",
+        "$value": "{primitive.theme.ink}",
+        "$description": "Compatibility role --mh-ink"
+      },
+      "line": {
+        "$type": "color",
+        "$value": "{primitive.theme.line}",
+        "$description": "Compatibility role --mh-line"
+      },
+      "line-strong": {
+        "$type": "color",
+        "$value": "{primitive.theme.line-strong}",
+        "$description": "Compatibility role --mh-line-strong"
+      },
+      "logo-ink": {
+        "$type": "color",
+        "$value": "{primitive.theme.logo-ink}",
+        "$description": "Compatibility role --mh-logo-ink"
+      },
+      "logo-sage": {
+        "$type": "color",
+        "$value": "{primitive.theme.logo-sage}",
+        "$description": "Compatibility role --mh-logo-sage"
+      },
+      "sage": {
+        "$type": "color",
+        "$value": "{primitive.theme.sage}",
+        "$description": "Compatibility role --mh-sage"
+      },
+      "sky": {
+        "$type": "color",
+        "$value": "{primitive.theme.sky}",
+        "$description": "Compatibility role --mh-sky"
+      },
+      "terra": {
+        "$type": "color",
+        "$value": "{primitive.theme.terra}",
+        "$description": "Compatibility role --mh-terra"
+      },
+      "ochre": {
+        "$type": "color",
+        "$value": "{primitive.theme.ochre}",
+        "$description": "Compatibility role --mh-ochre"
+      }
+    },
+    "color": {
+      "text": {
+        "primary": {
+          "$type": "color",
+          "$value": "{primitive.theme.text}",
+          "$description": "Semantic role color.text.primary"
+        },
+        "secondary": {
+          "$type": "color",
+          "$value": "{primitive.theme.muted}",
+          "$description": "Semantic role color.text.secondary"
+        }
+      },
+      "surface": {
+        "canvas": {
+          "$type": "color",
+          "$value": "{primitive.theme.bg}",
+          "$description": "Semantic role color.surface.canvas"
+        },
+        "primary": {
+          "$type": "color",
+          "$value": "{primitive.theme.surface}",
+          "$description": "Semantic role color.surface.primary"
+        },
+        "secondary": {
+          "$type": "color",
+          "$value": "{primitive.theme.surface-2}",
+          "$description": "Semantic role color.surface.secondary"
+        }
+      },
+      "action": {
+        "primary": {
+          "$type": "color",
+          "$value": "{primitive.theme.accent}",
+          "$description": "Semantic role color.action.primary"
+        },
+        "onPrimary": {
+          "$type": "color",
+          "$value": "{primitive.theme.on-accent}",
+          "$description": "Semantic role color.action.onPrimary"
+        },
+        "link": {
+          "$type": "color",
+          "$value": "{primitive.theme.link}",
+          "$description": "Semantic role color.action.link"
+        }
+      },
+      "border": {
+        "default": {
+          "$type": "color",
+          "$value": "{primitive.theme.border}",
+          "$description": "Semantic role color.border.default"
+        },
+        "strong": {
+          "$type": "color",
+          "$value": "{primitive.theme.border-strong}",
+          "$description": "Semantic role color.border.strong"
+        }
+      },
+      "focus": {
+        "ring": {
+          "$type": "color",
+          "$value": "{primitive.theme.focus}",
+          "$description": "Semantic role color.focus.ring"
+        }
+      }
+    },
+    "space": {
+      "component": {
+        "$type": "dimension",
+        "$value": "{primitive.theme.space-card}",
+        "$description": "Semantic role space.component"
+      }
+    },
+    "size": {
+      "control": {
+        "$type": "dimension",
+        "$value": "{primitive.theme.control-height}",
+        "$description": "Semantic role size.control"
+      }
+    },
+    "radius": {
+      "control": {
+        "$type": "dimension",
+        "$value": "{primitive.theme.radius-sm}",
+        "$description": "Semantic role radius.control"
+      },
+      "surface": {
+        "$type": "dimension",
+        "$value": "{primitive.theme.radius-lg}",
+        "$description": "Semantic role radius.surface"
+      }
+    },
+    "typography": {
+      "body": {
+        "family": {
+          "$type": "fontFamily",
+          "$value": "{primitive.theme.font-body}",
+          "$description": "Semantic role typography.body.family"
+        },
+        "scale": {
+          "$type": "number",
+          "$value": "{primitive.theme.text-scale}",
+          "$description": "Semantic role typography.body.scale"
+        },
+        "lineHeight": {
+          "$type": "number",
+          "$value": "{primitive.theme.line-height}",
+          "$description": "Semantic role typography.body.lineHeight"
+        }
+      },
+      "heading": {
+        "family": {
+          "$type": "fontFamily",
+          "$value": "{primitive.theme.font-heading}",
+          "$description": "Semantic role typography.heading.family"
+        }
+      }
+    }
+  },
+  "component": {
+    "button": {
+      "primary": {
+        "background": {
+          "$type": "color",
+          "$value": "{semantic.legacy.button-bg}",
+          "$description": "Component role button.primary.background"
+        },
+        "foreground": {
+          "$type": "color",
+          "$value": "{semantic.legacy.button-fg}",
+          "$description": "Component role button.primary.foreground"
+        }
+      },
+      "height": {
+        "$type": "dimension",
+        "$value": "{semantic.size.control}",
+        "$description": "Component role button.height"
+      }
+    },
+    "input": {
+      "border": {
+        "$type": "color",
+        "$value": "{semantic.color.border.strong}",
+        "$description": "Component role input.border"
+      },
+      "radius": {
+        "$type": "dimension",
+        "$value": "{semantic.radius.control}",
+        "$description": "Component role input.radius"
+      }
+    },
+    "card": {
+      "padding": {
+        "$type": "dimension",
+        "$value": "{semantic.space.component}",
+        "$description": "Component role card.padding"
+      },
+      "background": {
+        "$type": "color",
+        "$value": "{semantic.legacy.card-surface}",
+        "$description": "Component role card.background"
+      },
+      "radius": {
+        "$type": "dimension",
+        "$value": "{semantic.legacy.radius-md}",
+        "$description": "Component role card.radius"
+      }
+    },
+    "dialog": {
+      "background": {
+        "$type": "color",
+        "$value": "{semantic.color.surface.primary}",
+        "$description": "Component role dialog.background"
+      }
+    },
+    "table": {
+      "foreground": {
+        "$type": "color",
+        "$value": "{semantic.color.text.primary}",
+        "$description": "Component role table.foreground"
+      }
+    },
+    "chart": {
+      "label": {
+        "$type": "color",
+        "$value": "{semantic.color.text.primary}",
+        "$description": "Component role chart.label"
+      }
+    }
+  }
+}

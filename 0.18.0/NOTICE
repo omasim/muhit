@@ -1,0 +1,21 @@
+Muhit UI
+
+JavaScript, CSS, schemas, examples and package documentation are distributed
+under the MIT license in LICENSE.
+
+Bundled fonts retain their own copyright notices and SIL Open Font License 1.1:
+- Manrope: Copyright 2018 The Manrope Project Authors.
+  Source: https://github.com/googlefonts/manrope
+  License: assets/fonts/Manrope-OFL.txt
+- Source Serif 4: Copyright 2014 The Source Serif 4 Project Authors.
+  Source: https://github.com/adobe-fonts/source-serif
+  License: assets/fonts/SourceSerif4-OFL.txt
+
+MIT does not replace the font licenses. Keep both OFL notices when redistributing
+these font files. No third-party brand identity is included in this package.
+
+Muhit logo wordmark outlines are derived from the bundled Manrope font (SIL OFL 1.1).
+The symbol is provided with this MIT-licensed source package. See docs/BRAND.md.
+
+WOFF2 files in 0.10 are lossless format conversions of the supplied variable TTF
+fonts; no character subsets or modified designs were introduced.
