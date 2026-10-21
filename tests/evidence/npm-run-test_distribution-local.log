@@ -1,0 +1,55 @@
+
+> muhit-ui@0.14.0 test:distribution
+> node tools/check-distribution.mjs
+
+PASS CSS/font/request budgets {
+  'base.css': {
+    cssBytes: 17999,
+    cssGzipBytes: 4233,
+    fontBytes: 0,
+    requests: 3,
+    totalBytes: 17999
+  },
+  'form-entry.css': {
+    cssBytes: 19618,
+    cssGzipBytes: 4599,
+    fontBytes: 0,
+    requests: 5,
+    totalBytes: 19618
+  },
+  'data-grid-entry.css': {
+    cssBytes: 44674,
+    cssGzipBytes: 8308,
+    fontBytes: 0,
+    requests: 6,
+    totalBytes: 44674
+  },
+  'plot-entry.css': {
+    cssBytes: 45329,
+    cssGzipBytes: 7697,
+    fontBytes: 0,
+    requests: 5,
+    totalBytes: 45329
+  },
+  'interactive-entry.css': {
+    cssBytes: 27756,
+    cssGzipBytes: 5917,
+    fontBytes: 0,
+    requests: 5,
+    totalBytes: 27756
+  },
+  'index.css': {
+    cssBytes: 83724,
+    cssGzipBytes: 13762,
+    fontBytes: 481224,
+    requests: 13,
+    totalBytes: 564948
+  },
+  'pages.css': {
+    cssBytes: 4859,
+    cssGzipBytes: 1341,
+    fontBytes: 0,
+    requests: 1,
+    totalBytes: 4859
+  }
+}

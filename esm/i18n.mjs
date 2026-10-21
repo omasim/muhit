@@ -7,6 +7,12 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
 (function (global) {
   "use strict";
   const english = {
+"İşlemi iptal et": "Cancel operation",
+"İşlem iptal edildi. Taslak korunuyor.": "Operation cancelled. Draft preserved.",
+"İşlem tamamlandı. Veri kaydedilmedi; taslak korunuyor.": "Operation completed. No data was saved; draft preserved.",
+"Bu işlem için yetkiniz yok. Taslak korunuyor.": "You do not have permission for this operation. Draft preserved.",
+"İşlem tamamlanamadı. Taslak korunuyor; yeniden deneyebilirsiniz.": "Operation could not complete. Draft preserved; you can retry.",
+
     Taşı: "Move",
     "{title} kartını taşı": "Move {title} card",
     "Taşıma iptal edildi.": "Move cancelled.",

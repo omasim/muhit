@@ -1,3 +1,5 @@
+> Tarihsel sürüm kaydıdır. Güncel kapsam ve kanıt: [CURRENT.md](CURRENT.md).
+
 # Muhit 0.7 — tamamlanan geliştirmeler
 
 ## Hata düzeltmeleri

@@ -1,12 +1,12 @@
-## 0.10 · Ölçek, Kanban taşıma, hafif dağıtım ve ek diller
+## 0.12 · Muhit Icons ve sayfa yerleşim standardı
 
-[Çalışan dil/sütun örneği](examples/international.html) · [Sütun API](docs/COLUMN-LAYOUT.md) · [Dil API](docs/INTERNATIONALIZATION.md) · [Sürüm notları](docs/RELEASE-0.9.md) · [Gelişmiş alanlar](examples/advanced.html) · [Görsel katalog](examples/visual-catalog.html)
+[Çalışan dil/sütun örneği](examples/international.html) · [Sütun API](docs/COLUMN-LAYOUT.md) · [Dil API](docs/INTERNATIONALIZATION.md) · [Sürüm notları](CHANGELOG.md) · [Gelişmiş alanlar](examples/advanced.html) · [Görsel katalog](examples/visual-catalog.html)
 
 [![Verify Muhit](https://github.com/omasim/muhit/actions/workflows/verify.yml/badge.svg)](https://github.com/omasim/muhit/actions/workflows/verify.yml)
 
 # Muhit UI
 
-**0.10.0 · HTML, CSS ve JavaScript ile tema uyarlayan bileşenler.**
+**0.17.0 · HTML, CSS ve JavaScript ile tema uyarlayan bileşenler.**
 
 Muhit; kartları, formları, tabloları ve grafikleri ortak bir görsel dille kurmanıza yardımcı olur. Klasik script olarak derleme olmadan çalışır; ESM girişi ve TypeScript tanımları da bulunur. Tema yapılandırması renk, yazı ailesi, yoğunluk, köşe, metin ölçeği ve hareket tercihini birlikte yönetir. JSON şemasına uyan bir görünüm, aynı bileşenlerle güvenilir biçimde çizilir.
 
@@ -29,10 +29,10 @@ npm pack
 Oluşan arşivi kendi projenizin klasöründe kurun:
 
 ```sh
-npm install /tam/yol/muhit-ui/muhit-ui-0.10.0.tgz
+npm install /tam/yol/muhit-ui/muhit-ui-0.17.0.tgz
 ```
 
-`npm pack`, kaynak modüllerini, stilleri, şemaları, tipleri, fontları ve kullanım örneklerini içerir. Tema stüdyosunun kök önizlemesi ve test dosyaları dağıtımın parçası değildir. `npm run check` Node ortamında ESM girişini yükler; tarayıcı etkileşim testlerinin yerine geçmez.
+`npm pack`, kaynak modüllerini, stilleri, şemaları, tipleri, fontları ve kullanım örneklerini içerir. Tema stüdyosu dağıtılır; test dosyaları npm paketine dahil edilmez. `npm run check` Node ortamında ESM girişini yükler; tarayıcı etkileşim testlerinin yerine geçmez.
 
 Tam kaynak kopyasında `npm run dev` stüdyoyu yerel HTTP sunucusunda açar; `npm test` Node testlerini çalıştırır. `tools/` ve `tests/` npm arşivine dahil edilmez; bu iki komut kurulu npm paketinde çalıştırılmak için değildir. `npm run check` ise dağıtılan pakette de kullanılabilir.
 
@@ -50,6 +50,7 @@ Tam kaynak kopyasında `npm run dev` stüdyoyu yerel HTTP sunucusunda açar; `np
   </article>
   <div id="projects"></div>
 </div>
+<script src="./src/icons.js"></script>
 <script src="./src/components.js"></script>
 <script src="./src/table.js"></script>
 <script src="./src/charts.js"></script>
@@ -194,8 +195,22 @@ Kontrast/filtre/sabit başlık düzeltmeleri, kart durumları, agent sayfaları,
 `MuhitForm` doğrulanmış alanlar, asenkron kayıt, hata özeti, sıfırlama ve temizleme sağlar. `MuhitPreferences` tema tercihlerinin isteğe bağlı yerel saklanmasını yönetir. [Rehber](docs/FORMS.md) · [Çalışan ayarlar sayfası](examples/settings.html) · [Kapsam ve kalan işler](docs/COVERAGE.md).
 
 
-Güncel sözleşme ve sınırlar: [P3-0.10.md](docs/P3-0.10.md). 0.9 API sözleşmeleri geçerliliğini korur.
+Güncel sözleşme ve sınırlar: [0.11 üretim hazırlığı](docs/PRODUCTION-0.11.md). CSV yükleme/hata davranışı ve form snapshot geçişi için [yayın politikası](docs/RELEASE-POLICY.md).
 
 ## 0.10: ölçek, hareket ve diller
 
 [İngilizce stüdyo](studio-en.html) · [English guide](docs/GETTING-STARTED.en.md) · [P3 kararları ve sınırlar](docs/P3-0.10.md) · [Kanban ve büyük veri](examples/scale.html). Ek kataloglar: `muhit-ui/locales/de` ve `/ar`. İsteğe bağlı CSS/font girişleri dağıtım boyutunu azaltır.
+
+## İkonlar ve sayfa standardı · 0.12
+
+[58 ikon kataloğu](examples/foundations/icons.html) · [Altı sayfa düzeni](examples/foundations/overview.html) · [İkon kuralları](docs/ICONS.md) · [Sayfa kuralları](docs/PAGE-STANDARDS.md). `muhit-ui/icons` bağımsız SVG API; `styles/pages.css` isteğe bağlı sayfa stilleri. Eski ikon çağrıları ortak MuhitIcons kaynağına yönlenir. Klasik script kullanımında icons.js önce yüklenmelidir. Sayfa tarifleri HTML/CSS kompozisyonudur, yeni bir agent renderer değildir.
+
+[0.13 geçiş notları ve test kapsamı](docs/MIGRATION-0.13.md)
+
+Güncel kabul ve test kanıtı: [CURRENT](docs/CURRENT.md). Adaptör ve CSP kapsamı: [CONSUMER-CONTRACT](docs/CONSUMER-CONTRACT.md).
+
+Tasarım felsefesi: docs/DESIGN.md. Uygulanabilir ilkeler: docs/PRINCIPLES.md. Çalışan bağlam ve toparlanma örneği: examples/foundations/principles.html.
+
+## 0.17 davranış sözleşmesi
+
+[Taslak, bağlam, sonuç ve iptal](docs/INTERACTION-CONTRACT.md): Form ve Repeater `cancelSubmit()`, Agent `cancelPending()` ve `update(spec, {resetState:true})`. Stüdyo bölüm geçişlerinde taslakları aynı sekmenin belleğinde korur.

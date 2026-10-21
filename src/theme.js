@@ -20,7 +20,7 @@
     lineHeight: 1.65,
     contentWidth: "balanced",
     borderWidth: 1,
-    iconWeight: 1.5,
+    iconWeight: 1.75,
     accentIntensity: "balanced",
     chartPalette: "natural",
     cardSurface: "plain",
@@ -57,7 +57,7 @@
     lineHeight: [1.45, 1.65, 1.85],
     contentWidth: ["focused", "balanced", "wide"],
     borderWidth: [1, 2],
-    iconWeight: [1.25, 1.5, 2],
+    iconWeight: [1.25, 1.5, 1.75, 2],
     accentIntensity: ["soft", "balanced", "vivid"],
     chartPalette: ["natural", "contrast", "mono"],
   });
@@ -524,7 +524,7 @@
         wide: "1600px",
       }[config.contentWidth],
       "--mh-border-width": config.borderWidth + "px",
-      "--mh-icon-weight": String(config.iconWeight),
+      "--mh-icon-weight": String(Math.max(1.5,config.iconWeight)),
       "--mh-backdrop": dark ? "rgba(0, 0, 0, 0.68)" : "rgba(18, 28, 25, 0.52)",
       "--mh-shadow-overlay": dark
         ? "0 16px 48px rgba(0, 0, 0, 0.4)"

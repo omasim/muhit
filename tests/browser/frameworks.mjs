@@ -1,3 +1,4 @@
+import {provenance} from '../../tools/provenance.mjs';
 import assert from "node:assert/strict";
 import {
   mkdtemp,
@@ -20,6 +21,7 @@ const work = await realpath(
   await mkdtemp(path.join(tmpdir(), "muhit-frameworks-")),
 );
 const report = {
+  provenance: await provenance(),
   date: new Date().toISOString(),
   packageVersion: JSON.parse(
     await readFile(path.join(root, "package.json"), "utf8"),
@@ -166,8 +168,16 @@ try {
       try {
         await page.goto(mode === "ssr" ? url + "ssr" : url);
         await page.locator(".mh-data-grid tbody tr").first().waitFor();
+        assert.equal(await page.getByRole('img',{name:'Shared resources'}).count(),1);
+        assert.equal(await page.locator('main').count(),1);
+        assert.equal(await page.locator('h1').count(),1);
         assert.equal(await page.locator(".mh-data-grid").count(), 1);
         assert.equal(await page.locator("tbody tr").count(), 2);
+        await page.locator('tbody tr').nth(1).getByRole('checkbox').check();
+        await page.getByRole('button',{name:'Tablo başlığını değiştir'}).click();
+        assert.equal(await page.getByTestId('ready-selection').textContent(),'a');
+        assert.equal(await page.locator('tbody tr').nth(1).getByRole('checkbox').isChecked(),false);
+
         await page.getByRole("button", { name: "Veriyi güncelle" }).click();
         await page.waitForFunction(() =>
           document.querySelector("tbody")?.textContent.includes("24"),
@@ -236,16 +246,48 @@ try {
           return document.fonts.check("14px Manrope");
         });
         assert.ok(font);
+        await page.getByLabel("Adınız *").fill("Unsaved draft");
+        await page.getByRole("button",{name:"Form dilini değiştir"}).click();
+        assert.equal(await page.getByLabel("Adınız *").inputValue(),"Unsaved draft");
+        await page.getByRole("button",{name:"Değişiklik durumunu kontrol et"}).click();
+        assert.equal(await page.getByTestId("dirty").textContent(),"true");
+        await page.getByRole("button",{name:"Reset",exact:true}).click();
+        assert.equal(await page.getByLabel("Adınız *").inputValue(),"Ada");
+        await page.getByRole("button",{name:"Form dilini değiştir"}).click();
         await page.getByRole("button", { name: "Profili güncelle" }).click();
         assert.equal(await page.getByLabel("Adınız *").inputValue(), "Deniz");
         await page.getByRole("button", { name: "Kaydet", exact: true }).click();
         await page.getByText("Örnek kayıt: Deniz", { exact: true }).waitFor();
+        await page.getByRole('button',{name:'Gecikmeli kaydı aç'}).click();
+        await page.getByLabel('Adınız *').fill('Canceled save');
+        await page.getByRole('button',{name:'Kaydet',exact:true}).click();
+        await page.waitForFunction(()=>document.querySelector('.mh-form [type=submit]')?.disabled);
+        await page.getByRole('button',{name:'Form dilini değiştir'}).click();
+        await page.waitForTimeout(600);
+        await page.getByText('Örnek kayıt: Deniz',{exact:true}).waitFor();
+        assert.equal(await page.getByLabel('Adınız *').inputValue(),'Canceled save');
+        await page.getByRole('button',{name:'Form dilini değiştir'}).click();
+        await page.getByRole('button',{name:'Başlangıç değerini değiştir'}).click();
+        await page.getByRole('button',{name:'Sıfırla',exact:true}).click();
+        assert.equal(await page.getByLabel('Adınız *').inputValue(),'New baseline');
         await page.getByRole("button", { name: "Formu kaldır" }).click();
         assert.equal(await page.locator(".mh-form").count(), 0);
         await page.getByRole("button", { name: "Formu aç" }).click();
         assert.equal(await page.locator(".mh-form").count(), 1);
         await page.getByRole("tab", { name: "Ayrıntı" }).click();
         await page.getByText("İnsan ve doğa uyumu.", { exact: true }).waitFor();
+        await page.getByRole('button',{name:'Open lifecycle matrix'}).click();
+        assert.equal(await page.getByRole('img',{name:'Shared space'}).count(),1);
+        assert.equal(await page.locator('main').count(),1);
+        await page.getByRole('link',{name:'Skip to content'}).focus();
+        await page.keyboard.press('Enter');
+        assert.equal(await page.evaluate(()=>document.activeElement?.tagName),'MAIN');
+        for(const prop of ['title','columns','messages','provider','locale']){
+          await page.getByRole('button',{name:'Mutate internal state'}).click();
+          await page.getByRole('button',{name:'Change '+prop,exact:true}).click();
+          await page.waitForFunction(()=>document.querySelector('[data-testid="matrix-ready"]')?.textContent?.startsWith('{'));
+          assert.deepEqual(JSON.parse(await page.getByTestId('matrix-ready').textContent()),{selected:['a'],query:'',layout:[{key:'name',width:240,pin:null}]},framework+' '+mode+' '+prop);
+        }
         assert.deepEqual(errors, []);
         report.results.push({
           framework,
@@ -267,6 +309,10 @@ try {
             "fonts",
             "form controlled update/save/remount",
             "widget tabs",
+            "per-icon adapter and page shell skip-link",
+            "title/columns/messages/provider/locale remount prop priority",
+            "baseline replacement and reset",
+            "in-flight submit cancellation on locale change",
             "no console/runtime errors",
           ],
         });

@@ -4,7 +4,7 @@ Muhit is a framework-independent UI library for shared work. Semantic colors, ty
 
 ## Install and choose the delivery size
 
-Install the supplied `muhit-ui-0.10.0.tgz` with your package manager. The npm registry package has not been published. For local HTML, serve the distribution over HTTP and import `src/index.mjs`.
+Install the supplied `muhit-ui-0.16.0.tgz` with your package manager. The npm registry package has not been published. For local HTML, serve the distribution over HTTP and import `src/index.mjs`.
 
 ```js
 import { MuhitDataGrid } from 'muhit-ui/data-grid';
@@ -33,7 +33,7 @@ Kanban cards can be dragged by their Move button with a mouse or touch pointer. 
 
 ## Languages
 
-Turkish and English are built in. Optional German and Arabic catalogs cover core Form, DataGrid, Fields, Plot, Widgets and notification controls. They do not translate application records or the legacy Table/Charts editorial demos. Arabic sets RTL automatically. System fallback supplies Arabic glyphs; the included Latin fonts are not an Arabic type family.
+Turkish and English are built in. Optional German and Arabic catalogs cover core Form, DataGrid, Fields, Plot, Widgets and notification controls. They also cover literal UI messages in legacy Table/Charts. Application records and archived documentation remain application-owned. Arabic sets RTL automatically. System fallback supplies Arabic glyphs; the included Latin fonts are not an Arabic type family.
 
 ```js
 import { MuhitI18n } from 'muhit-ui/i18n';
@@ -53,3 +53,15 @@ React and Vue adapters are supplied as source examples with controlled props and
 ## Verification and maintenance
 
 Run `npm run verify:all`, `npm run test:scale`, `npm run test:distribution` and `npm run test:visual`. CI runs Chromium, Firefox and WebKit. PNG references are platform-specific and normally read-only. Update them only after reviewing the resulting changes. Automated accessibility scans do not replace VoiceOver/NVDA/JAWS or physical-device acceptance. See `ACCESSIBILITY-MANUAL.md`, `VERIFICATION.md` and `RELEASE-POLICY.md` for current evidence and limits.
+
+## 0.11 upgrade
+
+Page CSV export throws while the current page is loading or has failed. Handle the error and only enable download for a successful current query. Form remounts should spread `getSnapshot()` (values and baseline), not only getValues. NodeNext and Bundler are checked against all 75 packaged type entries. Repeater accepts group-indexed async/server error maps; combobox supports name/required/readOnly/disabled and native FormData. See CURRENT.md for current evidence and manual acceptance.
+
+## Icons and page composition · 0.12
+
+Import MuhitIcons from muhit-ui/icons. The independent set has 58 SVG names, sizes 16/20/24/32 and stroke widths 1.5/1.75/2. Decorative icons are hidden from assistive technology; use a label for a standalone meaningful icon and label the button for icon-only actions. Page patterns are optional HTML/CSS recipes, not a router or an agent JSON renderer. Import styles/pages.css after your base styles; examples/foundations contains overview, collection, detail, settings, workspace and editorial pages. Full contracts: docs/ICONS.md and docs/PAGE-STANDARDS.md (Turkish).
+
+## 0.14 integration contract
+
+Widget headingLevel accepts 1–4 (default 3). Explicit Grid props override remount snapshots before onReady. Replacing a Form baseline prop changes its reset target while preserving the draft. React/Vue adapters are supported reference examples, not separately published framework packages. Strict Trusted Types coverage is limited to Icons.mount, Widgets, DataGrid and Forms. See CONSUMER-CONTRACT.md for lifecycle and CSP scope.

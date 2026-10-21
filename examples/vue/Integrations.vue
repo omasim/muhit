@@ -6,6 +6,7 @@ import {
   MuhitTheme,
   type WidgetInstance,
   type FormField,
+  type FormInstance,
   type FormValues,
 } from "muhit-ui";
 import MuhitForm from "./MuhitForm.vue";
@@ -14,6 +15,10 @@ const fields: FormField[] = [{ name: "name", label: "Adınız", required: true }
   saved = ref(""),
   visible = ref(true),
   host = ref<HTMLDivElement | null>(null);
+const slow=ref(false);
+const baseline=ref({name:"Ada"});
+const locale=ref("tr"),dirty=ref(false);
+let currentForm:FormInstance|undefined;
 let widget: WidgetInstance | undefined, unsubscribe: (() => void) | undefined;
 onMounted(() => {
   const preferences = MuhitPreferences.create({ key: "muhit-vue-example" });
@@ -35,7 +40,7 @@ onBeforeUnmount(() => {
   widget?.destroy();
 });
 async function submit(values: FormValues, signal: AbortSignal) {
-  await Promise.resolve();
+  await new Promise(resolve=>setTimeout(resolve,slow.value?500:0));
   if (!signal.aborted) saved.value = String(values.name);
 }
 </script>
@@ -45,8 +50,19 @@ async function submit(values: FormValues, signal: AbortSignal) {
     <button @click="values = { name: 'Deniz' }">Profili güncelle</button
     ><button @click="visible = !visible">
       {{ visible ? "Formu kaldır" : "Formu aç" }}</button
-    ><MuhitForm
+    >
+    <button @click="locale=locale==='tr'?'en':'tr'">Form dilini değiştir</button>
+    <button @click="dirty=currentForm?.isDirty() ?? false">Değişiklik durumunu kontrol et</button>
+    <button @click="baseline={name:'New baseline'}">Başlangıç değerini değiştir</button>
+    <button @click="slow=true">Gecikmeli kaydı aç</button>
+    <output data-testid="dirty">{{String(dirty)}}</output>
+    <MuhitForm
       v-if="visible"
+      :messages="{'Kaydedildi.':locale==='tr'?'Yalnız örnek uygulamanın belleğinde onaylandı.':'Confirmed only in this example memory.'}"
+      :locale="locale"
+      :title="locale==='tr'?'Bilgiler':'Details'"
+      :on-ready="instance=>{currentForm=instance}"
+      :baseline="baseline"
       :fields="fields"
       :values="values"
       :on-submit="submit"

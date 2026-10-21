@@ -10,18 +10,25 @@ const props = defineProps<
 >();
 const host = ref<HTMLElement | null>(null);
 let form: FormInstance | undefined;
+let previousBaseline = props.baseline;
 function mount() {
   if (!host.value) return;
-  let values = form?.getValues() || props.values;
+  const snapshot = form?.getSnapshot();
+  let values = snapshot?.values || props.values;
+  let baseline = previousBaseline !== props.baseline
+    ? props.baseline : snapshot?.baseline ?? props.baseline;
   try {
     Forms.normalizeValues(props.fields, values);
+    if (baseline) Forms.normalizeValues(props.fields, baseline);
   } catch {
     values = props.values;
+    baseline = props.baseline;
   }
   form?.destroy();
   form = Forms.mount(host.value, {
     ...props,
     values,
+    baseline,
     onChange: (v, s) => props.onChange?.(v, s),
     onSubmit: props.onSubmit ? (v, s) => props.onSubmit?.(v, s) : undefined,
     validate: props.validate ? (v) => props.validate?.(v) || {} : undefined,
@@ -29,12 +36,14 @@ function mount() {
       ? (v, s) => props.validateAsync?.(v, s) || Promise.resolve({})
       : undefined,
   });
+  previousBaseline = props.baseline;
   props.onReady?.(form);
 }
 onMounted(mount);
 watch(
   () => [
     props.fields,
+    props.baseline,
     props.locale,
     props.dir,
     props.messages,

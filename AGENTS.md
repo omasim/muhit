@@ -1,9 +1,9 @@
 # Muhit UI için çalışma kuralları
 
-Bu paketle arayüz hazırlarken önce `schemas/ui.schema.json`, `schemas/theme.schema.json` ve `schemas/components.json` kaynaklarını okuyun. Çalışan API imzaları `types/index.d.ts`, insan odaklı kullanım örnekleri `README.md` içindedir. Tema sürümü `1`, görünüm şeması `1.1.0` (eski `1.0.0` desteklenir), paket sürümü `0.10.0` farklı sözleşmelerdir.
+Bu paketle arayüz hazırlarken önce `schemas/ui.schema.json`, `schemas/theme.schema.json` ve `schemas/components.json` kaynaklarını okuyun. Çalışan API imzaları `types/index.d.ts`, insan odaklı kullanım örnekleri `README.md` içindedir. Tema sürümü `1`, görünüm şeması `1.1.0` (eski `1.0.0` desteklenir), paket sürümü `package.json` içinde farklı sözleşmelerdir.
 
 - Agent görünümü yalnız şemalarda tanımlı 18 bileşen türünden oluşur. Bilinmeyen alan eklemeyin. JSON'u `MuhitAgent.validate` ile denetleyin; başarısız sonucu arayüzün başarılı üretimi olarak raporlamayın.
-- Eylemleri `{id,label}` olarak tanımlayın. Eylemin yapılması gerçek kullanıcı tıklaması ve uygulamanın `onAction` işleyicisine bağlıdır. JSON içine işlev, HTML, URL veya çalıştırılabilir kod eklemeyin.
+- Eylemleri `{id,label}` olarak tanımlayın. Kart düğmesinin eylemi kullanıcı tıklamasıyla `onAction` işleyicisine ulaşır. Widget, form ve tablo durum olayları programatik güncellemeden de gelebilir; callback kullanıcı yetkisinin kanıtı değildir. Olay sözleşmesinin tek kaynağı `docs/AGENT-CONTRACT.md` dosyasıdır. JSON içine işlev, HTML, URL veya çalıştırılabilir kod eklemeyin.
 - Yeni bileşenlerde sabit renk yerine semantik `--mh-*` değişkenleri kullanın. Metin ve zemin eşlerini koruyun: `--mh-text`/`--mh-surface`, `--mh-on-accent`/`--mh-accent`, `--mh-on-chart-N`/`--mh-chart-N`. Koyu tema için sabit beyaz veya açık zemin kullanmayın.
 - Genel öğe sıfırlamalarını `.mh-scope` içine alın. Tüketici uygulamanın `body`, `button`, `input`, başlık veya bağlantılarını global seçiciyle değiştirmeyin. Bileşen sınıfları `mh-` önekini korur.
 - Tema yapılandırmasını `normalizeConfig`, `resolve` ve `apply` üzerinden geçirin. Ham JSON'u CSS olarak birleştirmeyin. Özel tema ve büyük metin ölçeğinde taşma, metin kontrastı ve odak görünürlüğünü kontrol edin.
@@ -37,3 +37,7 @@ Onaylı Muhit logosu **3.1** sürümüdür. Ana dosya `assets/brand/muhit-logo.s
 `MuhitForm` için `schemas/form.schema.json` ve `docs/FORMS.md` kullanın. 1.1.0 şemasında form, datagrid ve plot türleri de kullanılabilir. Kayıt callback’i yoksa veri kaydedilmiş sayılmaz. `MuhitPreferences` yalnız açık save çağrısıyla yerel tema tercihlerini saklar; kişisel form verilerini bu depoya koymayın.
 
 0.9: schemas/capabilities.json güncel yetenek kaynağıdır; docs/COVERAGE.md bu kaynaktan üretilir. Yeni form bağlantıları docs/ADVANCED-FORMS.md içinde. Grid locale mount seçeneğidir; dil değişiminde getView/restoreView kullanın. Uzak CSV kapsamını açıkça belirtin.
+
+İkon standardı: docs/ICONS.md ve schemas/icons.json. Sayfa standardı: docs/PAGE-STANDARDS.md, schemas/pages.json ve schemas/page.schema.json. Yeni sayfalarda izinli ikon adlarını ve altı yerleşim tarifini kullanın. Bunlar mevcut 18 agent bileşen türünü değiştirmez.
+
+Yeni tasarım kararlarında docs/DESIGN.md ve docs/PRINCIPLES.md uygulanır; schemas/design-principles.json inceleme kontrol listesidir, agent render şeması değildir. Bağlamın saklanma kapsamını ve işlemin gerçek sonucunu açık belirtin.

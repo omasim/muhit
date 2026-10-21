@@ -1,0 +1,9 @@
+
+> muhit-ui@0.14.0 test:production
+> npm run build:modules && node tests/browser/production.mjs
+
+
+> muhit-ui@0.14.0 build:modules
+> node tools/build-modules.mjs
+
+PASS production regressions { csv: true, snapshot: true, repeaterAxe: true }

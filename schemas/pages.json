@@ -1,0 +1,98 @@
+{
+  "version": "1.0.0",
+  "breakpoints": {
+    "small": [
+      0,
+      767
+    ],
+    "medium": [
+      768,
+      1199
+    ],
+    "large": [
+      1200,
+      null
+    ]
+  },
+  "columns": {
+    "small": 4,
+    "medium": 8,
+    "large": 12
+  },
+  "sidebarCollapse": 1024,
+  "gutter": "clamp(16px, 3vw, 40px)",
+  "gap": "clamp(16px, 2vw, 32px)",
+  "recipes": [
+    {
+      "id": "overview",
+      "label": "Genel bakış",
+      "icon": "grid",
+      "description": "Önce anlam, sonra ayrıntı.",
+      "width": "standard",
+      "regions": [
+        "metrics",
+        "main",
+        "rail"
+      ],
+      "example": "../examples/foundations/overview.html"
+    },
+    {
+      "id": "collection",
+      "label": "Kayıt listesi",
+      "icon": "table",
+      "description": "Aramayı, filtreyi ve kayıtları aynı bağlamda tut.",
+      "width": "wide",
+      "regions": [
+        "toolbar",
+        "collection"
+      ],
+      "example": "../examples/foundations/collection.html"
+    },
+    {
+      "id": "detail",
+      "label": "Proje detayı",
+      "icon": "file",
+      "description": "İçeriği, kararları ve bağlamı birlikte gör.",
+      "width": "standard",
+      "regions": [
+        "main",
+        "rail"
+      ],
+      "example": "../examples/foundations/detail.html"
+    },
+    {
+      "id": "settings",
+      "label": "Ayarlar",
+      "icon": "settings",
+      "description": "Tercihleri açık gruplar ve görünür kayıt durumuyla yönet.",
+      "width": "standard",
+      "regions": [
+        "main",
+        "rail"
+      ],
+      "example": "../examples/foundations/settings.html"
+    },
+    {
+      "id": "workspace",
+      "label": "Çalışma alanı",
+      "icon": "layers",
+      "description": "İşi, durumu ve sorumluluğu görünür kıl.",
+      "width": "wide",
+      "regions": [
+        "workspace"
+      ],
+      "example": "../examples/foundations/workspace.html"
+    },
+    {
+      "id": "editorial",
+      "label": "Okuma sayfası",
+      "icon": "book",
+      "description": "Uzun düşüncelere rahat bir okuma alanı aç.",
+      "width": "reading",
+      "regions": [
+        "article"
+      ],
+      "example": "../examples/foundations/editorial.html"
+    }
+  ]
+}

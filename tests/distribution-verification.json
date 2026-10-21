@@ -1,44 +1,60 @@
 {
   "base.css": {
-    "cssBytes": 17452,
-    "cssGzipBytes": 4026,
+    "cssBytes": 17999,
+    "cssGzipBytes": 4233,
     "fontBytes": 0,
     "requests": 3,
-    "totalBytes": 17452
+    "totalBytes": 17999
   },
   "form-entry.css": {
-    "cssBytes": 19071,
-    "cssGzipBytes": 4402,
+    "cssBytes": 19618,
+    "cssGzipBytes": 4599,
     "fontBytes": 0,
     "requests": 5,
-    "totalBytes": 19071
+    "totalBytes": 19618
   },
   "data-grid-entry.css": {
-    "cssBytes": 43557,
-    "cssGzipBytes": 8031,
+    "cssBytes": 44674,
+    "cssGzipBytes": 8308,
     "fontBytes": 0,
     "requests": 6,
-    "totalBytes": 43557
+    "totalBytes": 44674
   },
   "plot-entry.css": {
-    "cssBytes": 44782,
-    "cssGzipBytes": 7491,
+    "cssBytes": 45329,
+    "cssGzipBytes": 7697,
     "fontBytes": 0,
     "requests": 5,
-    "totalBytes": 44782
+    "totalBytes": 45329
   },
   "interactive-entry.css": {
-    "cssBytes": 27208,
-    "cssGzipBytes": 5716,
+    "cssBytes": 27756,
+    "cssGzipBytes": 5917,
     "fontBytes": 0,
     "requests": 5,
-    "totalBytes": 27208
+    "totalBytes": 27756
   },
   "index.css": {
-    "cssBytes": 82606,
-    "cssGzipBytes": 13472,
+    "cssBytes": 83724,
+    "cssGzipBytes": 13762,
     "fontBytes": 481224,
     "requests": 13,
-    "totalBytes": 563830
+    "totalBytes": 564948
+  },
+  "pages.css": {
+    "cssBytes": 5072,
+    "cssGzipBytes": 1388,
+    "fontBytes": 0,
+    "requests": 1,
+    "totalBytes": 5072
+  },
+  "provenance": {
+    "version": "0.15.0",
+    "sourceSha256": "c8bdea98e1a85cdfcb97076bad60f8cf4bb4be1e1aa981aaee7b178a3764c6c7",
+    "commit": null,
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests",
+    "date": "2026-10-18T19:06:49.914Z",
+    "platform": "darwin",
+    "node": "v25.9.0"
   }
 }

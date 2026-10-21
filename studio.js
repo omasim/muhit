@@ -134,7 +134,7 @@
     return `<div class="step-strip" aria-label="Tema oluşturma akışı"><a href="#palette" ${active === "palette" ? 'aria-current="step"' : ""}><span class="step-number">1</span>Paletini seç</a><i class="step-line"></i><a href="#customize" ${active === "customize" ? 'aria-current="step"' : ""}><span class="step-number">2</span>Kendine uyarla</a><i class="step-line"></i><a href="#agents" ${active === "agents" ? 'aria-current="step"' : ""}><span class="step-number">3</span>Birlikte üret</a></div>`;
   }
   function preview() {
-    return `<div class="preview-wrap"><div class="preview-caption"><span>CANLI BİLEŞEN ÖNİZLEMESİ</span><span class="live-indicator"><i class="status-dot"></i><span data-theme-name></span></span></div><div class="preview-window"><div class="preview-chrome"><i></i><i></i><i></i><span>muhit / ortak yaşam alanı</span>${icon("lock")}</div><div class="preview-content"><div class="preview-nav"><div class="preview-brand">${icon("leaf")}Ortak alan</div><span class="preview-avatar">AY</span></div><div class="preview-welcome"><div><p class="preview-kicker">BİRLİKTE GELİŞTİRİYORUZ</p><h2>Daha iyi bir yarın için.</h2><p>Küçük adımlar, anlamlı bağlantılar.</p></div><button class="mh-button mh-button--primary" data-sample-new>${icon("plus")}<span>Yeni alan</span></button></div><div class="preview-metrics"><div class="preview-metric"><p>Ortak çalışmalar</p><strong>12</strong><small>3 yeni başlangıç</small></div><div class="preview-metric"><p>Katılan insanlar</p><strong>48</strong><small>Birlikte büyüyoruz</small></div><div class="preview-metric"><p>Tamamlanan adımlar</p><strong>86<span style="font-size:14px">%</span></strong><small>Bu ayın planı</small></div></div><div class="preview-lower"><section class="mini-chart" aria-label="Aylık katılım örnek grafiği"><div class="mini-chart-header"><b>Birlikte gelişim</b><span>Son 6 ay</span></div><svg viewBox="0 0 290 125" role="img" aria-label="Örnek veri: katılım ocakta 12, şubatta 18, martta 16, nisanda 26, mayısta 33 ve haziranda 48 kişi"><path d="M8 14H282M8 51H282M8 88H282" stroke="var(--mh-border)" stroke-dasharray="3 4"/><path d="M8 85L62 72L117 77L172 52L227 38L282 10V99H8Z" fill="var(--mh-accent-soft)"/><path d="M8 85L62 72L117 77L172 52L227 38L282 10" fill="none" stroke="var(--mh-chart-1)" stroke-width="2"/><path d="M8 93L62 88L117 90L172 81L227 76L282 61" fill="none" stroke="var(--mh-chart-2)" stroke-width="1.5" stroke-dasharray="4 4"/><g fill="var(--mh-chart-1)"><circle cx="8" cy="85" r="3"/><circle cx="62" cy="72" r="3"/><circle cx="117" cy="77" r="3"/><circle cx="172" cy="52" r="3"/><circle cx="227" cy="38" r="3"/><circle cx="282" cy="10" r="3"/></g><g fill="var(--mh-muted)" font-size="8" font-family="var(--mh-font-body)"><text x="8" y="119">Oca</text><text x="54" y="119">Şub</text><text x="107" y="119">Mar</text><text x="164" y="119">Nis</text><text x="218" y="119">May</text><text x="269" y="119">Haz</text></g></svg><div class="mini-chart-legend"><span><i></i>Katılım</span><span><i></i>Çalışma</span></div></section><article class="mh-card mh-card--sage preview-project"><span class="mh-kicker">ORTAK ÜRETİM</span><h3 class="mh-card__title">Bir bahçeden<br>fazlası.</h3><p class="mh-card__body">Mahallede yeni bağlantılar kuran, herkesin katkısına açık bir alan.</p><div class="mh-card__footer"><span class="mh-badge mh-badge--success">Devam ediyor</span><button class="mh-button mh-button--icon" data-bookmark aria-label="Çalışmayı kaydet" aria-pressed="${bookmarked}">${icon(bookmarked ? "bookmarkFilled" : "bookmark")}</button></div></article></div><div class="preview-task"><label class="mh-check"><input type="checkbox" id="preview-check" ${sampleDone ? "checked" : ""}>${escape(lastCreated || "Yeni fikirleri birlikte gözden geçir")}</label><span class="mh-badge mh-badge--info">Bugün</span></div><div class="preview-bottomline"><span>Örnek proje ve gösterim verileri.</span><span>Senin ritminde, birlikte.</span></div></div></div><p class="preview-footnote">${icon("info")}Bu alan gerçek tokenları kullanır. Renk, yazı, yoğunluk ve köşe ayarları anında görünür.</p></div>`;
+    return `<div class="preview-wrap"><div class="preview-caption"><span>CANLI BİLEŞEN ÖNİZLEMESİ</span><span class="live-indicator"><i class="status-dot"></i><span data-theme-name></span></span></div><div class="preview-window"><div class="preview-chrome"><i></i><i></i><i></i><span>muhit / ortak yaşam alanı</span>${icon("lock")}</div><div class="preview-content"><div class="preview-nav"><div class="preview-brand">${icon("leaf")}Ortak alan</div><span class="preview-avatar">AY</span></div><div class="preview-welcome"><div><p class="preview-kicker">BİRLİKTE GELİŞTİRİYORUZ</p><h2>Daha iyi bir yarın için.</h2><p>Küçük adımlar, anlamlı bağlantılar.</p></div><button class="mh-button mh-button--primary" data-sample-new aria-label="Yeni alan">${icon("plus")}<span>Yeni alan</span></button></div><div class="preview-metrics"><div class="preview-metric"><p>Ortak çalışmalar</p><strong>12</strong><small>3 yeni başlangıç</small></div><div class="preview-metric"><p>Katılan insanlar</p><strong>48</strong><small>Birlikte büyüyoruz</small></div><div class="preview-metric"><p>Tamamlanan adımlar</p><strong>86<span style="font-size:14px">%</span></strong><small>Bu ayın planı</small></div></div><div class="preview-lower"><section class="mini-chart" aria-label="Aylık katılım örnek grafiği"><div class="mini-chart-header"><b>Birlikte gelişim</b><span>Son 6 ay</span></div><svg viewBox="0 0 290 125" role="img" aria-label="Örnek veri: katılım ocakta 12, şubatta 18, martta 16, nisanda 26, mayısta 33 ve haziranda 48 kişi"><path d="M8 14H282M8 51H282M8 88H282" stroke="var(--mh-border)" stroke-dasharray="3 4"/><path d="M8 85L62 72L117 77L172 52L227 38L282 10V99H8Z" fill="var(--mh-accent-soft)"/><path d="M8 85L62 72L117 77L172 52L227 38L282 10" fill="none" stroke="var(--mh-chart-1)" stroke-width="2"/><path d="M8 93L62 88L117 90L172 81L227 76L282 61" fill="none" stroke="var(--mh-chart-2)" stroke-width="1.5" stroke-dasharray="4 4"/><g fill="var(--mh-chart-1)"><circle cx="8" cy="85" r="3"/><circle cx="62" cy="72" r="3"/><circle cx="117" cy="77" r="3"/><circle cx="172" cy="52" r="3"/><circle cx="227" cy="38" r="3"/><circle cx="282" cy="10" r="3"/></g><g fill="var(--mh-muted)" font-size="8" font-family="var(--mh-font-body)"><text x="8" y="119">Oca</text><text x="54" y="119">Şub</text><text x="107" y="119">Mar</text><text x="164" y="119">Nis</text><text x="218" y="119">May</text><text x="269" y="119">Haz</text></g></svg><div class="mini-chart-legend"><span><i></i>Katılım</span><span><i></i>Çalışma</span></div></section><article class="mh-card mh-card--sage preview-project"><span class="mh-kicker">ORTAK ÜRETİM</span><h2 class="mh-card__title">Bir bahçeden<br>fazlası.</h2><p class="mh-card__body">Mahallede yeni bağlantılar kuran, herkesin katkısına açık bir alan.</p><div class="mh-card__footer"><span class="mh-badge mh-badge--success">Devam ediyor</span><button class="mh-button mh-button--icon" data-bookmark aria-label="Çalışmayı kaydet" aria-pressed="${bookmarked}">${icon(bookmarked ? "bookmarkFilled" : "bookmark")}</button></div></article></div><div class="preview-task"><label class="mh-check"><input type="checkbox" id="preview-check" ${sampleDone ? "checked" : ""}>${escape(lastCreated || "Yeni fikirleri birlikte gözden geçir")}</label><span class="mh-badge mh-badge--info">Bugün</span></div><div class="preview-bottomline"><span>Örnek proje ve gösterim verileri.</span><span>Senin ritminde, birlikte.</span></div></div></div><p class="preview-footnote">${icon("info")}Bu alan gerçek tokenları kullanır. Renk, yazı, yoğunluk ve köşe ayarları anında görünür.</p></div>`;
   }
   function palettes() {
     const concepts = {
@@ -150,12 +150,12 @@
     return Theme.presets
       .map(
         (p) =>
-          `<button class="palette-option" data-preset="${p.id}" aria-pressed="false" aria-label="${escape(p.name)} paleti"><span class="palette-colors">${[p.colors.background, p.colors.accent, p.colors.secondary, p.colors.tertiary].map((c) => `<i style="background:${c}"></i>`).join("")}</span><span class="palette-name">${escape(p.name)}</span><span class="palette-concept">${concepts[p.id]}</span><span class="palette-check" hidden>✓</span></button>`,
+          `<button class="palette-option" data-preset="${p.id}" aria-pressed="false"><span class="palette-colors">${[p.colors.background, p.colors.accent, p.colors.secondary, p.colors.tertiary].map((c) => `<i style="background:${c}"></i>`).join("")}</span><span class="palette-name">${escape(p.name)}</span><span class="palette-concept">${concepts[p.id]}</span><span class="palette-check" aria-hidden="true" hidden>${icon("check")}</span></button>`,
       )
       .join("");
   }
   function palettePage() {
-    return `${hero("AÇIK KAYNAK ARAYÜZ KÜTÜPHANESİ", "Arayüzün<br><em>kendi doğası.</em>", "İnsanla doğa arasındaki dengeden doğan, sanata alan açan bir sistem. Paletini seç; bütün bileşenlerin aynı dili konuşsun.")}${steps("palette")}<div class="studio-grid"><section class="inspector" aria-label="Renk paleti ayarları"><h2 class="section-label">Bir başlangıç seç <span class="mh-kicker">8 PALET</span></h2><p class="section-caption">Her palet, birbirini tamamlayan rollerden oluşur.</p><div class="palette-options">${palettes()}</div><hr><span class="control-label">Görünüm</span><div class="mode-control" aria-label="Görünüm"><button data-mode="light" aria-pressed="false">☼ &nbsp; Açık</button><button data-mode="dark" aria-pressed="false">☾ &nbsp; Koyu</button></div><hr><label class="control-label" for="accent-hex">Vurgu rengi</label><div class="accent-input-row"><input type="color" id="accent-picker" aria-label="Vurgu rengini seç"><input type="text" id="accent-hex" maxlength="7" spellcheck="false" aria-describedby="accent-error" placeholder="#2E5948"></div><p id="accent-error" class="mh-field__error" role="status"></p><button class="small-link" id="reset-accent">Paletin özgün rengini kullan</button><hr><div class="audit-summary" id="audit-summary"></div><ul class="audit-list" id="audit-list"></ul><details class="audit-details"><summary>Tüm kontrast ölçümleri</summary><ul class="audit-list" id="audit-more"></ul></details><p class="audit-note">Seçili metin ve odak rengi eşleşmeleri ölçülür. Bu kontrol, tam erişilebilirlik denetimi değildir. <a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" target="_blank" rel="noreferrer">Ölçüt ↗</a></p></section>${preview()}</div>${tokenSection()}`;
+    return `${hero("AÇIK KAYNAK ARAYÜZ KÜTÜPHANESİ", "Arayüzün<br><em>kendi doğası.</em>", "İnsanla doğa arasındaki dengeden doğan, sanata alan açan bir sistem. Paletini seç; bütün bileşenlerin aynı dili konuşsun.")}${steps("palette")}<div class="studio-grid"><section class="inspector" aria-label="Renk paleti ayarları"><h2 class="section-label">Bir başlangıç seç <span class="mh-kicker">8 PALET</span></h2><p class="section-caption">Her palet, birbirini tamamlayan rollerden oluşur.</p><div class="palette-options">${palettes()}</div><hr><span class="control-label">Görünüm</span><div class="mode-control" aria-label="Görünüm"><button data-mode="light" aria-pressed="false">${icon("sun")} Açık</button><button data-mode="dark" aria-pressed="false">${icon("moon")} Koyu</button></div><hr><label class="control-label" for="accent-hex">Vurgu rengi</label><div class="accent-input-row"><input type="color" id="accent-picker" aria-label="Vurgu rengini seç"><input type="text" id="accent-hex" maxlength="7" spellcheck="false" aria-describedby="accent-error" placeholder="#2E5948"></div><p id="accent-error" class="mh-field__error" role="status"></p><button class="small-link" id="reset-accent">Paletin özgün rengini kullan</button><hr><div class="audit-summary" id="audit-summary"></div><ul class="audit-list" id="audit-list"></ul><details class="audit-details"><summary>Tüm kontrast ölçümleri</summary><ul class="audit-list" id="audit-more"></ul></details><p class="audit-note">Seçili metin ve odak rengi eşleşmeleri ölçülür. Bu kontrol, tam erişilebilirlik denetimi değildir. <a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" target="_blank" rel="noreferrer">Ölçüt ${icon("external-link")}</a></p></section>${preview()}</div>${tokenSection()}`;
   }
   function tokenSection() {
     return `<section class="token-section"><div class="section-heading"><div><h2>Renklere bir rol ver.</h2><p>Değer değişir, anlamı kalır. Tokena tıklayarak CSS değişkenini kopyala.</p></div><button class="small-link" data-download="css">CSS indir ↗</button></div><div class="token-grid" id="token-grid"></div></section>`;
@@ -263,7 +263,7 @@
     ? new URLSearchParams(location.search).get("page")
     : "workspace";
   function resourceCards() {
-    return `<div class="mh-card-grid"><article class="mh-card mh-card--horizontal"><span class="mh-card__icon mh-card__icon--sage">${icon("book")}</span><div><span class="mh-card__eyebrow">KAYNAK KARTI</span><h3 class="mh-card__title">Ortak bilgi rehberi</h3><p class="mh-card__body">Araştırmanın bağlamı, kaynağı ve bir sonraki adımı tek bir yerde.</p><div class="mh-card__meta"><span>Rehber</span><span>Örnek içerik · 6 bölüm</span></div></div><div class="mh-card__footer"><span class="mh-badge">Bilgi tasarımı</span><button class="mh-button" data-resource-open>Özeti incele</button></div></article><article class="mh-card"><span class="mh-card__eyebrow">GÖREV KARTI</span><h3 class="mh-card__title">Araştırma sorularını netleştir</h3><p class="mh-card__body">Amacı, kapsamı ve kimleri dinleyeceğini birlikte belirle.</p><div class="mh-card__meta">Örnek görev · Ekip değerlendirmesi</div><label class="mh-label"><input type="checkbox" data-task-complete ${sampleDone ? "checked" : ""}> ${sampleDone ? "Tamamlandı" : "Tamamlandı olarak işaretle"}</label><div class="mh-card__footer"><span class="mh-badge">${sampleDone ? "Tamamlandı" : "Planlandı"}</span><span class="mh-small">Oturumluk örnek</span></div></article></div>`;
+    return `<div class="mh-card-grid"><article class="mh-card mh-card--horizontal"><span class="mh-card__icon mh-card__icon--sage">${icon("book")}</span><div><span class="mh-card__eyebrow">KAYNAK KARTI</span><h2 class="mh-card__title">Ortak bilgi rehberi</h2><p class="mh-card__body">Araştırmanın bağlamı, kaynağı ve bir sonraki adımı tek bir yerde.</p><div class="mh-card__meta"><span>Rehber</span><span>Örnek içerik · 6 bölüm</span></div></div><div class="mh-card__footer"><span class="mh-badge">Bilgi tasarımı</span><button class="mh-button" data-resource-open>Özeti incele</button></div></article><article class="mh-card"><span class="mh-card__eyebrow">GÖREV KARTI</span><h2 class="mh-card__title">Araştırma sorularını netleştir</h2><p class="mh-card__body">Amacı, kapsamı ve kimleri dinleyeceğini birlikte belirle.</p><div class="mh-card__meta">Örnek görev · Ekip değerlendirmesi</div><label class="mh-label"><input type="checkbox" data-task-complete ${sampleDone ? "checked" : ""}> ${sampleDone ? "Tamamlandı" : "Tamamlandı olarak işaretle"}</label><div class="mh-card__footer"><span class="mh-badge">${sampleDone ? "Tamamlandı" : "Planlandı"}</span><span class="mh-small">Oturumluk örnek</span></div></article></div>`;
   }
   function pagesDemo() {
     const titles = {
@@ -282,10 +282,10 @@
       )
       .join(
         "",
-      )}</div><section class="mh-page"><header class="mh-page__header"><div><p class="mh-page__breadcrumb">Ortak alan / ${pageRecipe === "detail" ? "Araştırma ayrıntısı" : "Çalışmalar"}</p><h2 class="mh-page__title">${titles[pageRecipe]}</h2><p class="mh-page__description">${pageRecipe === "detail" ? "Kapsam, kaynak ve kararlar aynı bağlamda." : "İnsanların katkısını, bilginin bağlamını ve sıradaki adımı görünür tut."}</p></div><span class="mh-badge mh-badge--info">Örnek sayfa</span></header>${pageRecipe === "collection" ? resourceCards() : `<div class="mh-page__body"><div class="mh-page__main">${pageRecipe === "detail" ? `<article class="mh-card"><span class="mh-card__eyebrow">ARAŞTIRMA ÇERÇEVESİ</span><h3 class="mh-card__title">İnsanlar bilgiyi nasıl paylaşır?</h3><p class="mh-card__body">Görüşmeler ve çalışma notları üzerinden ortak ihtiyaçları anlamak için hazırlanmış örnek kapsam.</p><div class="mh-card__meta">Taslak · İnsan değerlendirmesi bekliyor</div><progress class="mh-progress" value="40" max="100" aria-label="Örnek araştırma ilerlemesi yüzde 40"></progress></article><details class="mh-card"><summary>Karar ve kaynak notları</summary><p class="mh-card__body">Görüşme planı henüz taslak. Katılımcı onayı ve araştırma kapsamı ekip tarafından değerlendirilecek.</p></details>` : resourceCards()}</div><aside class="mh-page__aside" aria-label="Çalışma bağlamı"><article class="mh-card"><span class="mh-card__eyebrow">SIRADAKİ ADIM</span><h3 class="mh-card__title">Önce birlikte düşün.</h3><p class="mh-card__body">Varsayımları paylaş, ihtiyaçları dinle ve küçük bir adımla başla.</p></article><div class="mh-page__empty"><h3>Henüz karar yok.</h3><p>Ekibin kararları burada yer alacak.</p></div></aside></div>`}</section><details class="mh-code"><summary>Sayfa iskeletinin HTML kodu</summary><pre>${escape('<section class="mh-page">\n  <header class="mh-page__header">…</header>\n  <div class="mh-page__body">\n    <main class="mh-page__main">…</main>\n    <aside class="mh-page__aside">…</aside>\n  </div>\n</section>')}</pre></details>`;
+      )}</div><section class="mh-page"><header class="mh-page__header"><div><p class="mh-page__breadcrumb">Ortak alan / ${pageRecipe === "detail" ? "Araştırma ayrıntısı" : "Çalışmalar"}</p><h2 class="mh-page__title">${titles[pageRecipe]}</h2><p class="mh-page__description">${pageRecipe === "detail" ? "Kapsam, kaynak ve kararlar aynı bağlamda." : "İnsanların katkısını, bilginin bağlamını ve sıradaki adımı görünür tut."}</p></div><span class="mh-badge mh-badge--info">Örnek sayfa</span></header>${pageRecipe === "collection" ? resourceCards() : `<div class="mh-page__body"><div class="mh-page__main">${pageRecipe === "detail" ? `<article class="mh-card"><span class="mh-card__eyebrow">ARAŞTIRMA ÇERÇEVESİ</span><h2 class="mh-card__title">İnsanlar bilgiyi nasıl paylaşır?</h2><p class="mh-card__body">Görüşmeler ve çalışma notları üzerinden ortak ihtiyaçları anlamak için hazırlanmış örnek kapsam.</p><div class="mh-card__meta">Taslak · İnsan değerlendirmesi bekliyor</div><progress class="mh-progress" value="40" max="100" aria-label="Örnek araştırma ilerlemesi yüzde 40"></progress></article><details class="mh-card"><summary>Karar ve kaynak notları</summary><p class="mh-card__body">Görüşme planı henüz taslak. Katılımcı onayı ve araştırma kapsamı ekip tarafından değerlendirilecek.</p></details>` : resourceCards()}</div><aside class="mh-page__aside" aria-label="Çalışma bağlamı"><article class="mh-card"><span class="mh-card__eyebrow">SIRADAKİ ADIM</span><h2 class="mh-card__title">Önce birlikte düşün.</h2><p class="mh-card__body">Varsayımları paylaş, ihtiyaçları dinle ve küçük bir adımla başla.</p></article><div class="mh-page__empty"><h3>Henüz karar yok.</h3><p>Ekibin kararları burada yer alacak.</p></div></aside></div>`}</section><details class="mh-code"><summary>Sayfa iskeletinin HTML kodu</summary><pre>${escape('<section class="mh-page">\n  <header class="mh-page__header">…</header>\n  <div class="mh-page__body">\n    <section class="mh-page__main">…</section>\n    <aside class="mh-page__aside">…</aside>\n  </div>\n</section>')}</pre></details>`;
   }
   document.addEventListener("click", (event) => {
-    const b = event.target.closest("[data-page-recipe], [data-resource-open]");
+    const b = event.target.closest("button[data-page-recipe], [data-resource-open]");
     if (!b) return;
     if (b.dataset.pageRecipe) {
       pageRecipe = b.dataset.pageRecipe;
@@ -293,7 +293,7 @@
       url.searchParams.set("page", pageRecipe);
       history.pushState({}, "", url);
       mountComponent();
-      document.querySelector(`[data-page-recipe="${pageRecipe}"]`)?.focus();
+      document.querySelector(`button[data-page-recipe="${pageRecipe}"]`)?.focus();
     } else
       UI.toast(
         "Örnek rehber: bağlamı tanımla, kaynakları ilişkilendir, sorumluluğu görünür tut.",
@@ -614,10 +614,10 @@
   }
   function agentsPage() {
     if (!agentDraft) agentDraft = JSON.stringify(fallbackSpec(), null, 2);
-    return `${hero("AGENT LABORATUVARI", "Aynı dilde tasarla.<br><em>Kontrolü elinde tut.</em>", "Agent’ın ürettiği JSON’u doğrula, bileşenlere dönüştür ve eylemleri kendi uygulamana bağla. Bu laboratuvar yerel ve deterministik çalışır; bir AI modeline bağlı değildir.")}${steps("agents")}<div class="agent-layout"><div class="agent-editor-panel"><div class="section-heading"><div><h2>Bir arayüz sözleşmesi.</h2><p>18 bileşen türü: veri, gezinme, iş akışı, seçim ve komut bileşenleri.</p></div></div><label for="agent-editor" class="mh-sr-only">Arayüz JSON tanımı</label><textarea id="agent-editor" class="agent-editor" spellcheck="false">${escape(agentDraft)}</textarea><div class="agent-controls"><button class="mh-button mh-button--primary" id="render-agent">Doğrula ve oluştur ${icon("arrow")}</button><button class="mh-button" id="add-agent-theme">Temamı ekle</button><button class="mh-button" id="agent-extended-example">Form, tablo & grafik</button><button class="mh-button" id="agent-rich-example">Sayfa & kart durumları</button><button class="mh-button" id="agent-full-example">Veri örneğini aç</button><button class="mh-button" id="agent-workflow-example">İş akışı örneği</button></div><div id="agent-result" class="agent-result" role="status"></div><div class="mh-row"><button class="small-link" id="download-spec">JSON indir</button><a class="small-link" href="schemas/ui.schema.json">JSON Schema ↗</a><a class="small-link" href="docs/AGENT-CONTRACT.md">Agent sözleşmesi ↗</a></div><div class="form-note">Ham HTML ve çalıştırılabilir kod kabul edilmez. Bileşen eylemleri bir <code>onAction</code> callback’i üretir. Ağ, model ve iş mantığı bağlantısını uygulaman kurar.</div></div><div><div class="preview-caption"><span>JSON → DOĞRULAMA → ARAYÜZ</span><span>MuhitAgent.render()</span></div><div id="agent-output" class="agent-output"></div><p id="agent-event" class="agent-event" role="status">Bir kart eylemine tıklayarak callback olayını incele.</p></div></div>`;
+    return `${hero("AGENT LABORATUVARI", "Aynı dilde tasarla.<br><em>Kontrolü elinde tut.</em>", "Agent’ın ürettiği JSON’u doğrula, bileşenlere dönüştür ve eylemleri kendi uygulamana bağla. Bu laboratuvar yerel ve deterministik çalışır; bir AI modeline bağlı değildir.")}${steps("agents")}<div class="agent-layout"><div class="agent-editor-panel"><div class="section-heading"><div><h2>Bir arayüz sözleşmesi.</h2><p>18 bileşen türü: veri, gezinme, iş akışı, seçim ve komut bileşenleri.</p></div></div><label for="agent-editor" class="mh-sr-only">Arayüz JSON tanımı</label><textarea id="agent-editor" class="agent-editor" spellcheck="false">${escape(agentDraft)}</textarea><div class="agent-controls"><button class="mh-button mh-button--primary" id="render-agent">Doğrula ve oluştur ${icon("arrow")}</button><button class="mh-button" id="add-agent-theme">Temamı ekle</button><button class="mh-button" id="agent-extended-example">Form, tablo & grafik</button><button class="mh-button" id="agent-rich-example">Sayfa & kart durumları</button><button class="mh-button" id="agent-full-example">Veri örneğini aç</button><button class="mh-button" id="agent-workflow-example">İş akışı örneği</button></div><div id="agent-result" class="agent-result" role="status"></div><div class="mh-row"><button class="small-link" id="download-spec">JSON indir</button><a class="small-link" href="schemas/ui.schema.json">JSON Schema ${icon("external-link")}</a><a class="small-link" href="docs/AGENT-CONTRACT.md">Agent sözleşmesi ${icon("external-link")}</a></div><div class="form-note">Ham HTML ve çalıştırılabilir kod kabul edilmez. Bileşen eylemleri bir <code>onAction</code> callback’i üretir. Ağ, model ve iş mantığı bağlantısını uygulaman kurar.</div></div><div><div class="preview-caption"><span>JSON → DOĞRULAMA → ARAYÜZ</span><span>MuhitAgent.render()</span></div><div id="agent-output" class="agent-output"></div><p id="agent-event" class="agent-event" role="status">Bir kart eylemine tıklayarak callback olayını incele.</p></div></div>`;
   }
   function startPage() {
-    return `${hero("PROJENE TAŞI", "Küçük bir çekirdek.<br><em>Açık bir başlangıç.</em>", "Framework gerektirmeyen bileşenler, CSS tokenları ve doğrulanabilir arayüz tanımları. Kendi projelerinde kullan, değiştir ve geliştir.")}<section class="principles"><article><span>01 / İNSAN</span><h2>Kontrol insanda.</h2><p>Okunur metinler, görünür durumlar ve açıklanabilir eylemler. Agent bir arayüz önerir; uygulama sınırları belirler.</p></article><article><span>02 / DOĞA</span><h2>Az kaynak, net iş.</h2><p>Çalışma zamanında harici servis ve framework bağımlılığı yok. Yerel fontlar ve hareket azaltma seçeneği var. Çevresel etki ölçüldüğü iddia edilmez.</p></article><article><span>03 / İFADE</span><h2>Öz aynı, dil senin.</h2><p>Palet, yazı ve ritim değişebilir. Renklerin görevleri ve bileşenlerin davranış sözleşmesi sabit kalır.</p></article></section><div class="install-grid"><section class="install-card"><h2>01. Doğrudan HTML</h2><p>Kütüphane klasörünü projene kopyala. Bileşenleri <code>mh-scope</code> içinde kullan.</p><pre class="code-block">${escape('<link rel="stylesheet" href="muhit-ui/styles/index.css">\n<script src="muhit-ui/src/theme.js"></script>\n<script src="muhit-ui/src/components.js"></script>\n\n<div class="mh-scope" id="my-app">\n  <button class="mh-button mh-button--primary">\n    Birlikte başla\n  </button>\n</div>\n<script>\n  MuhitTheme.apply({ preset: "grove" },\n    document.querySelector("#my-app"));\n</script>')}</pre><a class="mh-text-link" href="examples/basic.html">Çalışan HTML örneğini aç ${icon("arrow")}</a></section><section class="install-card"><h2>02. ESM + TypeScript</h2><p>Kaynak klasöründe <code>npm pack</code> ile paketle. Üretilen yerel dosyayı projenin paket yöneticisiyle yükle.</p><pre class="code-block">${escape('npm install ./muhit-ui-0.10.0.tgz\n\nimport { MuhitTheme, MuhitAgent } from "muhit-ui";\nimport "muhit-ui/styles/index.css";\n\nMuhitTheme.apply({ preset: "clay", mode: "dark" });\nconst result = MuhitAgent.validate(spec);\nif (result.valid) {\n  MuhitAgent.render(root, spec, {\n    onAction: ({ id, componentId }) => {\n      console.log(id, componentId);\n    }\n  });\n}')}</pre><p>TypeScript tanımları paketle gelir. Paket yerel kullanım için hazırlanmıştır; npm kayıt sistemine henüz yayımlanmamıştır.</p></section><section class="install-card"><h2>Agent’a bağlam ver.</h2><p>Agent’ına aşağıdaki kaynakları ver. Önerdiği tanımı, render işleminden önce doğrula. Serbest metni doğrudan HTML olarak çalıştırma.</p><div class="file-links"><a class="mh-button" href="llms.txt">llms.txt ↗</a><a class="mh-button" href="AGENTS.md">AGENTS.md ↗</a><a class="mh-button" href="schemas/components.json">Bileşen manifesti ↗</a></div><pre class="code-block">${escape("Muhit UI ui.schema.json şemasına uyan\nbir JSON arayüz tanımı üret.\nTema: grove / light.\nBir ortak üretim projesi için kart,\nkatılım metriği ve bilgi notu kullan.\nHam HTML, URL veya çalıştırılabilir kod ekleme.\nÖrnek verileri açıkça belirt.")}</pre></section><section class="install-card"><h2>Açık ve taşınabilir.</h2><p>Kod MIT lisanslıdır. Dahil edilen Source Serif 4 ve Manrope fontları kendi SIL Open Font License dosyalarıyla dağıtılır.</p><div class="file-links"><a class="mh-button" href="LICENSE">MIT lisansı ↗</a><a class="mh-button" href="NOTICE">Font lisansları ↗</a><a class="mh-button" href="README.md">README ↗</a></div><ul><li>8 palet, 2 görünüm, özel vurgu rengi.</li><li>16 kişiselleştirme alanı + tema seçimi.</li><li>Yeniden kullanılabilir kart, tablo, grafik ve form öğeleri.</li><li>JSON şeması, ESM API ve TypeScript tanımları.</li></ul></section></div><p class="release-note"><strong>0.10.0 / Muhit kimliği.</strong> Muhit UI, Nevmos arayüz çalışmalarından türetilen bağımsız bir kütüphanedir. Nevmos marka varlıkları bu pakete dahil değildir. Muhit adı, doğa ve çevreyle ilişkisi için seçildi. Kontrast kontrolleri seçili token çiftleriyle sınırlıdır; ürününde klavye, ekran okuyucu ve içerik testlerini tamamla.</p>`;
+    return `${hero("PROJENE TAŞI", "Küçük bir çekirdek.<br><em>Açık bir başlangıç.</em>", "Framework gerektirmeyen bileşenler, CSS tokenları ve doğrulanabilir arayüz tanımları. Kendi projelerinde kullan, değiştir ve geliştir.")}<section class="principles"><article><span>01 / İNSAN</span><h2>Kontrol insanda.</h2><p>Okunur metinler, görünür durumlar ve açıklanabilir eylemler. Agent bir arayüz önerir; uygulama sınırları belirler.</p></article><article><span>02 / DOĞA</span><h2>Az kaynak, net iş.</h2><p>Çalışma zamanında harici servis ve framework bağımlılığı yok. Yerel fontlar ve hareket azaltma seçeneği var. Çevresel etki ölçüldüğü iddia edilmez.</p></article><article><span>03 / İFADE</span><h2>Öz aynı, dil senin.</h2><p>Palet, yazı ve ritim değişebilir. Renklerin görevleri ve bileşenlerin davranış sözleşmesi sabit kalır.</p></article></section><div class="install-grid"><section class="install-card"><h2>01. Doğrudan HTML</h2><p>Kütüphane klasörünü projene kopyala. Bileşenleri <code>mh-scope</code> içinde kullan.</p><pre class="code-block" tabindex="0" aria-label="Kod örneği">${escape('<link rel="stylesheet" href="muhit-ui/styles/index.css">\n<script src="muhit-ui/src/theme.js"></script>\n<script src="muhit-ui/src/icons.js"></script><script src="muhit-ui/src/components.js"></script>\n\n<div class="mh-scope" id="my-app">\n  <button class="mh-button mh-button--primary">\n    Birlikte başla\n  </button>\n</div>\n<script>\n  MuhitTheme.apply({ preset: "grove" },\n    document.querySelector("#my-app"));\n</script>')}</pre><a class="mh-text-link" href="examples/basic.html">Çalışan HTML örneğini aç ${icon("arrow")}</a></section><section class="install-card"><h2>02. ESM + TypeScript</h2><p>Kaynak klasöründe <code>npm pack</code> ile paketle. Üretilen yerel dosyayı projenin paket yöneticisiyle yükle.</p><pre class="code-block" tabindex="0" aria-label="Kod örneği">${escape('npm install ./muhit-ui-0.17.0.tgz\n\nimport { MuhitTheme, MuhitAgent } from "muhit-ui";\nimport "muhit-ui/styles/index.css";\n\nMuhitTheme.apply({ preset: "clay", mode: "dark" });\nconst result = MuhitAgent.validate(spec);\nif (result.valid) {\n  MuhitAgent.render(root, spec, {\n    onAction: ({ id, componentId }) => {\n      console.log(id, componentId);\n      if (id === "submit") return { persisted: false };\n    }\n  });\n}')}</pre><p>TypeScript tanımları paketle gelir. Paket yerel kullanım için hazırlanmıştır; npm kayıt sistemine henüz yayımlanmamıştır.</p></section><section class="install-card"><h2>Agent’a bağlam ver.</h2><p>Agent’ına aşağıdaki kaynakları ver. Önerdiği tanımı, render işleminden önce doğrula. Serbest metni doğrudan HTML olarak çalıştırma.</p><div class="file-links"><a class="mh-button" href="llms.txt">llms.txt ${icon("external-link")}</a><a class="mh-button" href="AGENTS.md">AGENTS.md ${icon("external-link")}</a><a class="mh-button" href="schemas/components.json">Bileşen manifesti ${icon("external-link")}</a></div><pre class="code-block" tabindex="0" aria-label="Kod örneği">${escape("Muhit UI ui.schema.json şemasına uyan\nbir JSON arayüz tanımı üret.\nTema: grove / light.\nBir ortak üretim projesi için kart,\nkatılım metriği ve bilgi notu kullan.\nHam HTML, URL veya çalıştırılabilir kod ekleme.\nÖrnek verileri açıkça belirt.")}</pre></section><section class="install-card"><h2>Açık ve taşınabilir.</h2><p>Kod MIT lisanslıdır. Dahil edilen Source Serif 4 ve Manrope fontları kendi SIL Open Font License dosyalarıyla dağıtılır.</p><div class="file-links"><a class="mh-button" href="LICENSE">MIT lisansı ${icon("external-link")}</a><a class="mh-button" href="NOTICE">Font lisansları ${icon("external-link")}</a><a class="mh-button" href="README.md">README ${icon("external-link")}</a></div><ul><li>8 palet, 2 görünüm, özel vurgu rengi.</li><li>16 kişiselleştirme alanı + tema seçimi.</li><li>Yeniden kullanılabilir kart, tablo, grafik ve form öğeleri.</li><li>JSON şeması, ESM API ve TypeScript tanımları.</li></ul></section></div><p class="release-note"><strong>0.17.0 / Taslak ve bağlam koruma.</strong> Muhit UI, Nevmos arayüz çalışmalarından türetilen bağımsız bir kütüphanedir. Nevmos marka varlıkları bu pakete dahil değildir. Muhit adı, doğa ve çevreyle ilişkisi için seçildi. Kontrast kontrolleri seçili token çiftleriyle sınırlıdır; ürününde klavye, ekran okuyucu ve içerik testlerini tamamla.</p>`;
   }
   function syncTheme() {
     if (document.querySelector("#theme-undo"))
@@ -682,12 +682,24 @@
       ]
         .map(
           ([key, label]) =>
-            `<button class="token-chip" data-token="--mh-${key}" aria-label="${label} CSS tokenını kopyala"><span class="token-color" style="background:var(--mh-${key})"></span><strong>${label}</strong><code>${escape(tokens[`--mh-${key}`])}</code></button>`,
+            `<button class="token-chip" data-token="--mh-${key}" aria-label="${label} ${escape(tokens[`--mh-${key}`])} CSS tokenını kopyala"><span class="token-color" style="background:var(--mh-${key})"></span><strong>${label}</strong><code>${escape(tokens[`--mh-${key}`])}</code></button>`,
         )
         .join("");
     }
     if ($("#export-code")) $("#export-code").textContent = Theme.toJSON(config);
   }
+  const routeViews = new Map(), componentViews = new Map();
+  let displayedRoute = null, displayedComponent = null;
+  function mounts() { return {widgetInstances, dataGridInstance, tableInstance, chartInstance, agentInstance}; }
+  function useMounts(m = {}) { widgetInstances=m.widgetInstances||[]; dataGridInstance=m.dataGridInstance; tableInstance=m.tableInstance; chartInstance=m.chartInstance; agentInstance=m.agentInstance; }
+  function parkRoute() {
+    if(!displayedRoute)return;
+    agentInstance?.cancelPending();
+    document.querySelectorAll("dialog[open]").forEach(d=>d.close());
+    routeViews.set(displayedRoute,{nodes:[...$("#main").childNodes],mounts:mounts(),scroll:window.scrollY});
+    useMounts();
+  }
+  window.addEventListener("pagehide",()=>{agentInstance?.cancelPending();for(const v of routeViews.values())v.mounts.agentInstance?.cancelPending();});
   function cleanMounts() {
     widgetInstances.forEach((x) => x.destroy());
     widgetInstances = [];
@@ -699,7 +711,7 @@
   }
   function renderRoute(focus = false) {
     if ($("#agent-editor")) agentDraft = $("#agent-editor").value;
-    cleanMounts();
+    parkRoute();
     const incoming = location.hash.slice(1);
     route = names[incoming] ? incoming : "palette";
     $("#breadcrumb").textContent = names[route];
@@ -708,6 +720,9 @@
         ? el.setAttribute("aria-current", "page")
         : el.removeAttribute("aria-current"),
     );
+    const cached = routeViews.get(route);
+    if(cached) { $("#main").replaceChildren(...cached.nodes); useMounts(cached.mounts); }
+    else {
     $("#main").innerHTML = {
       palette: palettePage,
       customize: customizePage,
@@ -717,35 +732,38 @@
     }[route]();
     if (route === "components") mountComponent();
     if (route === "agents") renderAgent(false);
+    }
+    displayedRoute=route;
     syncTheme();
     if (focus) {
       $("#main").focus({ preventScroll: true });
-      window.scrollTo({ top: 0, behavior: "instant" });
+      window.scrollTo({ top: cached?.scroll || 0, behavior: "instant" });
     }
     document.title = `${names[route]} — Muhit UI`;
   }
   function mountComponent() {
-    widgetInstances.forEach((x) => x.destroy());
-    widgetInstances = [];
-    dataGridInstance?.destroy();
-    tableInstance?.destroy();
-    chartInstance?.destroy();
-    tableInstance = chartInstance = undefined;
+    const display=$("#component-display");
+    if(displayedComponent && display.childNodes.length) componentViews.set(displayedComponent,{nodes:[...display.childNodes],mounts:mounts()});
+    useMounts();
+    const key=componentTab+":"+(componentTab==="pages"?pageRecipe:"");
+    const cached=componentViews.get(key);
+    displayedComponent=key;
     $$("[data-component-tab]").forEach((el) =>
       el.setAttribute("aria-pressed", el.dataset.componentTab === componentTab),
     );
     const root = $("#component-display");
+    if(cached){root.replaceChildren(...cached.nodes);useMounts(cached.mounts);return;}
     root.innerHTML = (
       {
         cards: cardsDemo,
         pages: pagesDemo,
         forms: formDemo,
         feedback: feedbackDemo,
-      }[componentTab] || (() => '<div id="mounted-component"></div>')
+      }[componentTab] || (() => '<h2 class="mh-sr-only">Bileşen örneği</h2><div id="mounted-component"></div>')
     )();
     if (widgetGroups[componentTab]) {
       root.innerHTML =
-        '<div class="widget-showcase"></div><p class="mh-widget-status" id="widget-event" role="status">Bir bileşenle etkileşime geç; olay çıktısı burada görünür.</p>';
+        '<h2 class="mh-sr-only">Etkileşim bileşenleri</h2><div class="widget-showcase"></div><p class="mh-widget-status" id="widget-event" role="status">Bir bileşenle etkileşime geç; olay çıktısı burada görünür.</p>';
       widgetGroups[componentTab].forEach((kind) => {
         const box = document.createElement("article");
         box.className = "mh-panel widget-example";
@@ -825,6 +843,7 @@
       const onAction = (event) => {
         $("#agent-event").textContent = `onAction → ${JSON.stringify(event)}`;
         UI.toast(`Eylem alındı: ${event.id}`);
+        if (event.id === "submit") return { persisted: false };
       };
       if (agentInstance) agentInstance.update(spec);
       else
@@ -1022,15 +1041,7 @@
     const el = event.target;
     if (el.dataset.config)
       setConfig({
-        [el.dataset.config]: [
-          "scale",
-          "headingScale",
-          "lineHeight",
-          "borderWidth",
-          "iconWeight",
-        ].includes(el.dataset.config)
-          ? Number(el.value)
-          : el.value,
+        [el.dataset.config]: globalThis.MuhitStudioModel.parse(el.dataset.config, el.value),
       });
     if (el.id === "accent-picker") {
       setConfig({ accent: el.value });
@@ -1108,7 +1119,7 @@
     }
     event.target.value = "";
   });
-  $$("[data-icon]").forEach((el) => (el.innerHTML = icon(el.dataset.icon)));
+  $$("[data-icon]:not(svg)").forEach((el) => (el.innerHTML = icon(el.dataset.icon)));
   addEventListener("popstate", () => {
     const params = new URLSearchParams(location.search);
     componentTab = params.get("component") || "cards";

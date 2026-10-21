@@ -1,4 +1,6 @@
-# Kartlar, sayfalar ve tablo · 0.4.0
+# Kartlar, sayfalar ve tablo
+
+Güncel sürüm ve doğrulama: [CURRENT.md](CURRENT.md).
 
 `styles/index.css` artık `layouts.css` dosyasını içerir. Yeni sınıflar mevcut bileşenleri tamamlar; agent görünümüne yeni bileşen türü eklenmemiştir. HTML sayfa tarifleri uygulama tarafından birleştirilir.
 

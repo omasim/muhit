@@ -165,7 +165,7 @@ export interface ThemeConfig {
   lineHeight: 1.45 | 1.65 | 1.85;
   contentWidth: "focused" | "balanced" | "wide";
   borderWidth: 1 | 2;
-  iconWeight: 1.25 | 1.5 | 2;
+  iconWeight: 1.25 | 1.5 | 1.75 | 2;
   accentIntensity: "soft" | "balanced" | "vivid";
   chartPalette: "natural" | "contrast" | "mono";
 }
@@ -354,6 +354,8 @@ export const MuhitWidgets: Readonly<{
     host: Host,
     spec: WidgetSpec,
     options?: LocaleOptions & {
+      /** Root heading; nested headings use the next levels. Default 3. */
+      headingLevel?: 1 | 2 | 3 | 4;
       onAction?: (event: {
         type: string;
         componentId: string;
@@ -388,7 +390,8 @@ export interface ValidationResult {
   errors: ValidationIssue[];
 }
 export interface AgentInstance {
-  update(spec: UISpec): AgentInstance;
+  cancelPending(): void;
+  update(spec: UISpec, options?: {resetState?: boolean}): AgentInstance;
   destroy(): void;
 }
 export const MuhitAgent: Readonly<{
@@ -404,8 +407,8 @@ export const MuhitAgent: Readonly<{
         signal?: AbortSignal;
       }) =>
         | void
-        | { errors?: Record<string, string> }
-        | Promise<void | { errors?: Record<string, string> }>;
+        | { errors?: Record<string, string>; persisted?: boolean }
+        | Promise<void | { errors?: Record<string, string>; persisted?: boolean }>;
     },
   ): AgentInstance;
 }>;
@@ -542,7 +545,11 @@ export interface FormValidation {
   values: FormValues;
   errors: Record<string, string>;
 }
+export interface FormSnapshot { values: FormValues; baseline: FormValues; }
 export interface FormInstance {
+  cancelSubmit(): void;
+  getSnapshot(): FormSnapshot;
+  setErrors(errors?: Record<string,string>): FormInstance;
   getValues(): FormValues;
   isDirty(): boolean;
   setValues(values: FormValues): FormInstance;
@@ -551,6 +558,7 @@ export interface FormInstance {
   destroy(): void;
 }
 export interface FormOptions {
+  baseline?: FormValues;
   locale?: string;
   dir?: "ltr" | "rtl";
   messages?: Record<string, string>;
@@ -565,8 +573,8 @@ export interface FormOptions {
     signal: AbortSignal,
   ) =>
     | void
-    | { errors?: Record<string, string> }
-    | Promise<void | { errors?: Record<string, string> }>;
+    | { errors?: Record<string, string>; persisted?: boolean }
+    | Promise<void | { errors?: Record<string, string>; persisted?: boolean }>;
   validateAsync?: (
     values: FormValues,
     signal: AbortSignal,
@@ -662,12 +670,18 @@ export const MuhitFields: Readonly<{
     options: LocaleOptions & {
       label?: string;
       value?: Choice | null;
+      name?: string;
+      required?: boolean;
+      disabled?: boolean;
+      readOnly?: boolean;
       delay?: number;
       load: (query: string, signal: AbortSignal) => Promise<Choice[]>;
       onChange?: (value: Choice | null) => void;
     },
   ): {
     getValue(): Choice | null;
+    setDisabled(disabled: boolean): unknown;
+    setReadOnly(readOnly: boolean): unknown;
     setValue(value: Choice | null): unknown;
     destroy(): void;
   };
@@ -681,7 +695,8 @@ export const MuhitFields: Readonly<{
       min?: number;
       max?: number;
       onChange?: (values: FormValues[]) => void;
-      onSubmit?: (values: FormValues[], signal: AbortSignal) => Promise<void>;
+      validateAsync?: (values: FormValues[], signal: AbortSignal) => Promise<Record<string,string>[]>;
+      onSubmit?: (values: FormValues[], signal: AbortSignal) => Promise<void | {errors?: Record<string,string>[]; persisted?: boolean}>;
     },
   ): {
     getValues(): FormValues[];
@@ -692,6 +707,14 @@ export const MuhitFields: Readonly<{
       errors: Record<string, string>[];
     };
     submit(): Promise<void>;
+      cancelSubmit(): void;
     destroy(): void;
   };
+}>;
+
+export interface IconOptions { size?: 16 | 20 | 24 | 32; stroke?: 1.5 | 1.75 | 2; label?: string; dir?: 'ltr' | 'rtl'; }
+export const MuhitIcons: Readonly<{
+ names: readonly string[];
+ svg(name: string, options?: IconOptions): string;
+ mount(host: Host, name: string, options?: IconOptions): {element: SVGElement; destroy(): void};
 }>;

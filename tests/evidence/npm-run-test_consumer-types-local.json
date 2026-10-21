@@ -1,0 +1,18 @@
+{
+  "version": "0.15.0",
+  "sourceSha256": "c8bdea98e1a85cdfcb97076bad60f8cf4bb4be1e1aa981aaee7b178a3764c6c7",
+  "commit": null,
+  "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests",
+  "date": "2026-10-18T18:37:42.969Z",
+  "platform": "darwin",
+  "node": "v25.9.0",
+  "command": [
+    "npm",
+    "run",
+    "test:consumer-types"
+  ],
+  "exitCode": 0,
+  "sourceChanged": false,
+  "sourceSha256After": "c8bdea98e1a85cdfcb97076bad60f8cf4bb4be1e1aa981aaee7b178a3764c6c7",
+  "finishedAt": "2026-10-18T18:37:44.815Z"
+}

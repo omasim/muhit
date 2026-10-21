@@ -5,6 +5,8 @@ permissions:
 jobs:
   browser:
     runs-on: ubuntu-24.04
+    env:
+      MUHIT_BROWSER: ${{ matrix.browser }}
     strategy:
       fail-fast: false
       matrix:
@@ -17,28 +19,39 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps ${{ matrix.browser }}
       - run: npm test && npm run check:brand
-      - run: npm run test:extended
+      - run: node tools/record-test.mjs npm run test:migration
+      - run: node tools/record-test.mjs npm run test:foundations
         env:
           MUHIT_BROWSER: ${{ matrix.browser }}
-      - run: npm run test:scale
+      - run: node tools/record-test.mjs npm run test:principles
+      - run: node tools/record-test.mjs npm run test:p3
+      - run: node tools/record-test.mjs npm run test:production
         env:
           MUHIT_BROWSER: ${{ matrix.browser }}
-      - run: npm run test:release
+      - run: node tools/record-test.mjs npm run test:extended
         env:
           MUHIT_BROWSER: ${{ matrix.browser }}
-      - run: npm run test:accessibility
+      - run: node tools/record-test.mjs npm run test:scale
+        env:
+          MUHIT_BROWSER: ${{ matrix.browser }}
+      - run: node tools/record-test.mjs npm run test:release
+        env:
+          MUHIT_BROWSER: ${{ matrix.browser }}
+      - run: node tools/record-test.mjs npm run test:accessibility
         env:
           MUHIT_BROWSER: ${{ matrix.browser }}
       - if: matrix.browser == 'chromium'
-        run: npm run verify:all
+        run: node tools/record-test.mjs npm run verify:all
       - if: matrix.browser == 'chromium'
         run: npm --prefix examples/react ci && npm run test:bundles && npm pack --dry-run
-      - if: matrix.browser == 'chromium'
-        run: npm run test:visual
+      - if: always() && matrix.browser == 'chromium'
+        run: node tools/record-test.mjs npm run test:visual
       - uses: actions/upload-artifact@v7.0.2
         if: always()
         with:
           name: verification-${{ matrix.browser }}
           path: |
             tests/*verification*.json
+            tests/evidence/
+            tests/previews/p3-*.png
             tests/visual/linux-chromium/*.png

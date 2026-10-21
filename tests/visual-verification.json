@@ -1,40 +1,64 @@
 {
-  "platform": "darwin",
+  "platform": "linux",
   "engine": "chromium",
-  "browser": "155.0.8059.84",
+  "browser": "151.0.7922.34",
   "updated": false,
   "cases": [
     {
       "name": "light",
-      "sha256": "21bbdd71c8c111183d760239ec80d444b315fdf2128a4e7fa112c51195532e24"
+      "sha256": "9fcf509e1a42e949caabddae4fd4a5fd317d05ff4ada609029a901ef813579f4"
     },
     {
       "name": "dark",
-      "sha256": "2df9217d0e80070a58dafae394173a751ab360359fd55d716216ccd30726ed8f"
+      "sha256": "7a13221c0a9c882fe3f214420fffc51371e263a6615e0078b513cd0b9994cfef"
     },
     {
       "name": "compact",
-      "sha256": "d66ad9f634a17cad573d3260ee0b630475055ca75115b30486c303478937faef"
+      "sha256": "261d2fcb716ded28417c036a46b4fb71debf86ba16b27d5608808adaa2630064"
     },
     {
       "name": "large-rtl",
-      "sha256": "78f50f9ba670cc6812f3ad06b1bb19558032688a68376c1d1bae3c7674a4dc2a"
+      "sha256": "1818fb1e34f6382b7c3c2a62a8cdf2d4e6b6dc5e82e68f01db820ea729a8aaf8"
     },
     {
       "name": "custom",
-      "sha256": "a7528d193b4d0e025d5b9fd232cbe5981c34e703cc93297c17d012556bb2d208"
+      "sha256": "776f1905853bba4b9b8d4919583b4b11898c9800a9988dfc4c72202a322f5aff"
     },
     {
       "name": "loading",
-      "sha256": "4d8d09113110f7e3af24ef067ffe759270c71c81d4dbfc910a940140f53f9fcf"
+      "sha256": "fa5a762b1d8a781a11802c890bd72127296de82dcba30464fa38bd262304af88"
     },
     {
       "name": "empty",
-      "sha256": "5143d9a81b3f3481938677665831944b0c2fdabee1e071d04dea53d86cce5b09"
+      "sha256": "10c04b17090cef2ea555463f43bb8274a030abdbffb3951449caa321671beda0"
     },
     {
       "name": "error",
-      "sha256": "3f8d65e3a5f6907359c485ebb652d382c5d336a1ae25aaae2abc65fef53640e9"
+      "sha256": "6a82d8272765639567e4a06e3338fd00a61e7f8f9a8dbc89b403b5fb0c224d5a"
+    },
+    {
+      "name": "groups",
+      "sha256": "abfd6593fa85268c3f4b6e5d7df68dee978f7ed675a7b24cf05951fbfb1f7926"
+    },
+    {
+      "name": "combo",
+      "sha256": "c861e6d6c58b51211b0ae44b18a25a2b9e56a9df391c26024e5f39d6a35745be"
+    },
+    {
+      "name": "kanban",
+      "sha256": "21c842c38df627a281f3c6cd732dc6ff15a579e921fbc2ac778187d2158be306"
+    },
+    {
+      "name": "german",
+      "sha256": "b69b30abdb3ee1c0d77fbbe868e692e379d693f9af3d56dd72ae475cbac7bfe6"
+    },
+    {
+      "name": "arabic",
+      "sha256": "1fc265d1913677146ff575d2a6419e72db386e508eebc293aeead9486837087c"
+    },
+    {
+      "name": "zoom",
+      "sha256": "f2facd8ca912e847d530ee023935dea55687e3eb5383145b85f9ca335e4d8a63"
     }
   ]
 }

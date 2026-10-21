@@ -5,10 +5,10 @@
   var instances = new WeakMap();
   var instanceCount = 0;
   var STATUS = {
-    active: { label: "Sürüyor", symbol: "↗", order: 1 },
-    review: { label: "İncelemede", symbol: "◇", order: 2 },
-    planned: { label: "Planlandı", symbol: "○", order: 0 },
-    complete: { label: "Tamamlandı", symbol: "✓", order: 3 },
+    active: { label: "Sürüyor", order: 1 },
+    review: { label: "İncelemede", order: 2 },
+    planned: { label: "Planlandı", order: 0 },
+    complete: { label: "Tamamlandı", order: 3 },
   };
   var ROWS = [
     {
@@ -921,9 +921,10 @@
       chips.hidden = !state.query && !state.status && !state.owner;
       if (state.owner) {
         var ownerChip = button(
-          t("Sorumlu: ", "Owner: ") + state.owner + " ×",
+          t("Sorumlu: ", "Owner: ") + state.owner,
           "mh-table__filter-chip",
         );
+        ownerChip.insertAdjacentHTML('beforeend',global.MuhitIcons.svg('close',{size:16}));
         ownerChip.setAttribute(
           "aria-label",
           t("Sorumlu filtresini kaldır: ", "Remove owner filter: ") +
@@ -940,9 +941,10 @@
       }
       if (state.query) {
         var queryChip = button(
-          t("Arama: ", "Search: ") + state.query + " ×",
+          t("Arama: ", "Search: ") + state.query,
           "mh-table__filter-chip",
         );
+        queryChip.insertAdjacentHTML('beforeend',global.MuhitIcons.svg('close',{size:16}));
         queryChip.setAttribute(
           "aria-label",
           t("Arama filtresini kaldır: ", "Remove search filter: ") +
@@ -959,9 +961,10 @@
       }
       if (state.status) {
         var statusChip = button(
-          t("Durum: ", "Status: ") + t(STATUS[state.status].label) + " ×",
+          t("Durum: ", "Status: ") + t(STATUS[state.status].label),
           "mh-table__filter-chip",
         );
+        statusChip.insertAdjacentHTML('beforeend',global.MuhitIcons.svg('close',{size:16}));
         statusChip.setAttribute(
           "aria-label",
           t("Durum filtresini kaldır: ", "Remove status filter: ") +
@@ -979,11 +982,7 @@
       filteredExport.disabled = count === 0;
       filteredExport.setAttribute(
         "aria-label",
-        count +
-          t(
-            " filtrelenmiş projeyi CSV olarak indir",
-            " filtered projects: download CSV",
-          ),
+        t("Sonuçları CSV indir", "Download results as CSV") + ": " + count,
       );
       selectionText.textContent = state.selected.size
         ? state.selected.size +
@@ -1019,11 +1018,9 @@
               : "descending"
             : "none",
         );
-        item.arrow.textContent = active
-          ? state.direction === "asc"
-            ? "↑"
-            : "↓"
-          : "↕";
+        item.arrow.innerHTML = global.MuhitIcons.svg(active ? 'chevron-down' : 'sort',{size:16});
+        item.arrow.dataset.sortDirection = active ? state.direction : 'none';
+        item.arrow.style.transform = active && state.direction === 'asc' ? 'rotate(180deg)' : '';
         item.button.setAttribute(
           "aria-label",
           item.label +
@@ -1083,8 +1080,9 @@
         var statusSymbol = el(
           "span",
           "mh-table__status-symbol",
-          STATUS[row.status].symbol,
+          undefined,
         );
+        statusSymbol.innerHTML = global.MuhitIcons.svg({active:'spark',review:'search',planned:'clock',complete:'check'}[row.status],{size:16});
         statusSymbol.setAttribute("aria-hidden", "true");
         statusText.append(
           statusSymbol,
@@ -1110,7 +1108,7 @@
         var detail = button(t("İncele", "View"), "mh-table__detail");
         detail.setAttribute(
           "aria-label",
-          row.title + t(" projesini incele", " view project"),
+          t("İncele", "View") + ": " + row.title,
         );
         detail.dataset.focusKey = "detail:" + row.id;
         detail.addEventListener("click", function () {

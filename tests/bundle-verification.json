@@ -1,6 +1,6 @@
 {
   "forms": {
-    "bytes": 17152,
+    "bytes": 17477,
     "inputs": [
       "esm/i18n.mjs",
       "esm/forms.mjs",
@@ -17,12 +17,23 @@
     ]
   },
   "data-grid": {
-    "bytes": 24824,
+    "bytes": 27093,
     "inputs": [
       "esm/i18n.mjs",
       "esm/csv.mjs",
+      "esm/icons/core.mjs",
+      "esm/icons/resize-horizontal.mjs",
       "esm/data-grid.mjs",
       "<stdin>"
     ]
+  },
+  "provenance": {
+    "version": "0.15.0",
+    "sourceSha256": "c8bdea98e1a85cdfcb97076bad60f8cf4bb4be1e1aa981aaee7b178a3764c6c7",
+    "commit": null,
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests",
+    "date": "2026-10-18T18:37:45.353Z",
+    "platform": "darwin",
+    "node": "v25.9.0"
   }
 }

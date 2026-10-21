@@ -382,7 +382,7 @@
   border-width: var(--mh-border-width, 1px);
 }
 .mh-icon {
-  stroke-width: var(--mh-icon-weight, 1.5);
+  stroke-width: var(--mh-icon-weight, 1.75);
 }
 .mh-scope {
   line-height: var(--mh-line-height, 1.65);

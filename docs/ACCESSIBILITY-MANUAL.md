@@ -13,3 +13,30 @@ Durum: **manuel yürütülmedi**. Bu oturumda ekran okuyucu ses çıktısını d
 | Gerçek iOS / Android cihaz | Dokunma ve yatay tablo | 44 px hedefler, sütun kaydırma ve büyütmede kontroller kullanılabilir | Bekliyor |
 
 Kayda tarih, işletim sistemi, tarayıcı ve ekran okuyucu sürümü, yapılan adımlar, duyulan çıktı ve bulgu eklenmeli. Eksik testin yerine “uygun” yazılmamalı.
+
+## 0.11 kabul ekleri — yürütülmedi
+
+1. İki tekrar grubunu gezin: “Grup 1 / Grup 2” ayrı duyulmalı; birincisini silince ad ve odak doğru kalmalı.
+2. Grup sunucu hatasında yalnız ilgili e-posta alanı hatalı duyulmalı, odak ilk hataya gelmeli.
+3. Kanban taşıma tutamacında Space → oklar → Enter / Escape; başlangıç, hedef ve iptal duyurusu kontrol edilmeli.
+4. Combobox required/readOnly/disabled durumları; seçim kimliğinin formda doğru gönderildiği doğrulanmalı.
+5. Dil değiştirilen düzenlenmiş formda çıkış uyarısı ve reset davranışı korunmalı.
+
+Kabul kaydı: tarih / cihaz / OS / tarayıcı / ekran okuyucu sürümü / senaryo / duyulan çıktı / sonuç / bulgu. Gerçek cihaz ve sesli okuma oturumu olmadan bu maddeler kapatılmaz.
+
+## 0.14 kabul kaydı — boş şablon
+
+Her ortam için ayrı kopyalayın; otomatik test sonucu bu tabloyu doldurmaz.
+
+| Alan | Kayıt |
+|---|---|
+| Test eden / tarih | Bekliyor |
+| Paket sürümü / sourceSha256 / commit | 0.14.0 / rapordan doldurun |
+| Cihaz / işletim sistemi | Bekliyor |
+| Tarayıcı / ekran okuyucu sürümü | Bekliyor |
+| Senaryo / adımlar | Yukarıdaki senaryo kimliği ve tam adımlar |
+| Beklenen / duyulan çıktı | Bekliyor |
+| Odak sırası / dokunma / büyütme | Bekliyor |
+| Sonuç / bulgu / kayıt bağlantısı | Bekliyor |
+
+Yeni başlık API'sinde sayfa h1 → widget h2 → alt bölüm h3 gezinmesini kontrol edin. `A → B` ve `10 × 20` etiketlerinin metin olarak korunduğunu, dekoratif simgelerin tekrar okunmadığını doğrulayın. Dil değişimi sırasında bekleyen kayıt iptal edildiğinde yanlış başarı duyurusu oluşmamalı.

@@ -1,2 +1,2 @@
-export { MuhitFields } from "./index";
-export type * from "./index";
+export { MuhitFields } from "./index.js";
+export type * from "./index.js";

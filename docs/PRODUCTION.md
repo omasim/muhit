@@ -1,4 +1,6 @@
-# Muhit 0.10.0 — uygulama sözleşmeleri
+# Muhit — uygulama sözleşmeleri
+
+Güncel sürüm: 0.16.0. Kanıt ve sınırlamalar: [CURRENT.md](CURRENT.md).
 
 ## Öncelikli düzeltmeler
 

@@ -1,0 +1,34 @@
+{
+  "version": "0.11.0",
+  "date": "2026-10-18",
+  "nodeTests": 66,
+  "typedEntries": 16,
+  "typeResolution": [
+    "NodeNext",
+    "Bundler"
+  ],
+  "browsers": [
+    "chromium",
+    "firefox",
+    "webkit"
+  ],
+  "frameworks": [
+    "react",
+    "vue"
+  ],
+  "visualCases": 14,
+  "visualPlatforms": [
+    "darwin-chromium",
+    "linux-chromium"
+  ],
+  "ci": {
+    "url": "https://github.com/omasim/muhit/actions/runs/39070676595",
+    "commit": "dd4c7d5b5987a568158d4f0048802c894dcd9fdb",
+    "conclusion": "success"
+  },
+  "manualScreenReader": "pending",
+  "physicalMobile": "pending",
+  "nativeEditorialReview": "pending",
+  "npmPublished": false,
+  "pullRequest": "https://github.com/omasim/muhit/pull/1"
+}

@@ -51,9 +51,9 @@
         }
       }
     </style>
-  </head>
-  <body class="mh-scope">
-    <main class="mh-stack">
+  <link rel="stylesheet" href="../styles/pages.css"></head>
+  <body class="mh-scope"><a class="mh-skip" href="#main">İçeriğe geç</a>
+    <main class="mh-stack mh-content" id="main" tabindex="-1" data-page-recipe="workspace" data-width="wide">
       <header class="mh-stack">
         <a href="../index.html" class="mh-text-link">← Muhit stüdyosu</a
         ><img src="../assets/brand/muhit-logo.svg" alt="Muhit" width="140" />
@@ -83,7 +83,7 @@
         ><button type="button" class="mh-button" id="new">Yeni çalışma</button>
       </div>
       <p id="state" class="mh-alert" role="status"></p>
-      <div class="work-grid">
+      <div class="work-grid mh-region-grid mh-region-grid--context">
         <section class="mh-stack">
           <div class="mh-panel" id="records"></div>
           <div class="mh-row">
@@ -264,6 +264,7 @@
                 status: row.status,
               }
             : { focus: "Araştırma", count: 0, status: "Planlandı" },
+          messages: {"Kaydedildi.": "Örnek kayıt yalnız bu sayfanın belleğinde güncellendi."},
           async onSubmit(values, signal) {
             await Promise.resolve();
             if (signal.aborted) return;
@@ -354,6 +355,7 @@
             if (event.id === "submit")
               message.textContent =
                 "Agent formundan örnek eylem alındı; sunucu kaydı yapılmadı.";
+            if(event.id === "submit")return {persisted:false};
           },
         });
         e.target.textContent = "Agent örneğini kapat";

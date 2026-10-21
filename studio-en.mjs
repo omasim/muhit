@@ -1,3 +1,4 @@
+import "./studio-model.js";
 import {
   MuhitTheme as Theme,
   MuhitDataGrid as Grid,
@@ -19,7 +20,7 @@ let config = Theme.normalizeConfig({}),
   agent,
   grid,
   form;
-const schema = await fetch("./schemas/theme.schema.json").then((r) => r.json());
+const schema = globalThis.MuhitStudioModel;
 const labels = {
   preset: "Palette",
   mode: "Appearance",
@@ -110,10 +111,7 @@ for (const [key, rule] of Object.entries(schema.properties)) {
   input.className = "mh-input";
   input.addEventListener("change", () => {
     try {
-      let value = input.value;
-      if (key === "accent") value = value || null;
-      else if (rule.type === "number") value = Number(value);
-      else if (rule.type === "boolean") value = value === "true";
+      const value = globalThis.MuhitStudioModel.parse(key, input.value);
       apply({ ...config, [key]: value });
     } catch {
       $("theme-status").textContent =
@@ -162,11 +160,10 @@ let records = [
   { id: "r1", name: "Human-centered research", score: 42 },
   { id: "r2", name: "Shared knowledge", score: 64 },
 ];
-const emit = (e) =>
-  ($("events").textContent = "Local event: " + JSON.stringify(e));
+const emit = (e) => { $("events").textContent = "Local event: " + JSON.stringify(e); if(e.id === "submit") return {persisted:false}; };
 function components() {
   const view = grid?.getView(),
-    draft = form?.getValues();
+    draft = form?.getSnapshot();
   children.forEach((c) => c.destroy());
   const locale = $("locale").value;
   grid = Grid.mount("#grid", {
@@ -187,13 +184,14 @@ function components() {
   form = Form.mount("#form", {
     locale,
     title: "Project brief",
-    values: draft,
+    ...draft,
     fields: [
       { name: "name", label: "Project name", required: true },
       { name: "email", label: "Email", type: "email", required: true },
     ],
     onSubmit: async (values) => {
       emit(values);
+      return { persisted: false };
     },
   });
   children = [

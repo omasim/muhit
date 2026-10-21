@@ -1,3 +1,5 @@
+> Tarihsel sürüm kaydıdır. Güncel kapsam ve kanıt: [CURRENT.md](CURRENT.md).
+
 # React / Vue adaptör sözleşmesi
 
 examples/react ve examples/vue içindeki Grid adaptörleri DataGridOptions alanlarını, selected ve onReady seçeneklerini alır. Rows, state, columnLayout ve selected kontrollü verilebilir. Locale/direction, veri sağlayıcısı veya sütunlar değişince görünüm snapshot'ı geri yüklenir; yeni sütunlar görünür olur, kaldırılan sütunlar ayıklanır. Callback'ler güncel props üzerinden çağrılır. Sütun/load gibi yapısal referansları sabit tutun.

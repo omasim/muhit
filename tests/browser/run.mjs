@@ -48,7 +48,7 @@ try {
   const p = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   p.setDefaultTimeout(10000);
   const errors = [];
-  p.on("pageerror", (e) => errors.push(e.message));
+  p.on("pageerror", (e) => errors.push(e.stack));
   await p.goto(url + "/?component=cards#components");
   const ratio = await p.evaluate(() => {
     MuhitTheme.apply({ accent: "#FFFF00" });
@@ -196,8 +196,8 @@ try {
   );
   await p.getByLabel("İletişim e-postası *").fill("hello@example.com");
   await p.getByRole("button", { name: "Örnek kaydı dene" }).click();
-  await p.getByText("Kaydedildi.", { exact: true }).waitFor();
-  assert.equal(await p.evaluate(() => exampleForm.isDirty()), false);
+  await p.getByText("İşlem tamamlandı. Veri kaydedilmedi; taslak korunuyor.", { exact: true }).waitFor();
+  assert.equal(await p.evaluate(() => exampleForm.isDirty()), true);
   await p.getByLabel("Örnek yanıt").selectOption("validation");
   await p.getByRole("button", { name: "Örnek kaydı dene" }).click();
   await p.getByText("Kayıt tamamlanamadı.", { exact: true }).waitFor();

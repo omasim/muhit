@@ -1,0 +1,30 @@
+
+> muhit-ui@0.15.0 test:bundles
+> npm run build:modules && node tools/check-bundles.mjs
+
+
+> muhit-ui@0.15.0 build:modules
+> node tools/build-modules.mjs
+
+PASS isolated module bundles {
+  forms: {
+    bytes: 17477,
+    inputs: [ 'esm/i18n.mjs', 'esm/forms.mjs', '<stdin>' ]
+  },
+  plot: {
+    bytes: 11206,
+    inputs: [ 'esm/i18n.mjs', 'esm/csv.mjs', 'esm/plot.mjs', '<stdin>' ]
+  },
+  'data-grid': {
+    bytes: 27093,
+    inputs: [
+      'esm/i18n.mjs',
+      'esm/csv.mjs',
+      'esm/icons/core.mjs',
+      'esm/icons/resize-horizontal.mjs',
+      'esm/data-grid.mjs',
+      '<stdin>'
+    ]
+  }
+}
+PASS single-icon budget 2098

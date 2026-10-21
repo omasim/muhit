@@ -266,7 +266,7 @@ try {
     [],
     "all widget accessibility",
   );
-  const open = p.getByRole("button", { name: "Search commands ⌕" });
+  const open = p.getByRole("button", { name: "Search commands", exact: true });
   await open.click();
   await p.keyboard.press("Escape");
   assert.equal(await open.evaluate((n) => n === document.activeElement), true);

@@ -1,4 +1,4 @@
-# Muhit kapsam durumu · 0.10.0
+# Muhit kapsam durumu · 0.17.0
 
 Bu dosya schemas/capabilities.json kaynağından üretilir. Paket, logo, tema ve agent şeması bağımsız sürümlenir.
 
@@ -14,9 +14,13 @@ Bu dosya schemas/capabilities.json kaynağından üretilir. Paket, logo, tema ve
 | Gerçek ekran okuyucu ve fiziksel mobil cihaz kabul testi | Manuel doğrulama bekliyor |
 | Sanallaştırma, gruplama ve çoklu sıralama: sayfalı DOM ölçümüne göre gerekçelendirilmedi | Sonraki kapsam |
 | Kanban sütunlar arası fare/dokunma sürükleme, klavye ve native seçim alternatifi | Uygulandı |
-| İngilizce ayrı stüdyo ve entegrasyon rehberi; çekirdek için isteğe bağlı DE/AR katalogları | Uygulandı |
+| TR/EN ortak tema kontrol modeli; çekirdek ve Table/Charts DE/AR katalogları (editoryal kabul ayrı) | Uygulandı |
 | 20 bin × 20 uzun metin veri kümesinde arama/sıralama/filtre/DOM bütçeleri | Uygulandı |
 | Fonttan bağımsız CSS girişleri, WOFF2 ve CSS/font/istek bütçeleri | Uygulandı |
+| Geçerli sayfa CSV, form baseline snapshot, benzersiz grup adları ve NodeNext/Bundler paket tüketici testleri | Uygulandı |
+| Grup bazlı sunucu/async hata ve combobox native form bağlantısı | Uygulandı |
+| Muhit Icons 1.1: 58 SVG, katalog, erişilebilir API ve manifest | Uygulandı |
+| Sayfa standardı 1.0: altı HTML/CSS tarifi, 12/8/4 ızgara ve kompozisyon şeması | Uygulandı |
 
 Agent şeması 1.1.0: 18 JSON türü. Yeni alan bağlantıları uygulama API’sidir; JSON içinde işlev çalıştırmaz. npm yayımlandı: hayır.
 

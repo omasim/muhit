@@ -1,2 +1,2 @@
-export { MuhitAgent } from "./index";
-export type * from "./index";
+export { MuhitAgent } from "./index.js";
+export type * from "./index.js";

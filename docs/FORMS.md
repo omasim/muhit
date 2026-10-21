@@ -1,4 +1,6 @@
-# Form ve tercih sistemi · 0.6.0
+# Form ve tercih sistemi
+
+Güncel sürüm ve doğrulama: [CURRENT.md](CURRENT.md).
 
 ## Form sözleşmesi
 
@@ -64,3 +66,13 @@ Otomatik saklama yoktur; yalnız açık `save` çağrısı yazar. Bozuk JSON, es
 ## Çalışan örnek
 
 [Çalışma alanı ayarları](../examples/settings.html) palet, açık/koyu görünüm ve metin ölçeği ile formu birleştirir. Başarı, alan hatası ve bağlantı hatası senaryoları seçilebilir. Kayıt simülasyonu açıkça etiketlidir; gerçek ağ isteği yapmaz.
+
+## Yeniden kurulumda taslak ve başlangıç değerleri
+
+`getSnapshot()` `{values, baseline}` döndürür. Dil veya görünüm değişiminde `mount(host,{...options,...snapshot})` kullanın. Yalnız `getValues()` ile yeniden kurulum yeni değerleri başlangıç sayar. `baseline` kaydedilmiş değerlerdir; reset buraya döner, başarılı submit günceller. React/Vue örnekleri snapshot taşır. Şema uyumsuzsa yeni başlangıç değerlerine dönülür; alan şemasını değiştirmeden önce taslağı uygulamada dönüştürün.
+
+`setErrors({alan: "mesaj"})` uygulama sunucu hatalarını gösterir; bilinmeyen alan ve metin olmayan hata reddedilir. `setErrors({})` temizler.
+
+## 0.17 taslak ve iptal davranışı
+
+Güncel [etkileşim sözleşmesi](INTERACTION-CONTRACT.md), yukarıdaki yaşam döngüsü açıklamalarını tamamlar. `cancelSubmit()` (Form/Repeater) ve `cancelPending()` (Agent) taslağı korur. `persisted:false` form baseline’ını güncellemez. Agent `update` değişmeyen bileşenleri ve uyumlu form/tablo durumunu korur; kirli formun kaldırılması veya uyumsuz alan değişimi açık `resetState:true` olmadan reddedilir.

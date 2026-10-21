@@ -1,2 +1,2 @@
-export { MuhitPlot } from "./index";
-export type * from "./index";
+export { MuhitPlot } from "./index.js";
+export type * from "./index.js";
