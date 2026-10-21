@@ -222,3 +222,5 @@ Tasarım felsefesi: docs/DESIGN.md. Uygulanabilir ilkeler: docs/PRINCIPLES.md. �
 Yeni bağımsız ESM girişleri: `muhit-ui/tokens`, `muhit-ui/flow`, `muhit-ui/pages`, `muhit-ui/primitives`, `muhit-ui/system`. Sistem stilleri: `muhit-ui/styles/system.css`; sayfa stilleri: `muhit-ui/styles/pages.css`.
 
 [Figma tasarım kaynağı](docs/FIGMA.md) · [Teknoloji ve entegrasyon](docs/SYSTEM-TECHNOLOGY.md) · [0.18 geçişi](docs/MIGRATION-0.18.md) · [Güncel kabul](docs/CURRENT.md)
+
+[System overview in English](docs/SYSTEM.en.md)

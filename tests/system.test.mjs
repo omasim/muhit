@@ -199,6 +199,8 @@ test("effects require approval plus application authorization", async () => {
     {},
     { approve: () => true },
     { approve: () => true, authorize: () => false },
+    { approve: () => "false", authorize: () => true },
+    { approve: () => true, authorize: () => ({allowed:false}) },
   ]) {
     const s = S.createSession(proposal(), {
       ...opts,

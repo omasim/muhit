@@ -255,7 +255,7 @@
     trigger.addEventListener("mouseleave", leave);
     trigger.addEventListener("focus", focus);
     trigger.addEventListener("blur", blur);
-    trigger.addEventListener("keydown", key);
+    doc.addEventListener("keydown", key);
     doc.defaultView.addEventListener("scroll", show, true);
     doc.defaultView.addEventListener("resize", show);
     return Object.freeze({
@@ -269,7 +269,7 @@
         trigger.removeEventListener("mouseleave", leave);
         trigger.removeEventListener("focus", focus);
         trigger.removeEventListener("blur", blur);
-        trigger.removeEventListener("keydown", key);
+        doc.removeEventListener("keydown", key);
         doc.defaultView.removeEventListener("scroll", show, true);
         doc.defaultView.removeEventListener("resize", show);
         tip.remove();

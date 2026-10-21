@@ -140,7 +140,7 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
           if (action.kind !== "read") {
             if (
               !options.approve ||
-              !(await options.approve(json(action), json(data), signal)) ||
+              (await options.approve(json(action), json(data), signal)) !== true ||
               signal.aborted
             )
               throw Object.assign(Error("Approval required"), {
@@ -149,7 +149,7 @@ for(const key of ['setTimeout','clearTimeout','addEventListener','removeEventLis
           }
           if (
             !options.authorize ||
-            !(await options.authorize(json(action), signal)) ||
+            (await options.authorize(json(action), signal)) !== true ||
             signal.aborted
           )
             throw Object.assign(Error("Authorization required"), {

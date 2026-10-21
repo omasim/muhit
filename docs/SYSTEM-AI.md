@@ -24,3 +24,5 @@ Review: sayfa/UI şemaları, gerçek component referansları, benzersiz action i
 `update(nextProposal)` geçersiz öneriyi reddeder; mevcut Agent taslağının korunma sözleşmesini uygular. Uyumsuz kirli form güncellemesi reddedilir. Bekleyen operation iptal edilir. Önizleme host değiştirmek için session destroy gerekir. Onay geçerli öneriye bağlanmalı, öneri değişince tüketici onayını temizlemelidir; referans stüdyo bunu yapar.
 
 Eylem id’leri uygulamanın kayıtlı handler’larına eşlenmeli; modelden gelen isimle rastgele fonksiyon veya URL çalıştırılmamalı. Birbirinden farklı eylemler için işlemsel kilit ve sunucu idempotency uygulamanın sorumluluğudur. İptal sırasında onay/izin yanıtı geç gelirse execute çağrılmaz.
+
+Onay ve yetki callback’leri yalnız boolean `true` döndürdüğünde işlem yürütülür; truthy nesne veya metin kabul edilmez. Bu sınır sunucu yetkilendirmesinin yerine geçmez.

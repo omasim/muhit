@@ -100,6 +100,11 @@ try {
   await p.getByRole("tooltip").waitFor();
   await p.keyboard.press("Escape");
   assert.equal(await p.getByRole("tooltip").isVisible(), false);
+  await p.locator("#menu-trigger").focus();
+  await p.locator("#tooltip-trigger").hover();
+  await p.getByRole("tooltip").waitFor();
+  await p.keyboard.press("Escape");
+  assert.equal(await p.getByRole("tooltip").isVisible(), false);
   const tree = p.getByRole("tree");
   await tree.getByRole("treeitem", { name: "Temeller", exact: true }).focus();
   await p.keyboard.press("ArrowRight");
