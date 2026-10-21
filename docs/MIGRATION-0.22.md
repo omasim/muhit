@@ -7,3 +7,5 @@
 - JSON dışa aktarma taslak aktarımıdır, kayıt onayı değildir. Görsel URL ve açıklamasını kayıt sınırında doğrulayın.
 - Eski snapshot/type fixture'larını yeni alanlarla kontrol edin. 18 Agent JSON render türü aynı kaldı; yeni yardımcılar imperative uygulama katmanındadır.
 - Entegrasyon sunucusunun statik kök yolu düzeltildi; / ana sayfası artık gerçekten sunulur ve test edilir.
+
+Düzenleme taslağı baseEvent ile kaynak kaydın kopyasını taşır. Güncel kayıt değişmiş/kaldırılmışsa eski düzenleme uygulanmaz; taslak korunur. editingId içeren restore için eşleşen baseEvent gerekir. Bu yerel kontrol sunucunun sürüm kilidinin yerine geçmez.

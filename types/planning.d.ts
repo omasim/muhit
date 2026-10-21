@@ -4,7 +4,7 @@ export interface Instance {element:HTMLElement;destroy():void;}
 export function validateEvents(input:unknown):Event[];
 export function findConflicts(input:unknown,event:Event):Event[];
 export function eventsOnDate(input:unknown,day:string,timeZone?:string):Event[];
-export interface CalendarDraft {snapshotVersion:1;title:string;start:string;end:string;resource:string;editingId?:string;inputTimeZone?:string;}
+export interface CalendarDraft {snapshotVersion:1;title:string;start:string;end:string;resource:string;editingId?:string;inputTimeZone?:string;baseEvent?:Event;}
 export interface DraftOptions<T> {onDirtyChange?:(dirty:boolean)=>void;onDraftChange?:(draft:T)=>void;}
 export function mountCalendar(host:HTMLElement,input:Event[],options?:ModuleOptions & DraftOptions<CalendarDraft> & {draft?:CalendarDraft;date?:string;inputTimeZone?:string;disambiguation?:'reject'|'earlier'|'later';resourceCapacities?:Record<string,number>;onMutation?:(mutation:{kind:'create'|'update'|'delete';id:string;event:Event},signal:AbortSignal)=>Promise<{persisted:boolean}>;onCommit?:(event:Event,signal:AbortSignal)=>Promise<{persisted:boolean}>;onChange?:(events:Event[])=>void}):Instance & {getSnapshot():{items:Event[];date:string;month:string;draft:CalendarDraft};getDraft():CalendarDraft;restoreDraft(draft:CalendarDraft):void;isDirty():boolean;update(input:Event[]):void};
 export interface Block {id:string;type:'paragraph'|'heading'|'quote'|'list'|'image';text:string;bold?:boolean;italic?:boolean;marks?:TextMark[];url?:string;}

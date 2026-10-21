@@ -166,6 +166,9 @@
         },
         "inputTimeZone": {
           "type": "string"
+        },
+        "baseEvent": {
+          "$ref": "#/$defs/event"
         }
       },
       "required": [
