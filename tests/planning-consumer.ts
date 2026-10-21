@@ -12,3 +12,17 @@ calendar.restoreDraft({...draft,snapshotVersion:2});
 mountDocumentEditor(host,{title:'T',blocks:[]},{onSave:async()=>({success:true})});
 // @ts-expect-error Invalid event shape.
 mountCalendar(host,[{id:'a',title:'A'}]);
+
+import {localDateTimeToUTC,createRecurringEvents,formatTextRange,importDocument,exportDocument} from 'muhit-ui/planning';
+import {createSearchIndex,createRemoteSearch} from 'muhit-ui/search';
+const instant:string=localDateTimeToUTC('2026-10-22T12:00','Europe/Istanbul');
+const recurring=createRecurringEvents({id:'meeting',title:'Review',start:instant,end:'2026-10-22T10:00:00.000Z'},{frequency:'weekly',count:3,timeZone:'Europe/Istanbul'});
+const rich=formatTextRange({id:'body',type:'paragraph',text:'Test'},0,4,{bold:true});
+const roundtrip=importDocument(exportDocument({title:'Test',blocks:[rich]}));
+const index=createSearchIndex([{id:'a',title:'Title'}],{fields:['title']});
+const remote=createRemoteSearch(async request=>index.search(request.query,request));
+void remote.search('Title');remote.cancel();remote.destroy();void recurring;void roundtrip;
+// @ts-expect-error Unsupported recurrence must fail at compile time.
+createRecurringEvents({id:'a',title:'A',start:instant,end:instant},{frequency:'hourly',count:1,timeZone:'UTC'});
+// @ts-expect-error Query must be a string.
+index.search(42);

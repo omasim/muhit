@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-21T22:22:11.723Z",
+  "date": "2026-10-21T22:47:16.258Z",
   "scans": [
     {
       "engine": "chromium",
@@ -325,7 +325,7 @@
   "flows": [
     {
       "engine": "chromium",
-      "calendar500ms": 3.6000000089406967,
+      "calendar500ms": 4.799999997019768,
       "calendarConflict": true,
       "localCommit": true,
       "documentRestoreUndo": true,
@@ -337,7 +337,7 @@
     },
     {
       "engine": "webkit",
-      "calendar500ms": 4,
+      "calendar500ms": 5,
       "calendarConflict": true,
       "localCommit": true,
       "documentRestoreUndo": true,

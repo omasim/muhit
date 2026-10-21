@@ -56,7 +56,8 @@
             "paragraph",
             "heading",
             "quote",
-            "list"
+            "list",
+            "image"
           ]
         },
         "text": {
@@ -68,6 +69,46 @@
         },
         "italic": {
           "type": "boolean"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048,
+          "pattern": "^https://"
+        },
+        "marks": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "from": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "to": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "bold": {
+                "type": "boolean"
+              },
+              "italic": {
+                "type": "boolean"
+              },
+              "href": {
+                "type": "string",
+                "format": "uri",
+                "maxLength": 2048,
+                "pattern": "^https://"
+              }
+            },
+            "required": [
+              "from",
+              "to"
+            ]
+          }
         }
       },
       "required": [
@@ -119,6 +160,12 @@
         "resource": {
           "type": "string",
           "maxLength": 120
+        },
+        "editingId": {
+          "type": "string"
+        },
+        "inputTimeZone": {
+          "type": "string"
         }
       },
       "required": [

@@ -1,0 +1,692 @@
+{
+  "date": "2026-10-21T22:27:13.851Z",
+  "scans": [
+    {
+      "engine": "chromium",
+      "route": "onboarding",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "account",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "files",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "search",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "states",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "assistant",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "analytics",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "discussion",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "access",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "notifications",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "activity",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "onboarding&flow=login",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "onboarding&flow=invite",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=edit",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=review",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=archive",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=delete",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=conflict",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "account&flow=security",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "account&flow=notifications",
+      "mode": "light",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "onboarding",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "account",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "files",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "search",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "states",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "assistant",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "analytics",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "discussion",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "access",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "notifications",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "activity",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "onboarding&flow=login",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "onboarding&flow=invite",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=edit",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=review",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=archive",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=delete",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=conflict",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "account&flow=security",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "account&flow=notifications",
+      "mode": "light",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "onboarding",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "account",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "files",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "search",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "states",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "assistant",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "analytics",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "discussion",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "access",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "notifications",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "activity",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "onboarding&flow=login",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "onboarding&flow=invite",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=edit",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=review",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=archive",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=delete",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=conflict",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "account&flow=security",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "account&flow=notifications",
+      "mode": "dark",
+      "width": 1440,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "onboarding",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "account",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "files",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "search",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "states",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "assistant",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "analytics",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "discussion",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "access",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "notifications",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "activity",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "onboarding&flow=login",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "onboarding&flow=invite",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=edit",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=review",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=archive",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=delete",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "records&flow=conflict",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "account&flow=security",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "engine": "chromium",
+      "route": "account&flow=notifications",
+      "mode": "dark",
+      "width": 390,
+      "violations": [],
+      "overflow": false
+    }
+  ],
+  "flows": [
+    {
+      "engine": "chromium",
+      "forms": true,
+      "conflictDraft": true,
+      "uploadCancelRetry": true,
+      "discussionLiteral": true,
+      "aiApprovalCancel": true,
+      "viewAndLateResult": true,
+      "scale": true,
+      "locale": true,
+      "multiComboAndMetricLifecycle": true
+    }
+  ],
+  "errors": []
+}

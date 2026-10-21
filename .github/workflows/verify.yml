@@ -26,6 +26,9 @@ jobs:
       - run: node tools/record-test.mjs npm run test:workspace
       - run: node tools/record-test.mjs npm run test:planning
       - run: node tools/record-test.mjs npm run test:readiness
+      - run: node tools/record-test.mjs npm run test:planning-next
+      - if: matrix.browser == 'chromium'
+        run: node tools/record-test.mjs npm run test:search-scale
       - if: matrix.browser == 'chromium'
         run: node tools/record-test.mjs npm run test:integration
       - if: matrix.browser == 'chromium'

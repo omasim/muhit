@@ -1,0 +1,109 @@
+{
+  "provenance": {
+    "version": "0.22.0-beta.1",
+    "sourceSha256": "ef8cbe4ce6a01f3ae4460aed2b8a879fa8b5eb8226f6518b84725afb2cae6a0d",
+    "commit": "97262f2cebcb9a7d394b5ddc5281d24d16702d0d",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-21T22:49:17.000Z",
+    "platform": "darwin",
+    "node": "v26.12.0"
+  },
+  "scans": [
+    {
+      "engine": "chromium",
+      "mode": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "chromium",
+      "mode": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "chromium",
+      "mode": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "chromium",
+      "mode": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "chromium",
+      "mode": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "chromium",
+      "mode": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": [
+        {
+          "id": "color-contrast",
+          "targets": [
+            [
+              ".mh-suite.mh-planning[dir=\"ltr\"] > .mh-plan-field:nth-child(3)"
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "engine": "chromium",
+      "localTime": true,
+      "editDelete": true,
+      "capacity": true,
+      "recurrenceExceptionDST": true,
+      "inlineFormatting": true,
+      "wordDiff": true,
+      "controlledImportExport": true,
+      "remotePaging": true,
+      "errorPreservesResults": true,
+      "cancelDelete": true
+    }
+  ],
+  "errors": [],
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   {\n+     id: 'color-contrast',\n+     targets: [\n+       [\n+         '.mh-suite.mh-planning[dir=\"ltr\"] > .mh-plan-field:nth-child(3)'\n+       ]\n+     ]\n+   }\n+ ]\n- []\n"
+}

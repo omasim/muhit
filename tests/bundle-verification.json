@@ -28,7 +28,7 @@
     ]
   },
   "resources-mountResources": {
-    "bytes": 41809,
+    "bytes": 42156,
     "inputs": [
       "esm/i18n.mjs",
       "esm/contracts.mjs",
@@ -54,7 +54,7 @@
     ]
   },
   "shell-mountShell": {
-    "bytes": 61422,
+    "bytes": 62596,
     "inputs": [
       "esm/i18n.mjs",
       "esm/contracts.mjs",
@@ -66,7 +66,7 @@
     ]
   },
   "planning-mountCalendar": {
-    "bytes": 16061,
+    "bytes": 17250,
     "inputs": [
       "esm/i18n.mjs",
       "esm/contracts.mjs",
@@ -77,7 +77,7 @@
     ]
   },
   "planning-mountDocumentEditor": {
-    "bytes": 17546,
+    "bytes": 19596,
     "inputs": [
       "esm/i18n.mjs",
       "esm/contracts.mjs",
@@ -88,7 +88,7 @@
     ]
   },
   "planning-mountNotificationCenter": {
-    "bytes": 21932,
+    "bytes": 22279,
     "inputs": [
       "esm/i18n.mjs",
       "esm/contracts.mjs",
@@ -99,11 +99,11 @@
     ]
   },
   "provenance": {
-    "version": "0.20.0-beta.1",
-    "sourceSha256": "3eb255574e85f66118d4e73e53e8c79b003e4d226f502f15c35c8f1b5fd1a7da",
+    "version": "0.21.0-beta.1",
+    "sourceSha256": "c1cc7c46567f1759c15a474668278b6d843f778389dca3878d74bff112a9de31",
     "commit": "97262f2cebcb9a7d394b5ddc5281d24d16702d0d",
     "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
-    "date": "2026-10-21T22:07:31.492Z",
+    "date": "2026-10-21T22:28:09.203Z",
     "platform": "darwin",
     "node": "v26.12.0"
   }

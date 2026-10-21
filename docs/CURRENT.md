@@ -1,3 +1,7 @@
+# Güncel sürüm · 0.22.0-beta.1
+
+Yerel saat/tekrar/kapasite takvimi, seçili metin ve güvenli medya, kontrollü JSON aktarımı ve prepared/remote search. Ayrıntılar: P3-0.22.md ve MIGRATION-0.22.md. Beta; koşullu servis ve manuel kabul sınırları korunur.
+
 # Güncel sürüm: 0.21.0-beta.1
 
 Güncel kaynaklar MIGRATION-0.21.md, INTEGRATION-0.21.md, VERIFICATION-0.21.md ve üretilen RELEASE-POLICY.md. Önceki sürüm kayıtları aşağıda korunur.

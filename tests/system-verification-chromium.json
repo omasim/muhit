@@ -1,10 +1,10 @@
 {
   "provenance": {
-    "version": "0.19.0-beta.1",
-    "sourceSha256": "90a5e3f33985479a3b926b3b02099a2ed0aef82412aba7862fa8b9f05c309ba3",
+    "version": "0.22.0-beta.1",
+    "sourceSha256": "f52c9b5749535db7d8af9e66e74869b43d2e856e39561080a57820925b998628",
     "commit": "97262f2cebcb9a7d394b5ddc5281d24d16702d0d",
     "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
-    "date": "2026-10-21T21:52:16.324Z",
+    "date": "2026-10-21T22:51:38.442Z",
     "platform": "darwin",
     "node": "v26.12.0"
   },

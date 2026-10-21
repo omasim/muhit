@@ -328,6 +328,9 @@
   "flows": [
     {
       "engine": "chromium",
+      "routeGuard": true,
+      "rtl320": true,
+      "pendingEmpty": true,
       "race": true,
       "draftHistory": true,
       "optInSession": true,
@@ -335,6 +338,9 @@
     },
     {
       "engine": "webkit",
+      "routeGuard": true,
+      "rtl320": true,
+      "pendingEmpty": true,
       "race": true,
       "draftHistory": true,
       "optInSession": true,

@@ -1,0 +1,26 @@
+{
+  "provenance": {
+    "version": "0.22.0-beta.1",
+    "sourceSha256": "d61da3ec22960c9321894bfa625a6dbd3979c38651959ea0dd9afd4ede550eca",
+    "commit": "97262f2cebcb9a7d394b5ddc5281d24d16702d0d",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-21T22:44:46.294Z",
+    "platform": "darwin",
+    "node": "v26.12.0"
+  },
+  "dataset": "synthetic",
+  "measurements": [
+    {
+      "rows": 10000,
+      "buildMs": 9.222667000000001,
+      "p50Ms": 0.18933300000000486,
+      "p95Ms": 0.3850000000000051
+    },
+    {
+      "rows": 100000,
+      "buildMs": 99.94349999999999,
+      "p50Ms": 2.1581250000000125,
+      "p95Ms": 3.1970839999999896
+    }
+  ]
+}

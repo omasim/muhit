@@ -1,4 +1,4 @@
-# Muhit kapsam durumu · 0.21.0-beta.1
+# Muhit kapsam durumu · 0.22.0-beta.1
 
 Bu dosya schemas/capabilities.json kaynağından üretilir. Paket, logo, tema ve agent şeması bağımsız sürümlenir.
 
@@ -44,6 +44,9 @@ Bu dosya schemas/capabilities.json kaynağından üretilir. Paket, logo, tema ve
 | Bildirim gruplama/erteleme/teslim politikası · beta; gönderim servisi uygulamaya ait | Uygulandı |
 | Araştırma programı ve ekip proje alanı · yerel örnek sayfalar | Uygulandı |
 | 15 yeni Figma modül ailesi / 30 anatomi varyantı ve kod eşleştirmesi; native Code Connect yayını yok | Uygulandı |
+| IANA saat girişi, günlük/haftalık tekrar ve istisna, düzenleme/silme, yerel kaynak kapasitesi | Uygulandı |
+| Seçili metin biçimleri, HTTPS bağlantı/görsel, JSON aktarımı, sınırlı sözcük diff | Uygulandı |
+| Hazırlanan yerel indeks ve iptal edilebilir uzak sayfalama; sentetik 10k/100k ölçümü | Uygulandı |
 
 Agent şeması 1.1.0: 18 JSON türü. Yeni alan bağlantıları uygulama API’sidir; JSON içinde işlev çalıştırmaz. npm yayımlandı: hayır.
 

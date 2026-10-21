@@ -1,3 +1,7 @@
+# Muhit 0.22.0-beta.1
+
+Yerel saat/tekrar/kapasite takvimi, seçili metin ve güvenli medya, kontrollü JSON aktarımı ve prepared/remote search. Ayrıntılar: docs/P3-0.22.md ve MIGRATION-0.22.md. Beta; koşullu servis ve manuel kabul sınırları korunur.
+
 Current: 0.21.0-beta.1. See docs/MIGRATION-0.21.md and docs/INTEGRATION-0.21.md. Draft snapshot v1 is distinct from valid persisted document. Older notes below.
 
 Current: Muhit 0.20.0-beta.1. Planning ESM: muhit-ui/planning. See docs/PLANNING-0.20.md and types/planning.d.ts. Agent renderer remains 18 kinds. Historical releases below.

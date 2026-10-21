@@ -1,7 +1,7 @@
 {
-  "version": "0.21.0-beta.1",
+  "version": "0.22.0-beta.1",
   "status": "beta",
-  "basePackageVersion": "0.21.0-beta.1",
+  "basePackageVersion": "0.22.0-beta.1",
   "recordLimit": 500,
   "locales": [
     "BCP47 via MuhitI18n; TR/EN built-in, custom dictionaries"
@@ -114,10 +114,15 @@
         "select-day",
         "create-local-event",
         "request-save",
-        "cancel"
+        "cancel",
+        "edit-event",
+        "confirm-delete",
+        "preview-recurrence"
       ],
       "authorization": "External writes require application authorization; render or callback invocation is not user consent.",
-      "transport": "Application-owned AbortSignal adapter; explicit persisted:true acknowledgment."
+      "transport": "Application-owned AbortSignal adapter; explicit persisted:true acknowledgment.",
+      "inputTimeZone": "Explicit IANA zone; default UTC; gaps and folds reject by default",
+      "capacity": "Local peak concurrency only; server must enforce commercial reservations"
     },
     {
       "id": "document-editor",
@@ -132,10 +137,16 @@
         "checkpoint",
         "restore-version",
         "request-save",
-        "cancel"
+        "cancel",
+        "format-selection",
+        "apply-https-url",
+        "import-json-draft",
+        "export-json"
       ],
       "authorization": "External writes require application authorization; render or callback invocation is not user consent.",
-      "transport": "Application-owned AbortSignal adapter; explicit persisted:true acknowledgment."
+      "transport": "Application-owned AbortSignal adapter; explicit persisted:true acknowledgment.",
+      "dataLimits": "100 blocks; 10000 characters/block; 200 non-overlapping marks/block; 1.5M serialized document characters",
+      "media": "HTTPS only; no credential URL; explicit URL application; alternative text required for save"
     },
     {
       "id": "notification-center",

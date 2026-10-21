@@ -59,3 +59,10 @@ Aşağıdaki kayıtlar **bekliyor**; otomatik axe/Playwright sonuçları yerine 
 | Bildirim tercihleri / kısmi hata | Kaydedilen ve kaydedilmeyen sonuçlar ayrı ve doğru duyurulur | Ekran okuyucu matrisi |
 
 Kayıt alanları: sürüm 0.21.0-beta.1, dağıtım SHA256, tarih, test eden, cihaz/OS, tarayıcı/ekran okuyucu sürümü, adımlar, duyulan çıktı, odak, sonuç, bulgu. Bekleyen kabul üretime hazır veya WCAG sertifikalı diye sunulmaz.
+
+## 0.22 · manuel kabul ekleri (bekliyor)
+
+- Yerel saat/DST hatalarının anlaşılır duyurusu; düzenle, taslağı değiştir, silme onayı ve iptal sonrası odak.
+- Metin seçiminden kalın/italik/bağlantı uygulama; görsel alternatif açıklaması ve URL hatası; ins/del karşılaştırma okuması.
+- JSON içe aktarma hatasında taslağın korunması ve geri alma; arama sayfası değişimi, sonuç sayısı ve iptal duyurusu.
+- VoiceOver/NVDA/JAWS ve fiziksel iOS/Android sonuçları ayrıca kaydedilmeli. Otomatik taramalar bu bölümü kapatmaz.

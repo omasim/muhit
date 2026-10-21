@@ -1,0 +1,77 @@
+{
+  "provenance": {
+    "version": "0.22.0-beta.1",
+    "sourceSha256": "f52c9b5749535db7d8af9e66e74869b43d2e856e39561080a57820925b998628",
+    "commit": "97262f2cebcb9a7d394b5ddc5281d24d16702d0d",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-21T22:51:27.708Z",
+    "platform": "darwin",
+    "node": "v26.12.0"
+  },
+  "scans": [
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "flows": [
+    {
+      "engine": "webkit",
+      "remoteTiming": {
+        "dataset": "100000 synthetic records",
+        "p50Ms": 5,
+        "p95Ms": 6
+      },
+      "localTime": true,
+      "editDelete": true,
+      "capacity": true,
+      "recurrenceExceptionDST": true,
+      "inlineFormatting": true,
+      "safeLinkAndImage": true,
+      "wordDiff": true,
+      "controlledImportExport": true,
+      "remotePaging": true,
+      "errorPreservesResults": true,
+      "cancelDelete": true
+    }
+  ],
+  "errors": []
+}

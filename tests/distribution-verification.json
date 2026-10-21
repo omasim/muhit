@@ -70,18 +70,18 @@
     "totalBytes": 5027
   },
   "planning.css": {
-    "cssBytes": 2056,
-    "cssGzipBytes": 755,
+    "cssBytes": 2558,
+    "cssGzipBytes": 916,
     "fontBytes": 0,
     "requests": 1,
-    "totalBytes": 2056
+    "totalBytes": 2558
   },
   "provenance": {
-    "version": "0.20.0-beta.1",
-    "sourceSha256": "3eb255574e85f66118d4e73e53e8c79b003e4d226f502f15c35c8f1b5fd1a7da",
+    "version": "0.22.0-beta.1",
+    "sourceSha256": "b5fc25433b7d26b2cd34a29cc2d9ae9f6c7237c12fb919be9d246f8aa0096f0c",
     "commit": "97262f2cebcb9a7d394b5ddc5281d24d16702d0d",
     "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
-    "date": "2026-10-21T22:07:05.150Z",
+    "date": "2026-10-21T22:50:22.808Z",
     "platform": "darwin",
     "node": "v26.12.0"
   }

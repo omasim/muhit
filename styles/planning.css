@@ -3,3 +3,6 @@
 @media(max-width:700px){.mh-document-columns,.mh-plan-form{grid-template-columns:1fr}.mh-calendar-grid{gap:2px}.mh-calendar-grid button{font-size:12px}.mh-planning .mh-suite-toolbar>*{width:auto}.mh-calendar-weekday{font-size:10px}}
 /* At narrow widths preserve Muhit's 44px targets; the date grid scrolls locally. */
 .mh-calendar-grid{grid-template-columns:repeat(7,minmax(44px,1fr));overflow-x:auto;min-width:0;max-width:100%;padding-block:4px;scrollbar-gutter:auto}
+.mh-document-image{display:block;max-width:100%;height:auto;border-radius:var(--mh-radius-sm)}
+.mh-document-diff ins{text-decoration:underline}.mh-document-diff del{text-decoration:line-through}
+.mh-document-preview a{color:var(--mh-link);text-decoration:underline}

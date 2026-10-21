@@ -1,6 +1,6 @@
 {
   "name": "muhit-ui",
-  "version": "0.21.0-beta.1",
+  "version": "0.22.0-beta.1",
   "description": "Tema değişkenleri, erişilebilir etkileşimler ve şema tabanlı arayüz üretimi için bağımsız HTML/CSS/JavaScript bileşenleri.",
   "type": "module",
   "license": "MIT",
@@ -389,6 +389,10 @@
       "types": "./types/planning.d.ts",
       "import": "./src/planning.mjs",
       "default": "./src/planning.mjs"
+    },
+    "./search": {
+      "types": "./types/search.d.ts",
+      "import": "./src/search-index.mjs"
     }
   },
   "files": [
@@ -497,7 +501,8 @@
     "tools/serve.mjs",
     "styles/planning.css",
     "examples/integration",
-    "tools/build-support.mjs"
+    "tools/build-support.mjs",
+    "examples/planning"
   ],
   "sideEffects": [
     "./src/*.js",
@@ -512,7 +517,7 @@
     "test:browser": "node tests/browser/run.mjs",
     "verify": "npm run check && npm test && npm run check:brand && npm run test:browser && npm run check:capabilities",
     "test:framework": "node tests/browser/frameworks.mjs",
-    "verify:all": "npm run verify && npm run test:extended && npm run test:framework && npm run test:accessibility && npm run test:release && npm run test:scale && npm run test:distribution && npm run test:production && npm run test:consumer-types && npm run test:foundations && npm run test:migration && npm run test:consumer && npm run test:p3 && npm run check:system && npm run test:system && npm run test:principles && npm run test:workspace && npm run test:planning && npm run test:packed-planning && npm run test:readiness && npm run test:integration",
+    "verify:all": "npm run verify && npm run test:extended && npm run test:framework && npm run test:accessibility && npm run test:release && npm run test:scale && npm run test:distribution && npm run test:production && npm run test:consumer-types && npm run test:foundations && npm run test:migration && npm run test:consumer && npm run test:p3 && npm run check:system && npm run test:system && npm run test:principles && npm run test:workspace && npm run test:planning && npm run test:packed-planning && npm run test:readiness && npm run test:integration && npm run test:planning-next && npm run test:search-scale",
     "build:modules": "node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs",
     "pretest": "npm run build:modules",
     "test:extended": "npm run build:modules && node tests/browser/extended.mjs",
@@ -540,7 +545,9 @@
     "test:packed-planning": "node tests/browser/packed-planning.mjs",
     "test:readiness": "node tests/browser/readiness21.mjs",
     "test:integration": "MUHIT_INTEGRATION_TEST=1 node tests/integration.test.mjs",
-    "check:support": "node tools/build-support.mjs --check"
+    "check:support": "node tools/build-support.mjs --check",
+    "test:planning-next": "node tests/browser/planning22.mjs",
+    "test:search-scale": "node tests/search-scale.mjs"
   },
   "engines": {
     "node": ">=18"

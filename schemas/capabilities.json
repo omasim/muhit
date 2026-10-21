@@ -1,5 +1,5 @@
 {
-  "packageVersion": "0.21.0-beta.1",
+  "packageVersion": "0.22.0-beta.1",
   "themeSchema": 1,
   "agentSchema": "1.1.0",
   "agentComponentCount": 18,
@@ -204,6 +204,21 @@
       "id": "planning20-figma",
       "status": "implemented",
       "label": "15 yeni Figma modül ailesi / 30 anatomi varyantı ve kod eşleştirmesi; native Code Connect yayını yok"
+    },
+    {
+      "id": "planning-local-time",
+      "status": "implemented",
+      "label": "IANA saat girişi, günlük/haftalık tekrar ve istisna, düzenleme/silme, yerel kaynak kapasitesi"
+    },
+    {
+      "id": "structured-rich-document",
+      "status": "implemented",
+      "label": "Seçili metin biçimleri, HTTPS bağlantı/görsel, JSON aktarımı, sınırlı sözcük diff"
+    },
+    {
+      "id": "prepared-search",
+      "status": "implemented",
+      "label": "Hazırlanan yerel indeks ve iptal edilebilir uzak sayfalama; sentetik 10k/100k ölçümü"
     }
   ]
 }

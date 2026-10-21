@@ -1,15 +1,15 @@
 {
   "provenance": {
-    "version": "0.20.0-beta.1",
-    "sourceSha256": "9a547b8908d440d9e94b9b66006fee2fa8ee0c7c3a30c29039fcdd6301283b56",
+    "version": "0.22.0-beta.1",
+    "sourceSha256": "ef8cbe4ce6a01f3ae4460aed2b8a879fa8b5eb8226f6518b84725afb2cae6a0d",
     "commit": "97262f2cebcb9a7d394b5ddc5281d24d16702d0d",
     "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
-    "date": "2026-10-21T22:17:51.850Z",
+    "date": "2026-10-21T22:49:49.528Z",
     "platform": "darwin",
     "node": "v26.12.0"
   },
-  "date": "2026-10-21T22:17:51.850Z",
-  "packageVersion": "0.20.0-beta.1",
+  "date": "2026-10-21T22:49:49.528Z",
+  "packageVersion": "0.22.0-beta.1",
   "results": [
     {
       "framework": "react",

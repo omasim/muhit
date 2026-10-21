@@ -31,7 +31,7 @@ export const english={
   "Dikkatine ihtiyaç duyan gelişmeler.": "Updates that need your attention.",
   "Etkinlik akışı": "Activity feed",
   "Ortak emeğin izleri.": "A record of shared work.",
-  "Muhit 0.21 beta · Kurgusal veriler. Bu referans uygulama gerçek hesap açmaz, davet göndermez veya dosya yüklemez. Servis davranışları açıkça etiketlenmiş örnek adaptörlerdir.": "Muhit 0.21 beta · Fictional data. This reference application does not create accounts, send invitations or upload files. Service adapters are clearly labeled examples.",
+  "Muhit 0.22 beta · Kurgusal veriler. Bu referans uygulama gerçek hesap açmaz, davet göndermez veya dosya yüklemez. Servis davranışları açıkça etiketlenmiş örnek adaptörlerdir.": "Muhit 0.22 beta · Fictional data. This reference application does not create accounts, send invitations or upload files. Service adapters are clearly labeled examples.",
   "Görünüm": "Appearance",
   "Yoğunluk": "Density",
   "Köşe": "Corners",

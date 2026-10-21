@@ -1,3 +1,7 @@
+# Muhit 0.22.0-beta.1
+
+Yerel saat/tekrar/kapasite takvimi, seçili metin ve güvenli medya, kontrollü JSON aktarımı ve prepared/remote search. Ayrıntılar: docs/P3-0.22.md ve MIGRATION-0.22.md. Beta; koşullu servis ve manuel kabul sınırları korunur.
+
 # Muhit 0.21.0-beta.1
 
 Veri yarışı ve taslak düzeltmeleri, sürümlü snapshot, açık saklama tercihi, TR/EN sayfalar ve servis referansı. [Geçiş](docs/MIGRATION-0.21.md) · [Entegrasyon](docs/INTEGRATION-0.21.md) · [Doğrulama](docs/VERIFICATION-0.21.md). Aşağıdaki sürümler tarihsel kayıttır.
