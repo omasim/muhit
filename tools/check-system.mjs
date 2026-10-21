@@ -77,3 +77,12 @@ console.log(
   modes.modes.length,
   "token modes",
 );
+
+for (const c of contracts.contracts.filter(c=>c.api.entry)) {
+ const name=c.api.entry.replace('muhit-ui/','');
+ const pkg=JSON.parse(await readFile(new URL('../package.json',import.meta.url),'utf8'));
+ const entry=pkg.exports['./'+name];assert.ok(entry,c.id);
+ const runtime=await import(new URL('../'+entry.import,import.meta.url));assert.equal(typeof (c.api.mount?runtime[c.api.mount]:runtime.MuhitPrimitives?.[c.api.method]),'function',c.id);
+ await access(new URL('../docs/'+c.docs,import.meta.url));
+}
+console.log('PASS workspace registry matches executable exports');

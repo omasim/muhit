@@ -1,0 +1,132 @@
+{
+  "version": "0.20.0-beta.1",
+  "fileKey": "PllwZjMHfzcRJfEoMrMJkg",
+  "scope": "Visual anatomy specimens; not pixel-identical full pages or native Code Connect publication",
+  "modules": [
+    {
+      "key": "calendar",
+      "id": "18:26",
+      "variants": [
+        "18:2",
+        "18:14"
+      ]
+    },
+    {
+      "key": "document-editor",
+      "id": "18:47",
+      "variants": [
+        "18:27",
+        "18:37"
+      ]
+    },
+    {
+      "key": "notification-center",
+      "id": "18:64",
+      "variants": [
+        "18:48",
+        "18:56"
+      ]
+    },
+    {
+      "key": "shell",
+      "id": "18:83",
+      "variants": [
+        "18:65",
+        "18:74"
+      ]
+    },
+    {
+      "key": "advanced-form",
+      "id": "18:104",
+      "variants": [
+        "18:84",
+        "18:94"
+      ]
+    },
+    {
+      "key": "saved-filters",
+      "id": "18:121",
+      "variants": [
+        "18:105",
+        "18:113"
+      ]
+    },
+    {
+      "key": "uploads",
+      "id": "18:138",
+      "variants": [
+        "18:122",
+        "18:130"
+      ]
+    },
+    {
+      "key": "discussion",
+      "id": "18:155",
+      "variants": [
+        "18:139",
+        "18:147"
+      ]
+    },
+    {
+      "key": "access",
+      "id": "18:176",
+      "variants": [
+        "18:156",
+        "18:166"
+      ]
+    },
+    {
+      "key": "assistant",
+      "id": "18:197",
+      "variants": [
+        "18:177",
+        "18:187"
+      ]
+    },
+    {
+      "key": "analytics",
+      "id": "18:216",
+      "variants": [
+        "18:198",
+        "18:207"
+      ]
+    },
+    {
+      "key": "multi-combobox",
+      "id": "18:233",
+      "variants": [
+        "18:217",
+        "18:225"
+      ]
+    },
+    {
+      "key": "inbox",
+      "id": "18:250",
+      "variants": [
+        "18:234",
+        "18:242"
+      ]
+    },
+    {
+      "key": "activity",
+      "id": "18:267",
+      "variants": [
+        "18:251",
+        "18:259"
+      ]
+    },
+    {
+      "key": "resources",
+      "id": "18:284",
+      "variants": [
+        "18:268",
+        "18:276"
+      ]
+    }
+  ],
+  "review": {
+    "id": "18:285",
+    "width": 1312,
+    "height": 553
+  }
+}

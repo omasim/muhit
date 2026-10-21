@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import WorkspaceExtension from "../WorkspaceExtension.vue";
 import MuhitPage from "../MuhitPage.vue";
 import MuhitIcon from "../MuhitIcon.vue";
 import leaf from "muhit-ui/icons/leaf";
@@ -58,6 +59,7 @@ function theme() {
     </div>
     <MuhitGrid :title="title" selectable :selected="selected" :on-ready="g=>ready=g.getSelected().join(',')" v-if="visible" :columns="columns" :rows="rows" />
     <p v-else role="status">Tablo kaldırıldı.</p>
+    <WorkspaceExtension />
     <Integrations />
     <button @click="matrix=true">Open lifecycle matrix</button>
   </MuhitPage>

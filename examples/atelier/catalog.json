@@ -1,0 +1,217 @@
+{
+  "version": "atelier-03",
+  "status": "working-library-extension",
+  "brand": "Muhit 3.1",
+  "screens": [
+    {
+      "id": "discover",
+      "name": "Keşif",
+      "url": "index.html?screen=discover",
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ]
+    },
+    {
+      "id": "search",
+      "name": "Arama",
+      "url": "index.html?screen=search",
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ]
+    },
+    {
+      "id": "detail",
+      "name": "Detay",
+      "url": "index.html?screen=detail",
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ]
+    },
+    {
+      "id": "workspace",
+      "name": "Çalışma alanı",
+      "url": "index.html?screen=workspace",
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ]
+    },
+    {
+      "id": "project",
+      "name": "Proje yönetimi",
+      "url": "index.html?screen=project",
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ]
+    },
+    {
+      "id": "review",
+      "name": "AI inceleme",
+      "url": "index.html?screen=review",
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ]
+    },
+    {
+      "id": "collections",
+      "name": "Koleksiyonlar",
+      "url": "index.html?screen=collections",
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ]
+    },
+    {
+      "id": "team",
+      "name": "Ekip",
+      "url": "index.html?screen=team",
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "name": "Görünüm ayarları",
+      "url": "index.html?screen=settings",
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ]
+    },
+    {
+      "id": "notifications",
+      "name": "Bildirim merkezi",
+      "url": "index.html?screen=notifications",
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ]
+    },
+    {
+      "id": "activity",
+      "name": "Etkinlik akışı",
+      "url": "index.html?screen=activity",
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ]
+    },
+    {
+      "id": "resources",
+      "name": "Kaynak tarayıcısı",
+      "url": "index.html?screen=resources",
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "cards": [
+      "C01 İçerik",
+      "C02 Proje",
+      "C03 Kişi",
+      "C04 Kaynak",
+      "C05 Metrik",
+      "C06 AI öneri",
+      "C07 Yatay sonuç",
+      "C08 Seçim"
+    ],
+    "rows": [
+      "R01 Dosya",
+      "R02 Bildirim",
+      "R03 Aktivite",
+      "R04 Üye",
+      "R05 Görev",
+      "R06 Ayar"
+    ],
+    "sections": [
+      "S01 Editoryal giriş",
+      "S02 Başlık ve araçlar",
+      "S03 Liste grubu",
+      "S04 Karar ve bağlam",
+      "S05 Boş durum",
+      "S06 Editoryal ara"
+    ]
+  },
+  "scope": "Local development: reusable content module, 9 responsive screens, personalization; not published.",
+  "libraryEntry": "muhit-ui/content"
+}

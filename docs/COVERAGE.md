@@ -1,4 +1,4 @@
-# Muhit kapsam durumu · 0.18.0
+# Muhit kapsam durumu · 0.21.0-beta.1
 
 Bu dosya schemas/capabilities.json kaynağından üretilir. Paket, logo, tema ve agent şeması bağımsız sürümlenir.
 
@@ -26,7 +26,25 @@ Bu dosya schemas/capabilities.json kaynağından üretilir. Paket, logo, tema ve
 | Six runtime page recipes with DOM-preserving content states | Uygulandı |
 | Composition review, preview without side effects, approval and authorization hooks | Uygulandı |
 | Menu, popover, tooltip and tree keyboard/snapshot behavior | Uygulandı |
+| İçerik kartı, satır ve durum bölümü · beta, servis/persistence uygulamaya ait | Uygulandı |
+| Bildirim merkezi · beta, servis/persistence uygulamaya ait | Uygulandı |
+| Etkinlik akışı · beta, servis/persistence uygulamaya ait | Uygulandı |
+| Kaynak tarayıcısı · beta, servis/persistence uygulamaya ait | Uygulandı |
+| Uygulama kabuğu · beta, servis/persistence uygulamaya ait | Uygulandı |
+| Gelişmiş form · beta, servis/persistence uygulamaya ait | Uygulandı |
+| Kayıtlı filtreler · beta, servis/persistence uygulamaya ait | Uygulandı |
+| Dosya aktarım kuyruğu · beta, servis/persistence uygulamaya ait | Uygulandı |
+| Yorum ve inceleme · beta, servis/persistence uygulamaya ait | Uygulandı |
+| Ekip ve erişim · beta, servis/persistence uygulamaya ait | Uygulandı |
+| AI çalışma alanı · beta, servis/persistence uygulamaya ait | Uygulandı |
+| Analitik kompozisyonu · beta, servis/persistence uygulamaya ait | Uygulandı |
+| Çoklu aramalı seçim · beta, servis/persistence uygulamaya ait | Uygulandı |
+| Takvim/ajanda, kaynak çakışması · beta; UTC giriş, yerel saat dilimi gösterimi | Uygulandı |
+| Blok editörü, 30 yerel sürüm, 50 undo, blok karşılaştırması · beta | Uygulandı |
+| Bildirim gruplama/erteleme/teslim politikası · beta; gönderim servisi uygulamaya ait | Uygulandı |
+| Araştırma programı ve ekip proje alanı · yerel örnek sayfalar | Uygulandı |
+| 15 yeni Figma modül ailesi / 30 anatomi varyantı ve kod eşleştirmesi; native Code Connect yayını yok | Uygulandı |
 
 Agent şeması 1.1.0: 18 JSON türü. Yeni alan bağlantıları uygulama API’sidir; JSON içinde işlev çalıştırmaz. npm yayımlandı: hayır.
 
-Doğrulama: [VERIFICATION.md](VERIFICATION.md). Manuel sınırlar: [ACCESSIBILITY-MANUAL.md](ACCESSIBILITY-MANUAL.md). Geçiş/yayın: [RELEASE-POLICY.md](RELEASE-POLICY.md).
+Doğrulama: [Güncel sürüm ve rapor](CURRENT.md). Manuel sınırlar: [ACCESSIBILITY-MANUAL.md](ACCESSIBILITY-MANUAL.md). Geçiş/yayın: [RELEASE-POLICY.md](RELEASE-POLICY.md).

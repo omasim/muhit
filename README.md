@@ -1,3 +1,13 @@
+# Muhit 0.21.0-beta.1
+
+Veri yarışı ve taslak düzeltmeleri, sürümlü snapshot, açık saklama tercihi, TR/EN sayfalar ve servis referansı. [Geçiş](docs/MIGRATION-0.21.md) · [Entegrasyon](docs/INTEGRATION-0.21.md) · [Doğrulama](docs/VERIFICATION-0.21.md). Aşağıdaki sürümler tarihsel kayıttır.
+
+# Muhit 0.20.0-beta.1
+
+Takvim, blok belge düzenleyicisi, sürüm karşılaştırması, gruplu/ertelenebilir bildirimler ve iki sektör sayfası. [API ve sınırlar](docs/PLANNING-0.20.md) · [Doğrulama](docs/VERIFICATION-0.20.md) · [Tasarım–kod](docs/DESIGN-CODE-0.20.md). Önceki sürüm notları aşağıda tarihsel bağlamdır.
+
+> Güncel yerel sürüm: **0.19.0-beta.1**. [Ürün modülleri](docs/PRODUCT-SYSTEM-0.19.md), [geçiş](docs/MIGRATION-0.19.md) ve [test kapsamı](docs/VERIFICATION-0.19.md). Registry yayını yapılmadı.
+
 ## 0.12 · Muhit Icons ve sayfa yerleşim standardı
 
 [Çalışan dil/sütun örneği](examples/international.html) · [Sütun API](docs/COLUMN-LAYOUT.md) · [Dil API](docs/INTERNATIONALIZATION.md) · [Sürüm notları](CHANGELOG.md) · [Gelişmiş alanlar](examples/advanced.html) · [Görsel katalog](examples/visual-catalog.html)
@@ -224,3 +234,12 @@ Yeni bağımsız ESM girişleri: `muhit-ui/tokens`, `muhit-ui/flow`, `muhit-ui/p
 [Figma tasarım kaynağı](docs/FIGMA.md) · [Teknoloji ve entegrasyon](docs/SYSTEM-TECHNOLOGY.md) · [0.18 geçişi](docs/MIGRATION-0.18.md) · [Güncel kabul](docs/CURRENT.md)
 
 [System overview in English](docs/SYSTEM.en.md)
+
+## Geliştirme dalı: içerik aileleri ve Atölye 02
+
+Henüz yayımlanmamış `muhit-ui/content` kart/satır/bölüm API’si için [CONTENT.md](docs/CONTENT.md).
+[Atölye 02](examples/atelier/boards.html), dokuz ekranın mobil/masaüstü düzenlerini; koleksiyon, ekip ve görünüm tercihleriyle birlikte gösterir. Yeni örneklerdeki yerel saklama ve örnek veri sınırları [tasarım notlarında](examples/atelier/DESIGN.md) açıklanır.
+
+### Atölye 03 · çalışma alanı modülleri
+
+Bildirim merkezi, etkinlik akışı, kart/liste/tablo kaynak tarayıcısı ve ortak komut gezintisi eklendi. [API ve entegrasyon rehberi](docs/WORKSPACE-MODULES.md) · [Canlı örnek](examples/atelier/index.html?screen=resources). Bu ekler mevcut çalışma kopyasındadır; registry yayını yapılmadı.

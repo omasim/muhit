@@ -40,3 +40,7 @@ Her ortam için ayrı kopyalayın; otomatik test sonucu bu tabloyu doldurmaz.
 | Sonuç / bulgu / kayıt bağlantısı | Bekliyor |
 
 Yeni başlık API'sinde sayfa h1 → widget h2 → alt bölüm h3 gezinmesini kontrol edin. `A → B` ve `10 × 20` etiketlerinin metin olarak korunduğunu, dekoratif simgelerin tekrar okunmadığını doğrulayın. Dil değişimi sırasında bekleyen kayıt iptal edildiğinde yanlış başarı duyurusu oluşmamalı.
+
+## 0.19 beta — manuel kabul bekliyor
+
+Çoklu combobox aktif seçenek/seçim, hata özetinden alana odak, upload ilerleme/iptal, AI akışını durdurma ve mobil shell navigasyonu gerçek VoiceOver/NVDA/JAWS ile dinlenmeli. Fiziksel iOS/Android 44 px hedef ve büyütme kabulü henüz yapılmadı. Otomatik sonuçlar VERIFICATION-0.19.md içinde ayrı tutulur.

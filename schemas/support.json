@@ -1,0 +1,29 @@
+{
+  "packageVersion": "0.21.0-beta.1",
+  "status": "beta",
+  "runtimeNode": ">=18",
+  "publicTypedEntries": 87,
+  "exampleDependencies": {
+    "react": {
+      "muhit-ui": "file:../..",
+      "react": "19.2.0",
+      "react-dom": "19.2.0"
+    },
+    "vue": {
+      "muhit-ui": "file:../..",
+      "vue": "3.5.44"
+    }
+  },
+  "browserTargets": [
+    "chromium",
+    "firefox",
+    "webkit"
+  ],
+  "manualAcceptance": [
+    "screen-reader",
+    "physical-ios",
+    "physical-android"
+  ],
+  "agentKinds": 18,
+  "contractCount": 46
+}

@@ -1,0 +1,7 @@
+{
+  "date": "2026-10-21T21:49:31.058Z",
+  "scans": [],
+  "flows": [],
+  "errors": [],
+  "failure": "Firefox launch timeout: RenderCompositorSWGL framebuffer failure and macOS sandbox extension errors. No browser tests executed."
+}

@@ -1,0 +1,166 @@
+{
+  "version": "0.21.0-beta.1",
+  "status": "beta",
+  "basePackageVersion": "0.21.0-beta.1",
+  "recordLimit": 500,
+  "locales": [
+    "BCP47 via MuhitI18n; TR/EN built-in, custom dictionaries"
+  ],
+  "directions": [
+    "ltr",
+    "rtl"
+  ],
+  "modules": [
+    {
+      "id": "content",
+      "entry": "muhit-ui/content",
+      "mount": "mountCard",
+      "persistence": "application-owned",
+      "renderableByAgent18": false
+    },
+    {
+      "id": "inbox",
+      "entry": "muhit-ui/inbox",
+      "mount": "mountInbox",
+      "persistence": "application-owned",
+      "renderableByAgent18": false
+    },
+    {
+      "id": "activity",
+      "entry": "muhit-ui/activity",
+      "mount": "mountActivity",
+      "persistence": "application-owned",
+      "renderableByAgent18": false
+    },
+    {
+      "id": "resources",
+      "entry": "muhit-ui/resources",
+      "mount": "mountResources",
+      "persistence": "application-owned",
+      "renderableByAgent18": false
+    },
+    {
+      "id": "shell",
+      "entry": "muhit-ui/shell",
+      "mount": "mountShell",
+      "persistence": "application-owned",
+      "renderableByAgent18": false
+    },
+    {
+      "id": "advanced-form",
+      "entry": "muhit-ui/product",
+      "mount": "mountAdvancedForm",
+      "persistence": "application-owned",
+      "renderableByAgent18": false
+    },
+    {
+      "id": "saved-filters",
+      "entry": "muhit-ui/product",
+      "mount": "mountSavedFilters",
+      "persistence": "application-owned",
+      "renderableByAgent18": false
+    },
+    {
+      "id": "uploads",
+      "entry": "muhit-ui/product",
+      "mount": "mountUploads",
+      "persistence": "application-owned",
+      "renderableByAgent18": false
+    },
+    {
+      "id": "discussion",
+      "entry": "muhit-ui/product",
+      "mount": "mountDiscussion",
+      "persistence": "application-owned",
+      "renderableByAgent18": false
+    },
+    {
+      "id": "access",
+      "entry": "muhit-ui/product",
+      "mount": "mountAccess",
+      "persistence": "application-owned",
+      "renderableByAgent18": false
+    },
+    {
+      "id": "assistant",
+      "entry": "muhit-ui/product",
+      "mount": "mountAssistant",
+      "persistence": "application-owned",
+      "renderableByAgent18": false
+    },
+    {
+      "id": "analytics",
+      "entry": "muhit-ui/product",
+      "mount": "mountAnalytics",
+      "persistence": "application-owned",
+      "renderableByAgent18": false
+    },
+    {
+      "id": "multi-combobox",
+      "entry": "muhit-ui/product",
+      "mount": "mountMultiCombobox",
+      "persistence": "application-owned",
+      "renderableByAgent18": false
+    },
+    {
+      "id": "calendar",
+      "entry": "muhit-ui/planning",
+      "mount": "mountCalendar",
+      "persistence": "application-owned",
+      "renderableByAgent18": false,
+      "dataSchema": "schemas/planning.schema.json#/$defs/event",
+      "runtimeValidator": "validateEvents",
+      "actions": [
+        "select-day",
+        "create-local-event",
+        "request-save",
+        "cancel"
+      ],
+      "authorization": "External writes require application authorization; render or callback invocation is not user consent.",
+      "transport": "Application-owned AbortSignal adapter; explicit persisted:true acknowledgment."
+    },
+    {
+      "id": "document-editor",
+      "entry": "muhit-ui/planning",
+      "mount": "mountDocumentEditor",
+      "persistence": "application-owned",
+      "renderableByAgent18": false,
+      "dataSchema": "schemas/planning.schema.json#/$defs/documentDraft",
+      "runtimeValidator": "validateDocumentDraft",
+      "actions": [
+        "edit-draft",
+        "checkpoint",
+        "restore-version",
+        "request-save",
+        "cancel"
+      ],
+      "authorization": "External writes require application authorization; render or callback invocation is not user consent.",
+      "transport": "Application-owned AbortSignal adapter; explicit persisted:true acknowledgment."
+    },
+    {
+      "id": "notification-center",
+      "entry": "muhit-ui/planning",
+      "mount": "mountNotificationCenter",
+      "persistence": "application-owned",
+      "renderableByAgent18": false,
+      "dataSchema": "schemas/planning.schema.json#/$defs/notificationPreferences",
+      "runtimeValidator": "validateNotificationPreferences",
+      "actions": [
+        "mark-read",
+        "archive",
+        "snooze",
+        "undo",
+        "request-preferences-save",
+        "cancel"
+      ],
+      "authorization": "External writes require application authorization; render or callback invocation is not user consent.",
+      "transport": "Application-owned AbortSignal adapter; explicit persisted:true acknowledgment."
+    }
+  ],
+  "agentBoundary": {
+    "input": "Strict JSON records; unknown fields rejected; canonical UTC dates required",
+    "callbacks": "Trusted application code only; do not evaluate generated strings",
+    "sideEffects": "Local state only; server authorization and persistence belong to consumer",
+    "claims": "Do not report saved or published without server confirmation"
+  }
+}

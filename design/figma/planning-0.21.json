@@ -1,0 +1,245 @@
+{
+  "version": "0.21.0-beta.1",
+  "fileKey": "PllwZjMHfzcRJfEoMrMJkg",
+  "families": [
+    {
+      "key": "calendar",
+      "id": "20:1385",
+      "variants": [
+        {
+          "id": "20:29",
+          "name": "Width=360, State=Content",
+          "width": 360,
+          "height": 1120
+        },
+        {
+          "id": "20:142",
+          "name": "Width=360, State=Focus",
+          "width": 360,
+          "height": 1124
+        },
+        {
+          "id": "20:255",
+          "name": "Width=360, State=ActionDisabled",
+          "width": 360,
+          "height": 1120
+        },
+        {
+          "id": "20:368",
+          "name": "Width=360, State=Loading",
+          "width": 360,
+          "height": 1120
+        },
+        {
+          "id": "20:481",
+          "name": "Width=360, State=Partial",
+          "width": 360,
+          "height": 1120
+        },
+        {
+          "id": "20:594",
+          "name": "Width=360, State=Error",
+          "width": 360,
+          "height": 1120
+        },
+        {
+          "id": "20:707",
+          "name": "Width=800, State=Content",
+          "width": 800,
+          "height": 996
+        },
+        {
+          "id": "20:820",
+          "name": "Width=800, State=Focus",
+          "width": 800,
+          "height": 1000
+        },
+        {
+          "id": "20:933",
+          "name": "Width=800, State=ActionDisabled",
+          "width": 800,
+          "height": 996
+        },
+        {
+          "id": "20:1046",
+          "name": "Width=800, State=Loading",
+          "width": 800,
+          "height": 996
+        },
+        {
+          "id": "20:1159",
+          "name": "Width=800, State=Partial",
+          "width": 800,
+          "height": 996
+        },
+        {
+          "id": "20:1272",
+          "name": "Width=800, State=Error",
+          "width": 800,
+          "height": 996
+        }
+      ]
+    },
+    {
+      "key": "document-editor",
+      "id": "20:1794",
+      "variants": [
+        {
+          "id": "20:1386",
+          "name": "Width=360, State=Content",
+          "width": 360,
+          "height": 826
+        },
+        {
+          "id": "20:1420",
+          "name": "Width=360, State=Focus",
+          "width": 360,
+          "height": 830
+        },
+        {
+          "id": "20:1454",
+          "name": "Width=360, State=ActionDisabled",
+          "width": 360,
+          "height": 826
+        },
+        {
+          "id": "20:1488",
+          "name": "Width=360, State=Loading",
+          "width": 360,
+          "height": 826
+        },
+        {
+          "id": "20:1522",
+          "name": "Width=360, State=Partial",
+          "width": 360,
+          "height": 826
+        },
+        {
+          "id": "20:1556",
+          "name": "Width=360, State=Error",
+          "width": 360,
+          "height": 826
+        },
+        {
+          "id": "20:1590",
+          "name": "Width=800, State=Content",
+          "width": 800,
+          "height": 604
+        },
+        {
+          "id": "20:1624",
+          "name": "Width=800, State=Focus",
+          "width": 800,
+          "height": 608
+        },
+        {
+          "id": "20:1658",
+          "name": "Width=800, State=ActionDisabled",
+          "width": 800,
+          "height": 604
+        },
+        {
+          "id": "20:1692",
+          "name": "Width=800, State=Loading",
+          "width": 800,
+          "height": 604
+        },
+        {
+          "id": "20:1726",
+          "name": "Width=800, State=Partial",
+          "width": 800,
+          "height": 604
+        },
+        {
+          "id": "20:1760",
+          "name": "Width=800, State=Error",
+          "width": 800,
+          "height": 604
+        }
+      ]
+    },
+    {
+      "key": "notification-center",
+      "id": "20:2131",
+      "variants": [
+        {
+          "id": "20:1795",
+          "name": "Width=360, State=Content",
+          "width": 360,
+          "height": 865
+        },
+        {
+          "id": "20:1823",
+          "name": "Width=360, State=Focus",
+          "width": 360,
+          "height": 869
+        },
+        {
+          "id": "20:1851",
+          "name": "Width=360, State=ActionDisabled",
+          "width": 360,
+          "height": 865
+        },
+        {
+          "id": "20:1879",
+          "name": "Width=360, State=Loading",
+          "width": 360,
+          "height": 865
+        },
+        {
+          "id": "20:1907",
+          "name": "Width=360, State=Partial",
+          "width": 360,
+          "height": 865
+        },
+        {
+          "id": "20:1935",
+          "name": "Width=360, State=Error",
+          "width": 360,
+          "height": 865
+        },
+        {
+          "id": "20:1963",
+          "name": "Width=800, State=Content",
+          "width": 800,
+          "height": 805
+        },
+        {
+          "id": "20:1991",
+          "name": "Width=800, State=Focus",
+          "width": 800,
+          "height": 809
+        },
+        {
+          "id": "20:2019",
+          "name": "Width=800, State=ActionDisabled",
+          "width": 800,
+          "height": 805
+        },
+        {
+          "id": "20:2047",
+          "name": "Width=800, State=Loading",
+          "width": 800,
+          "height": 805
+        },
+        {
+          "id": "20:2075",
+          "name": "Width=800, State=Partial",
+          "width": 800,
+          "height": 805
+        },
+        {
+          "id": "20:2103",
+          "name": "Width=800, State=Error",
+          "width": 800,
+          "height": 805
+        }
+      ]
+    }
+  ],
+  "review": {
+    "id": "20:2132",
+    "width": 1176,
+    "height": 1168
+  }
+}

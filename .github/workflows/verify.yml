@@ -23,6 +23,13 @@ jobs:
       - run: node tools/record-test.mjs npm run test:foundations
         env:
           MUHIT_BROWSER: ${{ matrix.browser }}
+      - run: node tools/record-test.mjs npm run test:workspace
+      - run: node tools/record-test.mjs npm run test:planning
+      - run: node tools/record-test.mjs npm run test:readiness
+      - if: matrix.browser == 'chromium'
+        run: node tools/record-test.mjs npm run test:integration
+      - if: matrix.browser == 'chromium'
+        run: node tools/record-test.mjs npm run test:packed-planning
       - run: node tools/record-test.mjs npm run test:system
       - run: node tools/record-test.mjs npm run test:principles
       - run: node tools/record-test.mjs npm run test:p3

@@ -1,3 +1,4 @@
+import {WorkspaceExtension} from '../WorkspaceExtension';
 import {MuhitPage} from '../MuhitPage';
 import {MuhitIcon} from '../MuhitIcon';
 import leaf from 'muhit-ui/icons/leaf';
@@ -80,6 +81,7 @@ export default function App() {
       ) : (
         <p role="status">Tablo kaldırıldı.</p>
       )}
+      <WorkspaceExtension />
       <Integrations />
       <button onClick={()=>setMatrix(true)}>Open lifecycle matrix</button>
     </MuhitPage>

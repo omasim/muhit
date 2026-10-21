@@ -1,5 +1,5 @@
 {
-  "packageVersion": "0.18.0",
+  "packageVersion": "0.21.0-beta.1",
   "themeSchema": 1,
   "agentSchema": "1.1.0",
   "agentComponentCount": 18,
@@ -114,6 +114,96 @@
       "id": "system-primitives",
       "status": "implemented",
       "label": "Menu, popover, tooltip and tree keyboard/snapshot behavior"
+    },
+    {
+      "id": "workspace19-content",
+      "status": "implemented",
+      "label": "İçerik kartı, satır ve durum bölümü · beta, servis/persistence uygulamaya ait"
+    },
+    {
+      "id": "workspace19-inbox",
+      "status": "implemented",
+      "label": "Bildirim merkezi · beta, servis/persistence uygulamaya ait"
+    },
+    {
+      "id": "workspace19-activity",
+      "status": "implemented",
+      "label": "Etkinlik akışı · beta, servis/persistence uygulamaya ait"
+    },
+    {
+      "id": "workspace19-resources",
+      "status": "implemented",
+      "label": "Kaynak tarayıcısı · beta, servis/persistence uygulamaya ait"
+    },
+    {
+      "id": "workspace19-shell",
+      "status": "implemented",
+      "label": "Uygulama kabuğu · beta, servis/persistence uygulamaya ait"
+    },
+    {
+      "id": "workspace19-advanced-form",
+      "status": "implemented",
+      "label": "Gelişmiş form · beta, servis/persistence uygulamaya ait"
+    },
+    {
+      "id": "workspace19-saved-filters",
+      "status": "implemented",
+      "label": "Kayıtlı filtreler · beta, servis/persistence uygulamaya ait"
+    },
+    {
+      "id": "workspace19-uploads",
+      "status": "implemented",
+      "label": "Dosya aktarım kuyruğu · beta, servis/persistence uygulamaya ait"
+    },
+    {
+      "id": "workspace19-discussion",
+      "status": "implemented",
+      "label": "Yorum ve inceleme · beta, servis/persistence uygulamaya ait"
+    },
+    {
+      "id": "workspace19-access",
+      "status": "implemented",
+      "label": "Ekip ve erişim · beta, servis/persistence uygulamaya ait"
+    },
+    {
+      "id": "workspace19-assistant",
+      "status": "implemented",
+      "label": "AI çalışma alanı · beta, servis/persistence uygulamaya ait"
+    },
+    {
+      "id": "workspace19-analytics",
+      "status": "implemented",
+      "label": "Analitik kompozisyonu · beta, servis/persistence uygulamaya ait"
+    },
+    {
+      "id": "workspace19-multi-combobox",
+      "status": "implemented",
+      "label": "Çoklu aramalı seçim · beta, servis/persistence uygulamaya ait"
+    },
+    {
+      "id": "planning20-calendar",
+      "status": "implemented",
+      "label": "Takvim/ajanda, kaynak çakışması · beta; UTC giriş, yerel saat dilimi gösterimi"
+    },
+    {
+      "id": "planning20-document",
+      "status": "implemented",
+      "label": "Blok editörü, 30 yerel sürüm, 50 undo, blok karşılaştırması · beta"
+    },
+    {
+      "id": "planning20-notifications",
+      "status": "implemented",
+      "label": "Bildirim gruplama/erteleme/teslim politikası · beta; gönderim servisi uygulamaya ait"
+    },
+    {
+      "id": "planning20-sector-pages",
+      "status": "implemented",
+      "label": "Araştırma programı ve ekip proje alanı · yerel örnek sayfalar"
+    },
+    {
+      "id": "planning20-figma",
+      "status": "implemented",
+      "label": "15 yeni Figma modül ailesi / 30 anatomi varyantı ve kod eşleştirmesi; native Code Connect yayını yok"
     }
   ]
 }

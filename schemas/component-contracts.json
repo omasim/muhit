@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "packageVersion": "0.18.0",
+  "packageVersion": "0.21.0-beta.1",
   "contracts": [
     {
       "id": "card",
@@ -1408,6 +1408,725 @@
       ],
       "docs": "SYSTEM-COMPONENTS.md",
       "acceptance": [
+        "browser",
+        "axe",
+        "manual-screen-reader-pending"
+      ]
+    },
+    {
+      "id": "content",
+      "layer": "module",
+      "status": "beta",
+      "owner": "Muhit maintainers",
+      "purpose": "İçerik kartı, satır ve durum bölümü",
+      "anatomy": [
+        "heading",
+        "controls",
+        "content",
+        "feedback"
+      ],
+      "api": {
+        "entry": "muhit-ui/content",
+        "mount": "mountCard",
+        "types": "types/content.d.ts"
+      },
+      "variants": [],
+      "states": [
+        "content",
+        "loading",
+        "empty",
+        "error",
+        "partial"
+      ],
+      "behavior": "Validate data, expose service boundary, preserve drafts on failure. See module-specific limits.",
+      "stateOwner": "Application owns transport, permissions and persistence; module owns view state.",
+      "responsive": "Semantic tokens, logical direction, mobile reflow; no global reset.",
+      "lifecycle": "Mount explicitly; destroy listeners and abort pending work.",
+      "accessibility": [
+        "native controls",
+        "visible focus",
+        "meaningful labels",
+        "keyboard alternatives",
+        "manual acceptance pending"
+      ],
+      "docs": "PRODUCT-SYSTEM-0.19.md",
+      "acceptance": [
+        "unit",
+        "packed-runtime",
+        "browser",
+        "axe",
+        "framework-consumer",
+        "manual-screen-reader-pending"
+      ]
+    },
+    {
+      "id": "inbox",
+      "layer": "module",
+      "status": "beta",
+      "owner": "Muhit maintainers",
+      "purpose": "Bildirim merkezi",
+      "anatomy": [
+        "heading",
+        "controls",
+        "content",
+        "feedback"
+      ],
+      "api": {
+        "entry": "muhit-ui/inbox",
+        "mount": "mountInbox",
+        "types": "types/inbox.d.ts"
+      },
+      "variants": [],
+      "states": [
+        "content",
+        "empty",
+        "error",
+        "cancelled"
+      ],
+      "behavior": "Validate data, expose service boundary, preserve drafts on failure. See module-specific limits.",
+      "stateOwner": "Application owns transport, permissions and persistence; module owns view state.",
+      "responsive": "Semantic tokens, logical direction, mobile reflow; no global reset.",
+      "lifecycle": "Mount explicitly; destroy listeners and abort pending work.",
+      "accessibility": [
+        "native controls",
+        "visible focus",
+        "meaningful labels",
+        "keyboard alternatives",
+        "manual acceptance pending"
+      ],
+      "docs": "PRODUCT-SYSTEM-0.19.md",
+      "acceptance": [
+        "unit",
+        "packed-runtime",
+        "browser",
+        "axe",
+        "framework-consumer",
+        "manual-screen-reader-pending"
+      ]
+    },
+    {
+      "id": "activity",
+      "layer": "module",
+      "status": "beta",
+      "owner": "Muhit maintainers",
+      "purpose": "Etkinlik akışı",
+      "anatomy": [
+        "heading",
+        "controls",
+        "content",
+        "feedback"
+      ],
+      "api": {
+        "entry": "muhit-ui/activity",
+        "mount": "mountActivity",
+        "types": "types/activity.d.ts"
+      },
+      "variants": [],
+      "states": [
+        "content",
+        "empty",
+        "error",
+        "cancelled"
+      ],
+      "behavior": "Validate data, expose service boundary, preserve drafts on failure. See module-specific limits.",
+      "stateOwner": "Application owns transport, permissions and persistence; module owns view state.",
+      "responsive": "Semantic tokens, logical direction, mobile reflow; no global reset.",
+      "lifecycle": "Mount explicitly; destroy listeners and abort pending work.",
+      "accessibility": [
+        "native controls",
+        "visible focus",
+        "meaningful labels",
+        "keyboard alternatives",
+        "manual acceptance pending"
+      ],
+      "docs": "PRODUCT-SYSTEM-0.19.md",
+      "acceptance": [
+        "unit",
+        "packed-runtime",
+        "browser",
+        "axe",
+        "framework-consumer",
+        "manual-screen-reader-pending"
+      ]
+    },
+    {
+      "id": "resources",
+      "layer": "module",
+      "status": "beta",
+      "owner": "Muhit maintainers",
+      "purpose": "Kaynak tarayıcısı",
+      "anatomy": [
+        "heading",
+        "controls",
+        "content",
+        "feedback"
+      ],
+      "api": {
+        "entry": "muhit-ui/resources",
+        "mount": "mountResources",
+        "types": "types/resources.d.ts"
+      },
+      "variants": [],
+      "states": [
+        "content",
+        "empty",
+        "error",
+        "cancelled"
+      ],
+      "behavior": "Validate data, expose service boundary, preserve drafts on failure. See module-specific limits.",
+      "stateOwner": "Application owns transport, permissions and persistence; module owns view state.",
+      "responsive": "Semantic tokens, logical direction, mobile reflow; no global reset.",
+      "lifecycle": "Mount explicitly; destroy listeners and abort pending work.",
+      "accessibility": [
+        "native controls",
+        "visible focus",
+        "meaningful labels",
+        "keyboard alternatives",
+        "manual acceptance pending"
+      ],
+      "docs": "PRODUCT-SYSTEM-0.19.md",
+      "acceptance": [
+        "unit",
+        "packed-runtime",
+        "browser",
+        "axe",
+        "framework-consumer",
+        "manual-screen-reader-pending"
+      ]
+    },
+    {
+      "id": "shell",
+      "layer": "composition",
+      "status": "beta",
+      "owner": "Muhit maintainers",
+      "purpose": "Uygulama kabuğu",
+      "anatomy": [
+        "heading",
+        "controls",
+        "content",
+        "feedback"
+      ],
+      "api": {
+        "entry": "muhit-ui/shell",
+        "mount": "mountShell",
+        "types": "types/shell.d.ts"
+      },
+      "variants": [],
+      "states": [
+        "content",
+        "loading",
+        "empty",
+        "error",
+        "partial"
+      ],
+      "behavior": "Validate data, expose service boundary, preserve drafts on failure. See module-specific limits.",
+      "stateOwner": "Application owns transport, permissions and persistence; module owns view state.",
+      "responsive": "Semantic tokens, logical direction, mobile reflow; no global reset.",
+      "lifecycle": "Mount explicitly; destroy listeners and abort pending work.",
+      "accessibility": [
+        "native controls",
+        "visible focus",
+        "meaningful labels",
+        "keyboard alternatives",
+        "manual acceptance pending"
+      ],
+      "docs": "PRODUCT-SYSTEM-0.19.md",
+      "acceptance": [
+        "unit",
+        "packed-runtime",
+        "browser",
+        "axe",
+        "framework-consumer",
+        "manual-screen-reader-pending"
+      ]
+    },
+    {
+      "id": "advanced-form",
+      "layer": "module",
+      "status": "beta",
+      "owner": "Muhit maintainers",
+      "purpose": "Gelişmiş form",
+      "anatomy": [
+        "heading",
+        "controls",
+        "content",
+        "feedback"
+      ],
+      "api": {
+        "entry": "muhit-ui/product",
+        "mount": "mountAdvancedForm",
+        "types": "types/product.d.ts"
+      },
+      "variants": [],
+      "states": [
+        "content",
+        "empty",
+        "error",
+        "cancelled"
+      ],
+      "behavior": "Validate data, expose service boundary, preserve drafts on failure. See module-specific limits.",
+      "stateOwner": "Application owns transport, permissions and persistence; module owns view state.",
+      "responsive": "Semantic tokens, logical direction, mobile reflow; no global reset.",
+      "lifecycle": "Mount explicitly; destroy listeners and abort pending work.",
+      "accessibility": [
+        "native controls",
+        "visible focus",
+        "meaningful labels",
+        "keyboard alternatives",
+        "manual acceptance pending"
+      ],
+      "docs": "PRODUCT-SYSTEM-0.19.md",
+      "acceptance": [
+        "unit",
+        "packed-runtime",
+        "browser",
+        "axe",
+        "framework-consumer",
+        "manual-screen-reader-pending"
+      ]
+    },
+    {
+      "id": "saved-filters",
+      "layer": "module",
+      "status": "beta",
+      "owner": "Muhit maintainers",
+      "purpose": "Kayıtlı filtreler",
+      "anatomy": [
+        "heading",
+        "controls",
+        "content",
+        "feedback"
+      ],
+      "api": {
+        "entry": "muhit-ui/product",
+        "mount": "mountSavedFilters",
+        "types": "types/product.d.ts"
+      },
+      "variants": [],
+      "states": [
+        "content",
+        "empty",
+        "error",
+        "cancelled"
+      ],
+      "behavior": "Validate data, expose service boundary, preserve drafts on failure. See module-specific limits.",
+      "stateOwner": "Application owns transport, permissions and persistence; module owns view state.",
+      "responsive": "Semantic tokens, logical direction, mobile reflow; no global reset.",
+      "lifecycle": "Mount explicitly; destroy listeners and abort pending work.",
+      "accessibility": [
+        "native controls",
+        "visible focus",
+        "meaningful labels",
+        "keyboard alternatives",
+        "manual acceptance pending"
+      ],
+      "docs": "PRODUCT-SYSTEM-0.19.md",
+      "acceptance": [
+        "unit",
+        "packed-runtime",
+        "browser",
+        "axe",
+        "framework-consumer",
+        "manual-screen-reader-pending"
+      ]
+    },
+    {
+      "id": "uploads",
+      "layer": "module",
+      "status": "beta",
+      "owner": "Muhit maintainers",
+      "purpose": "Dosya aktarım kuyruğu",
+      "anatomy": [
+        "heading",
+        "controls",
+        "content",
+        "feedback"
+      ],
+      "api": {
+        "entry": "muhit-ui/product",
+        "mount": "mountUploads",
+        "types": "types/product.d.ts"
+      },
+      "variants": [],
+      "states": [
+        "content",
+        "empty",
+        "error",
+        "cancelled"
+      ],
+      "behavior": "Validate data, expose service boundary, preserve drafts on failure. See module-specific limits.",
+      "stateOwner": "Application owns transport, permissions and persistence; module owns view state.",
+      "responsive": "Semantic tokens, logical direction, mobile reflow; no global reset.",
+      "lifecycle": "Mount explicitly; destroy listeners and abort pending work.",
+      "accessibility": [
+        "native controls",
+        "visible focus",
+        "meaningful labels",
+        "keyboard alternatives",
+        "manual acceptance pending"
+      ],
+      "docs": "PRODUCT-SYSTEM-0.19.md",
+      "acceptance": [
+        "unit",
+        "packed-runtime",
+        "browser",
+        "axe",
+        "framework-consumer",
+        "manual-screen-reader-pending"
+      ]
+    },
+    {
+      "id": "discussion",
+      "layer": "module",
+      "status": "beta",
+      "owner": "Muhit maintainers",
+      "purpose": "Yorum ve inceleme",
+      "anatomy": [
+        "heading",
+        "controls",
+        "content",
+        "feedback"
+      ],
+      "api": {
+        "entry": "muhit-ui/product",
+        "mount": "mountDiscussion",
+        "types": "types/product.d.ts"
+      },
+      "variants": [],
+      "states": [
+        "content",
+        "empty",
+        "error",
+        "cancelled"
+      ],
+      "behavior": "Validate data, expose service boundary, preserve drafts on failure. See module-specific limits.",
+      "stateOwner": "Application owns transport, permissions and persistence; module owns view state.",
+      "responsive": "Semantic tokens, logical direction, mobile reflow; no global reset.",
+      "lifecycle": "Mount explicitly; destroy listeners and abort pending work.",
+      "accessibility": [
+        "native controls",
+        "visible focus",
+        "meaningful labels",
+        "keyboard alternatives",
+        "manual acceptance pending"
+      ],
+      "docs": "PRODUCT-SYSTEM-0.19.md",
+      "acceptance": [
+        "unit",
+        "packed-runtime",
+        "browser",
+        "axe",
+        "framework-consumer",
+        "manual-screen-reader-pending"
+      ]
+    },
+    {
+      "id": "access",
+      "layer": "module",
+      "status": "beta",
+      "owner": "Muhit maintainers",
+      "purpose": "Ekip ve erişim",
+      "anatomy": [
+        "heading",
+        "controls",
+        "content",
+        "feedback"
+      ],
+      "api": {
+        "entry": "muhit-ui/product",
+        "mount": "mountAccess",
+        "types": "types/product.d.ts"
+      },
+      "variants": [],
+      "states": [
+        "content",
+        "empty",
+        "error",
+        "cancelled"
+      ],
+      "behavior": "Validate data, expose service boundary, preserve drafts on failure. See module-specific limits.",
+      "stateOwner": "Application owns transport, permissions and persistence; module owns view state.",
+      "responsive": "Semantic tokens, logical direction, mobile reflow; no global reset.",
+      "lifecycle": "Mount explicitly; destroy listeners and abort pending work.",
+      "accessibility": [
+        "native controls",
+        "visible focus",
+        "meaningful labels",
+        "keyboard alternatives",
+        "manual acceptance pending"
+      ],
+      "docs": "PRODUCT-SYSTEM-0.19.md",
+      "acceptance": [
+        "unit",
+        "packed-runtime",
+        "browser",
+        "axe",
+        "framework-consumer",
+        "manual-screen-reader-pending"
+      ]
+    },
+    {
+      "id": "assistant",
+      "layer": "module",
+      "status": "beta",
+      "owner": "Muhit maintainers",
+      "purpose": "AI çalışma alanı",
+      "anatomy": [
+        "heading",
+        "controls",
+        "content",
+        "feedback"
+      ],
+      "api": {
+        "entry": "muhit-ui/product",
+        "mount": "mountAssistant",
+        "types": "types/product.d.ts"
+      },
+      "variants": [],
+      "states": [
+        "content",
+        "empty",
+        "error",
+        "cancelled"
+      ],
+      "behavior": "Validate data, expose service boundary, preserve drafts on failure. See module-specific limits.",
+      "stateOwner": "Application owns transport, permissions and persistence; module owns view state.",
+      "responsive": "Semantic tokens, logical direction, mobile reflow; no global reset.",
+      "lifecycle": "Mount explicitly; destroy listeners and abort pending work.",
+      "accessibility": [
+        "native controls",
+        "visible focus",
+        "meaningful labels",
+        "keyboard alternatives",
+        "manual acceptance pending"
+      ],
+      "docs": "PRODUCT-SYSTEM-0.19.md",
+      "acceptance": [
+        "unit",
+        "packed-runtime",
+        "browser",
+        "axe",
+        "framework-consumer",
+        "manual-screen-reader-pending"
+      ]
+    },
+    {
+      "id": "analytics",
+      "layer": "module",
+      "status": "beta",
+      "owner": "Muhit maintainers",
+      "purpose": "Analitik kompozisyonu",
+      "anatomy": [
+        "heading",
+        "controls",
+        "content",
+        "feedback"
+      ],
+      "api": {
+        "entry": "muhit-ui/product",
+        "mount": "mountAnalytics",
+        "types": "types/product.d.ts"
+      },
+      "variants": [],
+      "states": [
+        "content",
+        "empty",
+        "error",
+        "cancelled"
+      ],
+      "behavior": "Validate data, expose service boundary, preserve drafts on failure. See module-specific limits.",
+      "stateOwner": "Application owns transport, permissions and persistence; module owns view state.",
+      "responsive": "Semantic tokens, logical direction, mobile reflow; no global reset.",
+      "lifecycle": "Mount explicitly; destroy listeners and abort pending work.",
+      "accessibility": [
+        "native controls",
+        "visible focus",
+        "meaningful labels",
+        "keyboard alternatives",
+        "manual acceptance pending"
+      ],
+      "docs": "PRODUCT-SYSTEM-0.19.md",
+      "acceptance": [
+        "unit",
+        "packed-runtime",
+        "browser",
+        "axe",
+        "framework-consumer",
+        "manual-screen-reader-pending"
+      ]
+    },
+    {
+      "id": "multi-combobox",
+      "layer": "module",
+      "status": "beta",
+      "owner": "Muhit maintainers",
+      "purpose": "Çoklu aramalı seçim",
+      "anatomy": [
+        "heading",
+        "controls",
+        "content",
+        "feedback"
+      ],
+      "api": {
+        "entry": "muhit-ui/product",
+        "mount": "mountMultiCombobox",
+        "types": "types/product.d.ts"
+      },
+      "variants": [],
+      "states": [
+        "content",
+        "empty",
+        "error",
+        "cancelled"
+      ],
+      "behavior": "Validate data, expose service boundary, preserve drafts on failure. See module-specific limits.",
+      "stateOwner": "Application owns transport, permissions and persistence; module owns view state.",
+      "responsive": "Semantic tokens, logical direction, mobile reflow; no global reset.",
+      "lifecycle": "Mount explicitly; destroy listeners and abort pending work.",
+      "accessibility": [
+        "native controls",
+        "visible focus",
+        "meaningful labels",
+        "keyboard alternatives",
+        "manual acceptance pending"
+      ],
+      "docs": "PRODUCT-SYSTEM-0.19.md",
+      "acceptance": [
+        "unit",
+        "packed-runtime",
+        "browser",
+        "axe",
+        "framework-consumer",
+        "manual-screen-reader-pending"
+      ]
+    },
+    {
+      "id": "calendar",
+      "layer": "module",
+      "status": "beta",
+      "owner": "Muhit maintainers",
+      "purpose": "Takvim, kaynak çakışması ve ajanda",
+      "anatomy": [
+        "heading",
+        "controls",
+        "content",
+        "feedback"
+      ],
+      "api": {
+        "entry": "muhit-ui/planning",
+        "mount": "mountCalendar",
+        "types": "types/planning.d.ts"
+      },
+      "variants": [],
+      "states": [
+        "content",
+        "empty",
+        "error",
+        "cancelled"
+      ],
+      "behavior": "Validate data, expose service boundary, preserve drafts on failure. See module-specific limits.",
+      "stateOwner": "Application owns transport, permissions and persistence; module owns view state.",
+      "responsive": "Semantic tokens, logical direction, mobile reflow; no global reset.",
+      "lifecycle": "Mount explicitly; destroy listeners and abort pending work.",
+      "accessibility": [
+        "native controls",
+        "visible focus",
+        "meaningful labels",
+        "keyboard alternatives",
+        "manual acceptance pending"
+      ],
+      "docs": "PLANNING-0.20.md",
+      "acceptance": [
+        "unit",
+        "packed-runtime",
+        "browser",
+        "axe",
+        "manual-screen-reader-pending"
+      ]
+    },
+    {
+      "id": "document-editor",
+      "layer": "module",
+      "status": "beta",
+      "owner": "Muhit maintainers",
+      "purpose": "Blok editörü, sürüm geçmişi ve karşılaştırma",
+      "anatomy": [
+        "heading",
+        "controls",
+        "content",
+        "feedback"
+      ],
+      "api": {
+        "entry": "muhit-ui/planning",
+        "mount": "mountDocumentEditor",
+        "types": "types/planning.d.ts"
+      },
+      "variants": [],
+      "states": [
+        "content",
+        "empty",
+        "error",
+        "cancelled"
+      ],
+      "behavior": "Validate data, expose service boundary, preserve drafts on failure. See module-specific limits.",
+      "stateOwner": "Application owns transport, permissions and persistence; module owns view state.",
+      "responsive": "Semantic tokens, logical direction, mobile reflow; no global reset.",
+      "lifecycle": "Mount explicitly; destroy listeners and abort pending work.",
+      "accessibility": [
+        "native controls",
+        "visible focus",
+        "meaningful labels",
+        "keyboard alternatives",
+        "manual acceptance pending"
+      ],
+      "docs": "PLANNING-0.20.md",
+      "acceptance": [
+        "unit",
+        "packed-runtime",
+        "browser",
+        "axe",
+        "manual-screen-reader-pending"
+      ]
+    },
+    {
+      "id": "notification-center",
+      "layer": "module",
+      "status": "beta",
+      "owner": "Muhit maintainers",
+      "purpose": "Bildirim gruplama, erteleme ve teslim tercihleri",
+      "anatomy": [
+        "heading",
+        "controls",
+        "content",
+        "feedback"
+      ],
+      "api": {
+        "entry": "muhit-ui/planning",
+        "mount": "mountNotificationCenter",
+        "types": "types/planning.d.ts"
+      },
+      "variants": [],
+      "states": [
+        "content",
+        "empty",
+        "error",
+        "cancelled"
+      ],
+      "behavior": "Validate data, expose service boundary, preserve drafts on failure. See module-specific limits.",
+      "stateOwner": "Application owns transport, permissions and persistence; module owns view state.",
+      "responsive": "Semantic tokens, logical direction, mobile reflow; no global reset.",
+      "lifecycle": "Mount explicitly; destroy listeners and abort pending work.",
+      "accessibility": [
+        "native controls",
+        "visible focus",
+        "meaningful labels",
+        "keyboard alternatives",
+        "manual acceptance pending"
+      ],
+      "docs": "PLANNING-0.20.md",
+      "acceptance": [
+        "unit",
+        "packed-runtime",
         "browser",
         "axe",
         "manual-screen-reader-pending"

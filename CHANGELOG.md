@@ -1,3 +1,27 @@
+## 0.21.0-beta.1
+
+- Eski yenileme yerel mutasyonu ve geçerli update işlemini ezmez.
+- Boş belge taslağı korunur; checkpoint/save doğrulaması ayrıdır.
+- Calendar draft, editor history restore, dirty callbacks ve opt-in örnek saklama.
+- TR/EN ürün sözlüğü; 320 px kontrol hedefleri; gerçek ETag/idempotency adaptörü.
+- Üç Figma ailesinde 36 durum/ölçü varyantı; Agent veri/eylem keşif sözleşmeleri.
+
+## 0.20.0-beta.1 · 2026-10-22
+
+- Takvim/ajanda, kaynak çakışması ve iptal sonrası taslak koruma.
+- Blok düzenleyici, yerel sürümler, geri alma ve belge karşılaştırması.
+- Bildirim gruplama, erteleme ve teslim tercihleri.
+- Araştırma ve ekip sayfaları; 15 Figma modül ailesi eşleştirmesi.
+- Yeni typed planning export, 46 registry sözleşmesi, paket/test/CI güncellemesi.
+
+## 0.19.0-beta.1 · 2026-10-22
+
+- Eksik workspace JavaScript/CSS dosyalarını paket dağıtımına ekle; declaration testine runtime import kapısı ekle.
+- Suite modüllerinde locale, saat dilimi, token, görünüm snapshot'ı, iptal ve retry ortaklaştır.
+- Gelişmiş form, çoklu arama, filtre görünümü, dosya kuyruğu, yorum, erişim, AI ve analitik modüllerini ekle.
+- Ortak shell ve 12 ürün sayfası, React/Vue paket tüketimi ve CI testleri ekle.
+- Sürüm, capability, registry ve dokümantasyon üretimini eşleştir.
+
 # 0.18.0
 
 - Mimari ve teknoloji katmanları, 30 bileşen sözleşmesi ve 8 kullanım örüntüsü.

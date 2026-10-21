@@ -1,0 +1,8 @@
+export interface ModuleOptions { locale?: string; messages?: Record<string,string>; timeZone?: string; onRetry?: () => void; dir?: 'ltr'|'rtl'; headingLevel?: 2|3|4; title?: string; }
+export interface Notification { id: string; title: string; description?: string; type: string; createdAt: string; read: boolean; archived?: boolean; snoozedUntil?: string|null; }
+export interface Options extends ModuleOptions { now?:()=>number; groupBy?: "none"|"type"; onChange?: (items: Notification[]) => void; }
+export interface View { groupBy?: "none"|"type"; query: string; filter: 'active'|'unread'|'archived'|'snoozed'|'all'; }
+export interface Controller { getView(): View; restoreView(view: View): void; setState(state: 'content'|'loading'|'refreshing'|'empty'|'error'|'partial'|'cancelled', message?: string): void; getState(): string; load(loader: (signal: AbortSignal) => Promise<{outcome: 'success'|'partial';items: Notification[];message?: string}>): Promise<boolean>; cancel(): void; element: HTMLElement; getSnapshot(): {groupBy:"none"|"type"; items: Notification[]; query: string; filter: 'active'|'unread'|'archived'|'snoozed'|'all';}; update(items: Notification[]): void; destroy(): void; }
+export function validateNotifications(input: unknown): Notification[];
+export function mountInbox(host: HTMLElement, items: Notification[], options?: Options): Controller;
+export function createInbox(input: unknown): { getItems(): Notification[]; markRead(ids: string[], value?: boolean): Notification[]; archive(ids: string[], value?: boolean): Notification[]; snooze(ids:string[], until:string|null):Notification[]; undo(): boolean; canUndo(): boolean; update(input: unknown): void; destroy(): void; };

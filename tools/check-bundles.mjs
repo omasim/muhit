@@ -17,3 +17,11 @@ await writeFile(path.join(root,'tests/bundle-verification.json'),JSON.stringify(
 const single=await build({entryPoints:[path.join(root,'esm/icons/leaf.mjs')],bundle:true,minify:true,format:'esm',write:false,metafile:true});
 if(single.outputFiles[0].contents.length>5000 || Object.keys(single.metafile.inputs).some(p=>p.endsWith('/icons.mjs')))throw Error('Single icon budget/dependency regression');
 console.log('PASS single-icon budget',single.outputFiles[0].contents.length);
+
+for(const [name,api]of [['resources','mountResources'],['product','mountAssistant'],['shell','mountShell'],['planning','mountCalendar'],['planning','mountDocumentEditor'],['planning','mountNotificationCenter']]){
+ const result=await build({stdin:{contents:`export {${api}} from './src/${name}.mjs';`,resolveDir:root},bundle:true,minify:true,format:'esm',write:false,metafile:true});
+ const bytes=result.outputFiles[0].contents.length;
+ if(bytes>80000)throw Error('Workspace entry exceeds 80KB budget: '+name);
+ report[name+'-'+api]={bytes,inputs:Object.keys(result.metafile.inputs)};console.log('PASS workspace bundle',name,bytes);
+}
+await writeFile(path.join(root,'tests/bundle-verification.json'),JSON.stringify({...report,provenance:await provenance()},null,2)+'\n');

@@ -1,6 +1,6 @@
 {
   "name": "muhit-ui",
-  "version": "0.18.0",
+  "version": "0.21.0-beta.1",
   "description": "Tema değişkenleri, erişilebilir etkileşimler ve şema tabanlı arayüz üretimi için bağımsız HTML/CSS/JavaScript bileşenleri.",
   "type": "module",
   "license": "MIT",
@@ -354,7 +354,42 @@
       "types": "./types/primitives.d.ts",
       "import": "./esm/primitives.mjs"
     },
-    "./tokens/*": "./tokens/*"
+    "./tokens/*": "./tokens/*",
+    "./content": {
+      "types": "./types/content.d.ts",
+      "import": "./src/content.mjs",
+      "default": "./src/content.mjs"
+    },
+    "./inbox": {
+      "types": "./types/inbox.d.ts",
+      "import": "./src/inbox.mjs",
+      "default": "./src/inbox.mjs"
+    },
+    "./activity": {
+      "types": "./types/activity.d.ts",
+      "import": "./src/activity.mjs",
+      "default": "./src/activity.mjs"
+    },
+    "./resources": {
+      "types": "./types/resources.d.ts",
+      "import": "./src/resources.mjs",
+      "default": "./src/resources.mjs"
+    },
+    "./product": {
+      "types": "./types/product.d.ts",
+      "import": "./src/product.mjs",
+      "default": "./src/product.mjs"
+    },
+    "./shell": {
+      "types": "./types/shell.d.ts",
+      "import": "./src/shell.mjs",
+      "default": "./src/shell.mjs"
+    },
+    "./planning": {
+      "types": "./types/planning.d.ts",
+      "import": "./src/planning.mjs",
+      "default": "./src/planning.mjs"
+    }
   },
   "files": [
     "src/index.mjs",
@@ -452,7 +487,17 @@
     "src/primitives.js",
     "styles/foundations.css",
     "styles/system.css",
-    "design"
+    "design",
+    "src/*.mjs",
+    "styles/content.css",
+    "styles/suite.css",
+    "styles/product.css",
+    "examples/atelier",
+    "examples/product",
+    "tools/serve.mjs",
+    "styles/planning.css",
+    "examples/integration",
+    "tools/build-support.mjs"
   ],
   "sideEffects": [
     "./src/*.js",
@@ -460,14 +505,14 @@
   ],
   "scripts": {
     "check": "npm run build:modules && node --input-type=module -e \"await import('./src/index.mjs')\"",
-    "prepack": "npm run check:system && npm run check:brand",
+    "prepack": "npm run check:system && npm run check:brand && npm run check:support",
     "dev": "node tools/serve.mjs",
     "test": "node --test tests/*.test.mjs",
     "check:brand": "node tools/check-brand.mjs",
     "test:browser": "node tests/browser/run.mjs",
     "verify": "npm run check && npm test && npm run check:brand && npm run test:browser && npm run check:capabilities",
     "test:framework": "node tests/browser/frameworks.mjs",
-    "verify:all": "npm run verify && npm run test:extended && npm run test:framework && npm run test:accessibility && npm run test:release && npm run test:scale && npm run test:distribution && npm run test:production && npm run test:consumer-types && npm run test:foundations && npm run test:migration && npm run test:consumer && npm run test:p3 && npm run check:system && npm run test:system && npm run test:principles",
+    "verify:all": "npm run verify && npm run test:extended && npm run test:framework && npm run test:accessibility && npm run test:release && npm run test:scale && npm run test:distribution && npm run test:production && npm run test:consumer-types && npm run test:foundations && npm run test:migration && npm run test:consumer && npm run test:p3 && npm run check:system && npm run test:system && npm run test:principles && npm run test:workspace && npm run test:planning && npm run test:packed-planning && npm run test:readiness && npm run test:integration",
     "build:modules": "node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs",
     "pretest": "npm run build:modules",
     "test:extended": "npm run build:modules && node tests/browser/extended.mjs",
@@ -489,7 +534,13 @@
     "test:principles": "npm run build:modules && node tests/browser/principle-compliance.mjs",
     "build:tokens": "npm run build:modules && node tools/build-tokens.mjs",
     "check:system": "npm run build:tokens && node tools/check-system.mjs",
-    "test:system": "npm run build:modules && node tests/browser/system.mjs"
+    "test:system": "npm run build:modules && node tests/browser/system.mjs",
+    "test:workspace": "node tests/browser/workspace19.mjs",
+    "test:planning": "node tests/browser/planning20.mjs",
+    "test:packed-planning": "node tests/browser/packed-planning.mjs",
+    "test:readiness": "node tests/browser/readiness21.mjs",
+    "test:integration": "MUHIT_INTEGRATION_TEST=1 node tests/integration.test.mjs",
+    "check:support": "node tools/build-support.mjs --check"
   },
   "engines": {
     "node": ">=18"

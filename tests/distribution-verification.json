@@ -48,12 +48,40 @@
     "requests": 1,
     "totalBytes": 5072
   },
+  "content.css": {
+    "cssBytes": 3679,
+    "cssGzipBytes": 1130,
+    "fontBytes": 0,
+    "requests": 1,
+    "totalBytes": 3679
+  },
+  "suite.css": {
+    "cssBytes": 3369,
+    "cssGzipBytes": 1124,
+    "fontBytes": 0,
+    "requests": 1,
+    "totalBytes": 3369
+  },
+  "product.css": {
+    "cssBytes": 5027,
+    "cssGzipBytes": 1483,
+    "fontBytes": 0,
+    "requests": 1,
+    "totalBytes": 5027
+  },
+  "planning.css": {
+    "cssBytes": 2056,
+    "cssGzipBytes": 755,
+    "fontBytes": 0,
+    "requests": 1,
+    "totalBytes": 2056
+  },
   "provenance": {
-    "version": "0.18.0",
-    "sourceSha256": "80d210ec6accca195dde9e2dadbd7bca8cbee6a37db3b29b207d52ed054916d3",
-    "commit": "9b7f1ba632949670a0fc19c4f48f78c50159279d",
+    "version": "0.20.0-beta.1",
+    "sourceSha256": "3eb255574e85f66118d4e73e53e8c79b003e4d226f502f15c35c8f1b5fd1a7da",
+    "commit": "97262f2cebcb9a7d394b5ddc5281d24d16702d0d",
     "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
-    "date": "2026-10-21T02:39:36.639Z",
+    "date": "2026-10-21T22:07:05.150Z",
     "platform": "darwin",
     "node": "v26.12.0"
   }

@@ -1,3 +1,7 @@
+Current: 0.21.0-beta.1. See docs/MIGRATION-0.21.md and docs/INTEGRATION-0.21.md. Draft snapshot v1 is distinct from valid persisted document. Older notes below.
+
+Current: Muhit 0.20.0-beta.1. Planning ESM: muhit-ui/planning. See docs/PLANNING-0.20.md and types/planning.d.ts. Agent renderer remains 18 kinds. Historical releases below.
+
 # Muhit UI
 
 > Framework bağımsız HTML/CSS/JavaScript bileşenleri, semantik temalar ve doğrulanan JSON görünümleri. Paket 0.16.0; yerel kaynak dağıtımı.
@@ -56,3 +60,6 @@ Lifecycle and governance: docs/SYSTEM-GOVERNANCE.md
 - docs/SYSTEM-TECHNOLOGY.md: technology boundaries and integration
 - docs/FIGMA.md: native design source, coverage and Code Connect limitations
 - docs/MIGRATION-0.18.md: additive migration to the system layer
+
+## Workspace and product patterns (0.19 beta)
+Read schemas/workspace-modules.json and docs/PRODUCT-SYSTEM-0.19.md. Public ESM modules: content, inbox, activity, resources, shell, product. These are imperative APIs, not new Agent JSON render kinds. Callbacks require trusted application code. Transport, authorization and persistence remain application responsibilities.

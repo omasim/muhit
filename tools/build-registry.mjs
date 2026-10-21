@@ -5,6 +5,7 @@ for (const [key, file] of Object.entries({
   components: "component-contracts",
   pages: "pages",
   patterns: "patterns",
+  workspace: "workspace-modules",
 }))
   data[key] = JSON.parse(
     await readFile(new URL("schemas/" + file + ".json", root), "utf8"),

@@ -167,6 +167,19 @@ try {
       });
       try {
         await page.goto(mode === "ssr" ? url + "ssr" : url);
+        await page.getByRole('button',{name:'Open workspace extension',exact:true}).click();
+        await page.getByTestId('workspace-extension').locator('.mh-content-card').waitFor();
+        await page.getByRole('button',{name:'Update workspace resources',exact:true}).click();
+        assert.equal(await page.getByTestId('workspace-extension').locator('.mh-content-card').count(),2);
+        await page.getByTestId('planning-extension').getByLabel('Event title',{exact:true}).fill('Retained event');
+        await page.getByTestId('planning-extension').getByLabel('Document title',{exact:true}).fill('');
+        await page.getByRole('button',{name:'Close workspace extension',exact:true}).click();
+        assert.equal(await page.getByTestId('workspace-extension').count(),0);
+        await page.getByRole('button',{name:'Open workspace extension',exact:true}).click();
+        assert.equal(await page.getByTestId('workspace-extension').locator('.mh-content-card').count(),1);
+        assert.equal(await page.getByTestId('planning-extension').getByLabel('Event title',{exact:true}).inputValue(),'Retained event');
+        assert.equal(await page.getByTestId('planning-extension').getByLabel('Document title',{exact:true}).inputValue(),'');
+        await page.getByRole('button',{name:'Close workspace extension',exact:true}).click();
         await page.locator(".mh-data-grid tbody tr").first().waitFor();
         assert.equal(await page.getByRole('img',{name:'Shared resources'}).count(),1);
         assert.equal(await page.locator('main').count(),1);

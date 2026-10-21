@@ -25,6 +25,10 @@ for (const entry of [
   "interactive-entry.css",
   "index.css",
   "pages.css",
+  "content.css",
+  "suite.css",
+  "product.css",
+  "planning.css",
 ]) {
   const files = await scan("styles/" + entry);
   const fonts = new Set();

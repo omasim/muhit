@@ -1,3 +1,5 @@
+> 0.20 güncellemesi: 46 sözleşme ve yeni `muhit-ui/planning` ESM modülü. Planlama/sürüm/bildirim sınırları `PLANNING-0.20.md`, testler `VERIFICATION-0.20.md` içinde. Aşağıdaki önceki sürüm notları korunmuştur.
+
 # Muhit Tasarım Sistemi Mimarisi v1
 
 Muhit, insan emeğini koruyan ve tasarımcı, geliştirici ve agent’ın aynı sözleşmeleri kullandığı bir arayüz sistemidir. Marka/tema, UI davranışı ve ürün iş mantığı ayrı sorumluluklardır. Logo 3.1 sabittir.
@@ -15,10 +17,11 @@ Muhit, insan emeğini koruyan ve tasarımcı, geliştirici ve agent’ın aynı 
 | Sayfa | MuhitPages + schemas/pages.json | Bölgeler, durumlar ve yerleşim |
 | Örüntüler | schemas/patterns.json | Liste–detay, form, toplu işlem, AI inceleme |
 | AI kompozisyonu | MuhitSystem + system.schema.json | Sayfa/bileşen/eylem ilişkisinin doğrulanması |
-| Ürün | examples/system | Kurumsal site, yönetim ve veri uygulaması |
+| Ürün modülleri | src/product.mjs + src/shell.mjs + workspace-modules.json | Servis bağlantılı modüller, ortak shell ve görünüm durumları |
+| Ürün | examples/system + examples/product | Kurumsal site, yönetim ve veri uygulaması |
 | Yönetim | SYSTEM-GOVERNANCE.md | Sürüm, sahiplik, test, kabul ve geçiş |
 
-Üst katman alt katmanı kullanır. Ürün veri servisleri, kimlik doğrulama ve yetkilendirmeyi sağlar. Bir UI callback’i yetki kanıtı değildir. Çekirdek modüller import sırasında DOM gerektirmez. ESM ve klasik script aynı kaynaktan üretilir.
+Üst katman alt katmanı kullanır. Ürün veri servisleri, kimlik doğrulama ve yetkilendirmeyi sağlar. Bir UI callback’i yetki kanıtı değildir. Çekirdek modüller import sırasında DOM gerektirmez. Eski çekirdek ESM ve klasik script aynı kaynaktan üretilir. 0.19 workspace/product uzantıları ESM-only girişlerdir; klasik script tüketimi için uygulama bundler kullanır.
 
 ## Uygulama sırası
 

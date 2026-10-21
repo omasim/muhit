@@ -27,12 +27,83 @@
       "<stdin>"
     ]
   },
+  "resources-mountResources": {
+    "bytes": 41809,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "src/content.mjs",
+      "esm/csv.mjs",
+      "esm/icons/core.mjs",
+      "esm/icons/resize-horizontal.mjs",
+      "esm/data-grid.mjs",
+      "src/resources.mjs",
+      "<stdin>"
+    ]
+  },
+  "product-mountAssistant": {
+    "bytes": 13606,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "esm/flow.mjs",
+      "src/product.mjs",
+      "<stdin>"
+    ]
+  },
+  "shell-mountShell": {
+    "bytes": 61422,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "esm/registry.mjs",
+      "esm/pages.mjs",
+      "src/shell.mjs",
+      "<stdin>"
+    ]
+  },
+  "planning-mountCalendar": {
+    "bytes": 16061,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "src/inbox.mjs",
+      "src/planning.mjs",
+      "<stdin>"
+    ]
+  },
+  "planning-mountDocumentEditor": {
+    "bytes": 17546,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "src/inbox.mjs",
+      "src/planning.mjs",
+      "<stdin>"
+    ]
+  },
+  "planning-mountNotificationCenter": {
+    "bytes": 21932,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "src/inbox.mjs",
+      "src/planning.mjs",
+      "<stdin>"
+    ]
+  },
   "provenance": {
-    "version": "0.18.0",
-    "sourceSha256": "1ff9d37243bf121767bbc9398b1e79562180a3247dc171f4cc6129af03df3514",
-    "commit": "9b7f1ba632949670a0fc19c4f48f78c50159279d",
+    "version": "0.20.0-beta.1",
+    "sourceSha256": "3eb255574e85f66118d4e73e53e8c79b003e4d226f502f15c35c8f1b5fd1a7da",
+    "commit": "97262f2cebcb9a7d394b5ddc5281d24d16702d0d",
     "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
-    "date": "2026-10-21T02:47:36.490Z",
+    "date": "2026-10-21T22:07:31.492Z",
     "platform": "darwin",
     "node": "v26.12.0"
   }

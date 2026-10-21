@@ -1,8 +1,10 @@
+> 0.20 güncellemesi: 46 sözleşme ve yeni `muhit-ui/planning` ESM modülü. Planlama/sürüm/bildirim sınırları `PLANNING-0.20.md`, testler `VERIFICATION-0.20.md` içinde. Aşağıdaki önceki sürüm notları korunmuştur.
+
 # Muhit sistem yönetimi ve kabul
 
 ## Sürüm ve olgunluk
 
-Paket 0.18, sistem sözleşmesi 1.0, tema config 1, UI şeması 1.1 ve logo 3.1 bağımsız sürümlerdir. UI 1.0 uyumluluğu korunur. Yeni sistem modülleri eklemelidir; eski import ve CSS isimleri kaldırılmaz. Sistem modülleri beta kabulündedir; bütün ürünler için 1.0 kararlılık taahhüdü yoktur.
+Paket 0.19 beta, sistem sözleşmesi 1.0, tema config 1, UI şeması 1.1 ve logo 3.1 bağımsız sürümlerdir. UI 1.0 uyumluluğu korunur. Yeni sistem modülleri eklemelidir; eski import ve CSS isimleri kaldırılmaz. Sistem modülleri beta kabulündedir; bütün ürünler için 1.0 kararlılık taahhüdü yoktur.
 
 Deneysel → beta → kararlı → kullanım dışı geçişleri bakımcı incelemesiyle yapılır. Kararlı kabul için gerçek tüketici kullanımı, manual ekran okuyucu, mobil cihaz, klavye, yerelleştirme ve performans kanıtı gerekir. Kullanım dışı API için alternatif, uyarı, geçiş örneği ve kaldırılma sürümü zorunludur.
 
