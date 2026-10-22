@@ -34,5 +34,5 @@ function filter(){
  for(const d of found){const a=document.createElement('a');a.textContent=d.title;a.href='?doc='+encodeURIComponent(d.id)+'&q='+encodeURIComponent(search.value);a.onclick=e=>{e.preventDefault();history.pushState({},'',a.href);render(d);document.querySelector('#main').focus();};results.append(a)}
  document.querySelector('#count').textContent=found.length+' documents';
 }
-search.addEventListener('input',filter);window.addEventListener('popstate',()=>{const u=new URL(location.href);search.value=u.searchParams.get('q')||'';filter();render(documents.find(d=>d.id===u.searchParams.get('doc'))||documents.find(d=>d.id==='DESIGN.md'));});
-filter();render(documents.find(d=>d.id===url.searchParams.get('doc'))||documents.find(d=>d.id==='DESIGN.md'));window.docsReady=true;
+search.addEventListener('input',filter);window.addEventListener('popstate',()=>{const u=new URL(location.href);search.value=u.searchParams.get('q')||'';filter();render(documents.find(d=>d.id===u.searchParams.get('doc'))||documents.find(d=>d.id==='CURRENT.md'));});
+filter();render(documents.find(d=>d.id===url.searchParams.get('doc'))||documents.find(d=>d.id==='CURRENT.md'));window.docsReady=true;

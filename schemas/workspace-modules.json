@@ -1,7 +1,7 @@
 {
-  "version": "0.24.0-beta.1",
+  "version": "0.25.0-beta.1",
   "status": "beta",
-  "basePackageVersion": "0.24.0-beta.1",
+  "basePackageVersion": "0.25.0-beta.1",
   "recordLimit": 500,
   "locales": [
     "BCP47 via MuhitI18n; TR/EN built-in, custom dictionaries"

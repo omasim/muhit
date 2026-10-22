@@ -26,3 +26,6 @@ void remote.search('Title');remote.cancel();remote.destroy();void recurring;void
 createRecurringEvents({id:'a',title:'A',start:instant,end:instant},{frequency:'hourly',count:1,timeZone:'UTC'});
 // @ts-expect-error Query must be a string.
 index.search(42);
+
+import {createSearchIndexAsync} from 'muhit-ui/search';
+void createSearchIndexAsync([{id:'a',title:'A'}],{signal:new AbortController().signal,sliceMs:8}).then(index=>index.search('A'));

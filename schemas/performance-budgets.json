@@ -1,7 +1,15 @@
 {
   "version": 1,
   "profile": "4x CPU; 150 ms network latency; 128 KiB/s download; 64 KiB/s upload",
-  "product": {"localP95Ms": 100, "remoteP95Ms": 1500},
-  "regression": {"localP95Ms": 1500, "remoteP95Ms": 10000},
-  "acceptance": "Both product and regression gates must pass. Physical-device and real-data acceptance remain separate. Index build time is measured separately."
+  "product": {
+    "localP95Ms": 100,
+    "remoteP95Ms": 1500,
+    "buildMs": 2000,
+    "maxGapMs": 50
+  },
+  "regression": {
+    "localP95Ms": 1500,
+    "remoteP95Ms": 10000
+  },
+  "acceptance": "Product query, asynchronous build and responsiveness gates must all pass. Physical-device and real-data acceptance remain separate."
 }

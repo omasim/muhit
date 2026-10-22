@@ -1,7 +1,7 @@
 {
   "name": "muhit-ui",
-  "version": "0.24.0-beta.1",
-  "description": "Tema değişkenleri, erişilebilir etkileşimler ve şema tabanlı arayüz üretimi için bağımsız HTML/CSS/JavaScript bileşenleri.",
+  "version": "0.25.0-beta.1",
+  "description": "Tema de\u011fi\u015fkenleri, eri\u015filebilir etkile\u015fimler ve \u015fema tabanl\u0131 aray\u00fcz \u00fcretimi i\u00e7in ba\u011f\u0131ms\u0131z HTML/CSS/JavaScript bile\u015fenleri.",
   "type": "module",
   "license": "MIT",
   "main": "./src/index.mjs",
@@ -502,7 +502,8 @@
     "styles/planning.css",
     "examples/integration",
     "tools/build-support.mjs",
-    "examples/planning"
+    "examples/planning",
+    "examples/async-search.html"
   ],
   "sideEffects": [
     "./src/*.js",

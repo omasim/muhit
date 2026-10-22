@@ -3,6 +3,8 @@ export function evaluatePerformance(measurements, budgets) {
     (n) => Number.isFinite(n) && n >= 0,
   );
   const product = {
+    build: Number.isFinite(measurements.local.buildMs) && measurements.local.buildMs < budgets.product.buildMs,
+    responsiveness: Number.isFinite(measurements.local.maxGapMs) && measurements.local.maxGapMs < budgets.product.maxGapMs,
     local: valid && measurements.local.p95Ms < budgets.product.localP95Ms,
     remote: valid && measurements.remote.p95Ms < budgets.product.remoteP95Ms,
   };

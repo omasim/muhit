@@ -122,7 +122,7 @@ test("product failure cannot pass under the looser regression budget", async () 
     ),
   );
   const result = evaluatePerformance(
-    { local: { p95Ms: 120 }, remote: { p95Ms: 2000 } },
+    { local: { buildMs: 1, maxGapMs: 1, p95Ms: 120 }, remote: { p95Ms: 2000 } },
     budgets,
   );
   assert.equal(result.regression.local, true);
@@ -130,14 +130,14 @@ test("product failure cannot pass under the looser regression budget", async () 
   assert.equal(result.passed, false);
   assert.equal(
     evaluatePerformance(
-      { local: { p95Ms: 20 }, remote: { p95Ms: 500 } },
+      { local: { buildMs: 1, maxGapMs: 1, p95Ms: 20 }, remote: { p95Ms: 500 } },
       budgets,
     ).passed,
     true,
   );
   assert.equal(
     evaluatePerformance(
-      { local: { p95Ms: NaN }, remote: { p95Ms: 0 } },
+      { local: { buildMs: 1, maxGapMs: 1, p95Ms: NaN }, remote: { p95Ms: 0 } },
       budgets,
     ).passed,
     false,

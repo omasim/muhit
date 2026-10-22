@@ -1,5 +1,5 @@
-# Güncel sürüm: 0.24.0-beta.1
+# Güncel sürüm: 0.25.0-beta.1
 
-[Hazırlık](READINESS-0.24.md) · [Doğrulama](VERIFICATION-0.24.md) · [Geçiş](MIGRATION-0.24.md) · [Manuel kabul](MANUAL-ACCEPTANCE-0.24.md) · [Performans](PERFORMANCE-0.24.md)
+[Hazırlık](READINESS-0.25.md) · [Doğrulama](VERIFICATION-0.25.md) · [Geçiş](MIGRATION-0.25.md) · [Performans](PERFORMANCE-0.25.md) · [Çeviri](LOCALIZATION-0.25.md) · [Manuel kabul ve pilot](MANUAL-ACCEPTANCE-0.25.md)
 
-Beta; registry yayını ve manuel üretim kabulü yapılmış değildir. Önceki sürüm belgeleri tarihsel kayıttır.
+Beta; registry yayını ve genel üretim kabulü yapılmadı. Önceki sürüm belgeleri tarihsel kayıttır.

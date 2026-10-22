@@ -1,4 +1,4 @@
-> Current 0.24 manual steps: [MANUAL-ACCEPTANCE-0.24.md](MANUAL-ACCEPTANCE-0.24.md). Pending.
+> Current 0.25 manual steps: [MANUAL-ACCEPTANCE-0.25.md](MANUAL-ACCEPTANCE-0.25.md). Pending.
 
 # Manuel erişilebilirlik kabul planı
 

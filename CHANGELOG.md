@@ -1,3 +1,9 @@
+# 0.25.0-beta.1
+
+- Gözlemci hatalarını kalıcılık sonucundan ayırır; onObserverError tanılama kanalı ekler.
+- createSearchIndexAsync: bölümlü, iptal edilebilir indeks; kurulum/yanıt verebilirlik bütçeleri.
+- Güncel README/belge başlangıcı, dil akış testleri, manuel kabul ve pilot koşulları.
+
 # 0.24.0-beta.1
 
 - Takvimde üst üste kayıt/silme/iptal işlemlerinin düğme durumunu düzeltir; saniye ve milisaniyeleri, değişmeyen DST saat seçimini korur.

@@ -1,3 +1,4 @@
+import { notifyObserver } from "./observers.mjs";
 import { calendarCandidate, calendarEditIsStale } from "./calendar-state.mjs";
 import {
   localDateTimeToUTC,
@@ -254,9 +255,9 @@ export function mountCalendar(host, input, options = {}) {
         : tr(p, "Etkinliği ekle", "Add event");
       if (dirty !== lastDirty) {
         lastDirty = dirty;
-        options.onDirtyChange?.(dirty);
+        notifyObserver(options, "onDirtyChange", dirty);
       }
-      options.onDraftChange?.(getDraft());
+      notifyObserver(options, "onDraftChange", getDraft());
     };
   function supersedeOperation() {
     revision++;
@@ -540,7 +541,7 @@ export function mountCalendar(host, input, options = {}) {
               "Etkinlik yalnız yerel ajandaya uygulandı.",
               "Event applied to the local agenda only.",
             );
-      options.onChange?.(clone(data));
+      notifyObserver(options, "onChange", clone(data));
     } catch {
       if (current === revision && !p.dead)
         status.textContent = tr(
@@ -615,7 +616,7 @@ export function mountCalendar(host, input, options = {}) {
       }
       draw();
       changed();
-      options.onChange?.(clone(data));
+      notifyObserver(options, "onChange", clone(data));
       status.textContent = options.onMutation
         ? tr(p, "Silme sunucuda doğrulandı.", "Server deletion confirmed.")
         : tr(
@@ -937,9 +938,9 @@ export function mountDocumentEditor(host, input, options = {}) {
     const dirty = store.isDirty();
     if (dirty !== lastDirty) {
       lastDirty = dirty;
-      options.onDirtyChange?.(dirty);
+      notifyObserver(options, "onDirtyChange", dirty);
     }
-    options.onDraftChange?.(store.getSnapshot());
+    notifyObserver(options, "onDraftChange", store.getSnapshot());
   };
   title.input.maxLength = 160;
   title.input.required = true;
@@ -1577,7 +1578,7 @@ export function mountNotificationCenter(host, input, options = {}) {
     groupBy: "type",
     onChange: (items) => {
       data = items;
-      options.onChange?.(items);
+      notifyObserver(options, "onChange", items);
     },
   });
   p.on(save, "click", async () => {
