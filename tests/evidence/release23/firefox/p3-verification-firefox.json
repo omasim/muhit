@@ -1,0 +1,304 @@
+{
+  "provenance": {
+    "version": "0.23.0-beta.1",
+    "sourceSha256": "d47ce50cd49294a7079155b5bc40b0909c5d2907fb73dff1b39891fc66c24f17",
+    "commit": "2dc6ab63796087df20a0383cfe56a93c9f362448",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-22T01:47:15.409Z",
+    "platform": "linux",
+    "node": "v22.23.3"
+  },
+  "engine": "firefox",
+  "cases": [
+    {
+      "recipe": "overview",
+      "state": "loading",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "overview",
+      "state": "loading",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "overview",
+      "state": "empty",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "overview",
+      "state": "empty",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "overview",
+      "state": "error",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "overview",
+      "state": "error",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "overview",
+      "state": "unauthorized",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "overview",
+      "state": "unauthorized",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "collection",
+      "state": "loading",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "collection",
+      "state": "loading",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "collection",
+      "state": "empty",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "collection",
+      "state": "empty",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "collection",
+      "state": "error",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "collection",
+      "state": "error",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "collection",
+      "state": "unauthorized",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "collection",
+      "state": "unauthorized",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "detail",
+      "state": "loading",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "detail",
+      "state": "loading",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "detail",
+      "state": "empty",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "detail",
+      "state": "empty",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "detail",
+      "state": "error",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "detail",
+      "state": "error",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "detail",
+      "state": "unauthorized",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "detail",
+      "state": "unauthorized",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "settings",
+      "state": "loading",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "settings",
+      "state": "loading",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "settings",
+      "state": "empty",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "settings",
+      "state": "empty",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "settings",
+      "state": "error",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "settings",
+      "state": "error",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "settings",
+      "state": "unauthorized",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "settings",
+      "state": "unauthorized",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "workspace",
+      "state": "loading",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "workspace",
+      "state": "loading",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "workspace",
+      "state": "empty",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "workspace",
+      "state": "empty",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "workspace",
+      "state": "error",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "workspace",
+      "state": "error",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "workspace",
+      "state": "unauthorized",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "workspace",
+      "state": "unauthorized",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "editorial",
+      "state": "loading",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "editorial",
+      "state": "loading",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "editorial",
+      "state": "empty",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "editorial",
+      "state": "empty",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "editorial",
+      "state": "error",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "editorial",
+      "state": "error",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "recipe": "editorial",
+      "state": "unauthorized",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "recipe": "editorial",
+      "state": "unauthorized",
+      "width": 1440,
+      "passed": true
+    }
+  ],
+  "docsSearch": true,
+  "principlesFlow": true
+}

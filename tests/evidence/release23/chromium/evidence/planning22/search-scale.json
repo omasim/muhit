@@ -1,0 +1,26 @@
+{
+  "provenance": {
+    "version": "0.23.0-beta.1",
+    "sourceSha256": "d47ce50cd49294a7079155b5bc40b0909c5d2907fb73dff1b39891fc66c24f17",
+    "commit": "2dc6ab63796087df20a0383cfe56a93c9f362448",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-22T01:51:00.697Z",
+    "platform": "linux",
+    "node": "v22.23.3"
+  },
+  "dataset": "synthetic",
+  "measurements": [
+    {
+      "rows": 10000,
+      "buildMs": 28.208577000000005,
+      "p50Ms": 0.3102980000000173,
+      "p95Ms": 1.113053999999977
+    },
+    {
+      "rows": 100000,
+      "buildMs": 233.647505,
+      "p50Ms": 2.8746340000000146,
+      "p95Ms": 2.9765050000000315
+    }
+  ]
+}

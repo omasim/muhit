@@ -1,0 +1,11 @@
+
+> muhit-ui@0.23.0-beta.1 test:extended
+> npm run build:modules && node tests/browser/extended.mjs
+
+
+> muhit-ui@0.23.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+LAYOUT { width: 390, scroll: 390, wide: [] }
+PERFORMANCE webkit {"duration":7,"count":10}
+PASS webkit: 3 audit regressions, grid selection/filter/edit/CSV, plot gaps/table, agent 1.1 transactions, cross-tab sync/unsubscribe, RTL/mobile/forced-colors.

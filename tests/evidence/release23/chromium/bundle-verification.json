@@ -1,0 +1,116 @@
+{
+  "forms": {
+    "bytes": 18690,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/forms.mjs",
+      "<stdin>"
+    ]
+  },
+  "plot": {
+    "bytes": 11742,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/csv.mjs",
+      "esm/plot.mjs",
+      "<stdin>"
+    ]
+  },
+  "data-grid": {
+    "bytes": 27629,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/csv.mjs",
+      "esm/icons/core.mjs",
+      "esm/icons/resize-horizontal.mjs",
+      "esm/data-grid.mjs",
+      "<stdin>"
+    ]
+  },
+  "resources-mountResources": {
+    "bytes": 42156,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "src/content.mjs",
+      "esm/csv.mjs",
+      "esm/icons/core.mjs",
+      "esm/icons/resize-horizontal.mjs",
+      "esm/data-grid.mjs",
+      "src/resources.mjs",
+      "<stdin>"
+    ]
+  },
+  "product-mountAssistant": {
+    "bytes": 13606,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "esm/flow.mjs",
+      "src/product.mjs",
+      "<stdin>"
+    ]
+  },
+  "shell-mountShell": {
+    "bytes": 63102,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "esm/registry.mjs",
+      "esm/pages.mjs",
+      "src/shell.mjs",
+      "<stdin>"
+    ]
+  },
+  "planning-mountCalendar": {
+    "bytes": 22775,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "src/planning-advanced.mjs",
+      "src/calendar-state.mjs",
+      "src/inbox.mjs",
+      "src/planning.mjs",
+      "<stdin>"
+    ]
+  },
+  "planning-mountDocumentEditor": {
+    "bytes": 26059,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "src/planning-advanced.mjs",
+      "src/calendar-state.mjs",
+      "src/inbox.mjs",
+      "src/planning.mjs",
+      "<stdin>"
+    ]
+  },
+  "planning-mountNotificationCenter": {
+    "bytes": 22279,
+    "inputs": [
+      "esm/i18n.mjs",
+      "esm/contracts.mjs",
+      "src/suite-core.mjs",
+      "src/planning-advanced.mjs",
+      "src/calendar-state.mjs",
+      "src/inbox.mjs",
+      "src/planning.mjs",
+      "<stdin>"
+    ]
+  },
+  "provenance": {
+    "version": "0.23.0-beta.1",
+    "sourceSha256": "d47ce50cd49294a7079155b5bc40b0909c5d2907fb73dff1b39891fc66c24f17",
+    "commit": "2dc6ab63796087df20a0383cfe56a93c9f362448",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-22T01:51:09.685Z",
+    "platform": "linux",
+    "node": "v22.23.3"
+  }
+}

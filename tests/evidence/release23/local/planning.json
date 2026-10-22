@@ -1,0 +1,144 @@
+{
+  "provenance": {
+    "version": "0.23.0-beta.1",
+    "sourceSha256": "d47ce50cd49294a7079155b5bc40b0909c5d2907fb73dff1b39891fc66c24f17",
+    "commit": "97262f2cebcb9a7d394b5ddc5281d24d16702d0d",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-22T01:43:35.013Z",
+    "platform": "darwin",
+    "node": "v26.12.0"
+  },
+  "scans": [
+    {
+      "engine": "chromium",
+      "mode": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "chromium",
+      "mode": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "chromium",
+      "mode": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "chromium",
+      "mode": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "chromium",
+      "mode": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "chromium",
+      "mode": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "flows": [
+    {
+      "engine": "chromium",
+      "remoteTiming": {
+        "dataset": "100000 synthetic records",
+        "p50Ms": 2.9000000059604645,
+        "p95Ms": 3.8999999910593033
+      },
+      "localTime": true,
+      "editDelete": true,
+      "capacity": true,
+      "recurrenceExceptionDST": true,
+      "inlineFormatting": true,
+      "safeLinkAndImage": true,
+      "wordDiff": true,
+      "controlledImportExport": true,
+      "remotePaging": true,
+      "errorPreservesResults": true,
+      "cancelDelete": true,
+      "staleEditPreserved": true,
+      "descriptionPreserved": true,
+      "saveThenEditAgain": true
+    },
+    {
+      "engine": "webkit",
+      "remoteTiming": {
+        "dataset": "100000 synthetic records",
+        "p50Ms": 3,
+        "p95Ms": 4
+      },
+      "localTime": true,
+      "editDelete": true,
+      "capacity": true,
+      "recurrenceExceptionDST": true,
+      "inlineFormatting": true,
+      "safeLinkAndImage": true,
+      "wordDiff": true,
+      "controlledImportExport": true,
+      "remotePaging": true,
+      "errorPreservesResults": true,
+      "cancelDelete": true,
+      "staleEditPreserved": true,
+      "descriptionPreserved": true,
+      "saveThenEditAgain": true
+    }
+  ],
+  "errors": []
+}

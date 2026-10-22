@@ -1,0 +1,5 @@
+
+> muhit-ui@0.23.0-beta.1 test:search-scale
+> node tests/search-scale.mjs
+
+{"provenance":{"version":"0.23.0-beta.1","sourceSha256":"d47ce50cd49294a7079155b5bc40b0909c5d2907fb73dff1b39891fc66c24f17","commit":"2dc6ab63796087df20a0383cfe56a93c9f362448","scope":"src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints","date":"2026-10-22T01:45:51.377Z","platform":"linux","node":"v22.23.3"},"dataset":"synthetic","measurements":[{"rows":10000,"buildMs":28.879408000000012,"p50Ms":0.32545600000000263,"p95Ms":1.4788230000000055},{"rows":100000,"buildMs":233.11717199999998,"p50Ms":2.8735340000000065,"p95Ms":4.677004000000011}]}

@@ -1,0 +1,2536 @@
+
+> muhit-ui@0.23.0-beta.1 verify:all
+> npm run verify && npm run test:extended && npm run test:framework && npm run test:accessibility && npm run test:release && npm run test:scale && npm run test:distribution && npm run test:production && npm run test:consumer-types && npm run test:foundations && npm run test:migration && npm run test:consumer && npm run test:p3 && npm run check:system && npm run test:system && npm run test:principles && npm run test:workspace && npm run test:planning && npm run test:packed-planning && npm run test:readiness && npm run test:integration && npm run test:planning-next && npm run test:search-scale && npm run test:performance-profile
+
+
+> muhit-ui@0.23.0-beta.1 verify
+> npm run check && npm test && npm run check:brand && npm run test:browser && npm run check:capabilities
+
+
+> muhit-ui@0.23.0-beta.1 check
+> npm run build:modules && node --input-type=module -e "await import('./src/index.mjs')"
+
+
+> muhit-ui@0.23.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+
+> muhit-ui@0.23.0-beta.1 pretest
+> npm run build:modules
+
+
+> muhit-ui@0.23.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+
+> muhit-ui@0.23.0-beta.1 test
+> node --test tests/*.test.mjs
+
+TAP version 13
+# Subtest: classic import touches no DOM and validation works in a clean Node context
+ok 1 - classic import touches no DOM and validation works in a clean Node context
+  ---
+  duration_ms: 6.579123
+  type: 'test'
+  ...
+# Subtest: all five kinds and the published fictional example validate without mutation
+ok 2 - all five kinds and the published fictional example validate without mutation
+  ---
+  duration_ms: 3.356952
+  type: 'test'
+  ...
+# Subtest: root, version, kinds and all nested unknown keys are strict
+ok 3 - root, version, kinds and all nested unknown keys are strict
+  ---
+  duration_ms: 1.545859
+  type: 'test'
+  ...
+# Subtest: non-JSON values, hidden properties, getters, cycles and nonfinite numbers are rejected
+ok 4 - non-JSON values, hidden properties, getters, cycles and nonfinite numbers are rejected
+  ---
+  duration_ms: 0.559111
+  type: 'test'
+  ...
+# Subtest: component IDs are unique; action IDs are scoped by their component
+ok 5 - component IDs are unique; action IDs are scoped by their component
+  ---
+  duration_ms: 3.432503
+  type: 'test'
+  ...
+# Subtest: text has explicit types and limits; Unicode limits count code points
+ok 6 - text has explicit types and limits; Unicode limits count code points
+  ---
+  duration_ms: 0.659999
+  type: 'test'
+  ...
+# Subtest: theme contract mirrors the strict normalizer and fills defaults only when rendering
+ok 7 - theme contract mirrors the strict normalizer and fills defaults only when rendering
+  ---
+  duration_ms: 3.67278
+  type: 'test'
+  ...
+# Subtest: table rows enforce dates, row IDs, status and size limits
+ok 8 - table rows enforce dates, row IDs, status and size limits
+  ---
+  duration_ms: 3.872111
+  type: 'test'
+  ...
+# Subtest: chart counts never coerce strings, permit zero, and constrain aggregate magnitude
+ok 9 - chart counts never coerce strings, permit zero, and constrain aggregate magnitude
+  ---
+  duration_ms: 2.148411
+  type: 'test'
+  ...
+# Subtest: chart distributions match their rows, accept float roundoff, and bound categories/types
+ok 10 - chart distributions match their rows, accept float roundoff, and bound categories/types
+  ---
+  duration_ms: 1.612864
+  type: 'test'
+  ...
+# Subtest: render uses literal text, native actions and only the scoped inner root for theme
+ok 11 - render uses literal text, native actions and only the scoped inner root for theme
+  ---
+  duration_ms: 3.480483
+  type: 'test'
+  ...
+# Subtest: omitted theme inherits host tokens, including after an explicit theme update
+ok 12 - omitted theme inherits host tokens, including after an explicit theme update
+  ---
+  duration_ms: 1.091262
+  type: 'test'
+  ...
+# Subtest: invalid render/update and missing dependency leave existing DOM untouched
+ok 13 - invalid render/update and missing dependency leave existing DOM untouched
+  ---
+  duration_ms: 0.541298
+  type: 'test'
+  ...
+# Subtest: chart/table lifecycle is cleaned on update, failure, remount and destroy; provider returns copies
+ok 14 - chart/table lifecycle is cleaned on update, failure, remount and destroy; provider returns copies
+  ---
+  duration_ms: 2.965342
+  type: 'test'
+  ...
+# Subtest: published schema and manifest expose exactly the supported adapter kinds
+ok 15 - published schema and manifest expose exactly the supported adapter kinds
+  ---
+  duration_ms: 0.915886
+  type: 'test'
+  ...
+# Subtest: calendar editing preserves metadata while clearing resource intentionally
+ok 16 - calendar editing preserves metadata while clearing resource intentionally
+  ---
+  duration_ms: 17.209331
+  type: 'test'
+  ...
+# Subtest: calendar conflict compares values independent of JSON key order
+ok 17 - calendar conflict compares values independent of JSON key order
+  ---
+  duration_ms: 0.288086
+  type: 'test'
+  ...
+# Subtest: content rejects executable and obfuscated URLs
+ok 18 - content rejects executable and obfuscated URLs
+  ---
+  duration_ms: 2.406351
+  type: 'test'
+  ...
+# Subtest: content validates progress, alt text and required labels
+ok 19 - content validates progress, alt text and required labels
+  ---
+  duration_ms: 0.521482
+  type: 'test'
+  ...
+# Subtest: content snapshots metadata and status without mutating input
+ok 20 - content snapshots metadata and status without mutating input
+  ---
+  duration_ms: 1.071946
+  type: 'test'
+  ...
+# Subtest: generic data validates dates, unique ids, nullable values and numeric types
+ok 21 - generic data validates dates, unique ids, nullable values and numeric types
+  ---
+  duration_ms: 2.024771
+  type: 'test'
+  ...
+# Subtest: generic search, numeric sorting and paging preserve input
+ok 22 - generic search, numeric sorting and paging preserve input
+  ---
+  duration_ms: 1.447516
+  type: 'test'
+  ...
+# Subtest: rich cards and page accept only explicit safe enums
+ok 23 - rich cards and page accept only explicit safe enums
+  ---
+  duration_ms: 1.737737
+  type: 'test'
+  ...
+# Subtest: form rejects unrepresentable values before DOM; hidden fields do not weaken value safety
+ok 24 - form rejects unrepresentable values before DOM; hidden fields do not weaken value safety
+  ---
+  duration_ms: 4.186387
+  type: 'test'
+  ...
+# Subtest: generic plots preserve missing/negative values, reject inconsistent series and escape CSV
+ok 25 - generic plots preserve missing/negative values, reject inconsistent series and escape CSV
+  ---
+  duration_ms: 2.320822
+  type: 'test'
+  ...
+# Subtest: agent schema 1.1 validates new adapters and protects legacy 1.0
+ok 26 - agent schema 1.1 validates new adapters and protects legacy 1.0
+  ---
+  duration_ms: 2.765561
+  type: 'test'
+  ...
+# Subtest: column filter and locale search operate before pagination
+ok 27 - column filter and locale search operate before pagination
+  ---
+  duration_ms: 0.410875
+  type: 'test'
+  ...
+# Subtest: isolated ESM does not publish globals and supports DOM-free import
+ok 28 - isolated ESM does not publish globals and supports DOM-free import
+  ---
+  duration_ms: 40.935896
+  type: 'test'
+  ...
+# Subtest: forms: required, bounds, email, dates and zero values
+ok 29 - forms: required, bounds, email, dates and zero values
+  ---
+  duration_ms: 3.669173
+  type: 'test'
+  ...
+# Subtest: forms: strict schema and independent snapshots
+ok 30 - forms: strict schema and independent snapshots
+  ---
+  duration_ms: 1.446734
+  type: 'test'
+  ...
+# Subtest: forms: selection and length errors use plain text
+ok 31 - forms: selection and length errors use plain text
+  ---
+  duration_ms: 0.611349
+  type: 'test'
+  ...
+# Subtest: preferences: opt-in persistence, corruption, version, clear and quota failures
+ok 32 - preferences: opt-in persistence, corruption, version, clear and quota failures
+  ---
+  duration_ms: 1.276537
+  type: 'test'
+  ...
+# Subtest: preferences: malformed envelope and reserved field identifiers are rejected
+ok 33 - preferences: malformed envelope and reserved field identifiers are rejected
+  ---
+  duration_ms: 0.427907
+  type: 'test'
+  ...
+# Subtest: icon catalog has 58 safe standalone SVG sources with matching exports
+ok 34 - icon catalog has 58 safe standalone SVG sources with matching exports
+  ---
+  duration_ms: 26.542643
+  type: 'test'
+  ...
+# Subtest: icon API rejects invalid names/options and escapes accessible names
+ok 35 - icon API rejects invalid names/options and escapes accessible names
+  ---
+  duration_ms: 0.608002
+  type: 'test'
+  ...
+# Subtest: page recipes all provide a real template and reference existing icons
+ok 36 - page recipes all provide a real template and reference existing icons
+  ---
+  duration_ms: 4.349152
+  type: 'test'
+  ...
+# Subtest: legacy icon API delegates to the canonical set and keeps aliases safe
+ok 37 - legacy icon API delegates to the canonical set and keeps aliases safe
+  ---
+  duration_ms: 2.121892
+  type: 'test'
+  ...
+# Subtest: all isolated icon entries match the canonical renderer and remain SSR safe
+ok 38 - all isolated icon entries match the canonical renderer and remain SSR safe
+  ---
+  duration_ms: 36.758931
+  type: 'test'
+  ...
+# Subtest: locale contexts interpolate safely and isolate per-instance messages
+ok 39 - locale contexts interpolate safely and isolate per-instance messages
+  ---
+  duration_ms: 1.826873
+  type: 'test'
+  ...
+# Subtest: catalog registration copies dictionaries and default locale leaves existing contexts unchanged
+ok 40 - catalog registration copies dictionaries and default locale leaves existing contexts unchanged
+  ---
+  duration_ms: 0.44598
+  type: 'test'
+  ...
+# Subtest: validation errors use selected language and caller field labels
+ok 41 - validation errors use selected language and caller field labels
+  ---
+  duration_ms: 1.518628
+  type: 'test'
+  ...
+# Subtest: agent column layouts validate widths, keys and pinning before rendering
+ok 42 - agent column layouts validate widths, keys and pinning before rendering
+  ---
+  duration_ms: 2.189438
+  type: 'test'
+  ...
+# Subtest: integration test runner loads without opening a server
+ok 43 - integration test runner loads without opening a server
+  ---
+  duration_ms: 1.003849
+  type: 'test'
+  ...
+# Subtest: extra catalogs preserve placeholders and regional overrides
+ok 44 - extra catalogs preserve placeholders and regional overrides
+  ---
+  duration_ms: 6.517218
+  type: 'test'
+  ...
+# Subtest: optimized queries preserve locale matching, null-last ordering, filters and stable ties
+ok 45 - optimized queries preserve locale matching, null-last ordering, filters and stable ties
+  ---
+  duration_ms: 1.217998
+  type: 'test'
+  ...
+# Subtest: local input rejects DST gaps and requires explicit fold choice
+ok 46 - local input rejects DST gaps and requires explicit fold choice
+  ---
+  duration_ms: 18.958388
+  type: 'test'
+  ...
+# Subtest: recurrence preserves wall time across DST; exclusions and limits are explicit
+ok 47 - recurrence preserves wall time across DST; exclusions and limits are explicit
+  ---
+  duration_ms: 1.644423
+  type: 'test'
+  ...
+# Subtest: capacity uses peak concurrency, not merely overlapping row count
+ok 48 - capacity uses peak concurrency, not merely overlapping row count
+  ---
+  duration_ms: 0.495943
+  type: 'test'
+  ...
+# Subtest: inline ranges compose, survive typing and import/export without markup execution
+ok 49 - inline ranges compose, survive typing and import/export without markup execution
+  ---
+  duration_ms: 2.293712
+  type: 'test'
+  ...
+# Subtest: prepared search isolates caller mutation and rejects invalid page sizes
+ok 50 - prepared search isolates caller mutation and rejects invalid page sizes
+  ---
+  duration_ms: 0.554302
+  type: 'test'
+  ...
+# Subtest: remote paging ignores late responses and cancels without clearing accepted data
+ok 51 - remote paging ignores late responses and cancels without clearing accepted data
+  ---
+  duration_ms: 0.680678
+  type: 'test'
+  ...
+# Subtest: events: DST interval, midnight exclusive end, resources and touching edges
+ok 52 - events: DST interval, midnight exclusive end, resources and touching edges
+  ---
+  duration_ms: 28.658754
+  type: 'test'
+  ...
+# Subtest: documents: version restore is undoable and detached, history is bounded
+ok 53 - documents: version restore is undoable and detached, history is bounded
+  ---
+  duration_ms: 9.05302
+  type: 'test'
+  ...
+# Subtest: documents: diff reports text, title, additions and ordering without HTML interpretation
+ok 54 - documents: diff reports text, title, additions and ordering without HTML interpretation
+  ---
+  duration_ms: 1.386632
+  type: 'test'
+  ...
+# Subtest: notifications: snooze, undo, strict date and preferences
+ok 55 - notifications: snooze, undo, strict date and preferences
+  ---
+  duration_ms: 0.834244
+  type: 'test'
+  ...
+# Subtest: raw empty draft remains distinct from a valid checkpoint and survives history restore
+ok 56 - raw empty draft remains distinct from a valid checkpoint and survives history restore
+  ---
+  duration_ms: 0.831246
+  type: 'test'
+  ...
+# Subtest: markSaved acknowledges only submitted revision; later edits remain dirty
+ok 57 - markSaved acknowledges only submitted revision; later edits remain dirty
+  ---
+  duration_ms: 0.525028
+  type: 'test'
+  ...
+# Subtest: upload never treats unconfirmed result as success
+ok 58 - upload never treats unconfirmed result as success
+  ---
+  duration_ms: 1.604699
+  type: 'test'
+  ...
+# Subtest: cancel suppresses late success and retry remains possible
+ok 59 - cancel suppresses late success and retry remains possible
+  ---
+  duration_ms: 0.486737
+  type: 'test'
+  ...
+# Subtest: upload validation is atomic and progress is bounded
+ok 60 - upload validation is atomic and progress is bounded
+  ---
+  duration_ms: 0.53148
+  type: 'test'
+  ...
+# Subtest: advanced definitions reject ambiguity and unsafe objects
+ok 61 - advanced definitions reject ambiguity and unsafe objects
+  ---
+  duration_ms: 0.652556
+  type: 'test'
+  ...
+# Subtest: removed upload cannot resurrect after transport completes
+ok 62 - removed upload cannot resurrect after transport completes
+  ---
+  duration_ms: 0.804008
+  type: 'test'
+  ...
+# Subtest: destroy aborts transport and suppresses notifications
+ok 63 - destroy aborts transport and suppresses notifications
+  ---
+  duration_ms: 0.479643
+  type: 'test'
+  ...
+# Subtest: collaboration and metric input boundaries are atomic and strict
+ok 64 - collaboration and metric input boundaries are atomic and strict
+  ---
+  duration_ms: 0.625405
+  type: 'test'
+  ...
+# Subtest: both studios share the current theme schema and value parsing
+ok 65 - both studios share the current theme schema and value parsing
+  ---
+  duration_ms: 7.562254
+  type: 'test'
+  ...
+# Subtest: legacy table and charts have DE/AR messages for every literal translation call
+ok 66 - legacy table and charts have DE/AR messages for every literal translation call
+  ---
+  duration_ms: 5.495568
+  type: 'test'
+  ...
+# Subtest: regional catalogs overlay base language and instance overrides
+ok 67 - regional catalogs overlay base language and instance overrides
+  ---
+  duration_ms: 1.21895
+  type: 'test'
+  ...
+# Subtest: shared CSV protects whitespace and control-prefixed formulas
+ok 68 - shared CSV protects whitespace and control-prefixed formulas
+  ---
+  duration_ms: 0.377754
+  type: 'test'
+  ...
+# Subtest: inbox strict boundary and detached data
+ok 69 - inbox strict boundary and detached data
+  ---
+  duration_ms: 4.528153
+  type: 'test'
+  ...
+# Subtest: activity strict boundary and detached data
+ok 70 - activity strict boundary and detached data
+  ---
+  duration_ms: 2.619629
+  type: 'test'
+  ...
+# Subtest: resources strict boundary and detached data
+ok 71 - resources strict boundary and detached data
+  ---
+  duration_ms: 2.349837
+  type: 'test'
+  ...
+# Subtest: inbox undo and invalid updates preserve state
+ok 72 - inbox undo and invalid updates preserve state
+  ---
+  duration_ms: 1.006816
+  type: 'test'
+  ...
+# Subtest: all 16 modes export valid typed graphs and keep aliases connected
+ok 73 - all 16 modes export valid typed graphs and keep aliases connected
+  ---
+  duration_ms: 54.339898
+  type: 'test'
+  ...
+# Subtest: component tokens follow custom button and card theme settings
+ok 74 - component tokens follow custom button and card theme settings
+  ---
+  duration_ms: 2.923334
+  type: 'test'
+  ...
+# Subtest: token graph rejects cycles, absent references and incompatible types
+ok 75 - token graph rejects cycles, absent references and incompatible types
+  ---
+  duration_ms: 6.890453
+  type: 'test'
+  ...
+# Subtest: theme precedence is explicit and rejects unknown inputs without mutation
+ok 76 - theme precedence is explicit and rejects unknown inputs without mutation
+  ---
+  duration_ms: 0.767359
+  type: 'test'
+  ...
+# Subtest: cancel during validation keeps draft and prevents execution
+ok 77 - cancel during validation keeps draft and prevents execution
+  ---
+  duration_ms: 1.149851
+  type: 'test'
+  ...
+# Subtest: late old results cannot overwrite a newer submission
+ok 78 - late old results cannot overwrite a newer submission
+  ---
+  duration_ms: 0.602322
+  type: 'test'
+  ...
+# Subtest: unpersisted and partial outcomes keep dirty drafts; unknown results fail closed
+ok 79 - unpersisted and partial outcomes keep dirty drafts; unknown results fail closed
+  ---
+  duration_ms: 1.724773
+  type: 'test'
+  ...
+# Subtest: snapshot restore resets transient work and does not mutate input
+ok 80 - snapshot restore resets transient work and does not mutate input
+  ---
+  duration_ms: 0.457031
+  type: 'test'
+  ...
+# Subtest: page recipes reject incompatible metadata without DOM access
+ok 81 - page recipes reject incompatible metadata without DOM access
+  ---
+  duration_ms: 0.751079
+  type: 'test'
+  ...
+# Subtest: composition catches cross references and effect bindings
+ok 82 - composition catches cross references and effect bindings
+  ---
+  duration_ms: 4.581633
+  type: 'test'
+  ...
+# Subtest: effects require approval plus application authorization
+ok 83 - effects require approval plus application authorization
+  ---
+  duration_ms: 4.020959
+  type: 'test'
+  ...
+# Subtest: cancel during approval never reaches executor
+ok 84 - cancel during approval never reaches executor
+  ---
+  duration_ms: 0.766788
+  type: 'test'
+  ...
+# Subtest: Node-safe IIFE publishes only its frozen API without reading DOM or storage
+ok 85 - Node-safe IIFE publishes only its frozen API without reading DOM or storage
+  ---
+  duration_ms: 8.089206
+  type: 'test'
+  ...
+# Subtest: Partial configuration fills immutable defaults without retaining the input object
+ok 86 - Partial configuration fills immutable defaults without retaining the input object
+  ---
+  duration_ms: 1.022816
+  type: 'test'
+  ...
+# Subtest: Presets have stable IDs, Turkish names, frozen metadata and valid six-digit color values
+ok 87 - Presets have stable IDs, Turkish names, frozen metadata and valid six-digit color values
+  ---
+  duration_ms: 0.792366
+  type: 'test'
+  ...
+# Subtest: Unknown fields, types, unsafe records, inherited settings and accessors are rejected
+ok 88 - Unknown fields, types, unsafe records, inherited settings and accessors are rejected
+  ---
+  duration_ms: 1.249948
+  type: 'test'
+  ...
+# Subtest: Every permitted typography, density, shape, scale, motion and border option resolves
+ok 89 - Every permitted typography, density, shape, scale, motion and border option resolves
+  ---
+  duration_ms: 76.830903
+  type: 'test'
+  ...
+# Subtest: grove/light: all normal text, focus, semantic and chart checks pass including extreme custom accents
+ok 90 - grove/light: all normal text, focus, semantic and chart checks pass including extreme custom accents
+  ---
+  duration_ms: 33.739996
+  type: 'test'
+  ...
+# Subtest: grove/dark: all normal text, focus, semantic and chart checks pass including extreme custom accents
+ok 91 - grove/dark: all normal text, focus, semantic and chart checks pass including extreme custom accents
+  ---
+  duration_ms: 23.142874
+  type: 'test'
+  ...
+# Subtest: clay/light: all normal text, focus, semantic and chart checks pass including extreme custom accents
+ok 92 - clay/light: all normal text, focus, semantic and chart checks pass including extreme custom accents
+  ---
+  duration_ms: 20.893372
+  type: 'test'
+  ...
+# Subtest: clay/dark: all normal text, focus, semantic and chart checks pass including extreme custom accents
+ok 93 - clay/dark: all normal text, focus, semantic and chart checks pass including extreme custom accents
+  ---
+  duration_ms: 18.695299
+  type: 'test'
+  ...
+# Subtest: tide/light: all normal text, focus, semantic and chart checks pass including extreme custom accents
+ok 94 - tide/light: all normal text, focus, semantic and chart checks pass including extreme custom accents
+  ---
+  duration_ms: 19.117825
+  type: 'test'
+  ...
+# Subtest: tide/dark: all normal text, focus, semantic and chart checks pass including extreme custom accents
+ok 95 - tide/dark: all normal text, focus, semantic and chart checks pass including extreme custom accents
+  ---
+  duration_ms: 19.217792
+  type: 'test'
+  ...
+# Subtest: atelier/light: all normal text, focus, semantic and chart checks pass including extreme custom accents
+ok 96 - atelier/light: all normal text, focus, semantic and chart checks pass including extreme custom accents
+  ---
+  duration_ms: 18.515112
+  type: 'test'
+  ...
+# Subtest: atelier/dark: all normal text, focus, semantic and chart checks pass including extreme custom accents
+ok 97 - atelier/dark: all normal text, focus, semantic and chart checks pass including extreme custom accents
+  ---
+  duration_ms: 16.915844
+  type: 'test'
+  ...
+# Subtest: WCAG relative luminance contrast is symmetric, exact for black/white, and never rounded
+ok 98 - WCAG relative luminance contrast is symmetric, exact for black/white, and never rounded
+  ---
+  duration_ms: 0.319245
+  type: 'test'
+  ...
+# Subtest: Audit computes actual minimum contrast over used surfaces, not display-rounded values
+ok 99 - Audit computes actual minimum contrast over used surfaces, not display-rounded values
+  ---
+  duration_ms: 5.720244
+  type: 'test'
+  ...
+# Subtest: apply changes only its CSS variables and four theme attributes and returns the resolved frozen object
+ok 100 - apply changes only its CSS variables and four theme attributes and returns the resolved frozen object
+  ---
+  duration_ms: 0.905967
+  type: 'test'
+  ...
+# Subtest: apply uses the browser document root when omitted; Node omission is a clear error
+ok 101 - apply uses the browser document root when omitted; Node omission is a clear error
+  ---
+  duration_ms: 1.914636
+  type: 'test'
+  ...
+# Subtest: Invalid apply input is rejected before any root mutation
+ok 102 - Invalid apply input is rejected before any root mutation
+  ---
+  duration_ms: 0.18767
+  type: 'test'
+  ...
+# Subtest: JSON export contains normalized configuration only and round-trips every palette/mode
+ok 103 - JSON export contains normalized configuration only and round-trips every palette/mode
+  ---
+  duration_ms: 1.019238
+  type: 'test'
+  ...
+# Subtest: CSS export has all resolved values, deterministic output and no configuration-derived injection path
+ok 104 - CSS export has all resolved values, deterministic output and no configuration-derived injection path
+  ---
+  duration_ms: 0.882454
+  type: 'test'
+  ...
+# Subtest: Fallback CSS matches default resolved tokens and provides local font and reduced-motion support
+ok 105 - Fallback CSS matches default resolved tokens and provides local font and reduced-motion support
+  ---
+  duration_ms: 0.754906
+  type: 'test'
+  ...
+# Subtest: CSS-only export preserves native color scheme, scoped reduced motion and system motion preference
+ok 106 - CSS-only export preserves native color scheme, scoped reduced motion and system motion preference
+  ---
+  duration_ms: 0.976799
+  type: 'test'
+  ...
+# Subtest: Schema documents exactly the accepted fields, enums, defaults and six-digit accent syntax
+ok 107 - Schema documents exactly the accepted fields, enums, defaults and six-digit accent syntax
+  ---
+  duration_ms: 0.408782
+  type: 'test'
+  ...
+# Subtest: layout preferences survive export and are accepted by the agent contract
+ok 108 - layout preferences survive export and are accepted by the agent contract
+  ---
+  duration_ms: 0.503978
+  type: 'test'
+  ...
+# Subtest: all 10 widget contracts validate alone and inside the agent view
+ok 109 - all 10 widget contracts validate alone and inside the agent view
+  ---
+  duration_ms: 6.548496
+  type: 'test'
+  ...
+# Subtest: widget contracts reject unknown fields and invalid cross references
+ok 110 - widget contracts reject unknown fields and invalid cross references
+  ---
+  duration_ms: 1.657006
+  type: 'test'
+  ...
+# Subtest: unsafe JavaScript values are rejected without executing getters
+ok 111 - unsafe JavaScript values are rejected without executing getters
+  ---
+  duration_ms: 0.509529
+  type: 'test'
+  ...
+# Subtest: extended theme controls round-trip without losing types and all preset contrast audits pass
+ok 112 - extended theme controls round-trip without losing types and all preset contrast audits pass
+  ---
+  duration_ms: 59.034669
+  type: 'test'
+  ...
+1..112
+# tests 112
+# suites 0
+# pass 112
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1016.604368
+
+> muhit-ui@0.23.0-beta.1 check:brand
+> node tools/check-brand.mjs
+
+Muhit 3.1: 14 SVG dosyası sabit ana sürümle eşleşiyor.
+
+> muhit-ui@0.23.0-beta.1 test:browser
+> node tests/browser/run.mjs
+
+PASS forms/preferences: validation, server errors, retry, abort/reset, dirty state, persistence, themes, mobile, destroy.
+PASS browser: contrast, filter reset/chip, sticky header, theme history, page URL, 10k rows, safe text, stale async responses, dark/mobile/125%.
+
+> muhit-ui@0.23.0-beta.1 check:capabilities
+> node tools/capabilities.mjs --check
+
+PASS capability/version consistency
+
+> muhit-ui@0.23.0-beta.1 test:extended
+> npm run build:modules && node tests/browser/extended.mjs
+
+
+> muhit-ui@0.23.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+LAYOUT { width: 390, scroll: 390, wide: [] }
+PERFORMANCE chromium {"duration":7.5,"count":10}
+PASS chromium: 3 audit regressions, grid selection/filter/edit/CSV, plot gaps/table, agent 1.1 transactions, cross-tab sync/unsubscribe, RTL/mobile/forced-colors.
+
+> muhit-ui@0.23.0-beta.1 test:framework
+> node tests/browser/frameworks.mjs
+
+npm notice
+npm notice 📦  muhit-ui@0.23.0-beta.1
+npm notice Tarball Contents
+npm notice 6.5kB AGENTS.md
+npm notice 11.9kB CHANGELOG.md
+npm notice 2.1kB CONTRIBUTING.md
+npm notice 1.1kB LICENSE
+npm notice 989B NOTICE
+npm notice 18.4kB README.md
+npm notice 822B SECURITY.md
+npm notice 1.5kB assets/brand/brand-lock.json
+npm notice 1.2kB assets/brand/brand.json
+npm notice 667B assets/brand/favicon.svg
+npm notice 5.1kB assets/brand/index.html
+npm notice 730B assets/brand/muhit-app-icon.svg
+npm notice 6.1kB assets/brand/muhit-logo-dark.svg
+npm notice 6.1kB assets/brand/muhit-logo-mono.svg
+npm notice 6.1kB assets/brand/muhit-logo.svg
+npm notice 638B assets/brand/muhit-symbol-dark.svg
+npm notice 643B assets/brand/muhit-symbol-mono.svg
+npm notice 638B assets/brand/muhit-symbol.svg
+npm notice 7.7kB assets/brand/muhit-ui-dark.svg
+npm notice 7.7kB assets/brand/muhit-ui-mono.svg
+npm notice 7.7kB assets/brand/muhit-ui.svg
+npm notice 5.6kB assets/brand/muhit-wordmark-dark.svg
+npm notice 5.6kB assets/brand/muhit-wordmark-mono.svg
+npm notice 5.6kB assets/brand/muhit-wordmark.svg
+npm notice 4.4kB assets/fonts/Manrope-OFL.txt
+npm notice 164.7kB assets/fonts/Manrope-Variable.ttf
+npm notice 53.8kB assets/fonts/Manrope-Variable.woff2
+npm notice 4.4kB assets/fonts/SourceSerif4-OFL.txt
+npm notice 1.2MB assets/fonts/SourceSerif4-Variable.ttf
+npm notice 427.4kB assets/fonts/SourceSerif4-Variable.woff2
+npm notice 378B assets/icons/accessibility.svg
+npm notice 389B assets/icons/archive.svg
+npm notice 328B assets/icons/arrow-back.svg
+npm notice 332B assets/icons/arrow-forward.svg
+npm notice 357B assets/icons/bell.svg
+npm notice 437B assets/icons/board.svg
+npm notice 354B assets/icons/book.svg
+npm notice 343B assets/icons/bookmark.svg
+npm notice 390B assets/icons/cards.svg
+npm notice 341B assets/icons/chart.svg
+npm notice 317B assets/icons/check.svg
+npm notice 322B assets/icons/chevron-down.svg
+npm notice 325B assets/icons/chevron-forward.svg
+npm notice 345B assets/icons/clock.svg
+npm notice 323B assets/icons/close.svg
+npm notice 388B assets/icons/copy.svg
+npm notice 356B assets/icons/download.svg
+npm notice 349B assets/icons/edit.svg
+npm notice 370B assets/icons/external-link.svg
+npm notice 364B assets/icons/file.svg
+npm notice 331B assets/icons/filter.svg
+npm notice 360B assets/icons/folder.svg
+npm notice 373B assets/icons/form.svg
+npm notice 482B assets/icons/grid.svg
+npm notice 367B assets/icons/heart.svg
+npm notice 365B assets/icons/home.svg
+npm notice 349B assets/icons/info.svg
+npm notice 375B assets/icons/landscape.svg
+npm notice 352B assets/icons/layers.svg
+npm notice 367B assets/icons/layout.svg
+npm notice 347B assets/icons/leaf.svg
+npm notice 396B assets/icons/link.svg
+npm notice 382B assets/icons/lock.svg
+npm notice 325B assets/icons/menu.svg
+npm notice 363B assets/icons/message.svg
+npm notice 311B assets/icons/minus.svg
+npm notice 339B assets/icons/moon.svg
+npm notice 382B assets/icons/more.svg
+npm notice 418B assets/icons/nodes.svg
+npm notice 371B assets/icons/note.svg
+npm notice 399B assets/icons/people.svg
+npm notice 359B assets/icons/person.svg
+npm notice 318B assets/icons/plus.svg
+npm notice 538B assets/icons/README.md
+npm notice 334B assets/icons/refresh.svg
+npm notice 349B assets/icons/resize-horizontal.svg
+npm notice 355B assets/icons/search.svg
+npm notice 437B assets/icons/settings.svg
+npm notice 412B assets/icons/share.svg
+npm notice 354B assets/icons/shield.svg
+npm notice 345B assets/icons/sort.svg
+npm notice 341B assets/icons/spark.svg
+npm notice 377B assets/icons/sprout.svg
+npm notice 408B assets/icons/sun.svg
+npm notice 374B assets/icons/table.svg
+npm notice 366B assets/icons/trash.svg
+npm notice 354B assets/icons/upload.svg
+npm notice 362B assets/icons/warning.svg
+npm notice 364B assets/icons/water.svg
+npm notice 11.4kB design/figma/components.js
+npm notice 2.1kB design/figma/helpers.js
+npm notice 10.4kB design/figma/manifest.json
+npm notice 2.1kB design/figma/modules-0.20.json
+npm notice 1.9kB design/figma/pages.js
+npm notice 7.5kB design/figma/planning-0.21-qa.json
+npm notice 7.6kB design/figma/planning-0.21.json
+npm notice 7.6kB design/figma/planning-0.23.json
+npm notice 5.4kB docs/ACCESSIBILITY-MANUAL.md
+npm notice 3.9kB docs/ADVANCED-FORMS.md
+npm notice 16.3kB docs/AGENT-CONTRACT.md
+npm notice 7.1kB docs/AUDIT-0.6.0.md
+npm notice 8.7kB docs/AUDIT-0.8.0.md
+npm notice 4.7kB docs/BRAND.md
+npm notice 2.9kB docs/COLUMN-LAYOUT.md
+npm notice 13.9kB docs/COMPONENTS.md
+npm notice 3.3kB docs/CONSUMER-CONTRACT.md
+npm notice 3.8kB docs/CONTENT.md
+npm notice 4.6kB docs/COVERAGE.md
+npm notice 3.7kB docs/CURRENT.md
+npm notice 3.2kB docs/DESIGN-CODE-0.20.md
+npm notice 1.3kB docs/DESIGN-CODE-0.21.md
+npm notice 1.5kB docs/DESIGN-CODE-0.23.md
+npm notice 5.4kB docs/DESIGN.md
+npm notice 2.8kB docs/FIGMA.md
+npm notice 6.1kB docs/FORMS.md
+npm notice 2.3kB docs/FOUNDATIONS-VERIFICATION.md
+npm notice 1.5kB docs/FRAMEWORKS-0.9.md
+npm notice 6.7kB docs/GETTING-STARTED.en.md
+npm notice 3.2kB docs/history/RELEASE-POLICY-before-0.21.md
+npm notice 1.9kB docs/ICONS.en.md
+npm notice 4.4kB docs/ICONS.md
+npm notice 2.5kB docs/INTEGRATION-0.21.md
+npm notice 3.9kB docs/INTERACTION-CONTRACT.md
+npm notice 3.6kB docs/INTERNATIONALIZATION.md
+npm notice 2.0kB docs/LAYOUTS.md
+npm notice 2.1kB docs/MANUAL-ACCEPTANCE-0.23.md
+npm notice 3.2kB docs/MIGRATION-0.13.md
+npm notice 1.3kB docs/MIGRATION-0.15.md
+npm notice 2.0kB docs/MIGRATION-0.18.md
+npm notice 1.1kB docs/MIGRATION-0.19.md
+npm notice 1.1kB docs/MIGRATION-0.20.md
+npm notice 2.3kB docs/MIGRATION-0.21.md
+npm notice 1.5kB docs/MIGRATION-0.22.md
+npm notice 2.4kB docs/MIGRATION.md
+npm notice 4.5kB docs/P3-0.10.md
+npm notice 5.9kB docs/P3-0.22.md
+npm notice 6.2kB docs/PAGE-STANDARDS.md
+npm notice 2.7kB docs/PAGES.en.md
+npm notice 1.5kB docs/PERFORMANCE-0.23.md
+npm notice 7.5kB docs/PLANNING-0.20.md
+npm notice 4.3kB docs/PRINCIPLES.md
+npm notice 8.1kB docs/PRODUCT-SYSTEM-0.19.md
+npm notice 3.8kB docs/PRODUCTION-0.11.md
+npm notice 5.3kB docs/PRODUCTION.md
+npm notice 2.3kB docs/READINESS-0.21.md
+npm notice 1.6kB docs/READINESS-0.22.md
+npm notice 2.1kB docs/READINESS-0.23.md
+npm notice 3.8kB docs/RELEASE-0.7.md
+npm notice 977B docs/RELEASE-0.8.md
+npm notice 2.2kB docs/RELEASE-0.9.md
+npm notice 1.8kB docs/RELEASE-POLICY.md
+npm notice 2.5kB docs/SYSTEM-AI.md
+npm notice 3.4kB docs/SYSTEM-ARCHITECTURE.md
+npm notice 2.6kB docs/SYSTEM-COMPONENTS.md
+npm notice 3.0kB docs/SYSTEM-GOVERNANCE.md
+npm notice 3.3kB docs/SYSTEM-PATTERNS.md
+npm notice 2.3kB docs/SYSTEM-TECHNOLOGY.md
+npm notice 2.8kB docs/SYSTEM-TOKENS.md
+npm notice 2.3kB docs/SYSTEM-VERIFICATION-0.18.md
+npm notice 3.9kB docs/SYSTEM.en.md
+npm notice 14.3kB docs/TOKENS.md
+npm notice 3.5kB docs/VERIFICATION-0.19.md
+npm notice 4.2kB docs/VERIFICATION-0.20.md
+npm notice 3.4kB docs/VERIFICATION-0.21.md
+npm notice 2.7kB docs/VERIFICATION-0.22.md
+npm notice 698B docs/VERIFICATION-0.23.md
+npm notice 9.7kB docs/VERIFICATION.md
+npm notice 1.1kB docs/VISUAL-REVIEW-0.14.md
+npm notice 4.0kB docs/WIDGETS.md
+npm notice 4.7kB docs/WORKSPACE-MODULES.md
+npm notice 2.1kB docs/WORKSPACE-VERIFICATION.md
+npm notice 40.5kB esm/agent.mjs
+npm notice 67.6kB esm/charts.mjs
+npm notice 3.3kB esm/components.mjs
+npm notice 2.2kB esm/contracts.mjs
+npm notice 747B esm/csv.mjs
+npm notice 37.9kB esm/data-grid.mjs
+npm notice 17.6kB esm/fields.mjs
+npm notice 6.0kB esm/flow.mjs
+npm notice 24.2kB esm/forms.mjs
+npm notice 1.3kB esm/foundations.mjs
+npm notice 6.1kB esm/i18n.mjs
+npm notice 8.6kB esm/icons.mjs
+npm notice 421B esm/icons/accessibility.mjs
+npm notice 424B esm/icons/archive.mjs
+npm notice 359B esm/icons/arrow-back.mjs
+npm notice 369B esm/icons/arrow-forward.mjs
+npm notice 376B esm/icons/bell.mjs
+npm notice 486B esm/icons/board.mjs
+npm notice 373B esm/icons/book.mjs
+npm notice 370B esm/icons/bookmark.mjs
+npm notice 421B esm/icons/cards.mjs
+npm notice 362B esm/icons/chart.mjs
+npm notice 338B esm/icons/check.mjs
+npm notice 357B esm/icons/chevron-down.mjs
+npm notice 366B esm/icons/chevron-forward.mjs
+npm notice 372B esm/icons/clock.mjs
+npm notice 344B esm/icons/close.mjs
+npm notice 417B esm/icons/copy.mjs
+npm notice 2.7kB esm/icons/core.mjs
+npm notice 383B esm/icons/download.mjs
+npm notice 368B esm/icons/edit.mjs
+npm notice 407B esm/icons/external-link.mjs
+npm notice 383B esm/icons/file.mjs
+npm notice 354B esm/icons/filter.mjs
+npm notice 383B esm/icons/folder.mjs
+npm notice 402B esm/icons/form.mjs
+npm notice 539B esm/icons/grid.mjs
+npm notice 388B esm/icons/heart.mjs
+npm notice 384B esm/icons/home.mjs
+npm notice 374B esm/icons/info.mjs
+npm notice 410B esm/icons/landscape.mjs
+npm notice 375B esm/icons/layers.mjs
+npm notice 400B esm/icons/layout.mjs
+npm notice 366B esm/icons/leaf.mjs
+npm notice 415B esm/icons/link.mjs
+npm notice 411B esm/icons/lock.mjs
+npm notice 344B esm/icons/menu.mjs
+npm notice 388B esm/icons/message.mjs
+npm notice 332B esm/icons/minus.mjs
+npm notice 358B esm/icons/moon.mjs
+npm notice 417B esm/icons/more.mjs
+npm notice 457B esm/icons/nodes.mjs
+npm notice 390B esm/icons/note.mjs
+npm notice 428B esm/icons/people.mjs
+npm notice 388B esm/icons/person.mjs
+npm notice 337B esm/icons/plus.mjs
+npm notice 359B esm/icons/refresh.mjs
+npm notice 394B esm/icons/resize-horizontal.mjs
+npm notice 384B esm/icons/search.mjs
+npm notice 482B esm/icons/settings.mjs
+npm notice 451B esm/icons/share.mjs
+npm notice 377B esm/icons/shield.mjs
+npm notice 364B esm/icons/sort.mjs
+npm notice 362B esm/icons/spark.mjs
+npm notice 400B esm/icons/sprout.mjs
+npm notice 431B esm/icons/sun.mjs
+npm notice 405B esm/icons/table.mjs
+npm notice 387B esm/icons/trash.mjs
+npm notice 377B esm/icons/upload.mjs
+npm notice 387B esm/icons/warning.mjs
+npm notice 385B esm/icons/water.mjs
+npm notice 7.3kB esm/pages.mjs
+npm notice 11.5kB esm/plot.mjs
+npm notice 3.0kB esm/preferences.mjs
+npm notice 16.1kB esm/primitives.mjs
+npm notice 49.7kB esm/registry.mjs
+npm notice 8.3kB esm/system.mjs
+npm notice 49.6kB esm/table.mjs
+npm notice 21.7kB esm/theme.mjs
+npm notice 9.2kB esm/tokens.mjs
+npm notice 12.6kB esm/widget-schemas.mjs
+npm notice 33.5kB esm/widgets.mjs
+npm notice 3.0kB examples/advanced.html
+npm notice 4.9kB examples/agent-view.json
+npm notice 1.9kB examples/atelier/art/courtyard.svg
+npm notice 855B examples/atelier/art/landscape.svg
+npm notice 781B examples/atelier/art/study.svg
+npm notice 18.8kB examples/atelier/atelier.css
+npm notice 41.8kB examples/atelier/atelier.mjs
+npm notice 2.6kB examples/atelier/boards.html
+npm notice 4.1kB examples/atelier/catalog.json
+npm notice 2.5kB examples/atelier/DESIGN.md
+npm notice 8.4kB examples/atelier/extended.css
+npm notice 12.6kB examples/atelier/extended.mjs
+npm notice 940B examples/atelier/index.html
+npm notice 4.2kB examples/atelier/suite.mjs
+npm notice 2.4kB examples/atelier/TEST-REPORT.md
+npm notice 6.4kB examples/atelier/verify-next.mjs
+npm notice 4.0kB examples/atelier/verify-suite.mjs
+npm notice 4.8kB examples/atelier/verify.mjs
+npm notice 9.6kB examples/basic.html
+npm notice 1.3kB examples/extended-agent.json
+npm notice 2.1kB examples/foundations/collection.html
+npm notice 2.0kB examples/foundations/detail.html
+npm notice 2.0kB examples/foundations/editorial.html
+npm notice 3.5kB examples/foundations/icons.html
+npm notice 2.6kB examples/foundations/icons.mjs
+npm notice 2.0kB examples/foundations/overview.html
+npm notice 7.3kB examples/foundations/pages.mjs
+npm notice 11.8kB examples/foundations/principles.html
+npm notice 3.5kB examples/foundations/principles.mjs
+npm notice 2.0kB examples/foundations/settings.html
+npm notice 2.1kB examples/foundations/workspace.html
+npm notice 1.3kB examples/integration/adapter.mjs
+npm notice 1.4kB examples/integration/index.html
+npm notice 3.9kB examples/integration/server.mjs
+npm notice 8.5kB examples/international.html
+npm notice 1.3kB examples/pages.html
+npm notice 4.0kB examples/planning/app.mjs
+npm notice 3.6kB examples/planning/index.html
+npm notice 17.2kB examples/product/app.mjs
+npm notice 3.0kB examples/product/draft-session.mjs
+npm notice 1.3kB examples/product/index.html
+npm notice 9.5kB examples/product/locales.mjs
+npm notice 283B examples/react/index.html
+npm notice 2.9kB examples/react/Integrations.tsx
+npm notice 2.0kB examples/react/Lifecycle.tsx
+npm notice 2.1kB examples/react/MuhitForm.tsx
+npm notice 2.4kB examples/react/MuhitGrid.tsx
+npm notice 546B examples/react/MuhitIcon.tsx
+npm notice 1.2kB examples/react/MuhitPage.tsx
+npm notice 38.6kB examples/react/package-lock.json
+npm notice 528B examples/react/package.json
+npm notice 4.3kB examples/react/PlanningAdapter.ts
+npm notice 796B examples/react/README.md
+npm notice 3.2kB examples/react/src/App.tsx
+npm notice 306B examples/react/src/main.tsx
+npm notice 484B examples/react/src/style.css
+npm notice 331B examples/react/tsconfig.json
+npm notice 93B examples/react/vite.config.ts
+npm notice 1.8kB examples/react/WorkspaceExtension.tsx
+npm notice 1.3kB examples/rich-agent.json
+npm notice 1.6kB examples/scale.html
+npm notice 8.4kB examples/settings.html
+npm notice 1.8kB examples/system/admin.html
+npm notice 23.8kB examples/system/app.mjs
+npm notice 1.8kB examples/system/corporate.html
+npm notice 1.8kB examples/system/data.html
+npm notice 1.8kB examples/system/index.html
+npm notice 6.2kB examples/system/patterns.mjs
+npm notice 2.5kB examples/system/system.css
+npm notice 4.0kB examples/visual-catalog.html
+npm notice 280B examples/vue/index.html
+npm notice 2.7kB examples/vue/Integrations.vue
+npm notice 1.9kB examples/vue/Lifecycle.vue
+npm notice 1.8kB examples/vue/MuhitForm.vue
+npm notice 1.8kB examples/vue/MuhitGrid.vue
+npm notice 691B examples/vue/MuhitIcon.vue
+npm notice 1.1kB examples/vue/MuhitPage.vue
+npm notice 49.2kB examples/vue/package-lock.json
+npm notice 496B examples/vue/package.json
+npm notice 4.3kB examples/vue/PlanningAdapter.ts
+npm notice 786B examples/vue/README.md
+npm notice 2.5kB examples/vue/src/App.vue
+npm notice 206B examples/vue/src/main.ts
+npm notice 484B examples/vue/src/style.css
+npm notice 331B examples/vue/tsconfig.json
+npm notice 121B examples/vue/vite.config.ts
+npm notice 1.7kB examples/vue/WorkspaceExtension.vue
+npm notice 5.3kB examples/widgets.en.json
+npm notice 5.6kB examples/widgets.json
+npm notice 3.7kB examples/workflow.html
+npm notice 13.0kB examples/workspace.html
+npm notice 15.2kB index.html
+npm notice 6.1kB llms.txt
+npm notice 20.9kB locales/ar.mjs
+npm notice 17.8kB locales/de.mjs
+npm notice 82B locales/index.d.ts
+npm notice 17.9kB package.json
+npm notice 7.4kB schemas/capabilities.json
+npm notice 59.1kB schemas/component-contracts.json
+npm notice 14.3kB schemas/components.json
+npm notice 3.1kB schemas/design-principles.json
+npm notice 3.7kB schemas/form.schema.json
+npm notice 544B schemas/foundations.json
+npm notice 7.1kB schemas/icons.json
+npm notice 1.0kB schemas/page.schema.json
+npm notice 2.2kB schemas/pages.json
+npm notice 3.0kB schemas/patterns.json
+npm notice 4.8kB schemas/planning.schema.json
+npm notice 1.6kB schemas/plot.schema.json
+npm notice 601B schemas/support.json
+npm notice 2.5kB schemas/system.schema.json
+npm notice 4.1kB schemas/theme.schema.json
+npm notice 15.6kB schemas/ui.schema.json
+npm notice 15.5kB schemas/widgets.schema.json
+npm notice 5.7kB schemas/workspace-modules.json
+npm notice 3.4kB src/activity.mjs
+npm notice 39.7kB src/agent.js
+npm notice 1.0kB src/calendar-state.mjs
+npm notice 67.2kB src/charts.js
+npm notice 2.9kB src/components.js
+npm notice 6.2kB src/content.mjs
+npm notice 1.9kB src/contracts.js
+npm notice 385B src/csv.js
+npm notice 37.3kB src/data-grid.js
+npm notice 17.1kB src/fields.js
+npm notice 5.6kB src/flow.js
+npm notice 23.8kB src/forms.js
+npm notice 1.0kB src/foundations.js
+npm notice 5.8kB src/i18n.js
+npm notice 8.2kB src/icons.js
+npm notice 8.0kB src/inbox.mjs
+npm notice 961B src/index.mjs
+npm notice 6.8kB src/pages.js
+npm notice 10.0kB src/planning-advanced.mjs
+npm notice 50.5kB src/planning.mjs
+npm notice 11.1kB src/plot.js
+npm notice 2.6kB src/preferences.js
+npm notice 15.7kB src/primitives.js
+npm notice 36.1kB src/product.mjs
+npm notice 49.4kB src/registry.js
+npm notice 5.2kB src/resources.mjs
+npm notice 2.3kB src/search-index.mjs
+npm notice 2.4kB src/shell.mjs
+npm notice 6.8kB src/suite-core.mjs
+npm notice 7.7kB src/system.js
+npm notice 49.1kB src/table.js
+npm notice 21.3kB src/theme.js
+npm notice 8.7kB src/tokens.js
+npm notice 12.2kB src/widget-schemas.js
+npm notice 32.9kB src/widgets.js
+npm notice 2.2kB studio-en.css
+npm notice 7.1kB studio-en.html
+npm notice 8.7kB studio-en.mjs
+npm notice 4.8kB studio-example.js
+npm notice 3.8kB studio-model.js
+npm notice 62.1kB studio.js
+npm notice 126B styles/base.css
+npm notice 27.3kB styles/charts.css
+npm notice 15.1kB styles/components.css
+npm notice 3.7kB styles/content.css
+npm notice 85B styles/data-grid-entry.css
+npm notice 156B styles/font-sans.css
+npm notice 168B styles/font-serif.css
+npm notice 65B styles/fonts.css
+npm notice 55B styles/form-entry.css
+npm notice 1.6kB styles/forms.css
+npm notice 1.1kB styles/foundations.css
+npm notice 335B styles/index.css
+npm notice 57B styles/interactive-entry.css
+npm notice 9.3kB styles/layouts.css
+npm notice 5.1kB styles/pages.css
+npm notice 2.6kB styles/planning.css
+npm notice 56B styles/plot-entry.css
+npm notice 5.0kB styles/product.css
+npm notice 29.4kB styles/studio.css
+npm notice 3.4kB styles/suite.css
+npm notice 2.1kB styles/system.css
+npm notice 17.3kB styles/table.css
+npm notice 2.9kB styles/tokens.css
+npm notice 9.7kB styles/widgets.css
+npm notice 46.0kB tokens/atelier-dark.tokens.json
+npm notice 45.9kB tokens/atelier-light.tokens.json
+npm notice 46.0kB tokens/clay-dark.tokens.json
+npm notice 45.9kB tokens/clay-light.tokens.json
+npm notice 46.0kB tokens/grove-dark.tokens.json
+npm notice 45.9kB tokens/grove-light.tokens.json
+npm notice 2.2kB tokens/manifest.json
+npm notice 46.0kB tokens/moss-dark.tokens.json
+npm notice 45.9kB tokens/moss-light.tokens.json
+npm notice 46.0kB tokens/plum-dark.tokens.json
+npm notice 45.9kB tokens/plum-light.tokens.json
+npm notice 46.0kB tokens/sand-dark.tokens.json
+npm notice 46.0kB tokens/sand-light.tokens.json
+npm notice 46.0kB tokens/slate-dark.tokens.json
+npm notice 45.9kB tokens/slate-light.tokens.json
+npm notice 46.0kB tokens/tide-dark.tokens.json
+npm notice 45.9kB tokens/tide-light.tokens.json
+npm notice 1.2kB tools/build-foundations.mjs
+npm notice 3.4kB tools/build-modules.mjs
+npm notice 744B tools/build-registry.mjs
+npm notice 3.1kB tools/build-support.mjs
+npm notice 1.2kB tools/build-tokens.mjs
+npm notice 1.4kB tools/capabilities.mjs
+npm notice 927B tools/check-brand.mjs
+npm notice 2.0kB tools/check-distribution.mjs
+npm notice 2.6kB tools/check-system.mjs
+npm notice 1.7kB tools/provenance.mjs
+npm notice 2.8kB tools/serve.mjs
+npm notice 1.1kB types/activity.d.ts
+npm notice 74B types/agent.d.ts
+npm notice 75B types/charts.d.ts
+npm notice 69B types/components.d.ts
+npm notice 1.0kB types/content.d.ts
+npm notice 72B types/csv.d.ts
+npm notice 77B types/data-grid.d.ts
+npm notice 75B types/fields.d.ts
+npm notice 125B types/flow.d.ts
+npm notice 73B types/forms.d.ts
+npm notice 73B types/i18n.d.ts
+npm notice 553B types/icon-entry.d.ts
+npm notice 88B types/icons.d.ts
+npm notice 1.7kB types/inbox.d.ts
+npm notice 24.6kB types/index.d.ts
+npm notice 111B types/pages.d.ts
+npm notice 4.7kB types/planning.d.ts
+npm notice 73B types/plot.d.ts
+npm notice 80B types/preferences.d.ts
+npm notice 131B types/primitives.d.ts
+npm notice 4.3kB types/product.d.ts
+npm notice 1.3kB types/resources.d.ts
+npm notice 589B types/search.d.ts
+npm notice 460B types/shell.d.ts
+npm notice 135B types/system.d.ts
+npm notice 74B types/table.d.ts
+npm notice 74B types/theme.d.ts
+npm notice 91B types/tokens.d.ts
+npm notice 76B types/widgets.d.ts
+npm notice Tarball Details
+npm notice name: muhit-ui
+npm notice version: 0.23.0-beta.1
+npm notice filename: muhit-ui-0.23.0-beta.1.tgz
+npm notice package size: 1.8 MB
+npm notice unpacked size: 5.1 MB
+npm notice shasum: 6e6a74d1ef21a27a49cb5d454fda07c76acb65ea
+npm notice integrity: sha512-iG9ywbY7W1LPN[...]MlumSVkagiA4A==
+npm notice total files: 490
+npm notice
+muhit-ui-0.23.0-beta.1.tgz
+
+added 22 packages in 2s
+
+> muhit-react-example@0.1.0 build
+> tsc --noEmit && vite build
+
+[36mvite v7.3.7 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32m✓[39m 77 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                                   [39m[1m[2m  0.38 kB[22m[1m[22m[2m │ gzip:   0.27 kB[22m
+[2mdist/[22m[2massets/[22m[32mManrope-Variable-CG8WdL3g.woff2       [39m[1m[2m 53.82 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mSourceSerif4-Variable-7CzqpXol.woff2  [39m[1m[2m427.41 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[35mindex-IAwkMy4F.css                    [39m[1m[2m 84.73 kB[22m[1m[22m[2m │ gzip:  14.40 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-CvM0blDX.js                     [39m[1m[2m338.95 kB[22m[1m[22m[2m │ gzip: 110.27 kB[22m
+[32m✓ built in 1.48s[39m
+[2m1:47:30 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m Re-optimizing dependencies because vite config has changed
+
+added 46 packages in 2s
+
+> muhit-vue-example@0.1.0 build
+> vue-tsc --noEmit && vite build
+
+[36mvite v7.3.7 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32m✓[39m 67 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                                   [39m[1m[2m  0.38 kB[22m[1m[22m[2m │ gzip:  0.27 kB[22m
+[2mdist/[22m[2massets/[22m[32mManrope-Variable-CG8WdL3g.woff2       [39m[1m[2m 53.82 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mSourceSerif4-Variable-7CzqpXol.woff2  [39m[1m[2m427.41 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[35mindex-IAwkMy4F.css                    [39m[1m[2m 84.73 kB[22m[1m[22m[2m │ gzip: 14.40 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-Dt77boNm.js                     [39m[1m[2m256.35 kB[22m[1m[22m[2m │ gzip: 93.26 kB[22m
+[32m✓ built in 1.59s[39m
+[2m1:47:49 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m Re-optimizing dependencies because vite config has changed
+PASS React and Vue: typecheck/build + development/production/SSR hydration browser flows against installed TGZ.
+
+> muhit-ui@0.23.0-beta.1 test:accessibility
+> npm run build:modules && node tests/browser/accessibility.mjs
+
+
+> muhit-ui@0.23.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+PASS chromium: column keyboard/pointer resize, order/pin/CSV, atomic layout validation, selection/edit focus, translated form errors, RTL tabs, axe light/dark, mobile.
+
+> muhit-ui@0.23.0-beta.1 test:release
+> npm run build:modules && node tests/browser/release09.mjs
+
+
+> muhit-ui@0.23.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+PASS chromium: P1 locale contract, view restore, selection, CSV scope and 44px targets
+
+> muhit-ui@0.23.0-beta.1 test:scale
+> npm run build:modules && node tests/browser/scale.mjs
+
+
+> muhit-ui@0.23.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+PASS P3 scale and Kanban chromium {
+  page: { ms: 0.09999999997671694, total: 20000 },
+  search: { ms: 1143, total: 0 },
+  sort: { ms: 24.79999999998836, total: 20000 },
+  filter: { ms: 45.100000000034925, total: 198 },
+  mount: { ms: 33.600000000034925, domRows: 10 },
+  filteredRows: 10
+}
+
+> muhit-ui@0.23.0-beta.1 test:distribution
+> node tools/check-distribution.mjs
+
+PASS CSS/font/request budgets {
+  'base.css': {
+    cssBytes: 18034,
+    cssGzipBytes: 4262,
+    fontBytes: 0,
+    requests: 3,
+    totalBytes: 18034
+  },
+  'form-entry.css': {
+    cssBytes: 19653,
+    cssGzipBytes: 4628,
+    fontBytes: 0,
+    requests: 5,
+    totalBytes: 19653
+  },
+  'data-grid-entry.css': {
+    cssBytes: 44709,
+    cssGzipBytes: 8325,
+    fontBytes: 0,
+    requests: 6,
+    totalBytes: 44709
+  },
+  'plot-entry.css': {
+    cssBytes: 45364,
+    cssGzipBytes: 7716,
+    fontBytes: 0,
+    requests: 5,
+    totalBytes: 45364
+  },
+  'interactive-entry.css': {
+    cssBytes: 27791,
+    cssGzipBytes: 5945,
+    fontBytes: 0,
+    requests: 5,
+    totalBytes: 27791
+  },
+  'index.css': {
+    cssBytes: 83759,
+    cssGzipBytes: 13762,
+    fontBytes: 481224,
+    requests: 13,
+    totalBytes: 564983
+  },
+  'pages.css': {
+    cssBytes: 5072,
+    cssGzipBytes: 1394,
+    fontBytes: 0,
+    requests: 1,
+    totalBytes: 5072
+  },
+  'content.css': {
+    cssBytes: 3679,
+    cssGzipBytes: 1131,
+    fontBytes: 0,
+    requests: 1,
+    totalBytes: 3679
+  },
+  'suite.css': {
+    cssBytes: 3369,
+    cssGzipBytes: 1121,
+    fontBytes: 0,
+    requests: 1,
+    totalBytes: 3369
+  },
+  'product.css': {
+    cssBytes: 5027,
+    cssGzipBytes: 1477,
+    fontBytes: 0,
+    requests: 1,
+    totalBytes: 5027
+  },
+  'planning.css': {
+    cssBytes: 2558,
+    cssGzipBytes: 913,
+    fontBytes: 0,
+    requests: 1,
+    totalBytes: 2558
+  }
+}
+
+> muhit-ui@0.23.0-beta.1 test:production
+> npm run build:modules && node tests/browser/production.mjs
+
+
+> muhit-ui@0.23.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+PASS production regressions { csv: true, snapshot: true, repeaterAxe: true }
+
+> muhit-ui@0.23.0-beta.1 test:consumer-types
+> node tools/check-consumer-types.mjs
+
+PASS packed runtime imports and workspace assets
+PASS packed NodeNext: 88 public type entries
+PASS packed Bundler: 88 public type entries
+
+> muhit-ui@0.23.0-beta.1 test:foundations
+> npm run build:modules && node tests/browser/foundations.mjs
+
+
+> muhit-ui@0.23.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+PASS 21 page/viewport combinations, light/dark RTL axe, skip link, icon search/download, grid search and form save
+
+> muhit-ui@0.23.0-beta.1 test:migration
+> npm run build:modules && node tests/browser/migration.mjs
+
+
+> muhit-ui@0.23.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+{
+  "report": [
+    {
+      "route": "/index.html#palette",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#palette",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#palette",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#palette",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#customize",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#customize",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#customize",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#customize",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#agents",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#agents",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#agents",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#agents",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#start",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#start",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#start",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#start",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=cards#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=cards#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=cards#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=cards#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=pages#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=pages#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=pages#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=pages#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=table#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=table#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=table#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=table#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=charts#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=charts#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=charts#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=charts#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=forms#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=forms#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=forms#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=forms#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=feedback#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=feedback#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=feedback#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=feedback#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=navigation#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=navigation#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=navigation#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=navigation#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=workflow#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=workflow#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=workflow#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=workflow#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=overlays#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=overlays#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=overlays#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=overlays#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=selection#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=selection#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=selection#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=selection#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/studio-en.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/studio-en.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/studio-en.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/studio-en.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/basic.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/basic.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/basic.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/basic.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/pages.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/pages.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/pages.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/pages.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/advanced.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/advanced.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/advanced.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/advanced.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/settings.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/settings.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/settings.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/settings.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/workspace.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/workspace.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/workspace.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/workspace.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/workflow.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/workflow.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/workflow.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/workflow.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/scale.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/scale.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/scale.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/scale.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/international.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/international.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/international.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/international.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/visual-catalog.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/visual-catalog.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/visual-catalog.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/visual-catalog.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    }
+  ],
+  "errors": []
+}
+
+> muhit-ui@0.23.0-beta.1 test:consumer
+> npm run build:modules && node tests/browser/consumer.mjs
+
+
+> muhit-ui@0.23.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+PASS consumer environment { trustedTypes: true, hostStyles: true, routeCleanup: true }
+
+> muhit-ui@0.23.0-beta.1 test:p3
+> npm run build:modules && npm run docs:build && node tests/browser/p3.mjs
+
+
+> muhit-ui@0.23.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+
+> muhit-ui@0.23.0-beta.1 docs:build
+> node tools/build-docs.mjs
+
+Built versioned documentation: /home/runner/work/muhit/muhit/docs-site/0.23.0-beta.1
+PASS P3: 48 page states and searchable versioned documentation
+
+> muhit-ui@0.23.0-beta.1 check:system
+> npm run build:tokens && node tools/check-system.mjs
+
+
+> muhit-ui@0.23.0-beta.1 build:tokens
+> npm run build:modules && node tools/build-tokens.mjs
+
+
+> muhit-ui@0.23.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+Built 16 token modes
+PASS system contracts: 46 components, 6 recipes, 16 token modes
+PASS workspace registry matches executable exports
+
+> muhit-ui@0.23.0-beta.1 test:system
+> npm run build:modules && node tests/browser/system.mjs
+
+
+> muhit-ui@0.23.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+PASS system: chromium 16 responsive/axe scans and product workflows
+
+> muhit-ui@0.23.0-beta.1 test:principles
+> npm run build:modules && node tests/browser/principle-compliance.mjs
+
+
+> muhit-ui@0.23.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+PASS principle compliance chromium 18
+
+> muhit-ui@0.23.0-beta.1 test:workspace
+> node tests/browser/workspace19.mjs
+
+chromium matrix complete
+{
+  "scans": 84,
+  "failed": [],
+  "errors": [],
+  "flows": [
+    {
+      "engine": "chromium",
+      "forms": true,
+      "conflictDraft": true,
+      "uploadCancelRetry": true,
+      "discussionLiteral": true,
+      "aiApprovalCancel": true,
+      "viewAndLateResult": true,
+      "scale": true,
+      "locale": true,
+      "multiComboAndMetricLifecycle": true
+    }
+  ]
+}
+
+> muhit-ui@0.23.0-beta.1 test:planning
+> node tests/browser/planning20.mjs
+
+{"scans":20,"flows":[{"engine":"chromium","calendar500ms":8.599999999976717,"calendarConflict":true,"localCommit":true,"documentRestoreUndo":true,"saveFailureDraft":true,"literalMarkup":true,"snoozeUndoWake":true,"preferences":true,"abortAndDestroy":true}],"errors":[]}
+
+> muhit-ui@0.23.0-beta.1 test:packed-planning
+> node tests/browser/packed-planning.mjs
+
+PASS actual TGZ browser routes [ 'calendar', 'editor', 'notifications', 'research', 'team' ]
+
+> muhit-ui@0.23.0-beta.1 test:readiness
+> node tests/browser/readiness21.mjs
+
+{"scans":[{"engine":"chromium","mode":"light","width":320,"route":"calendar","overflow":false,"violations":[],"minDay":44},{"engine":"chromium","mode":"light","width":320,"route":"editor","overflow":false,"violations":[],"minDay":null},{"engine":"chromium","mode":"light","width":320,"route":"notifications","overflow":false,"violations":[],"minDay":null},{"engine":"chromium","mode":"light","width":390,"route":"calendar","overflow":false,"violations":[],"minDay":49.421875},{"engine":"chromium","mode":"light","width":390,"route":"editor","overflow":false,"violations":[],"minDay":null},{"engine":"chromium","mode":"light","width":390,"route":"notifications","overflow":false,"violations":[],"minDay":null},{"engine":"chromium","mode":"light","width":1440,"route":"calendar","overflow":false,"violations":[],"minDay":154.84375},{"engine":"chromium","mode":"light","width":1440,"route":"editor","overflow":false,"violations":[],"minDay":null},{"engine":"chromium","mode":"light","width":1440,"route":"notifications","overflow":false,"violations":[],"minDay":null},{"engine":"chromium","mode":"dark","width":320,"route":"calendar","overflow":false,"violations":[],"minDay":44},{"engine":"chromium","mode":"dark","width":320,"route":"editor","overflow":false,"violations":[],"minDay":null},{"engine":"chromium","mode":"dark","width":320,"route":"notifications","overflow":false,"violations":[],"minDay":null},{"engine":"chromium","mode":"dark","width":390,"route":"calendar","overflow":false,"violations":[],"minDay":49.421875},{"engine":"chromium","mode":"dark","width":390,"route":"editor","overflow":false,"violations":[],"minDay":null},{"engine":"chromium","mode":"dark","width":390,"route":"notifications","overflow":false,"violations":[],"minDay":null},{"engine":"chromium","mode":"dark","width":1440,"route":"calendar","overflow":false,"violations":[],"minDay":154.84375},{"engine":"chromium","mode":"dark","width":1440,"route":"editor","overflow":false,"violations":[],"minDay":null},{"engine":"chromium","mode":"dark","width":1440,"route":"notifications","overflow":false,"violations":[],"minDay":null}],"flows":[{"engine":"chromium","routeGuard":true,"rtl320":true,"pendingEmpty":true,"race":true,"draftHistory":true,"optInSession":true,"english":true}],"errors":[]}
+
+> muhit-ui@0.23.0-beta.1 test:integration
+> MUHIT_INTEGRATION_TEST=1 node tests/integration.test.mjs
+
+PASS atomic version conflict, durable save and idempotent retry
+
+> muhit-ui@0.23.0-beta.1 test:planning-next
+> node tests/browser/planning22.mjs
+
+{"provenance":{"version":"0.23.0-beta.1","sourceSha256":"d47ce50cd49294a7079155b5bc40b0909c5d2907fb73dff1b39891fc66c24f17","commit":"2dc6ab63796087df20a0383cfe56a93c9f362448","scope":"src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints","date":"2026-10-22T01:50:55.906Z","platform":"linux","node":"v22.23.3"},"scans":[{"engine":"chromium","mode":"light","width":320,"overflow":false,"violations":[]},{"engine":"chromium","mode":"light","width":390,"overflow":false,"violations":[]},{"engine":"chromium","mode":"light","width":1440,"overflow":false,"violations":[]},{"engine":"chromium","mode":"dark","width":320,"overflow":false,"violations":[]},{"engine":"chromium","mode":"dark","width":390,"overflow":false,"violations":[]},{"engine":"chromium","mode":"dark","width":1440,"overflow":false,"violations":[]}],"flows":[{"engine":"chromium","remoteTiming":{"dataset":"100000 synthetic records","p50Ms":5,"p95Ms":8},"localTime":true,"editDelete":true,"capacity":true,"recurrenceExceptionDST":true,"inlineFormatting":true,"safeLinkAndImage":true,"wordDiff":true,"controlledImportExport":true,"remotePaging":true,"errorPreservesResults":true,"cancelDelete":true,"staleEditPreserved":true,"descriptionPreserved":true,"saveThenEditAgain":true}],"errors":[]}
+
+> muhit-ui@0.23.0-beta.1 test:search-scale
+> node tests/search-scale.mjs
+
+{"provenance":{"version":"0.23.0-beta.1","sourceSha256":"d47ce50cd49294a7079155b5bc40b0909c5d2907fb73dff1b39891fc66c24f17","commit":"2dc6ab63796087df20a0383cfe56a93c9f362448","scope":"src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints","date":"2026-10-22T01:51:00.697Z","platform":"linux","node":"v22.23.3"},"dataset":"synthetic","measurements":[{"rows":10000,"buildMs":28.208577000000005,"p50Ms":0.3102980000000173,"p95Ms":1.113053999999977},{"rows":100000,"buildMs":233.647505,"p50Ms":2.8746340000000146,"p95Ms":2.9765050000000315}]}
+
+> muhit-ui@0.23.0-beta.1 test:performance-profile
+> node tests/browser/performance23.mjs
+
+{"provenance":{"version":"0.23.0-beta.1","sourceSha256":"d47ce50cd49294a7079155b5bc40b0909c5d2907fb73dff1b39891fc66c24f17","commit":"2dc6ab63796087df20a0383cfe56a93c9f362448","scope":"src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints","date":"2026-10-22T01:51:02.562Z","platform":"linux","node":"v22.23.3"},"dataset":"synthetic-long-text","rows":50000,"profile":{"cpuSlowdown":4,"latencyMs":150,"downloadBytesPerSecond":131072,"uploadBytesPerSecond":65536},"notes":"Emulation on host hardware; not a physical mobile-device acceptance.","local":{"rows":10000,"buildMs":426.8999999999651,"p50Ms":13.599999999976717,"p95Ms":14.400000000023283},"remote":{"p50Ms":411.70000000001164,"p95Ms":414.5,"responseBytes":33038},"productTargets":{"localP95Below100ms":true,"remoteP95Below1500ms":true},"status":"passed"}

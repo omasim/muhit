@@ -1,0 +1,36 @@
+{
+  "provenance": {
+    "version": "0.23.0-beta.1",
+    "sourceSha256": "d47ce50cd49294a7079155b5bc40b0909c5d2907fb73dff1b39891fc66c24f17",
+    "commit": "2dc6ab63796087df20a0383cfe56a93c9f362448",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-22T01:51:02.562Z",
+    "platform": "linux",
+    "node": "v22.23.3"
+  },
+  "dataset": "synthetic-long-text",
+  "rows": 50000,
+  "profile": {
+    "cpuSlowdown": 4,
+    "latencyMs": 150,
+    "downloadBytesPerSecond": 131072,
+    "uploadBytesPerSecond": 65536
+  },
+  "notes": "Emulation on host hardware; not a physical mobile-device acceptance.",
+  "local": {
+    "rows": 10000,
+    "buildMs": 426.8999999999651,
+    "p50Ms": 13.599999999976717,
+    "p95Ms": 14.400000000023283
+  },
+  "remote": {
+    "p50Ms": 411.70000000001164,
+    "p95Ms": 414.5,
+    "responseBytes": 33038
+  },
+  "productTargets": {
+    "localP95Below100ms": true,
+    "remoteP95Below1500ms": true
+  },
+  "status": "passed"
+}

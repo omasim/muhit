@@ -1,0 +1,34 @@
+{
+  "provenance": {
+    "version": "0.23.0-beta.1",
+    "sourceSha256": "d47ce50cd49294a7079155b5bc40b0909c5d2907fb73dff1b39891fc66c24f17",
+    "commit": "2dc6ab63796087df20a0383cfe56a93c9f362448",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-22T01:46:31.860Z",
+    "platform": "linux",
+    "node": "v22.23.3"
+  },
+  "engine": "firefox",
+  "checks": [
+    "form busy",
+    "cancel preserves draft and aborts",
+    "late response ignored",
+    "explicit unpersisted result",
+    "permission error",
+    "neutral safe error",
+    "reset separate from cancel",
+    "repeater cancellation preserves values",
+    "repeater late response ignored",
+    "unchanged child identity preserved",
+    "agent focus and caret preserved",
+    "agent grid context",
+    "adopted callback active",
+    "compatible form snapshot preserved",
+    "compatible form focus preserved",
+    "incompatible dirty update atomic",
+    "dirty form type replacement blocked",
+    "explicit reset accepted"
+  ],
+  "studioContext": true,
+  "keyboardRecovery": true
+}
