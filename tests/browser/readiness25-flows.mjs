@@ -120,5 +120,18 @@ export async function checkReadiness25(page) {
     return { cases, notificationLocales: ["de", "ar"] };
   });
   assert.equal(result.cases, 8);
+  const example = await page.context().newPage();
+  try {
+    await example.setViewportSize({width:390,height:844});
+    await example.goto(new URL('/examples/async-search.html',page.url()).href);
+    await example.locator('#build').click();
+    await example.locator('#status').filter({hasText:'İndeks hazır.'}).waitFor();
+    await example.locator('#query').fill('Araştırma 99');
+    await example.locator('#search').click();
+    assert.equal(await example.locator('#results li').count(),25);
+    assert.ok(await example.evaluate(()=>[...document.querySelectorAll('button,input')].every(e=>e.getBoundingClientRect().height>=44)));
+    assert.equal(await example.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+  } finally {await example.close();}
+
   return result;
 }
