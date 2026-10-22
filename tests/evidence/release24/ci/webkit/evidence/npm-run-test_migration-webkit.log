@@ -1,0 +1,997 @@
+
+> muhit-ui@0.24.0-beta.1 test:migration
+> npm run build:modules && node tests/browser/migration.mjs
+
+
+> muhit-ui@0.24.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+{
+  "report": [
+    {
+      "route": "/index.html#palette",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#palette",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#palette",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#palette",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#customize",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#customize",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#customize",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#customize",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#agents",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#agents",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#agents",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#agents",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#start",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#start",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#start",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html#start",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=cards#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=cards#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=cards#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=cards#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=pages#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=pages#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=pages#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=pages#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=table#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=table#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=table#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=table#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=charts#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=charts#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=charts#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=charts#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=forms#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=forms#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=forms#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=forms#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=feedback#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=feedback#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=feedback#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=feedback#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=navigation#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=navigation#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=navigation#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=navigation#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=workflow#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=workflow#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=workflow#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=workflow#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=overlays#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=overlays#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=overlays#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=overlays#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=selection#components",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=selection#components",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=selection#components",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/index.html?component=selection#components",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/studio-en.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/studio-en.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/studio-en.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/studio-en.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/basic.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/basic.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/basic.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/basic.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/pages.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/pages.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/pages.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/pages.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/advanced.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/advanced.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/advanced.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/advanced.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/settings.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/settings.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/settings.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/settings.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/workspace.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/workspace.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/workspace.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/workspace.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/workflow.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/workflow.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/workflow.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/workflow.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/scale.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/scale.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/scale.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/scale.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/international.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/international.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/international.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/international.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/visual-catalog.html",
+      "width": 390,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/visual-catalog.html",
+      "width": 390,
+      "mode": "dark-rtl-125%",
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/visual-catalog.html",
+      "width": 768,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    },
+    {
+      "route": "/examples/visual-catalog.html",
+      "width": 1440,
+      "overflow": false,
+      "mains": 1,
+      "headings": 1,
+      "skip": true,
+      "oldIcons": 0,
+      "axe": []
+    }
+  ],
+  "errors": []
+}

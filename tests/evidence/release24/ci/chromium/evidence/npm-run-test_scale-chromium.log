@@ -1,0 +1,16 @@
+
+> muhit-ui@0.24.0-beta.1 test:scale
+> npm run build:modules && node tests/browser/scale.mjs
+
+
+> muhit-ui@0.24.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+PASS P3 scale and Kanban chromium {
+  page: { ms: 0, total: 20000 },
+  search: { ms: 634.3000000000466, total: 0 },
+  sort: { ms: 14.599999999976717, total: 20000 },
+  filter: { ms: 24.29999999998836, total: 198 },
+  mount: { ms: 20.20000000001164, domRows: 10 },
+  filteredRows: 10
+}

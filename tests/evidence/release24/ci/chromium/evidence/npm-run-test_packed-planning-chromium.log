@@ -1,0 +1,5 @@
+
+> muhit-ui@0.24.0-beta.1 test:packed-planning
+> node tests/browser/packed-planning.mjs
+
+PASS actual TGZ browser routes [ 'calendar', 'editor', 'notifications', 'research', 'team' ]

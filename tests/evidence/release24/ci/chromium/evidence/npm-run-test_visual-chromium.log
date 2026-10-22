@@ -1,0 +1,9 @@
+
+> muhit-ui@0.24.0-beta.1 test:visual
+> npm run build:modules && node tests/browser/visual.mjs
+
+
+> muhit-ui@0.24.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+PASS visual baselines: 14 states

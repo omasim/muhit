@@ -1,0 +1,18 @@
+{
+  "version": "0.24.0-beta.1",
+  "sourceSha256": "c7e65b768671be425bd17ac7ba4edca73001da93a26750869f51e7f49174e849",
+  "commit": "bf9560a72ce7c6d51f9332bf856f0ab980e5ffac",
+  "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+  "date": "2026-10-22T02:01:36.728Z",
+  "platform": "linux",
+  "node": "v22.23.3",
+  "command": [
+    "npm",
+    "run",
+    "test:planning-next"
+  ],
+  "exitCode": 0,
+  "sourceChanged": false,
+  "sourceSha256After": "c7e65b768671be425bd17ac7ba4edca73001da93a26750869f51e7f49174e849",
+  "finishedAt": "2026-10-22T02:01:43.508Z"
+}

@@ -1,0 +1,88 @@
+{
+  "base.css": {
+    "cssBytes": 18034,
+    "cssGzipBytes": 4262,
+    "fontBytes": 0,
+    "requests": 3,
+    "totalBytes": 18034
+  },
+  "form-entry.css": {
+    "cssBytes": 19653,
+    "cssGzipBytes": 4628,
+    "fontBytes": 0,
+    "requests": 5,
+    "totalBytes": 19653
+  },
+  "data-grid-entry.css": {
+    "cssBytes": 44709,
+    "cssGzipBytes": 8325,
+    "fontBytes": 0,
+    "requests": 6,
+    "totalBytes": 44709
+  },
+  "plot-entry.css": {
+    "cssBytes": 45364,
+    "cssGzipBytes": 7716,
+    "fontBytes": 0,
+    "requests": 5,
+    "totalBytes": 45364
+  },
+  "interactive-entry.css": {
+    "cssBytes": 27791,
+    "cssGzipBytes": 5945,
+    "fontBytes": 0,
+    "requests": 5,
+    "totalBytes": 27791
+  },
+  "index.css": {
+    "cssBytes": 83759,
+    "cssGzipBytes": 13762,
+    "fontBytes": 481224,
+    "requests": 13,
+    "totalBytes": 564983
+  },
+  "pages.css": {
+    "cssBytes": 5072,
+    "cssGzipBytes": 1394,
+    "fontBytes": 0,
+    "requests": 1,
+    "totalBytes": 5072
+  },
+  "content.css": {
+    "cssBytes": 3679,
+    "cssGzipBytes": 1131,
+    "fontBytes": 0,
+    "requests": 1,
+    "totalBytes": 3679
+  },
+  "suite.css": {
+    "cssBytes": 3369,
+    "cssGzipBytes": 1121,
+    "fontBytes": 0,
+    "requests": 1,
+    "totalBytes": 3369
+  },
+  "product.css": {
+    "cssBytes": 5027,
+    "cssGzipBytes": 1477,
+    "fontBytes": 0,
+    "requests": 1,
+    "totalBytes": 5027
+  },
+  "planning.css": {
+    "cssBytes": 2650,
+    "cssGzipBytes": 939,
+    "fontBytes": 0,
+    "requests": 1,
+    "totalBytes": 2650
+  },
+  "provenance": {
+    "version": "0.24.0-beta.1",
+    "sourceSha256": "c7e65b768671be425bd17ac7ba4edca73001da93a26750869f51e7f49174e849",
+    "commit": "bf9560a72ce7c6d51f9332bf856f0ab980e5ffac",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-22T02:02:24.045Z",
+    "platform": "linux",
+    "node": "v22.23.3"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "provenance": {
+    "version": "0.24.0-beta.1",
+    "sourceSha256": "c7e65b768671be425bd17ac7ba4edca73001da93a26750869f51e7f49174e849",
+    "commit": "bf9560a72ce7c6d51f9332bf856f0ab980e5ffac",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-22T01:59:08.229Z",
+    "platform": "darwin",
+    "node": "v26.12.0"
+  },
+  "dataset": "synthetic-long-text",
+  "rows": 50000,
+  "profile": {
+    "cpuSlowdown": 4,
+    "latencyMs": 150,
+    "downloadBytesPerSecond": 131072,
+    "uploadBytesPerSecond": 65536
+  },
+  "notes": "Emulation on host hardware; not a physical mobile-device acceptance.",
+  "local": {
+    "rows": 10000,
+    "buildMs": 138.29999999701977,
+    "p50Ms": 10.899999991059303,
+    "p95Ms": 12.300000011920929
+  },
+  "remote": {
+    "p50Ms": 412.79999999701977,
+    "p95Ms": 419.40000000596046,
+    "responseBytes": 33038
+  },
+  "budgets": {
+    "version": 1,
+    "profile": "4x CPU; 150 ms network latency; 128 KiB/s download; 64 KiB/s upload",
+    "product": {
+      "localP95Ms": 100,
+      "remoteP95Ms": 1500
+    },
+    "regression": {
+      "localP95Ms": 1500,
+      "remoteP95Ms": 10000
+    },
+    "acceptance": "Both product and regression gates must pass. Physical-device and real-data acceptance remain separate. Index build time is measured separately."
+  },
+  "acceptance": {
+    "valid": true,
+    "product": {
+      "local": true,
+      "remote": true
+    },
+    "regression": {
+      "local": true,
+      "remote": true
+    },
+    "passed": true
+  },
+  "realDataAcceptance": "pending-data-and-device",
+  "status": "passed"
+}
