@@ -1,3 +1,7 @@
+# Current release: 0.23.0-beta.1
+
+READINESS-0.23.md, VERIFICATION-0.23.md, PERFORMANCE-0.23.md and MANUAL-ACCEPTANCE-0.23.md are current. Earlier records below are historical.
+
 # Güncel sürüm · 0.22.0-beta.1
 
 Yerel saat/tekrar/kapasite takvimi, seçili metin ve güvenli medya, kontrollü JSON aktarımı ve prepared/remote search. Ayrıntılar: P3-0.22.md ve MIGRATION-0.22.md. Beta; koşullu servis ve manuel kabul sınırları korunur.

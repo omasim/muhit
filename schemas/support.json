@@ -1,7 +1,14 @@
 {
-  "packageVersion": "0.22.0-beta.1",
+  "packageVersion": "0.23.0-beta.1",
   "status": "beta",
   "runtimeNode": ">=18",
+  "runtimeTestMatrix": [
+    18,
+    20,
+    22,
+    24,
+    26
+  ],
   "publicTypedEntries": 88,
   "exampleDependencies": {
     "react": {

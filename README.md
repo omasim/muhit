@@ -1,3 +1,7 @@
+# Muhit 0.23.0-beta.1
+
+Current acceptance: [READINESS-0.23](docs/READINESS-0.23.md). Tests: [VERIFICATION-0.23](docs/VERIFICATION-0.23.md).
+
 # Muhit 0.22.0-beta.1
 
 Yerel saat/tekrar/kapasite takvimi, seçili metin ve güvenli medya, kontrollü JSON aktarımı ve prepared/remote search. Ayrıntılar: docs/P3-0.22.md ve MIGRATION-0.22.md. Beta; koşullu servis ve manuel kabul sınırları korunur.

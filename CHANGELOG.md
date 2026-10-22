@@ -1,3 +1,8 @@
+# 0.23.0-beta.1
+
+- Preserve calendar metadata and rebase newer drafts after confirmed saves.
+- Extended React/Vue flows, Node runtime matrix, constrained performance profile, Figma control states and manual acceptance steps.
+
 # 0.22.0-beta.1
 
 Yerel saat/tekrar/kapasite takvimi, seçili metin ve güvenli medya, kontrollü JSON aktarımı ve prepared/remote search. Ayrıntılar: docs/P3-0.22.md ve MIGRATION-0.22.md. Beta; koşullu servis ve manuel kabul sınırları korunur.

@@ -1,73 +1,1699 @@
-import {localDateTimeToUTC,formatLocalDateTime,capacityAvailable,replaceBlockText,validateMarks,formatTextRange,safeDocumentURL,diffWords} from './planning-advanced.mjs';
-export * from './planning-advanced.mjs';
-import {clone,fields,text,id,date,records,element as el,hostOf,config,button} from './suite-core.mjs';
-let sequence=0;
-function mountBase(host,options,title){host=hostOf(host);const cfg=config(options),doc=host.ownerDocument,root=el(doc,'section','mh-suite mh-planning');root.lang=cfg.locale;root.dir=cfg.dir;root.append(el(doc,'h'+cfg.headingLevel,'mh-suite-title',options.title||title));host.replaceChildren(root);let dead=false;const cleanup=[];return{root,doc,cfg,get dead(){return dead;},check(){if(dead)throw Error('Destroyed');},on(node,event,fn){const run=e=>{if(!dead)fn(e);};node.addEventListener(event,run);cleanup.push(()=>node.removeEventListener(event,run));},destroy(){dead=true;cleanup.forEach(f=>f());for(const n of root.querySelectorAll('*'))n.onclick=null;root.remove();}};}
-const tr=(p,a,b)=>p.cfg.text(a,b);
-function field(p,title,type='text'){const label=el(p.doc,'label','mh-plan-field',title),input=el(p.doc,type==='textarea'?'textarea':type==='select'?'select':'input','mh-suite-input');if(input.tagName==='INPUT')input.type=type;input.setAttribute('aria-label',title);label.append(input);return{label,input};}
-export function validateEvents(input){return records(input,x=>{fields(x,['id','title','start','end','resource','description'],['id','title','start','end']);text(x.title,'title',160);date(x.start);date(x.end);if(x.end<=x.start)throw TypeError('End must follow start');if(x.resource!==undefined)text(x.resource,'resource',120);if(x.description!==undefined)text(x.description,'description',2000);});}
-export function findConflicts(input,event){const items=validateEvents(input),[candidate]=validateEvents([event]);return items.filter(x=>x.id!==candidate.id&&(x.resource||'')===(candidate.resource||'')&&x.start<candidate.end&&candidate.start<x.end);}
-const dayFormatters=new Map();function dayKey(value,timeZone){let formatter=dayFormatters.get(timeZone);if(!formatter){formatter=new Intl.DateTimeFormat('en-CA',{timeZone,year:'numeric',month:'2-digit',day:'2-digit'});if(dayFormatters.size>=32)dayFormatters.delete(dayFormatters.keys().next().value);dayFormatters.set(timeZone,formatter);}const parts=formatter.formatToParts(new Date(value));return ['year','month','day'].map(k=>parts.find(x=>x.type===k).value).join('-');}
-export function eventsOnDate(input,day,timeZone='UTC'){if(!/^\d{4}-\d{2}-\d{2}$/.test(day)||new Date(day).toISOString().slice(0,10)!==day)throw TypeError('Invalid day');return validateEvents(input).filter(x=>dayKey(x.start,timeZone)<=day&&dayKey(new Date(Date.parse(x.end)-1),timeZone)>=day).sort((a,b)=>a.start.localeCompare(b.start));}
-export function mountCalendar(host,input,options={}){
- let data=validateEvents(input);const p=mountBase(host,options,config(options).text('Takvim ve ajanda','Calendar and agenda'));let selected=options.date||dayKey(new Date(),p.cfg.timeZone);eventsOnDate([],selected,p.cfg.timeZone);let month=selected.slice(0,7),revision=0,abort,editingId=null,baseEvent=null;const inputZone=options.inputTimeZone||'UTC';new Intl.DateTimeFormat('en',{timeZone:inputZone});const capacities=clone(options.resourceCapacities||{});for(const value of Object.values(capacities))if(!Number.isInteger(value)||value<1||value>10000)throw TypeError('Invalid capacity');
- const toolbar=el(p.doc,'div','mh-suite-toolbar'),prev=button(p.doc,tr(p,'Önceki ay','Previous month'),'previous'),next=button(p.doc,tr(p,'Sonraki ay','Next month'),'next'),heading=el(p.doc,'strong',''),grid=el(p.doc,'div','mh-calendar-grid'),agenda=el(p.doc,'div','mh-calendar-agenda'),status=el(p.doc,'p','mh-suite-status');status.setAttribute('role','status');toolbar.append(prev,heading,next);p.root.append(toolbar,grid,agenda,status);
- const form=el(p.doc,'form','mh-plan-form'),name=field(p,tr(p,'Etkinlik adı','Event title')),start=field(p,tr(p,'Başlangıç (','Start (')+inputZone+')','datetime-local'),end=field(p,tr(p,'Bitiş (','End (')+inputZone+')','datetime-local'),resource=field(p,tr(p,'Kaynak / oda','Resource / room'));name.input.required=start.input.required=end.input.required=true;name.input.maxLength=160;resource.input.maxLength=120;const submit=button(p.doc,tr(p,'Etkinliği ekle','Add event'),'add'),cancel=button(p.doc,tr(p,'İptal','Cancel'),'cancel');submit.type='submit';form.append(name.label,start.label,end.label,resource.label,submit,cancel);p.root.append(form);
- const getDraft=()=>({snapshotVersion:1,title:name.input.value,start:start.input.value,end:end.input.value,resource:resource.input.value,...(editingId?{editingId,baseEvent:clone(baseEvent)}:{}),...(inputZone!=='UTC'?{inputTimeZone:inputZone}:{})});
- const acceptDraft=value=>{const v=clone(value);fields(v,['snapshotVersion','title','start','end','resource','editingId','inputTimeZone','baseEvent'],['snapshotVersion','title','start','end','resource']);if(v.baseEvent!==undefined){const [base]=validateEvents([v.baseEvent]);if(base.id!==v.editingId)throw TypeError('Draft base mismatch');}if(v.editingId&&!v.baseEvent)throw TypeError('Draft base required');if(v.editingId!==undefined&&!data.some(x=>x.id===v.editingId)|| (v.inputTimeZone||'UTC')!==inputZone)throw TypeError('Draft context mismatch');if(v.snapshotVersion!==1)throw TypeError('Invalid draft version');for(const [key,max]of [['title',160],['start',32],['end',32],['resource',120]])if(typeof v[key]!=='string'||v[key].length>max)throw TypeError('Invalid draft');for(const key of ['start','end'])if(v[key]&&!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?$/.test(v[key]))throw TypeError('Invalid input date');return v;};
- let lastDirty=false;const isDirty=()=>[name,start,end,resource].some(x=>x.input.value!==''),changed=()=>{const dirty=isDirty();submit.textContent=editingId?tr(p,'Değişiklikleri uygula','Apply changes'):tr(p,'Etkinliği ekle','Add event');if(dirty!==lastDirty){lastDirty=dirty;options.onDirtyChange?.(dirty);}options.onDraftChange?.(getDraft());};
- function restoreDraft(value){p.check();const v=acceptDraft(value);const probes=[start,end].map(x=>x.input.cloneNode());for(const [i,key]of ['start','end'].entries()){probes[i].value=v[key];if(v[key]&&!probes[i].value)throw TypeError('Invalid datetime input');}revision++;abort?.abort();submit.disabled=false;editingId=v.editingId||null;baseEvent=v.baseEvent?clone(v.baseEvent):null;name.input.value=v.title;start.input.value=v.start;end.input.value=v.end;resource.input.value=v.resource;changed();}
- p.on(form,'input',changed);if(options.draft)restoreDraft(options.draft);
+import { calendarCandidate, calendarEditIsStale } from "./calendar-state.mjs";
+import {
+  localDateTimeToUTC,
+  formatLocalDateTime,
+  capacityAvailable,
+  replaceBlockText,
+  validateMarks,
+  formatTextRange,
+  safeDocumentURL,
+  diffWords,
+} from "./planning-advanced.mjs";
+export * from "./planning-advanced.mjs";
+import {
+  clone,
+  fields,
+  text,
+  id,
+  date,
+  records,
+  element as el,
+  hostOf,
+  config,
+  button,
+} from "./suite-core.mjs";
+let sequence = 0;
+function mountBase(host, options, title) {
+  host = hostOf(host);
+  const cfg = config(options),
+    doc = host.ownerDocument,
+    root = el(doc, "section", "mh-suite mh-planning");
+  root.lang = cfg.locale;
+  root.dir = cfg.dir;
+  root.append(
+    el(doc, "h" + cfg.headingLevel, "mh-suite-title", options.title || title),
+  );
+  host.replaceChildren(root);
+  let dead = false;
+  const cleanup = [];
+  return {
+    root,
+    doc,
+    cfg,
+    get dead() {
+      return dead;
+    },
+    check() {
+      if (dead) throw Error("Destroyed");
+    },
+    on(node, event, fn) {
+      const run = (e) => {
+        if (!dead) fn(e);
+      };
+      node.addEventListener(event, run);
+      cleanup.push(() => node.removeEventListener(event, run));
+    },
+    destroy() {
+      dead = true;
+      cleanup.forEach((f) => f());
+      for (const n of root.querySelectorAll("*")) n.onclick = null;
+      root.remove();
+    },
+  };
+}
+const tr = (p, a, b) => p.cfg.text(a, b);
+function field(p, title, type = "text") {
+  const label = el(p.doc, "label", "mh-plan-field", title),
+    input = el(
+      p.doc,
+      type === "textarea" ? "textarea" : type === "select" ? "select" : "input",
+      "mh-suite-input",
+    );
+  if (input.tagName === "INPUT") input.type = type;
+  input.setAttribute("aria-label", title);
+  label.append(input);
+  return { label, input };
+}
+export function validateEvents(input) {
+  return records(input, (x) => {
+    fields(
+      x,
+      ["id", "title", "start", "end", "resource", "description"],
+      ["id", "title", "start", "end"],
+    );
+    text(x.title, "title", 160);
+    date(x.start);
+    date(x.end);
+    if (x.end <= x.start) throw TypeError("End must follow start");
+    if (x.resource !== undefined) text(x.resource, "resource", 120);
+    if (x.description !== undefined) text(x.description, "description", 2000);
+  });
+}
+export function findConflicts(input, event) {
+  const items = validateEvents(input),
+    [candidate] = validateEvents([event]);
+  return items.filter(
+    (x) =>
+      x.id !== candidate.id &&
+      (x.resource || "") === (candidate.resource || "") &&
+      x.start < candidate.end &&
+      candidate.start < x.end,
+  );
+}
+const dayFormatters = new Map();
+function dayKey(value, timeZone) {
+  let formatter = dayFormatters.get(timeZone);
+  if (!formatter) {
+    formatter = new Intl.DateTimeFormat("en-CA", {
+      timeZone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    if (dayFormatters.size >= 32)
+      dayFormatters.delete(dayFormatters.keys().next().value);
+    dayFormatters.set(timeZone, formatter);
+  }
+  const parts = formatter.formatToParts(new Date(value));
+  return ["year", "month", "day"]
+    .map((k) => parts.find((x) => x.type === k).value)
+    .join("-");
+}
+export function eventsOnDate(input, day, timeZone = "UTC") {
+  if (
+    !/^\d{4}-\d{2}-\d{2}$/.test(day) ||
+    new Date(day).toISOString().slice(0, 10) !== day
+  )
+    throw TypeError("Invalid day");
+  return validateEvents(input)
+    .filter(
+      (x) =>
+        dayKey(x.start, timeZone) <= day &&
+        dayKey(new Date(Date.parse(x.end) - 1), timeZone) >= day,
+    )
+    .sort((a, b) => a.start.localeCompare(b.start));
+}
+export function mountCalendar(host, input, options = {}) {
+  let data = validateEvents(input);
+  const p = mountBase(
+    host,
+    options,
+    config(options).text("Takvim ve ajanda", "Calendar and agenda"),
+  );
+  let selected = options.date || dayKey(new Date(), p.cfg.timeZone);
+  eventsOnDate([], selected, p.cfg.timeZone);
+  let month = selected.slice(0, 7),
+    revision = 0,
+    abort,
+    editingId = null,
+    baseEvent = null;
+  const inputZone = options.inputTimeZone || "UTC";
+  new Intl.DateTimeFormat("en", { timeZone: inputZone });
+  const capacities = clone(options.resourceCapacities || {});
+  for (const value of Object.values(capacities))
+    if (!Number.isInteger(value) || value < 1 || value > 10000)
+      throw TypeError("Invalid capacity");
+  const toolbar = el(p.doc, "div", "mh-suite-toolbar"),
+    prev = button(p.doc, tr(p, "Önceki ay", "Previous month"), "previous"),
+    next = button(p.doc, tr(p, "Sonraki ay", "Next month"), "next"),
+    heading = el(p.doc, "strong", ""),
+    grid = el(p.doc, "div", "mh-calendar-grid"),
+    agenda = el(p.doc, "div", "mh-calendar-agenda"),
+    status = el(p.doc, "p", "mh-suite-status");
+  status.setAttribute("role", "status");
+  toolbar.append(prev, heading, next);
+  p.root.append(toolbar, grid, agenda, status);
+  const form = el(p.doc, "form", "mh-plan-form"),
+    name = field(p, tr(p, "Etkinlik adı", "Event title")),
+    start = field(
+      p,
+      tr(p, "Başlangıç (", "Start (") + inputZone + ")",
+      "datetime-local",
+    ),
+    end = field(
+      p,
+      tr(p, "Bitiş (", "End (") + inputZone + ")",
+      "datetime-local",
+    ),
+    resource = field(p, tr(p, "Kaynak / oda", "Resource / room"));
+  name.input.required = start.input.required = end.input.required = true;
+  name.input.maxLength = 160;
+  resource.input.maxLength = 120;
+  const submit = button(p.doc, tr(p, "Etkinliği ekle", "Add event"), "add"),
+    cancel = button(p.doc, tr(p, "İptal", "Cancel"), "cancel");
+  submit.type = "submit";
+  form.append(
+    name.label,
+    start.label,
+    end.label,
+    resource.label,
+    submit,
+    cancel,
+  );
+  p.root.append(form);
+  const getDraft = () => ({
+    snapshotVersion: 1,
+    title: name.input.value,
+    start: start.input.value,
+    end: end.input.value,
+    resource: resource.input.value,
+    ...(editingId ? { editingId, baseEvent: clone(baseEvent) } : {}),
+    ...(inputZone !== "UTC" ? { inputTimeZone: inputZone } : {}),
+  });
+  const acceptDraft = (value) => {
+    const v = clone(value);
+    fields(
+      v,
+      [
+        "snapshotVersion",
+        "title",
+        "start",
+        "end",
+        "resource",
+        "editingId",
+        "inputTimeZone",
+        "baseEvent",
+      ],
+      ["snapshotVersion", "title", "start", "end", "resource"],
+    );
+    if (v.baseEvent !== undefined) {
+      const [base] = validateEvents([v.baseEvent]);
+      if (base.id !== v.editingId) throw TypeError("Draft base mismatch");
+    }
+    if (v.editingId && !v.baseEvent) throw TypeError("Draft base required");
+    if (
+      (v.editingId !== undefined && !data.some((x) => x.id === v.editingId)) ||
+      (v.inputTimeZone || "UTC") !== inputZone
+    )
+      throw TypeError("Draft context mismatch");
+    if (v.snapshotVersion !== 1) throw TypeError("Invalid draft version");
+    for (const [key, max] of [
+      ["title", 160],
+      ["start", 32],
+      ["end", 32],
+      ["resource", 120],
+    ])
+      if (typeof v[key] !== "string" || v[key].length > max)
+        throw TypeError("Invalid draft");
+    for (const key of ["start", "end"])
+      if (
+        v[key] &&
+        !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?$/.test(v[key])
+      )
+        throw TypeError("Invalid input date");
+    return v;
+  };
+  let lastDirty = false;
+  const isDirty = () =>
+      [name, start, end, resource].some((x) => x.input.value !== ""),
+    changed = () => {
+      const dirty = isDirty();
+      submit.textContent = editingId
+        ? tr(p, "Değişiklikleri uygula", "Apply changes")
+        : tr(p, "Etkinliği ekle", "Add event");
+      if (dirty !== lastDirty) {
+        lastDirty = dirty;
+        options.onDirtyChange?.(dirty);
+      }
+      options.onDraftChange?.(getDraft());
+    };
+  function restoreDraft(value) {
+    p.check();
+    const v = acceptDraft(value);
+    const probes = [start, end].map((x) => x.input.cloneNode());
+    for (const [i, key] of ["start", "end"].entries()) {
+      probes[i].value = v[key];
+      if (v[key] && !probes[i].value) throw TypeError("Invalid datetime input");
+    }
+    revision++;
+    abort?.abort();
+    submit.disabled = false;
+    editingId = v.editingId || null;
+    baseEvent = v.baseEvent ? clone(v.baseEvent) : null;
+    name.input.value = v.title;
+    start.input.value = v.start;
+    end.input.value = v.end;
+    resource.input.value = v.resource;
+    changed();
+  }
+  p.on(form, "input", changed);
+  if (options.draft) restoreDraft(options.draft);
 
- function draw(){const dated=data.map(record=>({record,from:dayKey(record.start,p.cfg.timeZone),to:dayKey(Date.parse(record.end)-1,p.cfg.timeZone)})),onDay=key=>dated.filter(x=>x.from<=key&&x.to>=key).map(x=>x.record).sort((a,b)=>a.start.localeCompare(b.start));heading.textContent=new Intl.DateTimeFormat(p.cfg.locale,{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(month+'-01T12:00:00Z'));grid.replaceChildren();const first=new Date(month+'-01T12:00:00Z'),offset=(first.getUTCDay()+6)%7,days=new Date(first.getUTCFullYear(),first.getUTCMonth()+1,0).getUTCDate();for(let i=0;i<7;i++)grid.append(el(p.doc,'span','mh-calendar-weekday',new Intl.DateTimeFormat(p.cfg.locale,{weekday:'short',timeZone:'UTC'}).format(new Date(Date.UTC(2026,0,5+i)))));for(let i=0;i<offset;i++)grid.append(el(p.doc,'span',''));for(let d=1;d<=days;d++){const key=month+'-'+String(d).padStart(2,'0'),items=onDay(key),b=button(p.doc,p.cfg.number(d)+(items.length?' · '+p.cfg.number(items.length):''),'day');b.dataset.day=key;b.setAttribute('aria-pressed',String(key===selected));b.setAttribute('aria-label',b.textContent+' · '+key+' · '+p.cfg.number(items.length)+' '+tr(p,'etkinlik','events'));grid.append(b);}agenda.replaceChildren(el(p.doc,'h'+(p.cfg.headingLevel+1),'',selected+' · '+p.cfg.timeZone));const items=onDay(selected);for(const x of items){const row=el(p.doc,'article','mh-plan-card');row.append(el(p.doc,'h'+(p.cfg.headingLevel+2),'',x.title),el(p.doc,'p','',p.cfg.date(new Date(x.start),{dateStyle:'medium',timeStyle:'short',timeZone:p.cfg.timeZone})+' – '+p.cfg.date(new Date(x.end),{dateStyle:'medium',timeStyle:'short',timeZone:p.cfg.timeZone})),el(p.doc,'p','',x.resource||''));const actions=el(p.doc,'div','mh-suite-actions');for(const [action,label]of [['edit-event',tr(p,'Düzenle','Edit event')],['delete-event',tr(p,'Sil','Delete event')]]){const b=button(p.doc,label,action);b.dataset.event=x.id;b.disabled=!!options.onCommit&&!options.onMutation;actions.append(b);}row.append(actions);agenda.append(row);}if(!items.length)agenda.append(el(p.doc,'p','',tr(p,'Bu gün için etkinlik yok.','No events for this day.')));}
- function move(n){const d=new Date(month+'-01T12:00:00Z');d.setUTCMonth(d.getUTCMonth()+n);month=d.toISOString().slice(0,7);draw();}
- p.on(prev,'click',()=>move(-1));p.on(next,'click',()=>move(1));p.on(grid,'click',e=>{const b=e.target.closest('[data-day]');if(b){selected=b.dataset.day;draw();grid.querySelector('[data-day="'+selected+'"]').focus();}});
- p.on(form,'submit',async e=>{e.preventDefault();if(editingId&&JSON.stringify(data.find(x=>x.id===editingId))!==JSON.stringify(baseEvent)){status.textContent=tr(p,'Etkinlik dışarıdan değişti veya kaldırıldı; taslak korunuyor. Güncel kaydı inceleyin.','Event changed or was removed externally; draft preserved. Review the current record.');return;}let candidate;try{candidate=validateEvents([{id:editingId||'event-'+Date.now()+'-'+ ++sequence,title:name.input.value,start:localDateTimeToUTC(start.input.value,inputZone,options.disambiguation),end:localDateTimeToUTC(end.input.value,inputZone,options.disambiguation),...(resource.input.value.trim()?{resource:resource.input.value.trim()}:{})}])[0];if(data.length>=500&&!editingId)throw Error('Limit');if(!capacityAvailable(data,candidate,capacities[candidate.resource||'']??1)){status.textContent=tr(p,'Bu kaynakta zaman çakışması var. Taslak korunuyor.','Resource time conflict. Draft preserved.');return;}}catch(error){status.textContent=error.message==='Ambiguous local time'?tr(p,'Bu yerel saat iki kez oluşuyor; belirsiz olmayan bir saat seçin.','This local time occurs twice; choose an unambiguous time.'):error.message==='Nonexistent local time'?tr(p,'Bu yerel saat yaz saati geçişinde yok; başka bir saat seçin.','This local time does not exist during the daylight-saving transition; choose another time.'):tr(p,'Etkinlik bilgilerini kontrol edin.','Check event details.');return;}const submitted=[name.input.value,start.input.value,end.input.value,resource.input.value];const current=++revision;abort?.abort();abort=new AbortController();submit.disabled=true;status.textContent=tr(p,'İşlem sürüyor…','Working…');try{if(options.onMutation||options.onCommit){const result=options.onMutation?await options.onMutation({kind:editingId?'update':'create',event:clone(candidate),id:candidate.id},abort.signal):await options.onCommit(clone(candidate),abort.signal);if(current!==revision||p.dead)return;if(result?.persisted!==true)throw Error('Not confirmed');}if(data.length>=500&&!data.some(x=>x.id===candidate.id))throw Error('Limit');data=[...data.filter(x=>x.id!==candidate.id),candidate];selected=dayKey(candidate.start,p.cfg.timeZone);month=selected.slice(0,7);draw();const unchanged=JSON.stringify(submitted)===JSON.stringify([name.input.value,start.input.value,end.input.value,resource.input.value]);if(unchanged){form.reset();editingId=null;baseEvent=null;}changed();status.textContent=!unchanged?tr(p,'Gönderilen etkinlik eklendi; yeni taslak korunuyor.','Submitted event added; newer draft preserved.'):(options.onCommit||options.onMutation)?tr(p,'Sunucu kaydı doğrulandı.','Server save confirmed.'):tr(p,'Etkinlik yalnız yerel ajandaya uygulandı.','Event applied to the local agenda only.');options.onChange?.(clone(data));}catch{if(current===revision&&!p.dead)status.textContent=tr(p,'Kayıt doğrulanamadı; taslak korunuyor.','Save not confirmed; draft preserved.');}finally{if(!p.dead&&current===revision)submit.disabled=false;}});
- p.on(agenda,'click',async e=>{const b=e.target.closest('button[data-event]');if(!b||b.disabled)return;const event=data.find(x=>x.id===b.dataset.event);if(!event)return;if(b.dataset.action==='edit-event'&&isDirty()){b.dataset.action='confirm-edit';b.textContent=tr(p,'Mevcut taslağı değiştir','Replace current draft');const no=button(p.doc,tr(p,'Taslağı koru','Keep draft'),'keep-event');no.dataset.event=event.id;b.after(no);return;}if(['edit-event','confirm-edit'].includes(b.dataset.action)){revision++;abort?.abort();submit.disabled=false;editingId=event.id;baseEvent=clone(event);name.input.value=event.title;start.input.value=formatLocalDateTime(event.start,inputZone);end.input.value=formatLocalDateTime(event.end,inputZone);resource.input.value=event.resource||'';changed();name.input.focus();return;}if(b.dataset.action==='delete-event'){b.dataset.action='confirm-delete';b.textContent=tr(p,'Silmeyi onayla','Confirm deletion');const no=button(p.doc,tr(p,'Vazgeç','Keep event'),'keep-event');no.dataset.event=event.id;b.after(no);return;}if(b.dataset.action==='keep-event'){draw();return;}if(b.dataset.action!=='confirm-delete')return;const current=++revision;abort?.abort();abort=new AbortController();b.disabled=true;try{if(options.onMutation){const result=await options.onMutation({kind:'delete',id:event.id,event:clone(event)},abort.signal);if(current!==revision||p.dead)return;if(result?.persisted!==true)throw Error('Not confirmed');}data=data.filter(x=>x.id!==event.id);if(editingId===event.id){editingId=null;baseEvent=null;}draw();changed();options.onChange?.(clone(data));status.textContent=options.onMutation?tr(p,'Silme sunucuda doğrulandı.','Server deletion confirmed.'):tr(p,'Etkinlik yalnız yerel ajandadan silindi.','Event removed from the local agenda only.');prev.focus();}catch{if(current===revision&&!p.dead){b.disabled=false;status.textContent=tr(p,'Silme doğrulanamadı; etkinlik korunuyor.','Deletion not confirmed; event preserved.');}}});
- p.on(cancel,'click',()=>{revision++;abort?.abort();submit.disabled=false;draw();status.textContent=tr(p,'İptal edildi; taslak korunuyor.','Cancelled; draft preserved.');});draw();return{element:p.root,getSnapshot(){p.check();return{items:clone(data),date:selected,month,draft:getDraft()};},getDraft(){p.check();return getDraft();},restoreDraft,isDirty(){p.check();return isDirty();},update(input){p.check();const accepted=validateEvents(input);revision++;abort?.abort();submit.disabled=false;data=accepted;draw();},destroy(){revision++;abort?.abort();p.destroy();}};
+  function draw() {
+    const dated = data.map((record) => ({
+        record,
+        from: dayKey(record.start, p.cfg.timeZone),
+        to: dayKey(Date.parse(record.end) - 1, p.cfg.timeZone),
+      })),
+      onDay = (key) =>
+        dated
+          .filter((x) => x.from <= key && x.to >= key)
+          .map((x) => x.record)
+          .sort((a, b) => a.start.localeCompare(b.start));
+    heading.textContent = new Intl.DateTimeFormat(p.cfg.locale, {
+      month: "long",
+      year: "numeric",
+      timeZone: "UTC",
+    }).format(new Date(month + "-01T12:00:00Z"));
+    grid.replaceChildren();
+    const first = new Date(month + "-01T12:00:00Z"),
+      offset = (first.getUTCDay() + 6) % 7,
+      days = new Date(
+        first.getUTCFullYear(),
+        first.getUTCMonth() + 1,
+        0,
+      ).getUTCDate();
+    for (let i = 0; i < 7; i++)
+      grid.append(
+        el(
+          p.doc,
+          "span",
+          "mh-calendar-weekday",
+          new Intl.DateTimeFormat(p.cfg.locale, {
+            weekday: "short",
+            timeZone: "UTC",
+          }).format(new Date(Date.UTC(2026, 0, 5 + i))),
+        ),
+      );
+    for (let i = 0; i < offset; i++) grid.append(el(p.doc, "span", ""));
+    for (let d = 1; d <= days; d++) {
+      const key = month + "-" + String(d).padStart(2, "0"),
+        items = onDay(key),
+        b = button(
+          p.doc,
+          p.cfg.number(d) +
+            (items.length ? " · " + p.cfg.number(items.length) : ""),
+          "day",
+        );
+      b.dataset.day = key;
+      b.setAttribute("aria-pressed", String(key === selected));
+      b.setAttribute(
+        "aria-label",
+        b.textContent +
+          " · " +
+          key +
+          " · " +
+          p.cfg.number(items.length) +
+          " " +
+          tr(p, "etkinlik", "events"),
+      );
+      grid.append(b);
+    }
+    agenda.replaceChildren(
+      el(
+        p.doc,
+        "h" + (p.cfg.headingLevel + 1),
+        "",
+        selected + " · " + p.cfg.timeZone,
+      ),
+    );
+    const items = onDay(selected);
+    for (const x of items) {
+      const row = el(p.doc, "article", "mh-plan-card");
+      row.append(
+        el(p.doc, "h" + (p.cfg.headingLevel + 2), "", x.title),
+        el(
+          p.doc,
+          "p",
+          "",
+          p.cfg.date(new Date(x.start), {
+            dateStyle: "medium",
+            timeStyle: "short",
+            timeZone: p.cfg.timeZone,
+          }) +
+            " – " +
+            p.cfg.date(new Date(x.end), {
+              dateStyle: "medium",
+              timeStyle: "short",
+              timeZone: p.cfg.timeZone,
+            }),
+        ),
+        el(p.doc, "p", "", x.resource || ""),
+      );
+      const actions = el(p.doc, "div", "mh-suite-actions");
+      for (const [action, label] of [
+        ["edit-event", tr(p, "Düzenle", "Edit event")],
+        ["delete-event", tr(p, "Sil", "Delete event")],
+      ]) {
+        const b = button(p.doc, label, action);
+        b.dataset.event = x.id;
+        b.disabled = !!options.onCommit && !options.onMutation;
+        actions.append(b);
+      }
+      row.append(actions);
+      agenda.append(row);
+    }
+    if (!items.length)
+      agenda.append(
+        el(
+          p.doc,
+          "p",
+          "",
+          tr(p, "Bu gün için etkinlik yok.", "No events for this day."),
+        ),
+      );
+  }
+  function move(n) {
+    const d = new Date(month + "-01T12:00:00Z");
+    d.setUTCMonth(d.getUTCMonth() + n);
+    month = d.toISOString().slice(0, 7);
+    draw();
+  }
+  p.on(prev, "click", () => move(-1));
+  p.on(next, "click", () => move(1));
+  p.on(grid, "click", (e) => {
+    const b = e.target.closest("[data-day]");
+    if (b) {
+      selected = b.dataset.day;
+      draw();
+      grid.querySelector('[data-day="' + selected + '"]').focus();
+    }
+  });
+  async function submitEvent(e) {
+    e.preventDefault();
+    if (calendarEditIsStale(data, editingId, baseEvent)) {
+      status.textContent = tr(
+        p,
+        "Etkinlik dışarıdan değişti veya kaldırıldı; taslak korunuyor. Güncel kaydı inceleyin.",
+        "Event changed or was removed externally; draft preserved. Review the current record.",
+      );
+      return;
+    }
+    let candidate;
+    try {
+      candidate = validateEvents([
+        calendarCandidate(
+          baseEvent,
+          {
+            id: editingId || "event-" + Date.now() + "-" + ++sequence,
+            title: name.input.value,
+            start: start.input.value,
+            end: end.input.value,
+            resource: resource.input.value,
+          },
+          inputZone,
+          options.disambiguation,
+        ),
+      ])[0];
+      if (data.length >= 500 && !editingId) throw Error("Limit");
+      if (
+        !capacityAvailable(
+          data,
+          candidate,
+          capacities[candidate.resource || ""] ?? 1,
+        )
+      ) {
+        status.textContent = tr(
+          p,
+          "Bu kaynakta zaman çakışması var. Taslak korunuyor.",
+          "Resource time conflict. Draft preserved.",
+        );
+        return;
+      }
+    } catch (error) {
+      status.textContent =
+        error.message === "Ambiguous local time"
+          ? tr(
+              p,
+              "Bu yerel saat iki kez oluşuyor; belirsiz olmayan bir saat seçin.",
+              "This local time occurs twice; choose an unambiguous time.",
+            )
+          : error.message === "Nonexistent local time"
+            ? tr(
+                p,
+                "Bu yerel saat yaz saati geçişinde yok; başka bir saat seçin.",
+                "This local time does not exist during the daylight-saving transition; choose another time.",
+              )
+            : tr(
+                p,
+                "Etkinlik bilgilerini kontrol edin.",
+                "Check event details.",
+              );
+      return;
+    }
+    const submitted = [
+      name.input.value,
+      start.input.value,
+      end.input.value,
+      resource.input.value,
+    ];
+    const current = ++revision;
+    abort?.abort();
+    abort = new AbortController();
+    submit.disabled = true;
+    status.textContent = tr(p, "İşlem sürüyor…", "Working…");
+    try {
+      if (options.onMutation || options.onCommit) {
+        const result = options.onMutation
+          ? await options.onMutation(
+              {
+                kind: editingId ? "update" : "create",
+                event: clone(candidate),
+                id: candidate.id,
+              },
+              abort.signal,
+            )
+          : await options.onCommit(clone(candidate), abort.signal);
+        if (current !== revision || p.dead) return;
+        if (result?.persisted !== true) throw Error("Not confirmed");
+      }
+      if (data.length >= 500 && !data.some((x) => x.id === candidate.id))
+        throw Error("Limit");
+      data = [...data.filter((x) => x.id !== candidate.id), candidate];
+      selected = dayKey(candidate.start, p.cfg.timeZone);
+      month = selected.slice(0, 7);
+      draw();
+      const unchanged =
+        JSON.stringify(submitted) ===
+        JSON.stringify([
+          name.input.value,
+          start.input.value,
+          end.input.value,
+          resource.input.value,
+        ]);
+      if (unchanged) {
+        form.reset();
+        editingId = null;
+        baseEvent = null;
+      } else if (editingId === candidate.id) {
+        baseEvent = clone(candidate);
+      }
+      changed();
+      status.textContent = !unchanged
+        ? tr(
+            p,
+            "Gönderilen etkinlik eklendi; yeni taslak korunuyor.",
+            "Submitted event added; newer draft preserved.",
+          )
+        : options.onCommit || options.onMutation
+          ? tr(p, "Sunucu kaydı doğrulandı.", "Server save confirmed.")
+          : tr(
+              p,
+              "Etkinlik yalnız yerel ajandaya uygulandı.",
+              "Event applied to the local agenda only.",
+            );
+      options.onChange?.(clone(data));
+    } catch {
+      if (current === revision && !p.dead)
+        status.textContent = tr(
+          p,
+          "Kayıt doğrulanamadı; taslak korunuyor.",
+          "Save not confirmed; draft preserved.",
+        );
+    } finally {
+      if (!p.dead && current === revision) submit.disabled = false;
+    }
+  }
+  p.on(form, "submit", submitEvent);
+  p.on(agenda, "click", async (e) => {
+    const b = e.target.closest("button[data-event]");
+    if (!b || b.disabled) return;
+    const event = data.find((x) => x.id === b.dataset.event);
+    if (!event) return;
+    if (b.dataset.action === "edit-event" && isDirty()) {
+      b.dataset.action = "confirm-edit";
+      b.textContent = tr(p, "Mevcut taslağı değiştir", "Replace current draft");
+      const no = button(
+        p.doc,
+        tr(p, "Taslağı koru", "Keep draft"),
+        "keep-event",
+      );
+      no.dataset.event = event.id;
+      b.after(no);
+      return;
+    }
+    if (["edit-event", "confirm-edit"].includes(b.dataset.action)) {
+      revision++;
+      abort?.abort();
+      submit.disabled = false;
+      editingId = event.id;
+      baseEvent = clone(event);
+      name.input.value = event.title;
+      start.input.value = formatLocalDateTime(event.start, inputZone);
+      end.input.value = formatLocalDateTime(event.end, inputZone);
+      resource.input.value = event.resource || "";
+      changed();
+      name.input.focus();
+      return;
+    }
+    if (b.dataset.action === "delete-event") {
+      b.dataset.action = "confirm-delete";
+      b.textContent = tr(p, "Silmeyi onayla", "Confirm deletion");
+      const no = button(p.doc, tr(p, "Vazgeç", "Keep event"), "keep-event");
+      no.dataset.event = event.id;
+      b.after(no);
+      return;
+    }
+    if (b.dataset.action === "keep-event") {
+      draw();
+      return;
+    }
+    if (b.dataset.action !== "confirm-delete") return;
+    const current = ++revision;
+    abort?.abort();
+    abort = new AbortController();
+    b.disabled = true;
+    try {
+      if (options.onMutation) {
+        const result = await options.onMutation(
+          { kind: "delete", id: event.id, event: clone(event) },
+          abort.signal,
+        );
+        if (current !== revision || p.dead) return;
+        if (result?.persisted !== true) throw Error("Not confirmed");
+      }
+      data = data.filter((x) => x.id !== event.id);
+      if (editingId === event.id) {
+        editingId = null;
+        baseEvent = null;
+      }
+      draw();
+      changed();
+      options.onChange?.(clone(data));
+      status.textContent = options.onMutation
+        ? tr(p, "Silme sunucuda doğrulandı.", "Server deletion confirmed.")
+        : tr(
+            p,
+            "Etkinlik yalnız yerel ajandadan silindi.",
+            "Event removed from the local agenda only.",
+          );
+      prev.focus();
+    } catch {
+      if (current === revision && !p.dead) {
+        b.disabled = false;
+        status.textContent = tr(
+          p,
+          "Silme doğrulanamadı; etkinlik korunuyor.",
+          "Deletion not confirmed; event preserved.",
+        );
+      }
+    }
+  });
+  p.on(cancel, "click", () => {
+    revision++;
+    abort?.abort();
+    submit.disabled = false;
+    draw();
+    status.textContent = tr(
+      p,
+      "İptal edildi; taslak korunuyor.",
+      "Cancelled; draft preserved.",
+    );
+  });
+  draw();
+  return {
+    element: p.root,
+    getSnapshot() {
+      p.check();
+      return { items: clone(data), date: selected, month, draft: getDraft() };
+    },
+    getDraft() {
+      p.check();
+      return getDraft();
+    },
+    restoreDraft,
+    isDirty() {
+      p.check();
+      return isDirty();
+    },
+    update(input) {
+      p.check();
+      const accepted = validateEvents(input);
+      revision++;
+      abort?.abort();
+      submit.disabled = false;
+      data = accepted;
+      draw();
+    },
+    destroy() {
+      revision++;
+      abort?.abort();
+      p.destroy();
+    },
+  };
 }
-export function validateDocumentDraft(input){const doc=clone(input);fields(doc,['title','blocks'],['title','blocks']);if(typeof doc.title!=='string'||doc.title.length>160)throw TypeError('Invalid title');if(!Array.isArray(doc.blocks)||doc.blocks.length>100)throw TypeError('At most 100 blocks');const ids=new Set();for(const b of doc.blocks){fields(b,['id','type','text','bold','italic','marks','url'],['id','type','text']);id(b.id);if(ids.has(b.id)||!['paragraph','heading','quote','list','image'].includes(b.type)||typeof b.text!=='string'||b.text.length>10000||b.bold!==undefined&&typeof b.bold!=='boolean'||b.italic!==undefined&&typeof b.italic!=='boolean')throw TypeError('Invalid block');if(b.marks!==undefined)validateMarks(b.marks,b.text);if(b.url!==undefined)safeDocumentURL(b.url);ids.add(b.id);}if(JSON.stringify(doc).length>1500000)throw TypeError('Document too large');return doc;}
-export function validateDocument(input){const doc=validateDocumentDraft(input);text(doc.title,'title',160);for(const b of doc.blocks)if(b.type==='image'&&(!b.url||!b.text.trim()))throw TypeError('Image URL and alternative text required');return doc;}
-export function compareDocuments(before,after){const a=validateDocumentDraft(before),b=validateDocumentDraft(after),old=new Map(a.blocks.map(x=>[x.id,x])),next=new Map(b.blocks.map(x=>[x.id,x]));return{titleChanged:a.title!==b.title,changes:[...new Set([...old.keys(),...next.keys()])].flatMap(id=>{const x=old.get(id),y=next.get(id);return x&&y&&['type','text'].every(k=>x[k]===y[k])&&!!x.bold===!!y.bold&&!!x.italic===!!y.italic&&JSON.stringify(x.marks||[])===JSON.stringify(y.marks||[])&&x.url===y.url?[]:[{id,kind:!x?'added':!y?'removed':'changed',before:x||null,after:y||null}];}),orderChanged:a.blocks.map(x=>x.id).join(',')!==b.blocks.map(x=>x.id).join(',')};}
-export function createDocument(input){
- let draft=validateDocumentDraft(input),baseline=clone(draft),undo=[],versions=[],counter=0,dead=false;
- const alive=()=>{if(dead)throw Error('Document destroyed');},same=(a,b)=>{const d=compareDocuments(a,b);return !d.titleChanged&&!d.orderChanged&&!d.changes.length;};
- const api={
- getSnapshot(){alive();return{snapshotVersion:1,draft:clone(draft),baseline:clone(baseline),undoHistory:clone(undo),versions:clone(versions),counter,canUndo:undo.length>0};},
- isDirty(){alive();return !same(draft,baseline);},
- markSaved(value=draft){alive();baseline=validateDocument(value);},
- edit(next){alive();const accepted=validateDocumentDraft(next);if(same(draft,accepted))return;undo.push(clone(draft));undo=undo.slice(-50);draft=accepted;},
- undo(){alive();if(!undo.length)return false;draft=undo.pop();return true;},
- checkpoint(label){alive();validateDocument(draft);if(counter>=Number.MAX_SAFE_INTEGER)throw Error('Version limit');text(label,'version label',120);const version={id:'v'+ ++counter,label,document:clone(draft)};versions.push(version);versions=versions.slice(-30);return clone(version);},
- restore(key){alive();const version=versions.find(x=>x.id===key);if(!version)throw TypeError('Unknown version');api.edit(version.document);},
- restoreSnapshot(input){alive();const s=clone(input);fields(s,['snapshotVersion','draft','baseline','undoHistory','versions','counter','canUndo'],['snapshotVersion','draft','baseline','undoHistory','versions','counter','canUndo']);if(s.snapshotVersion!==1||!Number.isSafeInteger(s.counter)||s.counter<0||!Array.isArray(s.undoHistory)||s.undoHistory.length>50||!Array.isArray(s.versions)||s.versions.length>30||s.canUndo!==(s.undoHistory.length>0))throw TypeError('Invalid snapshot');const next=validateDocumentDraft(s.draft),base=validateDocumentDraft(s.baseline),history=s.undoHistory.map(validateDocumentDraft),seen=new Set();for(const v of s.versions){fields(v,['id','label','document'],['id','label','document']);if(!/^v[1-9][0-9]*$/.test(v.id)||Number(v.id.slice(1))>s.counter||seen.has(v.id))throw TypeError('Invalid version');seen.add(v.id);text(v.label,'label',120);validateDocument(v.document);}draft=next;baseline=base;undo=history;versions=s.versions;counter=s.counter;},
- destroy(){dead=true;undo=[];versions=[];}
- };return api;
+export function validateDocumentDraft(input) {
+  const doc = clone(input);
+  fields(doc, ["title", "blocks"], ["title", "blocks"]);
+  if (typeof doc.title !== "string" || doc.title.length > 160)
+    throw TypeError("Invalid title");
+  if (!Array.isArray(doc.blocks) || doc.blocks.length > 100)
+    throw TypeError("At most 100 blocks");
+  const ids = new Set();
+  for (const b of doc.blocks) {
+    fields(
+      b,
+      ["id", "type", "text", "bold", "italic", "marks", "url"],
+      ["id", "type", "text"],
+    );
+    id(b.id);
+    if (
+      ids.has(b.id) ||
+      !["paragraph", "heading", "quote", "list", "image"].includes(b.type) ||
+      typeof b.text !== "string" ||
+      b.text.length > 10000 ||
+      (b.bold !== undefined && typeof b.bold !== "boolean") ||
+      (b.italic !== undefined && typeof b.italic !== "boolean")
+    )
+      throw TypeError("Invalid block");
+    if (b.marks !== undefined) validateMarks(b.marks, b.text);
+    if (b.url !== undefined) safeDocumentURL(b.url);
+    ids.add(b.id);
+  }
+  if (JSON.stringify(doc).length > 1500000)
+    throw TypeError("Document too large");
+  return doc;
 }
-export function mountDocumentEditor(host,input,options={}){
- const store=createDocument(input);if(options.snapshot)store.restoreSnapshot(options.snapshot);const p=mountBase(host,options,config(options).text('Belge çalışma alanı','Document workspace')),title=field(p,tr(p,'Belge başlığı','Document title')),type=field(p,tr(p,'Yeni blok türü','New block type'),'select'),add=button(p.doc,tr(p,'Blok ekle','Add block'),'add'),undo=button(p.doc,tr(p,'Geri al','Undo'),'undo'),checkpoint=button(p.doc,tr(p,'Yerel sürüm oluştur','Create local version'),'checkpoint'),versions=field(p,tr(p,'Sürüm geçmişi','Version history'),'select'),restore=button(p.doc,tr(p,'Sürümü geri getir','Restore version'),'restore'),save=button(p.doc,tr(p,'Sunucuya kaydet','Save to server'),'save'),cancel=button(p.doc,tr(p,'İptal','Cancel'),'cancel'),blocks=el(p.doc,'div',''),preview=el(p.doc,'article','mh-document-preview'),diff=el(p.doc,'div','mh-document-diff'),status=el(p.doc,'p','mh-suite-status');status.setAttribute('role','status');const blockLabel=value=>tr(p,{paragraph:'Paragraf',heading:'Başlık',quote:'Alıntı',list:'Liste',image:'Görsel açıklaması'}[value],{paragraph:'Paragraph',heading:'Heading',quote:'Quote',list:'List',image:'Image alternative text'}[value]);let revision=0,abort,blockId=0,lastDirty=store.isDirty();const changed=()=>{const dirty=store.isDirty();if(dirty!==lastDirty){lastDirty=dirty;options.onDirtyChange?.(dirty);}options.onDraftChange?.(store.getSnapshot());};title.input.maxLength=160;title.input.required=true;for(const value of ['paragraph','heading','quote','list','image']){const o=el(p.doc,'option','',blockLabel(value));o.value=value;type.input.append(o);}const toolbar=el(p.doc,'div','mh-suite-actions');toolbar.append(add,undo,checkpoint,save,cancel);const split=el(p.doc,'div','mh-document-columns');split.append(blocks,preview);p.root.append(title.label,type.label,toolbar,split,versions.label,restore,diff,status);
- const exchange=field(p,tr(p,'Belge JSON aktarımı','Document JSON exchange'),'textarea'),exportButton=button(p.doc,tr(p,'JSON dışa aktar','Export JSON'),'export-json'),importButton=button(p.doc,tr(p,'JSON taslağını içe aktar','Import JSON draft'),'import-json');exchange.input.maxLength=2000000;p.root.append(exchange.label,exportButton,importButton);p.on(exportButton,'click',()=>{exchange.input.value=exportDocument(store.getSnapshot().draft);status.textContent=tr(p,'JSON hazır; sunucuya kaydedilmedi.','JSON ready; not saved to server.');});p.on(importButton,'click',()=>{try{const next=importDocument(exchange.input.value);revision++;abort?.abort();save.disabled=false;store.edit(next);changed();draw();status.textContent=tr(p,'Taslağa aktarıldı; geri alabilirsin.','Imported into draft; undo is available.');}catch{status.textContent=tr(p,'Geçersiz JSON; mevcut taslak korunuyor.','Invalid JSON; existing draft preserved.');}});
- function renderPreview(){const d=store.getSnapshot().draft;preview.replaceChildren(el(p.doc,'h'+(p.cfg.headingLevel+1),'',d.title||tr(p,'Başlıksız taslak','Untitled draft')));for(const b of d.blocks){if(b.type==='image'){if(b.url){const img=el(p.doc,'img','mh-document-image');img.src=safeDocumentURL(b.url);img.alt=b.text;img.loading='lazy';img.referrerPolicy='no-referrer';preview.append(img);}else preview.append(el(p.doc,'p','',tr(p,'Görsel URL bekleniyor.','Image URL required.')));continue;}const node=el(p.doc,b.type==='heading'?'h'+(p.cfg.headingLevel+2):b.type==='quote'?'blockquote':b.type==='list'?'ul':'p','');const write=(target,value,offset=0)=>{let pos=offset;const end=offset+value.length;for(const mark of b.marks||[]){const from=Math.max(mark.from,offset),to=Math.min(mark.to,end);if(from>=to)continue;if(pos<from)target.append(p.doc.createTextNode(b.text.slice(pos,from)));let n=el(p.doc,mark.href?'a':'span','');if(mark.href){n.href=safeDocumentURL(mark.href);n.rel='noopener noreferrer';}target.append(n);if(mark.bold||b.bold){const strong=el(p.doc,'strong','');n.append(strong);n=strong;}if(mark.italic||b.italic){const em=el(p.doc,'em','');n.append(em);n=em;}n.textContent=b.text.slice(from,to);pos=to;}if(pos<end){let n=el(p.doc,b.bold?'strong':b.italic?'em':'span','');target.append(n);if(b.bold&&b.italic){const em=el(p.doc,'em','');n.append(em);n=em;}n.textContent=b.text.slice(pos,end);}};if(b.type==='list'){let offset=0;for(const line of b.text.split('\n')){const li=el(p.doc,'li','');write(li,line,offset);offset+=line.length+1;node.append(li);}}else write(node,b.text);preview.append(node);}undo.disabled=!store.getSnapshot().canUndo;}
- function renderDiff(){diff.replaceChildren();const snapshot=store.getSnapshot(),v=snapshot.versions.find(v=>v.id===versions.input.value);if(!v)return;const comparison=compareDocuments(v.document,snapshot.draft);diff.append(el(p.doc,'h'+(p.cfg.headingLevel+1),'',tr(p,'Sürüm karşılaştırması','Version comparison')));if(comparison.titleChanged)diff.append(el(p.doc,'p','',v.document.title+' → '+snapshot.draft.title));for(const c of comparison.changes){const card=el(p.doc,'div','mh-plan-card');card.append(el(p.doc,'strong','',tr(p,{added:'Eklendi',removed:'Kaldırıldı',changed:'Değişti'}[c.kind],{added:'Added',removed:'Removed',changed:'Changed'}[c.kind])),el(p.doc,'pre','',c.before?.text||'—'),el(p.doc,'pre','',c.after?.text||'—'));const words=el(p.doc,'p','');for(const part of diffWords(c.before?.text||'',c.after?.text||''))words.append(el(p.doc,part.kind==='added'?'ins':part.kind==='removed'?'del':'span','',part.text));card.append(words);diff.append(card);}if(comparison.orderChanged)diff.append(el(p.doc,'p','',tr(p,'Blok sırası değişti.','Block order changed.')));if(!comparison.changes.length&&!comparison.titleChanged&&!comparison.orderChanged)diff.append(el(p.doc,'p','',tr(p,'Fark yok.','No changes.')));}
- function edit(patch){const d=store.getSnapshot().draft;patch(d);store.edit(d);changed();renderPreview();renderDiff();status.textContent=tr(p,'Kaydedilmemiş yerel değişiklik.','Unsaved local changes.');}
- function draw(){const s=store.getSnapshot();title.input.value=s.draft.title;blocks.replaceChildren();for(const b of s.draft.blocks){const row=el(p.doc,'div','mh-plan-card'),input=field(p,blockLabel(b.type),'textarea');input.input.value=b.text;input.input.maxLength=10000;input.input.dataset.block=b.id;row.append(input.label);const url=field(p,tr(p,'HTTPS bağlantısı / görsel URL','HTTPS link / image URL'));url.input.type='url';url.input.value=b.url||'';url.input.dataset.url=b.id;const apply=button(p.doc,tr(p,'URL uygula','Apply URL'),'apply-url');apply.dataset.block=b.id;row.append(url.label,apply);for(const [action,label]of [['bold',tr(p,'Kalın','Bold')],['italic',tr(p,'İtalik','Italic')],['up',tr(p,'Yukarı','Move up')],['down',tr(p,'Aşağı','Move down')],['remove',tr(p,'Kaldır','Remove')]]){const btn=button(p.doc,label,action);btn.dataset.block=b.id;if(['bold','italic'].includes(action))btn.setAttribute('aria-pressed',String(!!b[action]));row.append(btn);}blocks.append(row);}const current=versions.input.value;versions.input.replaceChildren();for(const v of s.versions){const o=el(p.doc,'option','',v.label);o.value=v.id;versions.input.append(o);}if(s.versions.some(v=>v.id===current))versions.input.value=current;restore.disabled=!s.versions.length;renderPreview();renderDiff();}
- p.on(title.input,'input',()=>{edit(d=>d.title=title.input.value);});p.on(blocks,'input',e=>{if(e.target.matches('textarea'))edit(d=>{const i=d.blocks.findIndex(b=>b.id===e.target.dataset.block);d.blocks[i]=replaceBlockText(d.blocks[i],e.target.value);});});p.on(blocks,'click',e=>{const b=e.target.closest('button');if(!b)return;const key=b.dataset.block,area=blocks.querySelector('textarea[data-block="'+key+'"]'),action=b.dataset.action;if(action==='apply-url'){try{const url=safeDocumentURL(blocks.querySelector('input[data-url="'+key+'"]').value);edit(d=>{const i=d.blocks.findIndex(x=>x.id===key);if(d.blocks[i].type==='image')d.blocks[i].url=url;else d.blocks[i]=formatTextRange(d.blocks[i],area.selectionStart,area.selectionEnd,{href:url});});draw();}catch{status.textContent=tr(p,'HTTPS URL ve metin seçimini kontrol edin.','Check HTTPS URL and text selection.');}return;}if(['bold','italic'].includes(action)&&area.selectionStart!==area.selectionEnd){edit(d=>{const i=d.blocks.findIndex(x=>x.id===key);d.blocks[i]=formatTextRange(d.blocks[i],area.selectionStart,area.selectionEnd,{[action]:true});});draw();blocks.querySelector('textarea[data-block="'+key+'"]').focus();return;}edit(d=>{const i=d.blocks.findIndex(x=>x.id===key),action=b.dataset.action;if(['bold','italic'].includes(action))d.blocks[i][action]=!d.blocks[i][action];if(action==='remove')d.blocks.splice(i,1);if(action==='up'&&i>0)[d.blocks[i-1],d.blocks[i]]=[d.blocks[i],d.blocks[i-1]];if(action==='down'&&i<d.blocks.length-1)[d.blocks[i+1],d.blocks[i]]=[d.blocks[i],d.blocks[i+1]];});draw();(blocks.querySelector('textarea[data-block="'+key+'"]')||add).focus();});p.on(add,'click',()=>{if(store.getSnapshot().draft.blocks.length>=100){status.textContent=tr(p,'En fazla 100 blok.','At most 100 blocks.');return;}let key;do{key='block-'+ ++blockId;}while(store.getSnapshot().draft.blocks.some(x=>x.id===key));edit(d=>d.blocks.push({id:key,type:type.input.value,text:''}));draw();blocks.querySelector('textarea[data-block="'+key+'"]').focus();});p.on(undo,'click',()=>{store.undo();changed();draw();});p.on(checkpoint,'click',()=>{if(!title.input.value.trim()){status.textContent=tr(p,'Belge başlığı gerekli; taslak korunuyor.','Document title required; draft preserved.');title.input.focus();return;}try{validateDocument(store.getSnapshot().draft);}catch{status.textContent=tr(p,'Görsellerin URL ve açıklaması gerekli.','Images require URL and alternative text.');return;}store.checkpoint(tr(p,'Yerel sürüm ','Local version ')+(store.getSnapshot().versions.length+1));changed();draw();status.textContent=tr(p,'Sürüm yalnız bu oturumda tutuldu.','Version kept in this session only.');});p.on(versions.input,'change',renderDiff);p.on(restore,'click',()=>{store.restore(versions.input.value);changed();draw();status.textContent=tr(p,'Sürüm taslağa getirildi; geri alabilirsin.','Version restored to draft; undo is available.');});
- p.on(save,'click',async()=>{if(!title.input.value.trim()){status.textContent=tr(p,'Belge başlığı gerekli; taslak korunuyor.','Document title required; draft preserved.');title.input.reportValidity();title.input.focus();return;}let sent;try{sent=validateDocument(store.getSnapshot().draft);}catch{status.textContent=tr(p,'Belgeyi kontrol edin; görsellerin URL ve açıklaması gerekli.','Check document; images require URL and alternative text.');return;}const current=++revision;abort?.abort();abort=new AbortController();save.disabled=true;status.textContent=tr(p,'Kaydediliyor…','Saving…');try{if(!options.onSave)throw Error('Adapter required');const result=await options.onSave(sent,abort.signal);if(p.dead||current!==revision)return;if(result?.persisted!==true)throw Error('Not confirmed');store.markSaved(sent);changed();status.textContent=JSON.stringify(sent)===JSON.stringify(store.getSnapshot().draft)?tr(p,'Sunucu kaydı doğrulandı.','Server save confirmed.'):tr(p,'Gönderilen sürüm kaydedildi; yeni değişiklikler taslakta.','Submitted version saved; newer edits remain in draft.');}catch{if(!p.dead&&current===revision)status.textContent=tr(p,'Kaydedilemedi; taslak korunuyor.','Save failed; draft preserved.');}finally{if(!p.dead&&current===revision)save.disabled=false;}});p.on(cancel,'click',()=>{revision++;abort?.abort();save.disabled=false;status.textContent=tr(p,'İptal edildi; taslak korunuyor.','Cancelled; draft preserved.');});draw();return{element:p.root,getSnapshot:()=>store.getSnapshot(),getDraft:()=>store.getSnapshot().draft,isDirty:()=>store.isDirty(),restoreDraft(value){p.check();const next=validateDocumentDraft(value);revision++;abort?.abort();save.disabled=false;store.edit(next);changed();draw();},restoreSnapshot(value){p.check();store.restoreSnapshot(value);revision++;abort?.abort();save.disabled=false;changed();draw();},destroy(){revision++;abort?.abort();store.destroy();p.destroy();}};
+export function validateDocument(input) {
+  const doc = validateDocumentDraft(input);
+  text(doc.title, "title", 160);
+  for (const b of doc.blocks)
+    if (b.type === "image" && (!b.url || !b.text.trim()))
+      throw TypeError("Image URL and alternative text required");
+  return doc;
+}
+export function compareDocuments(before, after) {
+  const a = validateDocumentDraft(before),
+    b = validateDocumentDraft(after),
+    old = new Map(a.blocks.map((x) => [x.id, x])),
+    next = new Map(b.blocks.map((x) => [x.id, x]));
+  return {
+    titleChanged: a.title !== b.title,
+    changes: [...new Set([...old.keys(), ...next.keys()])].flatMap((id) => {
+      const x = old.get(id),
+        y = next.get(id);
+      return x &&
+        y &&
+        ["type", "text"].every((k) => x[k] === y[k]) &&
+        !!x.bold === !!y.bold &&
+        !!x.italic === !!y.italic &&
+        JSON.stringify(x.marks || []) === JSON.stringify(y.marks || []) &&
+        x.url === y.url
+        ? []
+        : [
+            {
+              id,
+              kind: !x ? "added" : !y ? "removed" : "changed",
+              before: x || null,
+              after: y || null,
+            },
+          ];
+    }),
+    orderChanged:
+      a.blocks.map((x) => x.id).join(",") !==
+      b.blocks.map((x) => x.id).join(","),
+  };
+}
+export function createDocument(input) {
+  let draft = validateDocumentDraft(input),
+    baseline = clone(draft),
+    undo = [],
+    versions = [],
+    counter = 0,
+    dead = false;
+  const alive = () => {
+      if (dead) throw Error("Document destroyed");
+    },
+    same = (a, b) => {
+      const d = compareDocuments(a, b);
+      return !d.titleChanged && !d.orderChanged && !d.changes.length;
+    };
+  const api = {
+    getSnapshot() {
+      alive();
+      return {
+        snapshotVersion: 1,
+        draft: clone(draft),
+        baseline: clone(baseline),
+        undoHistory: clone(undo),
+        versions: clone(versions),
+        counter,
+        canUndo: undo.length > 0,
+      };
+    },
+    isDirty() {
+      alive();
+      return !same(draft, baseline);
+    },
+    markSaved(value = draft) {
+      alive();
+      baseline = validateDocument(value);
+    },
+    edit(next) {
+      alive();
+      const accepted = validateDocumentDraft(next);
+      if (same(draft, accepted)) return;
+      undo.push(clone(draft));
+      undo = undo.slice(-50);
+      draft = accepted;
+    },
+    undo() {
+      alive();
+      if (!undo.length) return false;
+      draft = undo.pop();
+      return true;
+    },
+    checkpoint(label) {
+      alive();
+      validateDocument(draft);
+      if (counter >= Number.MAX_SAFE_INTEGER) throw Error("Version limit");
+      text(label, "version label", 120);
+      const version = { id: "v" + ++counter, label, document: clone(draft) };
+      versions.push(version);
+      versions = versions.slice(-30);
+      return clone(version);
+    },
+    restore(key) {
+      alive();
+      const version = versions.find((x) => x.id === key);
+      if (!version) throw TypeError("Unknown version");
+      api.edit(version.document);
+    },
+    restoreSnapshot(input) {
+      alive();
+      const s = clone(input);
+      fields(
+        s,
+        [
+          "snapshotVersion",
+          "draft",
+          "baseline",
+          "undoHistory",
+          "versions",
+          "counter",
+          "canUndo",
+        ],
+        [
+          "snapshotVersion",
+          "draft",
+          "baseline",
+          "undoHistory",
+          "versions",
+          "counter",
+          "canUndo",
+        ],
+      );
+      if (
+        s.snapshotVersion !== 1 ||
+        !Number.isSafeInteger(s.counter) ||
+        s.counter < 0 ||
+        !Array.isArray(s.undoHistory) ||
+        s.undoHistory.length > 50 ||
+        !Array.isArray(s.versions) ||
+        s.versions.length > 30 ||
+        s.canUndo !== s.undoHistory.length > 0
+      )
+        throw TypeError("Invalid snapshot");
+      const next = validateDocumentDraft(s.draft),
+        base = validateDocumentDraft(s.baseline),
+        history = s.undoHistory.map(validateDocumentDraft),
+        seen = new Set();
+      for (const v of s.versions) {
+        fields(v, ["id", "label", "document"], ["id", "label", "document"]);
+        if (
+          !/^v[1-9][0-9]*$/.test(v.id) ||
+          Number(v.id.slice(1)) > s.counter ||
+          seen.has(v.id)
+        )
+          throw TypeError("Invalid version");
+        seen.add(v.id);
+        text(v.label, "label", 120);
+        validateDocument(v.document);
+      }
+      draft = next;
+      baseline = base;
+      undo = history;
+      versions = s.versions;
+      counter = s.counter;
+    },
+    destroy() {
+      dead = true;
+      undo = [];
+      versions = [];
+    },
+  };
+  return api;
+}
+export function mountDocumentEditor(host, input, options = {}) {
+  const store = createDocument(input);
+  if (options.snapshot) store.restoreSnapshot(options.snapshot);
+  const p = mountBase(
+      host,
+      options,
+      config(options).text("Belge çalışma alanı", "Document workspace"),
+    ),
+    title = field(p, tr(p, "Belge başlığı", "Document title")),
+    type = field(p, tr(p, "Yeni blok türü", "New block type"), "select"),
+    add = button(p.doc, tr(p, "Blok ekle", "Add block"), "add"),
+    undo = button(p.doc, tr(p, "Geri al", "Undo"), "undo"),
+    checkpoint = button(
+      p.doc,
+      tr(p, "Yerel sürüm oluştur", "Create local version"),
+      "checkpoint",
+    ),
+    versions = field(p, tr(p, "Sürüm geçmişi", "Version history"), "select"),
+    restore = button(
+      p.doc,
+      tr(p, "Sürümü geri getir", "Restore version"),
+      "restore",
+    ),
+    save = button(p.doc, tr(p, "Sunucuya kaydet", "Save to server"), "save"),
+    cancel = button(p.doc, tr(p, "İptal", "Cancel"), "cancel"),
+    blocks = el(p.doc, "div", ""),
+    preview = el(p.doc, "article", "mh-document-preview"),
+    diff = el(p.doc, "div", "mh-document-diff"),
+    status = el(p.doc, "p", "mh-suite-status");
+  status.setAttribute("role", "status");
+  const blockLabel = (value) =>
+    tr(
+      p,
+      {
+        paragraph: "Paragraf",
+        heading: "Başlık",
+        quote: "Alıntı",
+        list: "Liste",
+        image: "Görsel açıklaması",
+      }[value],
+      {
+        paragraph: "Paragraph",
+        heading: "Heading",
+        quote: "Quote",
+        list: "List",
+        image: "Image alternative text",
+      }[value],
+    );
+  let revision = 0,
+    abort,
+    blockId = 0,
+    lastDirty = store.isDirty();
+  const changed = () => {
+    const dirty = store.isDirty();
+    if (dirty !== lastDirty) {
+      lastDirty = dirty;
+      options.onDirtyChange?.(dirty);
+    }
+    options.onDraftChange?.(store.getSnapshot());
+  };
+  title.input.maxLength = 160;
+  title.input.required = true;
+  for (const value of ["paragraph", "heading", "quote", "list", "image"]) {
+    const o = el(p.doc, "option", "", blockLabel(value));
+    o.value = value;
+    type.input.append(o);
+  }
+  const toolbar = el(p.doc, "div", "mh-suite-actions");
+  toolbar.append(add, undo, checkpoint, save, cancel);
+  const split = el(p.doc, "div", "mh-document-columns");
+  split.append(blocks, preview);
+  p.root.append(
+    title.label,
+    type.label,
+    toolbar,
+    split,
+    versions.label,
+    restore,
+    diff,
+    status,
+  );
+  const exchange = field(
+      p,
+      tr(p, "Belge JSON aktarımı", "Document JSON exchange"),
+      "textarea",
+    ),
+    exportButton = button(
+      p.doc,
+      tr(p, "JSON dışa aktar", "Export JSON"),
+      "export-json",
+    ),
+    importButton = button(
+      p.doc,
+      tr(p, "JSON taslağını içe aktar", "Import JSON draft"),
+      "import-json",
+    );
+  exchange.input.maxLength = 2000000;
+  p.root.append(exchange.label, exportButton, importButton);
+  p.on(exportButton, "click", () => {
+    exchange.input.value = exportDocument(store.getSnapshot().draft);
+    status.textContent = tr(
+      p,
+      "JSON hazır; sunucuya kaydedilmedi.",
+      "JSON ready; not saved to server.",
+    );
+  });
+  p.on(importButton, "click", () => {
+    try {
+      const next = importDocument(exchange.input.value);
+      revision++;
+      abort?.abort();
+      save.disabled = false;
+      store.edit(next);
+      changed();
+      draw();
+      status.textContent = tr(
+        p,
+        "Taslağa aktarıldı; geri alabilirsin.",
+        "Imported into draft; undo is available.",
+      );
+    } catch {
+      status.textContent = tr(
+        p,
+        "Geçersiz JSON; mevcut taslak korunuyor.",
+        "Invalid JSON; existing draft preserved.",
+      );
+    }
+  });
+  function renderPreview() {
+    const d = store.getSnapshot().draft;
+    preview.replaceChildren(
+      el(
+        p.doc,
+        "h" + (p.cfg.headingLevel + 1),
+        "",
+        d.title || tr(p, "Başlıksız taslak", "Untitled draft"),
+      ),
+    );
+    for (const b of d.blocks) {
+      if (b.type === "image") {
+        if (b.url) {
+          const img = el(p.doc, "img", "mh-document-image");
+          img.src = safeDocumentURL(b.url);
+          img.alt = b.text;
+          img.loading = "lazy";
+          img.referrerPolicy = "no-referrer";
+          preview.append(img);
+        } else
+          preview.append(
+            el(
+              p.doc,
+              "p",
+              "",
+              tr(p, "Görsel URL bekleniyor.", "Image URL required."),
+            ),
+          );
+        continue;
+      }
+      const node = el(
+        p.doc,
+        b.type === "heading"
+          ? "h" + (p.cfg.headingLevel + 2)
+          : b.type === "quote"
+            ? "blockquote"
+            : b.type === "list"
+              ? "ul"
+              : "p",
+        "",
+      );
+      const write = (target, value, offset = 0) => {
+        let pos = offset;
+        const end = offset + value.length;
+        for (const mark of b.marks || []) {
+          const from = Math.max(mark.from, offset),
+            to = Math.min(mark.to, end);
+          if (from >= to) continue;
+          if (pos < from)
+            target.append(p.doc.createTextNode(b.text.slice(pos, from)));
+          let n = el(p.doc, mark.href ? "a" : "span", "");
+          if (mark.href) {
+            n.href = safeDocumentURL(mark.href);
+            n.rel = "noopener noreferrer";
+          }
+          target.append(n);
+          if (mark.bold || b.bold) {
+            const strong = el(p.doc, "strong", "");
+            n.append(strong);
+            n = strong;
+          }
+          if (mark.italic || b.italic) {
+            const em = el(p.doc, "em", "");
+            n.append(em);
+            n = em;
+          }
+          n.textContent = b.text.slice(from, to);
+          pos = to;
+        }
+        if (pos < end) {
+          let n = el(p.doc, b.bold ? "strong" : b.italic ? "em" : "span", "");
+          target.append(n);
+          if (b.bold && b.italic) {
+            const em = el(p.doc, "em", "");
+            n.append(em);
+            n = em;
+          }
+          n.textContent = b.text.slice(pos, end);
+        }
+      };
+      if (b.type === "list") {
+        let offset = 0;
+        for (const line of b.text.split("\n")) {
+          const li = el(p.doc, "li", "");
+          write(li, line, offset);
+          offset += line.length + 1;
+          node.append(li);
+        }
+      } else write(node, b.text);
+      preview.append(node);
+    }
+    undo.disabled = !store.getSnapshot().canUndo;
+  }
+  function renderDiff() {
+    diff.replaceChildren();
+    const snapshot = store.getSnapshot(),
+      v = snapshot.versions.find((v) => v.id === versions.input.value);
+    if (!v) return;
+    const comparison = compareDocuments(v.document, snapshot.draft);
+    diff.append(
+      el(
+        p.doc,
+        "h" + (p.cfg.headingLevel + 1),
+        "",
+        tr(p, "Sürüm karşılaştırması", "Version comparison"),
+      ),
+    );
+    if (comparison.titleChanged)
+      diff.append(
+        el(p.doc, "p", "", v.document.title + " → " + snapshot.draft.title),
+      );
+    for (const c of comparison.changes) {
+      const card = el(p.doc, "div", "mh-plan-card");
+      card.append(
+        el(
+          p.doc,
+          "strong",
+          "",
+          tr(
+            p,
+            { added: "Eklendi", removed: "Kaldırıldı", changed: "Değişti" }[
+              c.kind
+            ],
+            { added: "Added", removed: "Removed", changed: "Changed" }[c.kind],
+          ),
+        ),
+        el(p.doc, "pre", "", c.before?.text || "—"),
+        el(p.doc, "pre", "", c.after?.text || "—"),
+      );
+      const words = el(p.doc, "p", "");
+      for (const part of diffWords(c.before?.text || "", c.after?.text || ""))
+        words.append(
+          el(
+            p.doc,
+            part.kind === "added"
+              ? "ins"
+              : part.kind === "removed"
+                ? "del"
+                : "span",
+            "",
+            part.text,
+          ),
+        );
+      card.append(words);
+      diff.append(card);
+    }
+    if (comparison.orderChanged)
+      diff.append(
+        el(
+          p.doc,
+          "p",
+          "",
+          tr(p, "Blok sırası değişti.", "Block order changed."),
+        ),
+      );
+    if (
+      !comparison.changes.length &&
+      !comparison.titleChanged &&
+      !comparison.orderChanged
+    )
+      diff.append(el(p.doc, "p", "", tr(p, "Fark yok.", "No changes.")));
+  }
+  function edit(patch) {
+    const d = store.getSnapshot().draft;
+    patch(d);
+    store.edit(d);
+    changed();
+    renderPreview();
+    renderDiff();
+    status.textContent = tr(
+      p,
+      "Kaydedilmemiş yerel değişiklik.",
+      "Unsaved local changes.",
+    );
+  }
+  function draw() {
+    const s = store.getSnapshot();
+    title.input.value = s.draft.title;
+    blocks.replaceChildren();
+    for (const b of s.draft.blocks) {
+      const row = el(p.doc, "div", "mh-plan-card"),
+        input = field(p, blockLabel(b.type), "textarea");
+      input.input.value = b.text;
+      input.input.maxLength = 10000;
+      input.input.dataset.block = b.id;
+      row.append(input.label);
+      const url = field(
+        p,
+        tr(p, "HTTPS bağlantısı / görsel URL", "HTTPS link / image URL"),
+      );
+      url.input.type = "url";
+      url.input.value = b.url || "";
+      url.input.dataset.url = b.id;
+      const apply = button(
+        p.doc,
+        tr(p, "URL uygula", "Apply URL"),
+        "apply-url",
+      );
+      apply.dataset.block = b.id;
+      row.append(url.label, apply);
+      for (const [action, label] of [
+        ["bold", tr(p, "Kalın", "Bold")],
+        ["italic", tr(p, "İtalik", "Italic")],
+        ["up", tr(p, "Yukarı", "Move up")],
+        ["down", tr(p, "Aşağı", "Move down")],
+        ["remove", tr(p, "Kaldır", "Remove")],
+      ]) {
+        const btn = button(p.doc, label, action);
+        btn.dataset.block = b.id;
+        if (["bold", "italic"].includes(action))
+          btn.setAttribute("aria-pressed", String(!!b[action]));
+        row.append(btn);
+      }
+      blocks.append(row);
+    }
+    const current = versions.input.value;
+    versions.input.replaceChildren();
+    for (const v of s.versions) {
+      const o = el(p.doc, "option", "", v.label);
+      o.value = v.id;
+      versions.input.append(o);
+    }
+    if (s.versions.some((v) => v.id === current))
+      versions.input.value = current;
+    restore.disabled = !s.versions.length;
+    renderPreview();
+    renderDiff();
+  }
+  p.on(title.input, "input", () => {
+    edit((d) => (d.title = title.input.value));
+  });
+  p.on(blocks, "input", (e) => {
+    if (e.target.matches("textarea"))
+      edit((d) => {
+        const i = d.blocks.findIndex((b) => b.id === e.target.dataset.block);
+        d.blocks[i] = replaceBlockText(d.blocks[i], e.target.value);
+      });
+  });
+  p.on(blocks, "click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    const key = b.dataset.block,
+      area = blocks.querySelector('textarea[data-block="' + key + '"]'),
+      action = b.dataset.action;
+    if (action === "apply-url") {
+      try {
+        const url = safeDocumentURL(
+          blocks.querySelector('input[data-url="' + key + '"]').value,
+        );
+        edit((d) => {
+          const i = d.blocks.findIndex((x) => x.id === key);
+          if (d.blocks[i].type === "image") d.blocks[i].url = url;
+          else
+            d.blocks[i] = formatTextRange(
+              d.blocks[i],
+              area.selectionStart,
+              area.selectionEnd,
+              { href: url },
+            );
+        });
+        draw();
+      } catch {
+        status.textContent = tr(
+          p,
+          "HTTPS URL ve metin seçimini kontrol edin.",
+          "Check HTTPS URL and text selection.",
+        );
+      }
+      return;
+    }
+    if (
+      ["bold", "italic"].includes(action) &&
+      area.selectionStart !== area.selectionEnd
+    ) {
+      edit((d) => {
+        const i = d.blocks.findIndex((x) => x.id === key);
+        d.blocks[i] = formatTextRange(
+          d.blocks[i],
+          area.selectionStart,
+          area.selectionEnd,
+          { [action]: true },
+        );
+      });
+      draw();
+      blocks.querySelector('textarea[data-block="' + key + '"]').focus();
+      return;
+    }
+    edit((d) => {
+      const i = d.blocks.findIndex((x) => x.id === key),
+        action = b.dataset.action;
+      if (["bold", "italic"].includes(action))
+        d.blocks[i][action] = !d.blocks[i][action];
+      if (action === "remove") d.blocks.splice(i, 1);
+      if (action === "up" && i > 0)
+        [d.blocks[i - 1], d.blocks[i]] = [d.blocks[i], d.blocks[i - 1]];
+      if (action === "down" && i < d.blocks.length - 1)
+        [d.blocks[i + 1], d.blocks[i]] = [d.blocks[i], d.blocks[i + 1]];
+    });
+    draw();
+    (blocks.querySelector('textarea[data-block="' + key + '"]') || add).focus();
+  });
+  p.on(add, "click", () => {
+    if (store.getSnapshot().draft.blocks.length >= 100) {
+      status.textContent = tr(p, "En fazla 100 blok.", "At most 100 blocks.");
+      return;
+    }
+    let key;
+    do {
+      key = "block-" + ++blockId;
+    } while (store.getSnapshot().draft.blocks.some((x) => x.id === key));
+    edit((d) => d.blocks.push({ id: key, type: type.input.value, text: "" }));
+    draw();
+    blocks.querySelector('textarea[data-block="' + key + '"]').focus();
+  });
+  p.on(undo, "click", () => {
+    store.undo();
+    changed();
+    draw();
+  });
+  p.on(checkpoint, "click", () => {
+    if (!title.input.value.trim()) {
+      status.textContent = tr(
+        p,
+        "Belge başlığı gerekli; taslak korunuyor.",
+        "Document title required; draft preserved.",
+      );
+      title.input.focus();
+      return;
+    }
+    try {
+      validateDocument(store.getSnapshot().draft);
+    } catch {
+      status.textContent = tr(
+        p,
+        "Görsellerin URL ve açıklaması gerekli.",
+        "Images require URL and alternative text.",
+      );
+      return;
+    }
+    store.checkpoint(
+      tr(p, "Yerel sürüm ", "Local version ") +
+        (store.getSnapshot().versions.length + 1),
+    );
+    changed();
+    draw();
+    status.textContent = tr(
+      p,
+      "Sürüm yalnız bu oturumda tutuldu.",
+      "Version kept in this session only.",
+    );
+  });
+  p.on(versions.input, "change", renderDiff);
+  p.on(restore, "click", () => {
+    store.restore(versions.input.value);
+    changed();
+    draw();
+    status.textContent = tr(
+      p,
+      "Sürüm taslağa getirildi; geri alabilirsin.",
+      "Version restored to draft; undo is available.",
+    );
+  });
+  p.on(save, "click", async () => {
+    if (!title.input.value.trim()) {
+      status.textContent = tr(
+        p,
+        "Belge başlığı gerekli; taslak korunuyor.",
+        "Document title required; draft preserved.",
+      );
+      title.input.reportValidity();
+      title.input.focus();
+      return;
+    }
+    let sent;
+    try {
+      sent = validateDocument(store.getSnapshot().draft);
+    } catch {
+      status.textContent = tr(
+        p,
+        "Belgeyi kontrol edin; görsellerin URL ve açıklaması gerekli.",
+        "Check document; images require URL and alternative text.",
+      );
+      return;
+    }
+    const current = ++revision;
+    abort?.abort();
+    abort = new AbortController();
+    save.disabled = true;
+    status.textContent = tr(p, "Kaydediliyor…", "Saving…");
+    try {
+      if (!options.onSave) throw Error("Adapter required");
+      const result = await options.onSave(sent, abort.signal);
+      if (p.dead || current !== revision) return;
+      if (result?.persisted !== true) throw Error("Not confirmed");
+      store.markSaved(sent);
+      changed();
+      status.textContent =
+        JSON.stringify(sent) === JSON.stringify(store.getSnapshot().draft)
+          ? tr(p, "Sunucu kaydı doğrulandı.", "Server save confirmed.")
+          : tr(
+              p,
+              "Gönderilen sürüm kaydedildi; yeni değişiklikler taslakta.",
+              "Submitted version saved; newer edits remain in draft.",
+            );
+    } catch {
+      if (!p.dead && current === revision)
+        status.textContent = tr(
+          p,
+          "Kaydedilemedi; taslak korunuyor.",
+          "Save failed; draft preserved.",
+        );
+    } finally {
+      if (!p.dead && current === revision) save.disabled = false;
+    }
+  });
+  p.on(cancel, "click", () => {
+    revision++;
+    abort?.abort();
+    save.disabled = false;
+    status.textContent = tr(
+      p,
+      "İptal edildi; taslak korunuyor.",
+      "Cancelled; draft preserved.",
+    );
+  });
+  draw();
+  return {
+    element: p.root,
+    getSnapshot: () => store.getSnapshot(),
+    getDraft: () => store.getSnapshot().draft,
+    isDirty: () => store.isDirty(),
+    restoreDraft(value) {
+      p.check();
+      const next = validateDocumentDraft(value);
+      revision++;
+      abort?.abort();
+      save.disabled = false;
+      store.edit(next);
+      changed();
+      draw();
+    },
+    restoreSnapshot(value) {
+      p.check();
+      store.restoreSnapshot(value);
+      revision++;
+      abort?.abort();
+      save.disabled = false;
+      changed();
+      draw();
+    },
+    destroy() {
+      revision++;
+      abort?.abort();
+      store.destroy();
+      p.destroy();
+    },
+  };
 }
 
-import {mountInbox,validateNotifications} from './inbox.mjs';
-export function validateNotificationPreferences(input){const v=clone(input);fields(v,['delivery','mutedTypes'],['delivery','mutedTypes']);if(!['immediate','daily','off'].includes(v.delivery)||!Array.isArray(v.mutedTypes)||v.mutedTypes.length>50||new Set(v.mutedTypes).size!==v.mutedTypes.length)throw TypeError('Invalid preferences');v.mutedTypes.forEach(x=>text(x,'type',80));return v;}
-export function mountNotificationCenter(host,input,options={}){
- const p=mountBase(host,options,config(options).text('Bildirim merkezi','Notification center'));let preferences=validateNotificationPreferences(options.preferences||{delivery:'immediate',mutedTypes:[]}),data=validateNotifications(input),revision=0,abort;
- const delivery=field(p,tr(p,'Teslim tercihi','Delivery preference'),'select'),types=el(p.doc,'fieldset','mh-plan-card'),legend=el(p.doc,'legend','',tr(p,'Sessize alınan türler','Muted types')),save=button(p.doc,tr(p,'Tercihleri uygula','Apply preferences'),'preferences'),cancel=button(p.doc,tr(p,'İptal','Cancel'),'cancel'),status=el(p.doc,'p','mh-suite-status'),target=el(p.doc,'div','');status.setAttribute('role','status');
- for(const [value,label]of [['immediate',tr(p,'Anında','Immediate')],['daily',tr(p,'Günlük özet','Daily digest')],['off',tr(p,'Teslim kapalı','Delivery off')]]){const o=el(p.doc,'option','',label);o.value=value;delivery.input.append(o);}delivery.input.value=preferences.delivery;types.append(legend);
- let typesDrawn=false;function drawTypes(){const selected=new Set(typesDrawn?[...types.querySelectorAll('input:checked')].map(x=>x.value):preferences.mutedTypes);typesDrawn=true;types.replaceChildren(legend);for(const type of [...new Set([...data.map(x=>x.type),...preferences.mutedTypes,...selected])]){const label=el(p.doc,'label','mh-notification-choice',type),check=el(p.doc,'input','');check.type='checkbox';check.value=type;check.checked=selected.has(type);label.prepend(check);types.append(label);}}
- drawTypes();p.root.append(el(p.doc,'p','',tr(p,'Tercihler teslim politikasını tanımlar; geçmiş kayıtlar görünür kalır. Sunucu adaptörü olmadan e-posta veya zamanlanmış özet gönderilmez.','Preferences describe delivery policy; history stays visible. No email or scheduled digest is sent without a server adapter.')),delivery.label,types,save,cancel,status,target);
- const inbox=mountInbox(target,data,{...options,title:tr(p,'Gelen kutusu','Inbox'),headingLevel:Math.min(4,p.cfg.headingLevel+1),groupBy:'type',onChange:items=>{data=items;options.onChange?.(items);}});
- p.on(save,'click',async()=>{let draft;try{draft=validateNotificationPreferences({delivery:delivery.input.value,mutedTypes:[...types.querySelectorAll('input:checked')].map(x=>x.value)});}catch{status.textContent=tr(p,'En fazla 50 tür sessize alınabilir.','At most 50 types can be muted.');return;}const current=++revision;abort?.abort();abort=new AbortController();save.disabled=true;try{if(options.onPreferences){const result=await options.onPreferences(clone(draft),abort.signal);if(p.dead||current!==revision)return;if(result?.persisted!==true)throw Error('Not confirmed');}preferences=draft;const currentDraft={delivery:delivery.input.value,mutedTypes:[...types.querySelectorAll('input:checked')].map(x=>x.value)};status.textContent=JSON.stringify(currentDraft)!==JSON.stringify(draft)?tr(p,'Gönderilen tercihler uygulandı; yeni seçimlerin taslakta.','Submitted preferences applied; newer selections remain in draft.'):options.onPreferences?tr(p,'Tercihler sunucuda doğrulandı.','Preferences confirmed by server.'):tr(p,'Tercihler yalnız bu oturuma uygulandı.','Preferences applied to this session only.');}catch{if(!p.dead&&current===revision)status.textContent=tr(p,'Tercihler kaydedilemedi; seçimlerin korunuyor.','Preferences not saved; selections preserved.');}finally{if(!p.dead&&current===revision)save.disabled=false;}});
- p.on(cancel,'click',()=>{revision++;abort?.abort();save.disabled=false;status.textContent=tr(p,'İptal edildi; seçimler korunuyor.','Cancelled; selections preserved.');});
- return{element:p.root,inbox,getSnapshot(){p.check();return{...inbox.getSnapshot(),preferences:clone(preferences),draftPreferences:{delivery:delivery.input.value,mutedTypes:[...types.querySelectorAll('input:checked')].map(x=>x.value)}};},update(next){p.check();data=validateNotifications(next);inbox.update(data);drawTypes();},destroy(){revision++;abort?.abort();inbox.destroy();p.destroy();}};
+import { mountInbox, validateNotifications } from "./inbox.mjs";
+export function validateNotificationPreferences(input) {
+  const v = clone(input);
+  fields(v, ["delivery", "mutedTypes"], ["delivery", "mutedTypes"]);
+  if (
+    !["immediate", "daily", "off"].includes(v.delivery) ||
+    !Array.isArray(v.mutedTypes) ||
+    v.mutedTypes.length > 50 ||
+    new Set(v.mutedTypes).size !== v.mutedTypes.length
+  )
+    throw TypeError("Invalid preferences");
+  v.mutedTypes.forEach((x) => text(x, "type", 80));
+  return v;
+}
+export function mountNotificationCenter(host, input, options = {}) {
+  const p = mountBase(
+    host,
+    options,
+    config(options).text("Bildirim merkezi", "Notification center"),
+  );
+  let preferences = validateNotificationPreferences(
+      options.preferences || { delivery: "immediate", mutedTypes: [] },
+    ),
+    data = validateNotifications(input),
+    revision = 0,
+    abort;
+  const delivery = field(
+      p,
+      tr(p, "Teslim tercihi", "Delivery preference"),
+      "select",
+    ),
+    types = el(p.doc, "fieldset", "mh-plan-card"),
+    legend = el(
+      p.doc,
+      "legend",
+      "",
+      tr(p, "Sessize alınan türler", "Muted types"),
+    ),
+    save = button(
+      p.doc,
+      tr(p, "Tercihleri uygula", "Apply preferences"),
+      "preferences",
+    ),
+    cancel = button(p.doc, tr(p, "İptal", "Cancel"), "cancel"),
+    status = el(p.doc, "p", "mh-suite-status"),
+    target = el(p.doc, "div", "");
+  status.setAttribute("role", "status");
+  for (const [value, label] of [
+    ["immediate", tr(p, "Anında", "Immediate")],
+    ["daily", tr(p, "Günlük özet", "Daily digest")],
+    ["off", tr(p, "Teslim kapalı", "Delivery off")],
+  ]) {
+    const o = el(p.doc, "option", "", label);
+    o.value = value;
+    delivery.input.append(o);
+  }
+  delivery.input.value = preferences.delivery;
+  types.append(legend);
+  let typesDrawn = false;
+  function drawTypes() {
+    const selected = new Set(
+      typesDrawn
+        ? [...types.querySelectorAll("input:checked")].map((x) => x.value)
+        : preferences.mutedTypes,
+    );
+    typesDrawn = true;
+    types.replaceChildren(legend);
+    for (const type of [
+      ...new Set([
+        ...data.map((x) => x.type),
+        ...preferences.mutedTypes,
+        ...selected,
+      ]),
+    ]) {
+      const label = el(p.doc, "label", "mh-notification-choice", type),
+        check = el(p.doc, "input", "");
+      check.type = "checkbox";
+      check.value = type;
+      check.checked = selected.has(type);
+      label.prepend(check);
+      types.append(label);
+    }
+  }
+  drawTypes();
+  p.root.append(
+    el(
+      p.doc,
+      "p",
+      "",
+      tr(
+        p,
+        "Tercihler teslim politikasını tanımlar; geçmiş kayıtlar görünür kalır. Sunucu adaptörü olmadan e-posta veya zamanlanmış özet gönderilmez.",
+        "Preferences describe delivery policy; history stays visible. No email or scheduled digest is sent without a server adapter.",
+      ),
+    ),
+    delivery.label,
+    types,
+    save,
+    cancel,
+    status,
+    target,
+  );
+  const inbox = mountInbox(target, data, {
+    ...options,
+    title: tr(p, "Gelen kutusu", "Inbox"),
+    headingLevel: Math.min(4, p.cfg.headingLevel + 1),
+    groupBy: "type",
+    onChange: (items) => {
+      data = items;
+      options.onChange?.(items);
+    },
+  });
+  p.on(save, "click", async () => {
+    let draft;
+    try {
+      draft = validateNotificationPreferences({
+        delivery: delivery.input.value,
+        mutedTypes: [...types.querySelectorAll("input:checked")].map(
+          (x) => x.value,
+        ),
+      });
+    } catch {
+      status.textContent = tr(
+        p,
+        "En fazla 50 tür sessize alınabilir.",
+        "At most 50 types can be muted.",
+      );
+      return;
+    }
+    const current = ++revision;
+    abort?.abort();
+    abort = new AbortController();
+    save.disabled = true;
+    try {
+      if (options.onPreferences) {
+        const result = await options.onPreferences(clone(draft), abort.signal);
+        if (p.dead || current !== revision) return;
+        if (result?.persisted !== true) throw Error("Not confirmed");
+      }
+      preferences = draft;
+      const currentDraft = {
+        delivery: delivery.input.value,
+        mutedTypes: [...types.querySelectorAll("input:checked")].map(
+          (x) => x.value,
+        ),
+      };
+      status.textContent =
+        JSON.stringify(currentDraft) !== JSON.stringify(draft)
+          ? tr(
+              p,
+              "Gönderilen tercihler uygulandı; yeni seçimlerin taslakta.",
+              "Submitted preferences applied; newer selections remain in draft.",
+            )
+          : options.onPreferences
+            ? tr(
+                p,
+                "Tercihler sunucuda doğrulandı.",
+                "Preferences confirmed by server.",
+              )
+            : tr(
+                p,
+                "Tercihler yalnız bu oturuma uygulandı.",
+                "Preferences applied to this session only.",
+              );
+    } catch {
+      if (!p.dead && current === revision)
+        status.textContent = tr(
+          p,
+          "Tercihler kaydedilemedi; seçimlerin korunuyor.",
+          "Preferences not saved; selections preserved.",
+        );
+    } finally {
+      if (!p.dead && current === revision) save.disabled = false;
+    }
+  });
+  p.on(cancel, "click", () => {
+    revision++;
+    abort?.abort();
+    save.disabled = false;
+    status.textContent = tr(
+      p,
+      "İptal edildi; seçimler korunuyor.",
+      "Cancelled; selections preserved.",
+    );
+  });
+  return {
+    element: p.root,
+    inbox,
+    getSnapshot() {
+      p.check();
+      return {
+        ...inbox.getSnapshot(),
+        preferences: clone(preferences),
+        draftPreferences: {
+          delivery: delivery.input.value,
+          mutedTypes: [...types.querySelectorAll("input:checked")].map(
+            (x) => x.value,
+          ),
+        },
+      };
+    },
+    update(next) {
+      p.check();
+      data = validateNotifications(next);
+      inbox.update(data);
+      drawTypes();
+    },
+    destroy() {
+      revision++;
+      abort?.abort();
+      inbox.destroy();
+      p.destroy();
+    },
+  };
 }
 
-export function exportDocument(value){return JSON.stringify({format:'muhit-document',version:1,document:validateDocumentDraft(value)});}
-export function importDocument(value){if(typeof value!=='string'||value.length>2000000)throw TypeError('Import too large');const data=JSON.parse(value);fields(data,['format','version','document'],['format','version','document']);if(data.format!=='muhit-document'||data.version!==1)throw TypeError('Unknown document format');return validateDocumentDraft(data.document);}
+export function exportDocument(value) {
+  return JSON.stringify({
+    format: "muhit-document",
+    version: 1,
+    document: validateDocumentDraft(value),
+  });
+}
+export function importDocument(value) {
+  if (typeof value !== "string" || value.length > 2000000)
+    throw TypeError("Import too large");
+  const data = JSON.parse(value);
+  fields(
+    data,
+    ["format", "version", "document"],
+    ["format", "version", "document"],
+  );
+  if (data.format !== "muhit-document" || data.version !== 1)
+    throw TypeError("Unknown document format");
+  return validateDocumentDraft(data.document);
+}

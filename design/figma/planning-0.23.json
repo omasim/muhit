@@ -1,0 +1,326 @@
+{
+  "sets": [
+    {
+      "id": "25:213",
+      "name": "Muhit/Planning23/recurrence",
+      "variants": [
+        {
+          "id": "25:201",
+          "name": "Width=360, State=Content",
+          "width": 360,
+          "height": 516
+        },
+        {
+          "id": "25:202",
+          "name": "Width=360, State=Focus",
+          "width": 360,
+          "height": 516
+        },
+        {
+          "id": "25:203",
+          "name": "Width=360, State=Loading",
+          "width": 360,
+          "height": 516
+        },
+        {
+          "id": "25:204",
+          "name": "Width=360, State=Error",
+          "width": 360,
+          "height": 516
+        },
+        {
+          "id": "25:205",
+          "name": "Width=360, State=Cancelled",
+          "width": 360,
+          "height": 516
+        },
+        {
+          "id": "25:206",
+          "name": "Width=360, State=Conflict",
+          "width": 360,
+          "height": 539
+        },
+        {
+          "id": "25:207",
+          "name": "Width=800, State=Content",
+          "width": 800,
+          "height": 516
+        },
+        {
+          "id": "25:208",
+          "name": "Width=800, State=Focus",
+          "width": 800,
+          "height": 516
+        },
+        {
+          "id": "25:209",
+          "name": "Width=800, State=Loading",
+          "width": 800,
+          "height": 516
+        },
+        {
+          "id": "25:210",
+          "name": "Width=800, State=Error",
+          "width": 800,
+          "height": 516
+        },
+        {
+          "id": "25:211",
+          "name": "Width=800, State=Cancelled",
+          "width": 800,
+          "height": 516
+        },
+        {
+          "id": "25:212",
+          "name": "Width=800, State=Conflict",
+          "width": 800,
+          "height": 516
+        }
+      ]
+    },
+    {
+      "id": "25:418",
+      "name": "Muhit/Planning23/media",
+      "variants": [
+        {
+          "id": "25:406",
+          "name": "Width=360, State=Content",
+          "width": 360,
+          "height": 447
+        },
+        {
+          "id": "25:407",
+          "name": "Width=360, State=Focus",
+          "width": 360,
+          "height": 447
+        },
+        {
+          "id": "25:408",
+          "name": "Width=360, State=Loading",
+          "width": 360,
+          "height": 447
+        },
+        {
+          "id": "25:409",
+          "name": "Width=360, State=Error",
+          "width": 360,
+          "height": 447
+        },
+        {
+          "id": "25:410",
+          "name": "Width=360, State=Cancelled",
+          "width": 360,
+          "height": 447
+        },
+        {
+          "id": "25:411",
+          "name": "Width=360, State=Conflict",
+          "width": 360,
+          "height": 470
+        },
+        {
+          "id": "25:412",
+          "name": "Width=800, State=Content",
+          "width": 800,
+          "height": 424
+        },
+        {
+          "id": "25:413",
+          "name": "Width=800, State=Focus",
+          "width": 800,
+          "height": 424
+        },
+        {
+          "id": "25:414",
+          "name": "Width=800, State=Loading",
+          "width": 800,
+          "height": 424
+        },
+        {
+          "id": "25:415",
+          "name": "Width=800, State=Error",
+          "width": 800,
+          "height": 424
+        },
+        {
+          "id": "25:416",
+          "name": "Width=800, State=Cancelled",
+          "width": 800,
+          "height": 424
+        },
+        {
+          "id": "25:417",
+          "name": "Width=800, State=Conflict",
+          "width": 800,
+          "height": 424
+        }
+      ]
+    },
+    {
+      "id": "25:587",
+      "name": "Muhit/Planning23/exchange",
+      "variants": [
+        {
+          "id": "25:575",
+          "name": "Width=360, State=Content",
+          "width": 360,
+          "height": 355
+        },
+        {
+          "id": "25:576",
+          "name": "Width=360, State=Focus",
+          "width": 360,
+          "height": 355
+        },
+        {
+          "id": "25:577",
+          "name": "Width=360, State=Loading",
+          "width": 360,
+          "height": 355
+        },
+        {
+          "id": "25:578",
+          "name": "Width=360, State=Error",
+          "width": 360,
+          "height": 355
+        },
+        {
+          "id": "25:579",
+          "name": "Width=360, State=Cancelled",
+          "width": 360,
+          "height": 355
+        },
+        {
+          "id": "25:580",
+          "name": "Width=360, State=Conflict",
+          "width": 360,
+          "height": 378
+        },
+        {
+          "id": "25:581",
+          "name": "Width=800, State=Content",
+          "width": 800,
+          "height": 332
+        },
+        {
+          "id": "25:582",
+          "name": "Width=800, State=Focus",
+          "width": 800,
+          "height": 332
+        },
+        {
+          "id": "25:583",
+          "name": "Width=800, State=Loading",
+          "width": 800,
+          "height": 332
+        },
+        {
+          "id": "25:584",
+          "name": "Width=800, State=Error",
+          "width": 800,
+          "height": 332
+        },
+        {
+          "id": "25:585",
+          "name": "Width=800, State=Cancelled",
+          "width": 800,
+          "height": 332
+        },
+        {
+          "id": "25:586",
+          "name": "Width=800, State=Conflict",
+          "width": 800,
+          "height": 332
+        }
+      ]
+    },
+    {
+      "id": "25:720",
+      "name": "Muhit/Planning23/remote-search",
+      "variants": [
+        {
+          "id": "25:708",
+          "name": "Width=360, State=Content",
+          "width": 360,
+          "height": 388
+        },
+        {
+          "id": "25:709",
+          "name": "Width=360, State=Focus",
+          "width": 360,
+          "height": 388
+        },
+        {
+          "id": "25:710",
+          "name": "Width=360, State=Loading",
+          "width": 360,
+          "height": 388
+        },
+        {
+          "id": "25:711",
+          "name": "Width=360, State=Error",
+          "width": 360,
+          "height": 388
+        },
+        {
+          "id": "25:712",
+          "name": "Width=360, State=Cancelled",
+          "width": 360,
+          "height": 388
+        },
+        {
+          "id": "25:713",
+          "name": "Width=360, State=Conflict",
+          "width": 360,
+          "height": 411
+        },
+        {
+          "id": "25:714",
+          "name": "Width=800, State=Content",
+          "width": 800,
+          "height": 388
+        },
+        {
+          "id": "25:715",
+          "name": "Width=800, State=Focus",
+          "width": 800,
+          "height": 388
+        },
+        {
+          "id": "25:716",
+          "name": "Width=800, State=Loading",
+          "width": 800,
+          "height": 388
+        },
+        {
+          "id": "25:717",
+          "name": "Width=800, State=Error",
+          "width": 800,
+          "height": 388
+        },
+        {
+          "id": "25:718",
+          "name": "Width=800, State=Cancelled",
+          "width": 800,
+          "height": 388
+        },
+        {
+          "id": "25:719",
+          "name": "Width=800, State=Conflict",
+          "width": 800,
+          "height": 388
+        }
+      ]
+    }
+  ],
+  "review": {
+    "id": "25:865",
+    "width": 1536,
+    "height": 1148
+  },
+  "variantCount": 48,
+  "fileKey": "PllwZjMHfzcRJfEoMrMJkg",
+  "version": "0.23.0-beta.1",
+  "visualReview": "Passed after multiline text/field height repair; mobile content/error reviewed.",
+  "scope": "Four supplementary control families; existing 0.21 full module anatomy retained."
+}

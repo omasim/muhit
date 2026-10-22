@@ -1,3 +1,5 @@
+> Current 0.23 manual steps: [MANUAL-ACCEPTANCE-0.23.md](MANUAL-ACCEPTANCE-0.23.md). Pending.
+
 # Manuel erişilebilirlik kabul planı
 
 Durum: **manuel yürütülmedi**. Bu oturumda ekran okuyucu ses çıktısını doğrulayabilecek bir oturum ve gerçek mobil cihaz erişimi yoktur. Bu belge sonuç kaydı değil, uygulanacak senaryo listesidir. Otomatik axe/Playwright testleri ayrı raporlanır.

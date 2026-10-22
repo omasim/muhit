@@ -1,3 +1,4 @@
+import {checkPlanningFramework} from './planning-framework23.mjs';
 import {provenance} from '../../tools/provenance.mjs';
 import assert from "node:assert/strict";
 import {
@@ -161,6 +162,7 @@ try {
       });
       page.on("console", (m) => {
         if (m.type() === "error") {
+          if(m.location().url.includes("/api/resources?") && m.text().includes("503 (Service Unavailable)")) return;
           errors.push(m.text());
           console.error(framework, mode, "CONSOLE", m.text());
         }
@@ -171,6 +173,7 @@ try {
         await page.getByTestId('workspace-extension').locator('.mh-content-card').waitFor();
         await page.getByRole('button',{name:'Update workspace resources',exact:true}).click();
         assert.equal(await page.getByTestId('workspace-extension').locator('.mh-content-card').count(),2);
+        await checkPlanningFramework(page);
         await page.getByTestId('planning-extension').getByLabel('Event title',{exact:true}).fill('Retained event');
         await page.getByTestId('planning-extension').getByLabel('Document title',{exact:true}).fill('');
         await page.getByRole('button',{name:'Close workspace extension',exact:true}).click();

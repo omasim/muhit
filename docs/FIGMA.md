@@ -1,3 +1,5 @@
+> 0.23 control families: [DESIGN-CODE-0.23.md](DESIGN-CODE-0.23.md). Existing anatomy preserved.
+
 > 0.21 planlama durumları: [DESIGN-CODE-0.21.md](DESIGN-CODE-0.21.md). Güncel planlama aileleri, aşağıdaki eski envanteri bu kapsamda tamamlar.
 
 > 0.20 ek modül eşleştirmesi: [DESIGN-CODE-0.20.md](DESIGN-CODE-0.20.md). Aşağıdaki temel kütüphane envanteri önceki sürüm kapsamıdır.
