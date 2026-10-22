@@ -1,0 +1,9 @@
+
+> muhit-ui@0.25.0-beta.1 test:release
+> npm run build:modules && node tests/browser/release09.mjs
+
+
+> muhit-ui@0.25.0-beta.1 build:modules
+> node tools/build-foundations.mjs && node tools/build-registry.mjs && node tools/build-modules.mjs
+
+PASS firefox: P1 locale contract, view restore, selection, CSV scope and 44px targets

@@ -1,0 +1,5 @@
+
+> muhit-ui@0.25.0-beta.1 test:integration
+> MUHIT_INTEGRATION_TEST=1 node tests/integration.test.mjs
+
+PASS atomic version conflict, durable save and idempotent retry

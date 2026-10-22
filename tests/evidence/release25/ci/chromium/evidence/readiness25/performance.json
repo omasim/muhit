@@ -1,0 +1,63 @@
+{
+  "provenance": {
+    "version": "0.25.0-beta.1",
+    "sourceSha256": "3bef1a999b9cb04494c75a3fbdede1e10ea4a3aea8d34e1074d7d4b03b7657f3",
+    "commit": "a88b3aca1f258cc4297cd83f576ec43daabc1876",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-22T10:35:46.222Z",
+    "platform": "linux",
+    "node": "v22.23.3"
+  },
+  "dataset": "synthetic-long-text",
+  "rows": 50000,
+  "profile": {
+    "cpuSlowdown": 4,
+    "latencyMs": 150,
+    "downloadBytesPerSecond": 131072,
+    "uploadBytesPerSecond": 65536
+  },
+  "notes": "Emulation on host hardware; not a physical mobile-device acceptance.",
+  "local": {
+    "rows": 10000,
+    "buildMs": 643.3999999999069,
+    "maxGapMs": 13.300000000046566,
+    "p50Ms": 15.29999999993015,
+    "p95Ms": 16.400000000023283
+  },
+  "remote": {
+    "p50Ms": 411.4000000000233,
+    "p95Ms": 412.29999999993015,
+    "responseBytes": 33038
+  },
+  "budgets": {
+    "version": 1,
+    "profile": "4x CPU; 150 ms network latency; 128 KiB/s download; 64 KiB/s upload",
+    "product": {
+      "localP95Ms": 100,
+      "remoteP95Ms": 1500,
+      "buildMs": 2000,
+      "maxGapMs": 50
+    },
+    "regression": {
+      "localP95Ms": 1500,
+      "remoteP95Ms": 10000
+    },
+    "acceptance": "Product query, asynchronous build and responsiveness gates must all pass. Physical-device and real-data acceptance remain separate."
+  },
+  "acceptance": {
+    "valid": true,
+    "product": {
+      "build": true,
+      "responsiveness": true,
+      "local": true,
+      "remote": true
+    },
+    "regression": {
+      "local": true,
+      "remote": true
+    },
+    "passed": true
+  },
+  "realDataAcceptance": "pending-data-and-device",
+  "status": "passed"
+}

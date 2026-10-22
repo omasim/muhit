@@ -1,0 +1,99 @@
+{
+  "provenance": {
+    "version": "0.25.0-beta.1",
+    "sourceSha256": "3bef1a999b9cb04494c75a3fbdede1e10ea4a3aea8d34e1074d7d4b03b7657f3",
+    "commit": "a88b3aca1f258cc4297cd83f576ec43daabc1876",
+    "scope": "src, esm, styles, types, schemas, locales, examples (without dependencies/builds), package manifests, studio entrypoints",
+    "date": "2026-10-22T10:30:58.383Z",
+    "platform": "linux",
+    "node": "v22.23.3"
+  },
+  "scans": [
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "light",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 320,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "engine": "webkit",
+      "mode": "dark",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "flows": [
+    {
+      "engine": "webkit",
+      "remoteTiming": {
+        "dataset": "100000 synthetic records",
+        "p50Ms": 5,
+        "p95Ms": 7
+      },
+      "localTime": true,
+      "editDelete": true,
+      "capacity": true,
+      "recurrenceExceptionDST": true,
+      "inlineFormatting": true,
+      "safeLinkAndImage": true,
+      "wordDiff": true,
+      "controlledImportExport": true,
+      "remotePaging": true,
+      "errorPreservesResults": true,
+      "cancelDelete": true,
+      "staleEditPreserved": true,
+      "descriptionPreserved": true,
+      "saveThenEditAgain": true,
+      "readiness24": {
+        "precision": true,
+        "operationTransitions": [
+          "success",
+          "error",
+          "cancel"
+        ],
+        "locales": [
+          "de",
+          "ar"
+        ]
+      },
+      "readiness25": {
+        "cases": 8,
+        "notificationLocales": [
+          "de",
+          "ar"
+        ]
+      }
+    }
+  ],
+  "errors": []
+}
