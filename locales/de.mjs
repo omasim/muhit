@@ -1,5 +1,7 @@
+import planning from './planning-de.mjs';
 // Component messages. Application content is owned by the consuming project.
 export default Object.freeze({
+...planning,
 "İçeriğe geç": "Zum Inhalt springen",
 "İşlem tamamlanamadı. Yeniden deneyebilirsiniz.": "Der Vorgang konnte nicht abgeschlossen werden. Versuchen Sie es erneut.",
 "Bu alan için erişim gerekli.": "Für diesen Bereich ist eine Zugriffsberechtigung erforderlich.",

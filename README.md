@@ -1,6 +1,6 @@
-# Muhit 0.23.0-beta.1
+# Muhit 0.24.0-beta.1
 
-Current acceptance: [READINESS-0.23](docs/READINESS-0.23.md). Tests: [VERIFICATION-0.23](docs/VERIFICATION-0.23.md).
+Current acceptance: [READINESS-0.24](docs/READINESS-0.24.md). Tests: [VERIFICATION-0.24](docs/VERIFICATION-0.24.md).
 
 # Muhit 0.22.0-beta.1
 

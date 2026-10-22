@@ -1,12 +1,14 @@
 import { fields, clone, date, text, id } from "./suite-core.mjs";
 const formatters = new Map();
-const localPattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?$/;
+const localPattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?$/;
 function wall(value) {
   if (typeof value !== "string" || !localPattern.test(value))
     throw TypeError("Invalid local time");
-  const full = value.length === 16 ? value + ":00" : value;
+  const seconds = value.length === 16 ? value + ":00" : value;
+  const [whole, fraction = ""] = seconds.split(".");
+  const full = whole + "." + fraction.padEnd(3, "0");
   const n = Date.parse(full + "Z");
-  if (!Number.isFinite(n) || new Date(n).toISOString().slice(0, 19) !== full)
+  if (!Number.isFinite(n) || new Date(n).toISOString().slice(0, 23) !== full)
     throw TypeError("Invalid local time");
   return { full, n };
 }
@@ -30,7 +32,11 @@ export function formatLocalDateTime(value, timeZone = "UTC") {
   }
   const parts = formatter.formatToParts(new Date(value));
   const get = (k) => parts.find((x) => x.type === k).value;
-  return `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}:${get("second")}`;
+  const fraction = new Date(value).toISOString().slice(19, 23);
+  return (
+    `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}:${get("second")}` +
+    (fraction === ".000" ? "" : fraction)
+  );
 }
 export function localDateTimeToUTC(
   value,
@@ -53,7 +59,9 @@ export function localDateTimeToUTC(
   const matches = [...offsets]
     .map((offset) => n - offset)
     .filter(
-      (t) => formatLocalDateTime(new Date(t).toISOString(), timeZone) === full,
+      (t) =>
+        wall(formatLocalDateTime(new Date(t).toISOString(), timeZone)).full ===
+        full,
     )
     .sort((a, b) => a - b);
   if (!matches.length) throw RangeError("Nonexistent local time");
@@ -113,8 +121,8 @@ export function createRecurringEvents(event, rule) {
     step = 86400000 * interval * (rule.frequency === "weekly" ? 7 : 1),
     result = [];
   for (let i = 0; i < rule.count; i++) {
-    const startLocal = new Date(first.n + i * step).toISOString().slice(0, 19),
-      endLocal = new Date(last.n + i * step).toISOString().slice(0, 19);
+    const startLocal = new Date(first.n + i * step).toISOString().slice(0, 23),
+      endLocal = new Date(last.n + i * step).toISOString().slice(0, 23);
     if (exceptions.includes(startLocal.slice(0, 10))) continue;
     const next = {
       ...clone(event),

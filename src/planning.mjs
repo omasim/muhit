@@ -177,6 +177,7 @@ export function mountCalendar(host, input, options = {}) {
     ),
     resource = field(p, tr(p, "Kaynak / oda", "Resource / room"));
   name.input.required = start.input.required = end.input.required = true;
+  start.input.step = end.input.step = "0.001";
   name.input.maxLength = 160;
   resource.input.maxLength = 120;
   const submit = button(p.doc, tr(p, "Etkinliği ekle", "Add event"), "add"),
@@ -257,6 +258,16 @@ export function mountCalendar(host, input, options = {}) {
       }
       options.onDraftChange?.(getDraft());
     };
+  function supersedeOperation() {
+    revision++;
+    abort?.abort();
+    submit.disabled = false;
+    for (const button of agenda.querySelectorAll(
+      '[data-action="confirm-delete"]',
+    ))
+      button.disabled = false;
+    return revision;
+  }
   function restoreDraft(value) {
     p.check();
     const v = acceptDraft(value);
@@ -265,9 +276,7 @@ export function mountCalendar(host, input, options = {}) {
       probes[i].value = v[key];
       if (v[key] && !probes[i].value) throw TypeError("Invalid datetime input");
     }
-    revision++;
-    abort?.abort();
-    submit.disabled = false;
+    supersedeOperation();
     editingId = v.editingId || null;
     baseEvent = v.baseEvent ? clone(v.baseEvent) : null;
     name.input.value = v.title;
@@ -477,8 +486,7 @@ export function mountCalendar(host, input, options = {}) {
       end.input.value,
       resource.input.value,
     ];
-    const current = ++revision;
-    abort?.abort();
+    const current = supersedeOperation();
     abort = new AbortController();
     submit.disabled = true;
     status.textContent = tr(p, "İşlem sürüyor…", "Working…");
@@ -522,8 +530,8 @@ export function mountCalendar(host, input, options = {}) {
       status.textContent = !unchanged
         ? tr(
             p,
-            "Gönderilen etkinlik eklendi; yeni taslak korunuyor.",
-            "Submitted event added; newer draft preserved.",
+            "Gönderilen etkinlik uygulandı; yeni taslak korunuyor.",
+            "Submitted event applied; newer draft preserved.",
           )
         : options.onCommit || options.onMutation
           ? tr(p, "Sunucu kaydı doğrulandı.", "Server save confirmed.")
@@ -563,9 +571,7 @@ export function mountCalendar(host, input, options = {}) {
       return;
     }
     if (["edit-event", "confirm-edit"].includes(b.dataset.action)) {
-      revision++;
-      abort?.abort();
-      submit.disabled = false;
+      supersedeOperation();
       editingId = event.id;
       baseEvent = clone(event);
       name.input.value = event.title;
@@ -589,10 +595,10 @@ export function mountCalendar(host, input, options = {}) {
       return;
     }
     if (b.dataset.action !== "confirm-delete") return;
-    const current = ++revision;
-    abort?.abort();
+    const current = supersedeOperation();
     abort = new AbortController();
     b.disabled = true;
+    submit.disabled = true;
     try {
       if (options.onMutation) {
         const result = await options.onMutation(
@@ -627,12 +633,15 @@ export function mountCalendar(host, input, options = {}) {
           "Deletion not confirmed; event preserved.",
         );
       }
+    } finally {
+      if (!p.dead && current === revision) {
+        submit.disabled = false;
+        if (b.isConnected) b.disabled = false;
+      }
     }
   });
   p.on(cancel, "click", () => {
-    revision++;
-    abort?.abort();
-    submit.disabled = false;
+    supersedeOperation();
     draw();
     status.textContent = tr(
       p,
@@ -659,9 +668,7 @@ export function mountCalendar(host, input, options = {}) {
     update(input) {
       p.check();
       const accepted = validateEvents(input);
-      revision++;
-      abort?.abort();
-      submit.disabled = false;
+      supersedeOperation();
       data = accepted;
       draw();
     },

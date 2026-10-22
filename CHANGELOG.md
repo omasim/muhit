@@ -1,3 +1,10 @@
+# 0.24.0-beta.1
+
+- Takvimde üst üste kayıt/silme/iptal işlemlerinin düğme durumunu düzeltir; saniye ve milisaniyeleri, değişmeyen DST saat seçimini korur.
+- Planlama modüllerinin Almanca ve Arapça çevirilerini tamamlar; dar kapsayıcı yerleşimini düzeltir.
+- Yerel/uzak sorgu ürün performans bütçelerini CI kabul koşulu yapar.
+- Geçiş ve manuel kabul: docs/MIGRATION-0.24.md ve docs/MANUAL-ACCEPTANCE-0.24.md.
+
 # 0.23.0-beta.1
 
 - Preserve calendar metadata and rebase newer drafts after confirmed saves.

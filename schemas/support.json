@@ -1,5 +1,5 @@
 {
-  "packageVersion": "0.23.0-beta.1",
+  "packageVersion": "0.24.0-beta.1",
   "status": "beta",
   "runtimeNode": ">=18",
   "runtimeTestMatrix": [
