@@ -120,7 +120,7 @@ export async function checkReadiness25(page) {
     return { cases, notificationLocales: ["de", "ar"] };
   });
   assert.equal(result.cases, 8);
-  const example = await page.context().newPage();
+  const example = await page.context().browser().newPage();
   try {
     await example.setViewportSize({width:390,height:844});
     await example.goto(new URL('/examples/async-search.html',page.url()).href);
